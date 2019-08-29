@@ -54,7 +54,7 @@ class Update_Outgoing extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->assertValidResponse($res, 202);
 		$T2 = $res['data'];
 		$this->assertIsArray($T2);
-		$this->assertCount(6, $T2);
+		$this->assertCount(7, $T2);
 		$this->assertNotEmpty($T2['id']);
 		$this->assertEquals(307, $T2['stat']);
 		$this->assertEquals(307, $T2['transfer_outgoing_stat']);

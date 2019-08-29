@@ -3,7 +3,7 @@
  *
  */
 
-namespace Test\Product;
+namespace Test\Basic;
 
 class Product extends \Test\Components\OpenTHC_Test_Case
 {
@@ -21,6 +21,7 @@ class Product extends \Test\Components\OpenTHC_Test_Case
 
 		$res = $this->_post($this->_url_path, [
 			'name' => $name,
+			'type' => '019KAGVSC0C474J20SEWDM5XSJ',
 		]);
 
 		$chk = $this->assertValidResponse($res, 201);
@@ -72,7 +73,7 @@ class Product extends \Test\Components\OpenTHC_Test_Case
 	public function test_delete()
 	{
 		$res = $this->httpClient->delete($this->_url_path . '/four_zero_four');
-		$this->assertValidResponse($res, 404);
+		$this->assertValidResponse($res, 404, __METHOD__);
 
 		// Find Early One
 		$obj = $this->_data_stash_get();

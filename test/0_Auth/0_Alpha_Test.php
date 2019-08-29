@@ -19,7 +19,8 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		 * Unauthenticated Tests
 		 */
 		$res = $this->httpClient->get('/auth');
-		$this->assertValidResponse($res, 404);
+		$this->assertEquals(404, $res->getStatusCode());
+		// $this->assertValidResponse($res, 404);
 
 		$res = $this->httpClient->get('/auth/open');
 		$this->assertValidResponse($res, 405);

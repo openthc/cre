@@ -1,7 +1,8 @@
 <?php
 /**
- *
+ * Test Packaging Functions
  */
+
 namespace Test\Lot_Package;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
@@ -9,26 +10,28 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	public function test_create()
 	{
-		$res = $this->_post('/lot', [
-			'source_id' => '',
-			'product_id' => '',
-			'qty' => '',
-		]);
-		$this->assertValidResponse($res, 201);
+		$l0 = $this->find_random_lot();
+		$p0 = $this->find_random_product();
 
-		$json = $res->getBody(true);
-		$res = json_decode($json, true);
+		$res = $this->_post('/lot', [
+			'source' => $l0['id'],
+			'product_id' => $p0['id'],
+			'qty' => 500,
+		]);
+		$res = $this->assertValidResponse($res, 201);
 
 		$this->assertIsArray($res);
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['data']);
 
-		$lot0 = $res['data'][0];
+		$l1 = $res['data'];
+
+		print_r($l1);
 
 	}
 
@@ -37,54 +40,11 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->delete('/lot/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->delete('/lot/4564564564564564564564');
-		$this->assertValidResponse($res);
-
 	}
 
 	public function testSearch()
 	{
 		$res = $this->httpClient->get('/lot');
-		$this->assertValidResponse($res);
-
-		$this->assertTrue(false, 'Finish Testing');
-
-		$res = $this->httpClient->get('/lot?' . http_build_query([
-			'guid' => '1'
-		]));
-		$this->assertEquals(200, $res->getStatusCode());
-		$this->assertEquals('application/json', $res->getHeaderLine('Content-Type'));
-
-		// Name
-		$res = $this->httpClient->get('/lot/name/WeedTraQR');
-		$this->assertEquals(200, $res->getStatusCode());
-		$this->assertEquals('application/json', $res->getHeaderLine('Content-Type'));
-
-		$res = $this->httpClient->get('/lot?' . http_build_query([
-			'name' => 'WeedTraQR'
-		]));
-		$this->assertEquals(200, $res->getStatusCode());
-		$this->assertEquals('application/json', $res->getHeaderLine('Content-Type'));
-
-		// PArtial Name
-		$res = $this->httpClient->get('/lot/name/OpenT');
-		$this->assertEquals(200, $res->getStatusCode());
-
-		$res = $this->httpClient->get('/lot?' . http_build_query([
-			'name' => 'OpenT'
-		]));
-		$this->assertEquals(200, $res->getStatusCode());
-		$this->assertTrue(false);
-
-	}
-
-	public function test_single_200()
-	{
-		// GUID
-		$res = $this->httpClient->get('/lot/fdafdsafdsa');
-		$this->assertValidResponse($res);
-
-		$res = $this->httpClient->get('/lot/1');
 		$this->assertValidResponse($res);
 
 	}
@@ -97,7 +57,17 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_update()
 	{
-		$this->assertTrue(false);
+		$l0 = $this->find_random_lot();
+
+		$l0['qty'] = $l0['qty'] * 2;
+
+		$res = $this->httpClient->patch('/lot/' . $l0['id']);
+		$res = $this->assertValidResponse($res, 200);
+
+		$l1 = $res['data'];
+
+		$this->assertEquals($l0['qty'], $l1['qty']);
+
 	}
 
 }

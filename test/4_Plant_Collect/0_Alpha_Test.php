@@ -26,11 +26,11 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_collect_one_wet()
 	{
-		$obj = $this->find_random_plant();
-		$url = sprintf('/plant/%s/collect', $obj['id']);
+		$p = $this->find_random_plant();
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'wet',
-			'qty' => 12.34,
+			'qty' => 1234.56,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
@@ -38,34 +38,34 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 		$this->assertIsArray($res['meta']);
 		$this->assertIsArray($res['data']);
-		$this->assertCount(2, $res['data']);
+		$this->assertCount(4, $res['data']);
 
-		$obj = $res['data'];
-		$this->_data_stash_put($obj);
+		$p = $res['data'];
+		$this->_data_stash_put($p);
 	}
 
 
 	public function test_collect_all_wet()
 	{
-		$obj = $this->find_random_plant();
-		$this->assertNotempty($obj['id']);
+		$p = $this->find_random_plant();
+		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $obj['id']);
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'wet',
-			'qty' => 12.34,
+			'qty' => 1234.56,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
 		$this->assertValidResponse($res, 201);
 
-		$obj = $this->find_random_plant();
-		$this->assertNotempty($obj['id']);
+		$p = $this->find_random_plant();
+		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $obj['id']);
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'wet',
-			'qty' => 12.34,
+			'qty' => 1234.56,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
@@ -75,14 +75,13 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_collect_one_dry()
 	{
-		// $obj = $this->find_random_plant();
-		$obj = $this->_data_stash_get();
-		$this->assertNotempty($obj['plant_id']);
+		$p = $this->find_random_plant();
+		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $obj['plant_id']);
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'dry',
-			'qty' => 12.34,
+			'qty' => 1234.56,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
@@ -95,14 +94,13 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	 */
 	public function test_collect_one_net()
 	{
-		// $obj = $this->find_random_plant();
-		$obj = $this->_data_stash_get();
-		$this->assertNotempty($obj['plant_id']);
+		$p = $this->find_random_plant();
+		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $obj['plant_id']);
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'net',
-			'qty' => 12.34,
+			'qty' => 1234.56,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
@@ -110,40 +108,40 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 		$this->assertIsArray($res['meta']);
 		$this->assertIsArray($res['data']);
-		$this->assertCount(2, $res['data']);
+		$this->assertCount(4, $res['data']);
 
-		$obj = $res['data'];
-		// $this->_data_stash_put($obj);
+		$pc = $res['data'];
 
 	}
 
 	/**
 	 * Here is when Plant Matter, with a Plant is closed to Inventory
 	 */
-	public function x_test_collect_all_new()
+	public function test_collect_all_new()
 	{
-		$obj = $this->_data_stash_get();
-		$this->assertNotempty($obj['plant_id']);
+		$p = $this->find_random_plant();
+		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $obj['plant_id']);
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
-			'lot_id' => $obj['id'],
 			'type' => 'net',
-			'qty' => 12.34,
+			'qty' => 1234.56,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
 		$this->assertValidResponse($res, 201);
 
-		$url = sprintf('/plant/%s/collect', $obj['id']);
+		$url = sprintf('/plant/%s/collect', $p['id']);
 		$arg = [
-			'lot_id' => $obj['id'],
+			'lot_id' => $p['id'],
 			'type' => 'net',
 			'qty' => 12.34,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
-		$this->assertValidResponse($res, 201);
+		$res = $this->assertValidResponse($res, 201);
+
+		$pc = $res['data'];
 
 	}
 

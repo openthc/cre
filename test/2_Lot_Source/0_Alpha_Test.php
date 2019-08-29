@@ -48,7 +48,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['meta']);
 		$this->assertIsArray($res['data']);
-		$this->assertGreaterThan(1, count($res['data']));
+		$this->assertGreaterThanOrEqual(1, count($res['data']));
 
 		// $obj = $res['data'][0];
 		// $this->assertCount(5, $obj);
@@ -82,7 +82,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	}
 
-	function test_update()
+	function x_test_update()
 	{
 		$obj = $this->_data_stash_get();
 		$this->assertIsArray($obj);
