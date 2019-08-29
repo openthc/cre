@@ -1,0 +1,40 @@
+{
+	"name": "openthc/cre",
+	"description": "OpenTHC CRE Service",
+	"license": "GPL-3.0-only",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "ssh://git@gitlab.com/openthc/common.git"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"App\\": "./lib",
+			"Custom\\": "./Custom",
+			"Test\\": "./test"
+		}
+	},
+	"require": {
+		"php": ">=7.2.0",
+		"ext-curl": "*",
+		"ext-date": "*",
+		"ext-json": "*",
+		"ext-PDO": "*",
+		"ext-session": "*",
+		"ext-sockets": "*",
+		"casbin/casbin": "0.2.1",
+		"edoceo/radix": "dev-master",
+		"erusev/parsedown": "1.7.1",
+		"openthc/common": "dev-master",
+		"phpoffice/phpspreadsheet": "1.6.0"
+	},
+	"require-dev": {
+		"behat/behat": "3.5.0",
+		"facebook/webdriver": "1.7.1",
+		"phpmd/phpmd": "2.7.0",
+		"phpstan/phpstan": "0.11.12",
+		"phpunit/phpunit": "8.3.4",
+		"sebastian/phpcpd": "4.1.0"
+	}
+}
