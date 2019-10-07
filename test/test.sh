@@ -70,7 +70,7 @@ which we've processed <small>(via XSL)</small> to <a href="phpunit.html">a prett
 which is also in <a href="testdox.html">testdox format</a>.
 </p>
 
-<p>Originally Published at <a href="/test-output/${dts}/">/test-output/${dts}/</a>
+<p>Originally Published at <a href="/test-output-${dts}/">/test-output-${dts}/</a>
 
 </div>
 </div>

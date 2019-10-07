@@ -78,7 +78,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->assertIsArray($res['data']);
 
 		$obj = $res['data'];
-		$this->assertCount(6, $obj);
+		$this->assertCount(13, $obj);
 
 	}
 

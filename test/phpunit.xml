@@ -11,8 +11,8 @@
 	timeoutForMediumTests="10"
 	timeoutForLargeTests="60"
 	verbose="false"
-	stopOnError="false"
-	stopOnFailure="false"
+	stopOnError="true"
+	stopOnFailure="true"
 	stopOnRisky="true"
 	>
 
@@ -44,8 +44,8 @@
 		<env name="api-license-p0-secret" value="" />
 
 		<!-- Laboratory -->
-		<env name="api-company-l0" value="" />
-		<env name="api-license-l0" value="019KAGVX9MCGZD0YMFKRHRV2F1" />
+		<env name="api-company-l0" value="019KAGVX9MXFHHT41X08Y6JX23" />
+		<env name="api-license-l0" value="019KAGVX9MMGS6HQZ6787CB92R" />
 		<env name="api-contact-l0" value="" />
 		<env name="api-license-l0-secret" value="" />
 

@@ -15,7 +15,6 @@ $ composer install
 
 # Tip: Update all packages...
 $ composer update
-
 ```
 
 Running the PHPUnit tests

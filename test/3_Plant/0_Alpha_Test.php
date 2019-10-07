@@ -15,10 +15,14 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_create()
 	{
+		$sl0 = $this->find_random_lot(''); // of type Seed or Clone?
+		$s = $this->find_random_strain();
+		$z = $this->find_random_zone();
+
 		$res = $this->_post('/plant', [
 			'source' => '', // A Lot of Clones, Plants or Seeds
-			'strain' => '', // A New Strain
-			'zone' => '', // Optional
+			'strain' => $s['id'], // A New Strain
+			'zone' => $z['id'], // Optional
 			'qty' => 10,
 		]);
 		$res = $this->assertValidResponse($res, 201);
