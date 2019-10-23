@@ -53,12 +53,10 @@ class Product extends \Test\Components\OpenTHC_Test_Case
 
 	}
 
-	public function test_single_404() {
+	public function test_single_404()
+	{
 
 		$res = $this->httpClient->get($this->_url_path . '/four_zero_four');
-		$this->assertValidResponse($res, 404);
-
-		$res = $this->httpClient->get($this->_url_path . '/1');
 		$this->assertValidResponse($res, 404);
 
 	}
@@ -73,11 +71,11 @@ class Product extends \Test\Components\OpenTHC_Test_Case
 	public function test_delete()
 	{
 		$res = $this->httpClient->delete($this->_url_path . '/four_zero_four');
-		$this->assertValidResponse($res, 404, __METHOD__);
+		$this->assertValidResponse($res, 404);
 
 		// Find Early One
 		$obj = $this->_data_stash_get();
-		//var_dump($obj);
+		// var_dump($obj);
 
 		// First call to Delete gives 202
 		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
@@ -89,9 +87,6 @@ class Product extends \Test\Components\OpenTHC_Test_Case
 
 		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
 		$this->assertValidResponse($res, 423);
-
-		unlink($this->_tmp_file);
-
 
 	}
 

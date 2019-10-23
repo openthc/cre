@@ -79,10 +79,10 @@ class Lab_Result_Create extends \Test\Components\OpenTHC_Test_Case
 
 		$res = $this->httpClient->get('/transfer/incoming');
 		$res = $this->assertValidResponse($res);
-		print_r($res);
+		// var_dump($res);
+
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThan(1, count($res['data']));
-
 
 		// $res = $this->httpClient->get('/lot');
 		// $res = $this->assertValidResponse($res);

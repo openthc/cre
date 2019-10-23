@@ -40,7 +40,7 @@ class Raw_Net extends \Test\Components\OpenTHC_Test_Case
 		$pcA = $res['data'];
 
 
-		// Collect A
+		// Collect A-2
 		$url = sprintf('/plant/%s/collect', $pA['id']);
 		$arg = [
 			'plant_collect_id' => $pcA['id'],
@@ -57,7 +57,6 @@ class Raw_Net extends \Test\Components\OpenTHC_Test_Case
 		$pcB = $res['data'];
 
 		$this->assertEquals($pcA['id'], $pcB['id']);
-
 
 		// Now this Plant Collect Group / Production Run is Together
 		// And we can see it?
@@ -84,18 +83,22 @@ class Raw_Net extends \Test\Components\OpenTHC_Test_Case
 			// 'zone_id' => $pA['zone_id'],
 			'net' => $net,
 		];
+		// print_r($arg);
 		$res = $this->_post($url, $arg);
 
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['data']);
+		// print_r($res);
 
 		$pcD = $res['data'];
-		$this->assertCount(12, $pcD);
-		$this->assertNotEmpty($pcD['id']);
-		$this->assertEquals($raw, $pcD['raw']);
-		$this->assertEquals($net, $pcD['net']);
-		$this->assertNotEmpty($pcD['lot_id']);
+		$this->assertCount(2, $pcD);
+		$this->assertNotEmpty($pcD['plant_collect']['id']);
+		$this->assertEquals($raw, $pcD['plant_collect']['raw']);
+		$this->assertEquals($net, $pcD['plant_collect']['net']);
+
+		$this->assertNotEmpty($pcD['lot']['id']);
+		$this->assertEquals($net, $pcD['lot']['qty']);
 		// $this->assertCount(2, $pcD['collect_list']);
 
 	}

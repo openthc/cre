@@ -22,7 +22,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 				'id' => $_ENV['api-contact-g0'],
 			]
 		]);
-		$this->assertValidResponse($res, 201, __METHOD__);
+		$this->assertValidResponse($res, 201);
 
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
 		// 	'lot_id' => '',
@@ -61,7 +61,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 			]
 		]);
 
-		$this->assertValidResponse($res, 201, __METHOD__);
+		$this->assertValidResponse($res, 201);
 
 	}
 

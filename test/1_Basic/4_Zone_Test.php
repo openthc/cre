@@ -1,7 +1,6 @@
 <?php
 /**
- * Guzzle Reference: http://docs.guzzlephp.org/en/stable/quickstart.html#making-a-request
- * 					 http://docs.guzzlephp.org/en/stable/request-options.html#form-params
+ * Test Zone Create/Update/Delete
  */
 
 namespace Test\Basic;
@@ -198,6 +197,67 @@ class Zone extends \Test\Components\OpenTHC_Test_Case
 
 		unlink($this->_tmp_file);
 
+	}
+
+	/**
+	 * Create Test Rooms for G type license
+	 */
+	function test_create_g()
+	{
+		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+
+		$name = sprintf('UNITTEST Zone-G CREATE %06x', $this->_pid);
+
+		$res = $this->_post('/config/zone', [
+			'name' => $name,
+		]);
+		$res = $this->assertValidResponse($res, 201);
+
+	}
+
+	/**
+	 * Create Test Rooms for P type license
+	 */
+	function test_create_p()
+	{
+		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+
+		$name = sprintf('UNITTEST Zone-P CREATE %06x', $this->_pid);
+
+		$res = $this->_post('/config/zone', [
+			'name' => $name,
+		]);
+		$res = $this->assertValidResponse($res, 201);
+	}
+
+	/**
+	 * Create Test Rooms for L type license
+	 */
+	function test_create_l()
+	{
+		$this->auth($_ENV['api-program-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
+
+		$name = sprintf('UNITTEST Zone-L CREATE %06x', $this->_pid);
+
+		$res = $this->_post('/config/zone', [
+			'name' => $name,
+		]);
+		$res = $this->assertValidResponse($res, 201);
+	}
+
+	/**
+	 * Create Test Rooms for R type license
+	 */
+	function test_create_r()
+	{
+		$this->auth($_ENV['api-program-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+
+		$name = sprintf('UNITTEST Zone-R CREATE %06x', $this->_pid);
+
+		$res = $this->_post('/config/zone', [
+			'name' => $name,
+		]);
+		$res = $this->assertValidResponse($res, 201);
 	}
 
 }

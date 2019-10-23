@@ -2,6 +2,7 @@
 /**
  * Execute Test for Retail Sales
  */
+
 namespace Test\B2C;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
@@ -21,7 +22,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 
-		$this->assertGreaterThan(2, count($res['data']), 'No Retail Products for Sale');
+		$this->assertGreaterThanOrEqual(2, count($res['data']), 'Not Enough Retail Products for Sale');
 
 		$obj0 = $res['data'][0];
 		$obj1 = $res['data'][1];
