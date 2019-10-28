@@ -25,7 +25,7 @@
 		"ext-sockets": "*",
 		"casbin/casbin": "1.0.3",
 		"edoceo/radix": "dev-master",
-		"erusev/parsedown": "1.7.1",
+		"erusev/parsedown": "1.7.3",
 		"openthc/common": "dev-master",
 		"phpoffice/phpspreadsheet": "1.6.0"
 	},

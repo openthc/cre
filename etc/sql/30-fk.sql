@@ -108,11 +108,11 @@ ALTER TABLE ONLY b2b_outgoing_item
 --
 --
 
-ALTER TABLE ONLY retail_sale
+ALTER TABLE ONLY b2c_sale
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
-ALTER TABLE ONLY retail_sale_item
-    ADD FOREIGN KEY (retail_sale_id) REFERENCES retail_sale(id);
+ALTER TABLE ONLY b2c_sale_item
+    ADD FOREIGN KEY (b2c_sale_id) REFERENCES b2c_sale(id);
 
-ALTER TABLE ONLY retail_sale_item
+ALTER TABLE ONLY b2c_sale_item
     ADD FOREIGN KEY (lot_id) REFERENCES lot(id);

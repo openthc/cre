@@ -18,8 +18,13 @@ CREATE TABLE auth_contact (
 CREATE TABLE auth_program (
 	id varchar(26) PRIMARY KEY,
 	company_id varchar(26) not null,
-	code varchar(32) not null
+	stat integer not null default 100,
+	flag integer not null default 0,
+	code varchar(256) not null,
+	hash varchar(256) not null,
+	name varchar(256) not null
 );
+
 
 
 CREATE TABLE auth_program_secret (
@@ -156,6 +161,14 @@ CREATE TABLE lot (
 );
 
 
+CREATE TABLE lot_source (
+	id varchar(26) primary key,
+	lot_id varchar(26) not null references lot(id),
+	source_lot_id varchar(26) references lot(id),
+	source_plant_collect varchar(26) references plant_collect(id)
+);
+
+
 CREATE TABLE lab_result_lot (
 	lab_result_id varchar(26) not null,
 	lot_id varchar(26) not null
@@ -173,6 +186,39 @@ CREATE TABLE plant (
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
 	hash varchar(64) not null,
+	meta jsonb
+);
+
+
+CREATE TABLE plant_collect (
+	id varchar(26) PRIMARY KEY,
+	license_id varchar(26) not null,
+	lot_id varchar(26),
+	created_at timestamp with time zone not null DEFAULT now(),
+	updated_at timestamp with time zone not null DEFAULT now(),
+	deleted_at timestamp with time zone,
+	stat int not null DEFAULT 200,
+	flag int not null DEFAULT 0,
+	hash varchar(64) not null,
+	raw numeric(16,4),
+	net numeric(16,4),
+	meta jsonb
+);
+
+
+CREATE TABLE plant_collect_plant (
+	id varchar(26) PRIMARY KEY,
+	plant_collect_id varchar(26) not null,
+	plant_id varchar(26) not null,
+	created_at timestamp with time zone not null DEFAULT now(),
+	updated_at timestamp with time zone not null DEFAULT now(),
+	deleted_at timestamp with time zone,
+	stat int not null DEFAULT 200,
+	flag int not null DEFAULT 0,
+	hash varchar(64) not null,
+	type varchar(16) not null,
+	qty numeric(16,4),
+	uom varchar(2),
 	meta jsonb
 );
 
@@ -195,6 +241,7 @@ CREATE TABLE lab_result (
 	deleted_at timestamp with time zone,
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
+	sort int not null DEFAULT 0,
 	type varchar(32) not null,
 	name varchar(256) not null,
 	meta jsonb

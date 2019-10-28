@@ -27,13 +27,13 @@ BEGIN
 
 	CASE TG_OP
 	WHEN 'UPDATE' THEN
-		INSERT INTO log_delta (id, op, tb, pk, v0, v1) VALUES (ulid_create(), 2, TG_TABLE_NAME, OLD.id, row_to_json(OLD), row_to_json(NEW));
+		INSERT INTO log_delta (id, op, tb, pk, v0, v1) VALUES (ulid_create(), TG_OP, TG_TABLE_NAME, OLD.id, row_to_json(OLD), row_to_json(NEW));
 		RETURN NEW;
 	WHEN 'INSERT' THEN
-		INSERT INTO log_delta (id, op, tb, pk, v1) VALUES (ulid_create(), 3, TG_TABLE_NAME, NEW.id, row_to_json(NEW));
+		INSERT INTO log_delta (id, op, tb, pk, v1) VALUES (ulid_create(), TG_OP, TG_TABLE_NAME, NEW.id, row_to_json(NEW));
 		RETURN NEW;
 	WHEN 'DELETE' THEN
-		INSERT INTO log_delta (id, op, tb, pk, v0) VALUES (ulid_create(), 4, TG_TABLE_NAME, OLD.id, row_to_json(OLD));
+		INSERT INTO log_delta (id, op, tb, pk, v0) VALUES (ulid_create(), TG_OP, TG_TABLE_NAME, OLD.id, row_to_json(OLD));
 		RETURN OLD;
 	END CASE;
 
