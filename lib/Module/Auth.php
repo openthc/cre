@@ -53,6 +53,6 @@ class Auth extends \OpenTHC\Module\Base
 			]);
 		});
 
-		$a->get('/shut', 'OpenTHC\Controller\Auth\Shut');
+		$a->post('/shut', 'OpenTHC\Controller\Auth\Shut');
 	}
 }

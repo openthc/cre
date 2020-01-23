@@ -35,10 +35,10 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->assertValidResponse($res, 405);
 
 		$res = $this->httpClient->get('/auth/shut');
-		$this->assertValidResponse($res, 200);
+		$this->assertValidResponse($res, 405);
 
 		$res = $this->httpClient->post('/auth/shut');
-		$this->assertValidResponse($res, 405);
+		$this->assertValidResponse($res, 200);
 
 	}
 
