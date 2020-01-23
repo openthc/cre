@@ -91,7 +91,6 @@ class oAuth2 extends \Test\Components\OpenTHC_Test_Case
 		));
 		$res = $this->assertValidResponse($res);
 
-		//print_r($res);
 		// Code and State
 
 		$res = $api->post('/token', array(
@@ -103,7 +102,6 @@ class oAuth2 extends \Test\Components\OpenTHC_Test_Case
 		));
 		$res = $this->assertValidResponse($res);
 
-		//print_r($res);
 		// Access Token, Expires In
 
 		$head = array(
@@ -114,7 +112,6 @@ class oAuth2 extends \Test\Components\OpenTHC_Test_Case
 		$res = $res->send($req);
 		$this->assertEquals('application/json;charset=utf-8', $res->getHeaderLine('Content-Type'));
 		$this->assertEquals(200, $res->getStatusCode());
-		//print_r($res);
 
 	}
 

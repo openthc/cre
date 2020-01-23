@@ -29,7 +29,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->assertValidResponse($res, 400);
 
 		$res = $this->httpClient->get('/auth/ping');
-		$this->assertValidResponse($res, 200);
+		$this->assertValidResponse($res, 403);
 
 		$res = $this->httpClient->post('/auth/ping');
 		$this->assertValidResponse($res, 405);
@@ -59,6 +59,22 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	}
 
+	function test_open_pass()
+	{
+		// TEST COMPANY A
+		$res = $this->_post('/auth/open', [
+			'program' => $_ENV['api-program-a'],
+			'company' => $_ENV['api-company-g0'],
+			'license' => $_ENV['api-license-g0']
+		]);
+		$res = $this->assertValidResponse($res);
+
+		$this->assertIsArray($res);
+		$this->assertCount(2, $res);
+		$this->assertRegExp('/\w{26,256}/', $res['data']);
+
+	}
+
 	/**
 	 * This test will get a 400 response because Company and License don't match
 	 * @return [type] [description]
@@ -75,23 +91,6 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->assertIsArray($res);
 		$this->assertCount(1, $res);
 		$this->assertRegExp('/MAS#077/', $res['meta']['detail']);
-
-	}
-
-
-	function test_open_pass()
-	{
-		// TEST COMPANY A
-		$res = $this->_post('/auth/open', [
-			'program' => $_ENV['api-program-a'],
-			'company' => $_ENV['api-company-g0'],
-			'license' => $_ENV['api-license-g0']
-		]);
-		$res = $this->assertValidResponse($res);
-
-		$this->assertIsArray($res);
-		$this->assertCount(2, $res);
-		$this->assertRegExp('/\w{26,256}/', $res['data']);
 
 	}
 

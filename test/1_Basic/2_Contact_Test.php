@@ -149,7 +149,7 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 		$this->assertValidResponse($res, 404);
 
 		$c0 = $this->_data_stash_get();
-		// var_dump($c0);
+		var_dump($c0);
 
 		// Two Times to Delete?
 		$res = $this->httpClient->delete('/config/contact/' . $c0['id']);
