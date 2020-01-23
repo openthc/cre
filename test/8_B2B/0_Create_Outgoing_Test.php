@@ -7,13 +7,14 @@ namespace Test\B2B;
 
 class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 {
+	protected $_url_path = '/b2b';
 	protected $_tmp_file = '/tmp/unit-test-transfer.json';
 
 	function test_create_deliver_g_to_p()
 	{
 		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
-		$res = $this->_post('/transfer', [
+		$res = $this->_post($this->_url_path, [
 			'target_license_id' => $_ENV['api-license-p0'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
@@ -22,28 +23,16 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 				'id' => $_ENV['api-contact-g0'],
 			]
 		]);
-		$this->assertValidResponse($res, 201);
+		$res = $this->assertValidResponse($res, 201);
 
-		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
-		// 	'qty' => 10,
-		// ]);
-		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
-		// 	'qty' => 10,
-		// ]);
-		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
-		// 	'qty' => 10,
-		// ]);
+		$T = $res['data'];
+		$this->assertIsArray($T);
+		$this->assertCount(5, $T);
+		$this->assertNotEmpty($T['id']);
+		// var_dump($T);
 
-		// $this->assertIsArray($res);
-		// $this->assertCount(2, $res);
-		// $this->assertIsArray($res['data']);
-		//
-		// $s0 = $res['data'];
-		// $this->assertNotEmpty($s0['id']);
-		// $this->assertEquals('UNITTEST Strain CREATE', $s0['name']);
+		$res = $this->httpClient->delete($this->_url_path . '/' . $T['id']);
+		$res = $this->assertValidResponse($res, 202);
 
 	}
 
@@ -51,7 +40,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 	{
 		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
 
-		$res = $this->_post('/transfer', [
+		$res = $this->_post($this->_url_path, [
 			'target_license_id' => $_ENV['api-license-r0'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
@@ -61,7 +50,16 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 			]
 		]);
 
-		$this->assertValidResponse($res, 201);
+		$res = $this->assertValidResponse($res, 201);
+
+		$T = $res['data'];
+		$this->assertIsArray($T);
+		$this->assertCount(5, $T);
+		$this->assertNotEmpty($T['id']);
+		// var_dump($T);
+
+		$res = $this->httpClient->delete($this->_url_path . '/' . $T['id']);
+		$res = $this->assertValidResponse($res, 202);
 
 	}
 
