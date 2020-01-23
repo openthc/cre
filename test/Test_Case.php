@@ -45,16 +45,19 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 			echo "\n<<< $dump <<< $hrc <<<\n{$this->raw}\n###\n";
 		}
 
-		$ret = \json_decode($this->raw, true);
-
 		$this->assertEquals($code, $res->getStatusCode());
 		$type = $res->getHeaderLine('content-type');
 		$type = strtok($type, ';');
 		$this->assertEquals('application/json', $type);
-		$this->assertIsArray($ret);
 
-		$this->assertEmpty($ret['status']);
-		$this->assertEmpty($ret['result']);
+		$ret = \json_decode($this->raw, true);
+
+		$this->assertIsArray($ret);
+		// $this->assertArrayHasKey('data', $ret);
+		// $this->assertArrayHasKey('meta', $ret);
+
+		$this->assertArrayNotHasKey('status', $ret);
+		$this->assertArrayNotHasKey('result', $ret);
 
 		return $ret;
 	}
@@ -65,11 +68,7 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));
-
-		// $rnd_list = array();
-		// foreach ($res['data'] as $x) {
-		// 	$rnd_list[] = $x;
-		// }
+		// var_dump($res);
 
 		$i = \array_rand($res['data']);
 		$r = $res['data'][$i];
@@ -218,9 +217,11 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 	*/
 	protected function _data_stash_get()
 	{
-		$x = file_get_contents($this->_tmp_file);
-		$x = json_decode($x, true);
-		return $x;
+		if (is_file($this->_tmp_file)) {
+			$x = file_get_contents($this->_tmp_file);
+			$x = json_decode($x, true);
+			return $x;
+		}
 	}
 
 

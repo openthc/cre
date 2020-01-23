@@ -4,6 +4,7 @@
 <phpunit
 	bootstrap="boot.php"
 	colors="true"
+	cacheResult="false"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
@@ -34,7 +35,7 @@
 		<!-- Farmer / Grower / Producer -->
 		<env name="api-company-g0" value="019KAGVX9M209XSPAMRCXSRYF2" />
 		<env name="api-license-g0" value="019KAGVX9MNVQVXP6A24ND2CBW" />
-		<env name="api-contact-g0" value="019KAGVX9M209XSPAMRCXSRYF2" />
+		<env name="api-contact-g0" value="" />
 		<env name="api-license-g0-secret" value="" />
 
 		<!-- Processor / Manufacturer / Distributor -->
@@ -50,8 +51,8 @@
 		<env name="api-license-l0-secret" value="" />
 
 		<!-- Retail / Dispensary -->
-		<env name="api-company-r0" value="019KAGVX9MXFHHT41X08Y6JX23" />
-		<env name="api-license-r0" value="019KAGVX9MMGS6HQZ6787CB92R" />
+		<env name="api-company-r0" value="019KAGVX9MH3QJW8QGE7CXNAAQ" />
+		<env name="api-license-r0" value="019KAGVX9MD60MW90N4GTB75Y1" />
 		<env name="api-contact-r0" value="" />
 		<env name="api-license-r0-secret" value="" />
 
@@ -103,7 +104,7 @@
 
 	<logging>
 		<!-- <log type="coverage-html" target="../webroot/test-output" /> -->
-		<log type="junit" target="../webroot/test-output/phpunit-output.xml" />
+		<log type="junit" target="../webroot/test-output/output.xml" />
 		<log type="testdox-html" target="../webroot/test-output/testdox.html" />
 	</logging>
 
