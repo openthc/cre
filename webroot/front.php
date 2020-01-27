@@ -142,21 +142,32 @@ $app->group('/lot', 'App\Module\Lot')
 // Plant
 $app->group('/plant', 'App\Module\Plant')
 	->add('App\Middleware\InputDataFilter')
-	//->add('App\Middleware\Authenticate')
+	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
 	->add('OpenTHC\Middleware\Log\HTTP');
 
 
+// Plant Collect
 $app->group('/plant-collect', 'App\Module\PlantCollect')
-	// ->add('App\Middleware\InputDataFilter')
-	// ->add('App\Middleware\Authenticate')
+	->add('App\Middleware\InputDataFilter')
+	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	// ->add('OpenTHC\Middleware\Log\HTTP')
+	->add('OpenTHC\Middleware\Log\HTTP')
 ;
 
 
+// Lab Samples and Results
+$app->group('/lab', 'App\Module\Lab')
+	->add('App\Middleware\InputDataFilter')
+	->add('App\Middleware\Authenticate')
+	->add('App\Middleware\Session')
+	->add('OpenTHC\Middleware\Log\HTTP')
+;
+
+
+
 // Transfer
-$app->group('/transfer', 'App\Module\Transfer')
+$app->group('/b2b', 'App\Module\Transfer')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
@@ -164,18 +175,17 @@ $app->group('/transfer', 'App\Module\Transfer')
 
 
 // Retail Sale
-$app->group('/sale', 'App\Module\Sale')
+$app->group('/b2c', 'App\Module\Sale')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
 	->add('OpenTHC\Middleware\Log\HTTP');
 
 
-// $app->add('Custom\Middleware\Log\PubSub');
-// $app->add('Custom\Middleware\IP');
+// $app->add('App\Middleware\Log\PubSub');
+// $app->add('App\Middleware\IP');
 
-// @see ./bin/update-home.php
-$app->get('/home', 'App\Controller\Home');
+$app->get('/ulid', 'App\Controller\ULID');
 
 // And...go!
 $app->run();
