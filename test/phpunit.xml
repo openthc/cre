@@ -1,20 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
-	PHP Unit Configuration File
+	OpenTHC PHPUnit Configuration File
 -->
 <phpunit
+	backupGlobals="false"
+	backupStaticAttributes="false"
 	bootstrap="boot.php"
-	colors="true"
 	cacheResult="false"
+	colors="true"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	processIsolation="false"
+	stopOnError="true"
+	stopOnFailure="true"
+	stopOnRisky="true"
 	timeoutForSmallTests="1"
 	timeoutForMediumTests="10"
 	timeoutForLargeTests="60"
 	verbose="false"
-	stopOnError="true"
-	stopOnFailure="true"
-	stopOnRisky="true"
 	>
 
 	<php>
