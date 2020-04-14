@@ -27,16 +27,16 @@ $tab_list = [
 	],
 	'b2c_sale' => [],
 	'b2b_outgoing_item' => [
-		'sql' => 'DELETE FROM %s WHERE b2b_outgoing_id IN (SELECT id FROM b2b_outgoing WHERE source_license_id = :l0)',
+		'sql' => 'DELETE FROM %s WHERE b2b_outgoing_id IN (SELECT id FROM b2b_outgoing WHERE license_id_source = :l0)',
 	],
 	'b2b_outgoing' => [
-		'sql' => 'DELETE FROM %s WHERE source_license_id = :l0',
+		'sql' => 'DELETE FROM %s WHERE license_id_source = :l0',
 	],
 	'b2b_incoming_item' => [
-		'sql' => 'DELETE FROM %s WHERE b2b_incoming_id IN (SELECT id FROM b2b_incoming WHERE target_license_id = :l0)',
+		'sql' => 'DELETE FROM %s WHERE b2b_incoming_id IN (SELECT id FROM b2b_incoming WHERE license_id_target = :l0)',
 	],
 	'b2b_incoming' => [
-		'sql' => 'DELETE FROM %s WHERE target_license_id = :l0',
+		'sql' => 'DELETE FROM %s WHERE license_id_target = :l0',
 	],
 
 	'plant_collect_plant' => [

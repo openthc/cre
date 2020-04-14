@@ -41,4 +41,4 @@ Update the `etc/app.ini` file with necessary values.
 ## Configure LetsEncrypt
 
 	apt-get install certbot python-certbot-apache
-	certbot certonly --webroot-path APP_ROOT/webroot --domain APP_HOST
+	certbot certonly --webroot --webroot-path APP_ROOT/webroot --domain APP_HOST

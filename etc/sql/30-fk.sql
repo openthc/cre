@@ -69,10 +69,10 @@ ALTER TABLE ONLY lab_result_metric
 --
 --
 ALTER TABLE ONLY b2b_incoming
-    ADD FOREIGN KEY (source_license_id) REFERENCES license(id);
+    ADD FOREIGN KEY (license_id_source) REFERENCES license(id);
 
 ALTER TABLE ONLY b2b_incoming
-    ADD FOREIGN KEY (target_license_id) REFERENCES license(id);
+    ADD FOREIGN KEY (license_id_target) REFERENCES license(id);
 
 ALTER TABLE ONLY b2b_incoming_item
     ADD FOREIGN KEY (id) REFERENCES b2b_outgoing_item(id);
@@ -92,10 +92,10 @@ ALTER TABLE ONLY b2b_outgoing
     ADD FOREIGN KEY (id) REFERENCES b2b_incoming(id);
 
 ALTER TABLE ONLY b2b_outgoing
-    ADD FOREIGN KEY (source_license_id) REFERENCES license(id);
+    ADD FOREIGN KEY (license_id_source) REFERENCES license(id);
 
 ALTER TABLE ONLY b2b_outgoing
-    ADD FOREIGN KEY (target_license_id) REFERENCES license(id);
+    ADD FOREIGN KEY (license_id_target) REFERENCES license(id);
 
 ALTER TABLE ONLY b2b_outgoing_item
     ADD FOREIGN KEY (b2b_outgoing_id) REFERENCES b2b_outgoing(id);

@@ -67,7 +67,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->assertValidResponse($res);
 
 		$obj = $res['data'][0];
-		$this->assertCount(2, $obj);
+		$this->assertCount(14, $obj);
 
 		// Good Request
 		$res = $this->httpClient->get($this->_url_path . '/' . $obj['id']);
@@ -78,7 +78,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->assertIsArray($res['data']);
 
 		$obj = $res['data'];
-		$this->assertCount(13, $obj);
+		$this->assertCount(14, $obj);
 
 	}
 

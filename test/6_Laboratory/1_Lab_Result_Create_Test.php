@@ -27,7 +27,7 @@ class Lab_Result_Create extends \Test\Components\OpenTHC_Test_Case
 
 		// Now Send as a Sample to a Laboratory through b2b_transfer
 		$res = $this->_post('/transfer', [
-			'target_license_id' => $_ENV['api-license-l0'],
+			'license_id_target' => $_ENV['api-license-l0'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier

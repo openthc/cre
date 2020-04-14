@@ -1,6 +1,6 @@
 <?php
 /**
- * Accept a Transfer
+ * Accept B2B Sale
  */
 
 namespace App\Controller\Transfer;
@@ -11,8 +11,8 @@ class Accept extends \App\Controller\Base
 	{
 		$dbc = $this->_container->DB;
 
-		// Find in View
-		$sql = 'SELECT * FROM b2b_incoming WHERE target_license_id = :l0 AND id = :t0';
+		// Incoming Record
+		$sql = 'SELECT * FROM b2b_incoming WHERE license_id_target = :l0 AND id = :t0';
 		$arg = array(
 			':l0' => $_ENV['license_id'],
 			':t0' => $ARG['id']

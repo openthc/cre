@@ -15,7 +15,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$res = $this->_post($this->_url_path, [
-			'target_license_id' => $_ENV['api-license-p0'],
+			'license_id_target' => $_ENV['api-license-p0'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
@@ -41,7 +41,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
 
 		$res = $this->_post($this->_url_path, [
-			'target_license_id' => $_ENV['api-license-r0'],
+			'license_id_target' => $_ENV['api-license-r0'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier

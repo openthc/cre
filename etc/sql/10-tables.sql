@@ -264,8 +264,8 @@ CREATE TABLE lab_result_metric (
 
 CREATE TABLE b2b_incoming (
 	id varchar(26) PRIMARY KEY,
-	source_license_id varchar(26) not null,
-	target_license_id varchar(26) not null,
+	license_id_source varchar(26) not null,
+	license_id_target varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -279,8 +279,8 @@ CREATE TABLE b2b_incoming (
 
 CREATE TABLE b2b_outgoing (
 	id varchar(26) PRIMARY KEY,
-	source_license_id varchar(26) not null,
-	target_license_id varchar(26) not null,
+	license_id_source varchar(26) not null,
+	license_id_target varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,

@@ -13,13 +13,15 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
-	function x_test_public()
+	function test_public()
 	{
-		$this->auth('foo', 'bar' , 'baz');
-		$res = $this->httpClient->get('/plant');
-		$res = $this->assertValidResponse($res, 403, __METHOD__);
+		$res = $this->httpClient->post('/auth/shut');
+		$res = $this->assertValidResponse($res, 200);
 
-		$res = $this->httpClient->get('/plant/four_zero_four/collect');
+		$res = $this->httpClient->get('/plant');
+		$res = $this->assertValidResponse($res, 403);
+
+		$res = $this->httpClient->get('/plant/four_zero_four');
 		$res = $this->assertValidResponse($res, 403);
 
 	}

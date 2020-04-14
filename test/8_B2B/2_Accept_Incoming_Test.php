@@ -17,7 +17,7 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->get($this->_url_path . '/incoming');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
-		$this->assertGreaterThan(1, count($res['data']));
+		$this->assertGreaterThanOrEqual(1, count($res['data']));
 
 		$t0 = $res['data'][0];
 		// var_dump($t0);
@@ -27,6 +27,7 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertIsArray($res['meta']);
 		$this->assertIsArray($res['data']);
+		$this->assertCount(12, $res['data']);
 
 		$t1 = $res['data'];
 		// print_r($t1);

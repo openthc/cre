@@ -5,8 +5,8 @@
 
 CREATE VIEW transfer AS SELECT
  o.id AS id
-, o.source_license_id
-, o.target_license_id
+, o.license_id_source
+, o.license_id_target
 , o.stat AS b2b_outgoing_stat
 , i.stat AS b2b_incoming_stat
 FROM b2b_outgoing AS o
