@@ -43,8 +43,26 @@ ALTER TABLE ONLY lot
 ALTER TABLE ONLY lot
     ADD FOREIGN KEY (zone_id) REFERENCES zone(id);
 
+
 --
+-- Lot Family
 --
+
+ALTER TABLE ONLY lot_family
+    ADD FOREIGN KEY (lot_id) REFERENCES lot(id);
+
+ALTER TABLE ONLY lot_family
+    ADD FOREIGN KEY (lot_id_output) REFERENCES lot(id);
+
+ALTER TABLE ONLY lot_family
+    ADD FOREIGN KEY (plant_id) REFERENCES plant(id);
+
+ALTER TABLE ONLY lot_family
+    ADD FOREIGN KEY (plant_collect_id) REFERENCES plant_collect(id);
+
+
+--
+-- Plant
 --
 
 ALTER TABLE ONLY plant

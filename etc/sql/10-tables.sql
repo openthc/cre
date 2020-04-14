@@ -160,6 +160,17 @@ CREATE TABLE lot (
 	meta jsonb
 );
 
+CREATE TABLE lot_family (
+	id varchar(26) PRIMARY KEY,
+	lot_id varchar(26) not null,
+	lot_id_output varchar(26),
+	plant_id varchar(26),
+	plant_collect_id varchar(26),
+	created_at timestamp with time zone not null default now(),
+	type varchar(4),
+	meta jsonb
+);
+
 
 CREATE TABLE lot_source (
 	id varchar(26) primary key,
@@ -193,7 +204,6 @@ CREATE TABLE plant (
 CREATE TABLE plant_collect (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
-	lot_id varchar(26),
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -295,12 +305,13 @@ CREATE TABLE b2b_outgoing (
 CREATE TABLE b2b_incoming_item (
 	id varchar(26) PRIMARY KEY,
 	b2b_incoming_id varchar(26) not null,
-	lot_id varchar(26) not null,
+	lot_id varchar(26),
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
+	qty numeric(16,4),
 	hash varchar(64) not null,
 	name varchar(256) not null,
 	meta jsonb
@@ -316,6 +327,7 @@ CREATE TABLE b2b_outgoing_item (
 	deleted_at timestamp with time zone,
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
+	qty numeric(16,4),
 	hash varchar(64) not null,
 	name varchar(256) not null,
 	meta jsonb
