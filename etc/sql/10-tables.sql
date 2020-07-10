@@ -160,6 +160,7 @@ CREATE TABLE lot (
 	meta jsonb
 );
 
+
 CREATE TABLE lot_family (
 	id varchar(26) PRIMARY KEY,
 	lot_id varchar(26) not null,
@@ -237,6 +238,7 @@ CREATE TABLE lab_metric (
 	id varchar(26) PRIMARY KEY,
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
+	sort int not null DEFAULT 0,
 	type varchar(32) not null,
 	name varchar(256) not null,
 	meta jsonb
