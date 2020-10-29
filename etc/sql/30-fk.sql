@@ -21,10 +21,10 @@ ALTER TABLE ONLY license
 ALTER TABLE ONLY product
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
-ALTER TABLE ONLY strain
+ALTER TABLE ONLY variety
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
-ALTER TABLE ONLY zone
+ALTER TABLE ONLY section
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
 --
@@ -38,10 +38,10 @@ ALTER TABLE ONLY lot
     ADD FOREIGN KEY (product_id) REFERENCES product(id);
 
 ALTER TABLE ONLY lot
-    ADD FOREIGN KEY (strain_id) REFERENCES strain(id);
+    ADD FOREIGN KEY (variety_id) REFERENCES variety(id);
 
 ALTER TABLE ONLY lot
-    ADD FOREIGN KEY (zone_id) REFERENCES zone(id);
+    ADD FOREIGN KEY (section_id) REFERENCES section(id);
 
 
 --
@@ -69,7 +69,7 @@ ALTER TABLE ONLY plant
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
 ALTER TABLE ONLY plant
-    ADD FOREIGN KEY (zone_id) REFERENCES zone(id);
+    ADD FOREIGN KEY (section_id) REFERENCES section(id);
 
 --
 --

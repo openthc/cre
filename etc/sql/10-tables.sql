@@ -89,7 +89,7 @@ CREATE TABLE program (
 );
 
 
-CREATE TABLE zone (
+CREATE TABLE section (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -149,8 +149,8 @@ CREATE TABLE lot (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
 	product_id varchar(26) not null,
-	strain_id varchar(26) not null,
-	zone_id varchar(26) not null,
+	variety_id varchar(26) not null,
+	section_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -190,8 +190,8 @@ CREATE TABLE lab_result_lot (
 CREATE TABLE plant (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
-	strain_id varchar(26) not null,
-	zone_id varchar(26) not null,
+	variety_id varchar(26) not null,
+	section_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
