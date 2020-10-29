@@ -5,14 +5,11 @@
 
 require_once(dirname(dirname(__FILE__)) . '/boot.php');
 
-$_ENV['mwd'] = 0;
-
-$cfg = [
-	'debug' => true,
-	'settings' => [
-		'routerCacheFile' => '/tmp/slim-router.cache',
-	]
-];
+$cfg = [];
+$cfg['debug'] = true;
+// 'settings' => [
+// 	'routerCacheFile' => '/tmp/slim-router.cache',
+// ]
 $app = new \App\Core($cfg);
 $con = $app->getContainer();
 
@@ -123,8 +120,8 @@ $app->group('/config/product', 'App\Module\Product')
 	->add('OpenTHC\Middleware\Log\HTTP');
 
 
-// Config Zone
-$app->group('/config/zone', 'App\Module\Zone')
+// Config Section
+$app->group('/config/section', 'App\Module\Section')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
@@ -187,5 +184,14 @@ $app->group('/b2c', 'App\Module\Sale')
 
 $app->get('/ulid', 'App\Controller\ULID');
 
+// Custom Middleware?
+$f = sprintf('%s/Custom/boot.php', APP_ROOT);
+if (is_file($f)) {
+	require_once($f);
+}
+
+
 // And...go!
 $app->run();
+
+exit(0);
