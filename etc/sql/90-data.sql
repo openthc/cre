@@ -7,8 +7,8 @@ INSERT INTO company (id, stat, hash, name) values ('019KAGVSC05RHV4QAS76VPV6J7',
 INSERT INTO license (id, company_id, hash, name) values ('019KAGVX9M1FRBJ7EZQDTMD6JA', '019KAGVSC05RHV4QAS76VPV6J7', '-', '-system-');
 INSERT INTO contact (id, company_id, hash, name) values ('019KAGVX9MQRRV9H0G9N3Q9FMC', '019KAGVSC05RHV4QAS76VPV6J7', '-', '-system-');
 INSERT INTO product (id, license_id,hash,name) values ('019KAGVX9MYDYS8M2FNABNKGV1', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
-INSERT INTO strain (id, license_id, hash,name) values ('019KAGVX9MK1NZWTN7D14F09FC', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
-INSERT INTO zone (id, license_id, hash,name) values ('019KAGVX9MYQCNKPGWMCA49EGW', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
+INSERT INTO variety (id, license_id, hash,name) values ('019KAGVX9MK1NZWTN7D14F09FC', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
+INSERT INTO section (id, license_id, hash,name) values ('019KAGVX9MYQCNKPGWMCA49EGW', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
 
 
 INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0C474J20SEWDM5XSJ', '-', 'Plant/Seed');

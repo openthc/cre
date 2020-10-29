@@ -80,7 +80,7 @@ class Raw_Net extends \Test\Components\OpenTHC_Test_Case
 		$arg = [
 			// 'product_id' => '',
 			'strain_id' => $pA['strain_id'],
-			// 'zone_id' => $pA['zone_id'],
+			// 'section_id' => $pA['section_id'],
 			'net' => $net,
 		];
 		// print_r($arg);

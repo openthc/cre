@@ -41,7 +41,7 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 	{
 		$this->auth($_ENV['api-program-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
 
-		$Z = $this->find_random_zone();
+		$Z = $this->find_random_section();
 
 		$res = $this->httpClient->get($this->_url_path . '/incoming');
 		$res = $this->assertValidResponse($res);
@@ -54,7 +54,7 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 
 		// Post Empty Array to Accept ALL, FULL
 		$res = $this->_post($this->_url_path . '/' . $t0['id'] . '/accept', [
-			'zone_id' => $Z['id'],
+			'section_id' => $Z['id'],
 		]);
 		$res = $this->assertValidResponse($res, 201);
 		// var_dump($res);

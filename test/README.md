@@ -25,7 +25,7 @@ Running the PHPUnit tests
 ./vendor/bin/phpunit -c test/phpunit.xml
 
 # Runs all test cases defined in php test script
-./vendor/bin/phpunit -c test/phpunit.xml test/Zone/ZoneTest.php
+./vendor/bin/phpunit -c test/phpunit.xml test/Section/SectionTest.php
 
 ```
 

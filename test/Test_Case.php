@@ -139,9 +139,9 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 
 	}
 
-	function find_random_zone()
+	function find_random_section()
 	{
-		$res = $this->httpClient->get('/config/zone');
+		$res = $this->httpClient->get('/config/section');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));

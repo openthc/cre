@@ -53,7 +53,7 @@ $tab_list = [
 	// 'log_delta',
 	'product' => [],
 	'strain' => [],
-	'zone' => [],
+	'section' => [],
 
 	// 'contact',
 	//'auth_program_secret' => [

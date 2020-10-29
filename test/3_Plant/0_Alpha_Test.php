@@ -17,12 +17,12 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	{
 		$sl0 = $this->find_random_lot(''); // of type Seed or Clone?
 		$s = $this->find_random_strain();
-		$z = $this->find_random_zone();
+		$z = $this->find_random_section();
 
 		$res = $this->_post('/plant', [
 			'source' => '', // A Lot of Clones, Plants or Seeds
 			'strain' => $s['id'], // A New Strain
-			'zone' => $z['id'], // Optional
+			'section' => $z['id'], // Optional
 			'qty' => 10,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -44,7 +44,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->get('/plant?strain=');
 		$this->assertValidResponse($res, 200);
 
-		$res = $this->httpClient->get('/plant?zone=');
+		$res = $this->httpClient->get('/plant?section=');
 		$this->assertValidResponse($res, 200);
 
 	}

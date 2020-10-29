@@ -58,8 +58,8 @@ INSERT INTO auth_program (id, company_id, code) VALUES ('019KAGVSC0XHVSZMJGXA37B
 -- INSERT INTO auth_program_secret (id, program_id, code) VALUES (ulid_create(), '019KAGVSC0XHVSZMJGXA37B05S', 'test-program-g-secret-0');
 
 
-DELETE FROM zone    WHERE name LIKE 'UNITTEST%';
-DELETE FROM strain  WHERE name LIKE 'UNITTEST%';
+DELETE FROM section WHERE name LIKE 'UNITTEST%';
+DELETE FROM variety WHERE name LIKE 'UNITTEST%';
 DELETE FROM license WHERE name LIKE 'UNITTEST%';
 DELETE FROM contact WHERE name LIKE 'UNITTEST%';
 DELETE FROM company WHERE name LIKE 'UNITTEST%';

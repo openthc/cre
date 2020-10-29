@@ -59,7 +59,7 @@ class Accept extends \App\Controller\Base
 		$T['b2b_outgoing_stat'] = 307;
 
 		$Z = [];
-		$Z['id'] = $_POST['zone_id'];
+		$Z['id'] = $_POST['section_id'];
 
 		// Copy To b2b_incoming_item
 		// Copy to lot for target license
@@ -92,7 +92,7 @@ class Accept extends \App\Controller\Base
 				'license_id' => $_ENV['license_id'],
 				'product_id' => $lot_source['product_id'], // These have to be immutable now
 				'strain_id' => $lot_source['strain_id'], // These have to be immutable now
-				'zone_id' => $Z['id'],
+				'section_id' => $Z['id'],
 				'qty' => $b2b_outgoing_item['qty'],
 				'hash' => '-',
 			];

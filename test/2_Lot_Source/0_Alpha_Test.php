@@ -19,13 +19,13 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	{
 		$p = $this->find_random_product();
 		$s = $this->find_random_strain();
-		$z = $this->find_random_zone();
+		$z = $this->find_random_section();
 
 		$res = $this->_post($this->_url_path, [
 			// 'source' => '', // A Plant
 			'product' => $p['id'],
 			'strain' => $s['id'],
-			'zone' => $z['id'],
+			'section' => $z['id'],
 			'qty' => 1234,
 		]);
 		$res = $this->assertValidResponse($res, 201);

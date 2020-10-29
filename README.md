@@ -12,11 +12,11 @@ More information is available at https://openthc.com/
  * Company
  * License
  * Contact
- * Strain
+ * Variety
 
 ### License Specific Data
 
- * Zone (aka: Area, Room)
+ * Section (aka: Area, Room)
  * Inventory Lot
  * Plant
  * Transfer (aka: Manifest, Invoice)
@@ -64,4 +64,3 @@ More information is available at https://openthc.com/
 If you want to add new custom Services, Middleware or other code use the `./Custom` directory.
 All of your custom libraries would be in `./Custom/Service` or `./Custom/Middleware`.
 Then you can use them in the `./webroot/front.php` script.
-
