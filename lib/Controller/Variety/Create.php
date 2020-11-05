@@ -1,9 +1,9 @@
 <?php
 /**
- * Create a Strain owned by a License
+ * Create a Variety owned by a License
  */
 
-namespace App\Controller\Strain;
+namespace App\Controller\Variety;
 
 class Create extends \App\Controller\Base
 {
@@ -11,7 +11,7 @@ class Create extends \App\Controller\Base
 	{
 		$oid = \Edoceo\Radix\ULID::generate();
 
-		// Strain Object
+		// Variety Object
 		$obj = array(
 			'id' => $oid,
 			'name' => $_POST['name'],
@@ -19,7 +19,7 @@ class Create extends \App\Controller\Base
 		);
 
 		// Check Strain Record
-		$sql = 'SELECT id FROM strain WHERE license_id = :l AND name = :n';
+		$sql = 'SELECT id FROM variety WHERE license_id = :l AND name = :n';
 		$arg = array(
 			':l' => $_ENV['license_id'],
 			':n' => $_POST['name'],
@@ -27,12 +27,12 @@ class Create extends \App\Controller\Base
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
 		if (!empty($chk)) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Strain Duplicate [CSC#030]' ],
+				'meta' => [ 'detail' => 'Variety Duplicate [CSC#030]' ],
 				'data' => $chk,
 			], 409);
 		}
 
-		// Strain Record
+		// Variety Record
 		$rec = array(
 			'license_id' => $_ENV['license_id'],
 			'id' => $oid,
@@ -43,8 +43,8 @@ class Create extends \App\Controller\Base
 		$rec['hash'] = sha1($rec['meta']);
 
 		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('strain', $rec);
-		$this->logAudit('Strain/Create', $oid, $rec['meta']);
+		$this->_container->DB->insert('variety', $rec);
+		$this->logAudit('Variety/Create', $oid, $rec['meta']);
 		$this->_container->DB->query('COMMIT');
 
 		return $RES->withJSON([

@@ -16,4 +16,3 @@
 
 --ignore-file=is:composer.lock
 --ignore-file=is:composer.phar
---ignore-file=is:phpcpd.phar

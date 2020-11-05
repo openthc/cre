@@ -75,9 +75,9 @@ CREATE TRIGGER log_delta_product
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_delta_trigger();
 
-CREATE TRIGGER log_delta_strain
+CREATE TRIGGER log_delta_variety
 	AFTER INSERT OR UPDATE OR DELETE
-	ON strain
+	ON variety
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_delta_trigger();
 

@@ -1,18 +1,18 @@
 <?php
 /**
- * Test Section Create/Update/Delete
+ * Test Zone Create/Update/Delete
  */
 
 namespace Test\Basic;
 
-class Section extends \Test\Components\OpenTHC_Test_Case
+class Zone extends \Test\Components\OpenTHC_Test_Case
 {
-	protected $_tmp_file = '/tmp/unit-test-section.json';
+	protected $_tmp_file = '/tmp/unit-test-zone.json';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	public function test_public_read()
@@ -20,16 +20,16 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
-		$res = $this->httpClient->get('/config/section');
+		$res = $this->httpClient->get('/config/zone');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/section/four_zero_four');
+		$res = $this->httpClient->get('/config/zone/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/section/1');
+		$res = $this->httpClient->get('/config/zone/1');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/section?' . http_build_query([
+		$res = $this->httpClient->get('/config/zone?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
 		$this->assertValidResponse($res, 403);
@@ -38,14 +38,14 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 
 
 	/**
-	 * Swagger Reference: https://api.openthc.org/doc/swagger-ui/dist/?url=https://api.openthc.org/doc/swagger.yaml#/Config/post_config_section
+	 * Swagger Reference: https://api.openthc.org/doc/swagger-ui/dist/?url=https://api.openthc.org/doc/swagger.yaml#/Config/post_config_zone
 	 * @todo Missing request body parameters, assuming base parameters:
 	 * - name, (string)
 	 * - type, (string)
 	 */
 	public function test_create_negative()
 	{
-		$URI = '/config/section';
+		$URI = '/config/zone';
 
 		$arg = [
 		];
@@ -55,20 +55,20 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 		$this->assertCount(2, $res);
 
 		// $this->assertNotEmpty($res['id']);
-		// $this->assertEquals('UNITTEST Section 031', $res['name']);
+		// $this->assertEquals('UNITTEST Zone 031', $res['name']);
 		//
 		// // Can't create two objects with same ID
 		// $arg = [
-		// 	'name' => 'UNITTEST Section 042',
+		// 	'name' => 'UNITTEST Zone 042',
 		// 	'type' => 'logical',
-		// 	'id' => 'TSTCRE.OTSECTION1'
+		// 	'id' => 'TSTCRE.OTZONE1'
 		// ];
 		// $res = $this->_post($URI, $arg);
 		// $this->assertValidResponse($res, 409);
 		// // $this->asserEquals($res->getStatusCode(), 405); // Not 405
 		//
 		// $arg = [
-		// 	'name' => 'UNITTEST Section 051',
+		// 	'name' => 'UNITTEST Zone 051',
 		// 	'type' => 'physical',
 		// ];
 		// $res = $this->_post($URI, $arg);
@@ -77,29 +77,29 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 		//
 		// // Missing type
 		// $arg = [
-		// 	'name' => 'UNITTEST Section 061',
+		// 	'name' => 'UNITTEST Zone 061',
 		// ];
 		// $res = $this->_post($URI, $arg);
 		// $res = $this->assertValidResponse($res, 405);
 		//
 		// // Missing type
 		// $arg = [
-		// 	'id' => 'TSTCRE.OTSECTION4',
-		// 	'name' => 'UNITTEST Section 069',
+		// 	'id' => 'TSTCRE.OTZONE4',
+		// 	'name' => 'UNITTEST Zone 069',
 		// ];
 		// $res = $this->_post($URI, $arg);
 		// $res = $this->assertValidResponse($res, 405);
 		//
 		// // Test strange names
 		// $arg = [
-		// 	'name' => 'UNITEST Section 🐛📒',
+		// 	'name' => 'UNITEST Zone 🐛📒',
 		// 	'type' => 'logical',
 		// ];
 		// $res = $this->_post($URI, $arg);
 		// $res = $this->assertValidResponse($res, 405);
 		//
 		// $arg = [
-		// 	'id' => 'TSTCRE.OTSection6',
+		// 	'id' => 'TSTCRE.OTZONE6',
 		// 	'name' => '0x800000000001',
 		// 	'type' => 'logical',
 		// ];
@@ -110,9 +110,9 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 
 	function test_create_positive()
 	{
-		$name = sprintf('UNITTEST Section CREATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Zone CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/config/section', [
+		$res = $this->_post('/config/zone', [
 			'name' => $name,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -128,7 +128,7 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/config/section?q=UNITTEST');
+		$res = $this->httpClient->get('/config/zone?q=UNITTEST');
 		$res = $this->assertValidResponse($res);
 
 		$this->assertIsArray($res['meta']);
@@ -142,11 +142,11 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_single()
 	{
-		$res = $this->httpClient->get('/config/section/four_zero_four');
+		$res = $this->httpClient->get('/config/zone/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		$obj = $this->_data_stash_get();
-		$res = $this->httpClient->get('/config/section/' . $obj['id']);
+		$res = $this->httpClient->get('/config/zone/' . $obj['id']);
 		$res = $this->assertValidResponse($res);
 
 		// More
@@ -155,10 +155,10 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_update()
 	{
-		$name = sprintf('UNITTEST SECTION CREATE-UPDATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Zone CREATE-UPDATE %06x', $this->_pid);
 
 		$obj = $this->_data_stash_get();
-		$res = $this->_post('/config/section/' . $obj['id'], array(
+		$res = $this->_post('/config/zone/' . $obj['id'], array(
 			'name' => $name,
 		));
 		$res = $this->assertValidResponse($res, 200);
@@ -177,7 +177,7 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_delete()
 	{
-		$res = $this->httpClient->delete('/config/section/four_zero_four');
+		$res = $this->httpClient->delete('/config/zone/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		// Find Early One
@@ -185,14 +185,14 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 		//var_dump($s0);
 
 		// First call to Delete gives 202
-		$res = $this->httpClient->delete('/config/section/' . $obj['id']);
+		$res = $this->httpClient->delete('/config/zone/' . $obj['id']);
 		$this->assertValidResponse($res, 202);
 
 		// Second Call should give 410
-		$res = $this->httpClient->delete('/config/section/' . $obj['id']);
+		$res = $this->httpClient->delete('/config/zone/' . $obj['id']);
 		$this->assertValidResponse($res, 410);
 
-		$res = $this->httpClient->delete('/config/section/' . $obj['id']);
+		$res = $this->httpClient->delete('/config/zone/' . $obj['id']);
 		$this->assertValidResponse($res, 423);
 
 		unlink($this->_tmp_file);
@@ -204,11 +204,11 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 	 */
 	function test_create_g()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
-		$name = sprintf('UNITTEST Section-G CREATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Zone-G CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/config/section', [
+		$res = $this->_post('/config/zone', [
 			'name' => $name,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -220,11 +220,11 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 	 */
 	function test_create_p()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
 
-		$name = sprintf('UNITTEST Section-P CREATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Zone-P CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/config/section', [
+		$res = $this->_post('/config/zone', [
 			'name' => $name,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -235,11 +235,11 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 	 */
 	function test_create_l()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
 
-		$name = sprintf('UNITTEST Section-L CREATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Zone-L CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/config/section', [
+		$res = $this->_post('/config/zone', [
 			'name' => $name,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -250,11 +250,11 @@ class Section extends \Test\Components\OpenTHC_Test_Case
 	 */
 	function test_create_r()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
 
-		$name = sprintf('UNITTEST Section-R CREATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Zone-R CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/config/section', [
+		$res = $this->_post('/config/zone', [
 			'name' => $name,
 		]);
 		$res = $this->assertValidResponse($res, 201);

@@ -15,7 +15,7 @@ CREATE TABLE auth_contact (
 );
 
 
-CREATE TABLE auth_program (
+CREATE TABLE auth_service (
 	id varchar(26) PRIMARY KEY,
 	company_id varchar(26) not null,
 	stat integer not null default 100,
@@ -27,7 +27,7 @@ CREATE TABLE auth_program (
 
 
 
-CREATE TABLE auth_program_secret (
+CREATE TABLE auth_service_ticket (
 	id varchar(26) PRIMARY KEY,
 	program_id varchar(26) not null,
 	code varchar(32) not null
@@ -75,7 +75,7 @@ CREATE TABLE contact (
 );
 
 
-CREATE TABLE program (
+CREATE TABLE service (
 	id varchar(26) PRIMARY KEY,
 	company_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -103,7 +103,7 @@ CREATE TABLE section (
 );
 
 
-CREATE TABLE strain (
+CREATE TABLE variety (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -337,8 +337,9 @@ CREATE TABLE b2b_outgoing_item (
 
 
 CREATE TABLE b2c_sale (
-	id varchar(26) PRIMARY KEY,
+	id varchar(26) DEFAULT ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
+	contact_id varchar(26) NOT NULL,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -351,17 +352,19 @@ CREATE TABLE b2c_sale (
 
 
 CREATE TABLE b2c_sale_item (
-	id varchar(26) PRIMARY KEY,
-	b2c_sale_id varchar(26) not null,
+	id varchar(26) DEFAULT ulid_create() NOT NULL PRIMARY KEY,
+	b2c_sale_id varchar(26) NOT NULL,
 	lot_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
-	qty numeric(16,4) not null,
-	unit_price numeric(12,4) not null,
-	stat int not null DEFAULT 200,
-	flag int not null DEFAULT 0,
+	stat integer DEFAULT 200 NOT NULL,
+	flag integer DEFAULT 0 NOT NULL,
+	sort integer DEFAULT 0 NOT NULL,
 	hash varchar(64) not null,
+	qty numeric(16,4) NOT NULL,
+	uom varchar(8),
+	unit_price numeric(12,4) not null,
 	meta jsonb
 );
 

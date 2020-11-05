@@ -1,16 +1,16 @@
 <?php
 /**
- * Update Strain
+ * Update Variety
  */
 
-namespace App\Controller\Strain;
+namespace App\Controller\Variety;
 
 class Update extends \App\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
 
-		$sql = 'SELECT id, meta FROM strain WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT id, meta FROM variety WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_ENV['license_id'],
 			':g' => $ARG['id'],
@@ -18,7 +18,7 @@ class Update extends \App\Controller\Base
 
 		$chk = $this->_container->DB->fetch_row($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('Strain Not Found [CSU#023]');
+			return $this->send404('Variety Not Found [CSU#023]');
 		}
 
 		// Old Object
@@ -36,7 +36,7 @@ class Update extends \App\Controller\Base
 		$this->_container->DB->query('BEGIN');
 
 		// Update the record
-		$sql = 'UPDATE strain SET name = :n0, hash = :h, meta = :m WHERE id = :g';
+		$sql = 'UPDATE variety SET name = :n0, hash = :h, meta = :m WHERE id = :g';
 		$arg = array(
 			':g' => $ARG['id'],
 			':n0' => trim($_POST['name']),
@@ -46,7 +46,7 @@ class Update extends \App\Controller\Base
 		$this->_container->DB->query($sql, $arg);
 
 		// Log the change
-		$this->logAudit('Strain/Update', $ARG['id'], json_encode($_POST));
+		$this->logAudit('Variety/Update', $ARG['id'], json_encode($_POST));
 
 		$this->_container->DB->query('COMMIT');
 

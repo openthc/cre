@@ -5,14 +5,14 @@ ALTER TABLE ONLY auth_company
 ALTER TABLE ONLY auth_contact
     ADD FOREIGN KEY (id) REFERENCES contact(id);
 
-ALTER TABLE ONLY auth_program
-    ADD FOREIGN KEY (id) REFERENCES program(id);
+ALTER TABLE ONLY auth_service
+    ADD FOREIGN KEY (id) REFERENCES service(id);
 
-ALTER TABLE ONLY auth_program
+ALTER TABLE ONLY auth_service
     ADD FOREIGN KEY (company_id) REFERENCES company(id);
 
-ALTER TABLE ONLY auth_program_secret
-    ADD FOREIGN KEY (program_id) REFERENCES auth_program(id);
+ALTER TABLE ONLY auth_service_ticket
+    ADD FOREIGN KEY (service_id) REFERENCES auth_service(id);
 
 
 ALTER TABLE ONLY license

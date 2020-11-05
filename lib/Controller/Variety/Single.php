@@ -1,15 +1,15 @@
 <?php
 /**
- * Single Strain
+ * Single Variety
  */
 
-namespace App\Controller\Strain;
+namespace App\Controller\Variety;
 
 class Single extends \App\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$sql = 'SELECT * FROM strain WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT * FROM variety WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_ENV['license_id'],
 			':g' => $ARG['id']
@@ -17,7 +17,7 @@ class Single extends \App\Controller\Base
 
 		$rec =$this->_container->DB->fetch_row($sql, $arg);
 		if (empty($rec['id'])) {
-			return $this->send404('Strain Not Found [CSS#020]');
+			return $this->send404('Variety Not Found [CSS#020]');
 		}
 
 		return $RES->withJSON([

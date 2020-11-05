@@ -3,11 +3,7 @@
  * OpenTHC CRE Bootstrap
  */
 
-define('APP_NAME', 'OpenTHC CRE');
-define('APP_SITE', 'https://cre.openthc.dev');
 define('APP_ROOT', __DIR__);
-define('APP_SALT', sha1(APP_NAME . APP_SITE . APP_ROOT));
-define('APP_SALT_SHARE', sha1(APP_NAME . APP_SITE . APP_ROOT . APP_SALT));
 
 error_reporting(E_ALL & ~ E_NOTICE);
 

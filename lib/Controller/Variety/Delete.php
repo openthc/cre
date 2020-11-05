@@ -1,9 +1,9 @@
 <?php
 /**
- * Mark a Strain as Deleted
+ * Mark a Variety as Deleted
  */
 
-namespace App\Controller\Strain;
+namespace App\Controller\Variety;
 
 class Delete extends \App\Controller\Base
 {
@@ -22,31 +22,31 @@ class Delete extends \App\Controller\Base
 		$ret_text = 'Server Error';
 
 		// Find and Update
-		$cur = $dbc->fetchRow('SELECT id, stat FROM strain WHERE license_id = :l AND id = :g FOR UPDATE NOWAIT', $arg);
+		$cur = $dbc->fetchRow('SELECT id, stat FROM variety WHERE license_id = :l AND id = :g FOR UPDATE NOWAIT', $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Strain not Found [CSD#026]');
+			return $this->send404('Variety not Found [CSD#026]');
 		}
 
 		switch ($cur['stat']) {
 		case 200:
 			$ret_code = 202;
-			$ret_text = 'Strain Delete Requested';
-			$chk = $dbc->query('UPDATE strain SET stat = 410 WHERE license_id = :l AND id = :g', $arg);
-			$this->logAudit('Strain/Delete/Create', $ARG['id'], null);
+			$ret_text = 'Variety Delete Requested';
+			$chk = $dbc->query('UPDATE variety SET stat = 410 WHERE license_id = :l AND id = :g', $arg);
+			$this->logAudit('Variety/Delete/Create', $ARG['id'], null);
 			break;
 		case 410:
 			$ret_code = 410;
-			$ret_text = 'Strain Delete Confirmed';
-			$chk = $dbc->query('UPDATE strain SET stat = 423 WHERE license_id = :l AND id = :g', $arg);
-			$this->logAudit('Strain/Delete/Commit', $ARG['id'], null);
+			$ret_text = 'Variety Delete Confirmed';
+			$chk = $dbc->query('UPDATE variety SET stat = 423 WHERE license_id = :l AND id = :g', $arg);
+			$this->logAudit('Variety/Delete/Commit', $ARG['id'], null);
 			break;
 		case 423:
 			$ret_code = 423;
-			$ret_text = 'Strain Locked';
+			$ret_text = 'Variety Locked';
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Strain Status [ZCD#039]');
+			throw new \Exception('Invalid Variety Status [ZCD#039]');
 		}
 
 		$dbc->query('COMMIT');
