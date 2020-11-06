@@ -22,7 +22,7 @@
 		"openthc/common": "dev-master"
 	},
 	"require-dev": {
-		"behat/behat": "3.5.0",
+		"behat/behat": "3.7.0",
 		"php-webdriver/webdriver": "1.8.3",
 		"phpmd/phpmd": "2.9.1",
 		"phpstan/phpstan": "0.12.54",
