@@ -3,21 +3,6 @@
  * @see https://www.postgresql.org/docs/9.1/static/plpgsql-trigger.html
 */
 
-/*
-	Constants used from PGSQL source
-	https://git.postgresql.org/git/postgresql.git/src/include/nodes/nodes.h
-	Command Types
-	typedef enum CmdType
-	{
-		CMD_UNKNOWN, == 0
-		CMD_SELECT, == 1
-		CMD_UPDATE, == 2
-		CMD_INSERT, == 3
-		CMD_DELETE, == 4
-	}
-*/
-
-
 /**
 	Create Log Delta Writer
 */

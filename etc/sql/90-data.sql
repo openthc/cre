@@ -3,61 +3,48 @@
  */
 
 -- system records
-INSERT INTO company (id, stat, hash, name) values ('019KAGVSC05RHV4QAS76VPV6J7',   0, '-', '-system-');
-INSERT INTO license (id, company_id, hash, name) values ('019KAGVX9M1FRBJ7EZQDTMD6JA', '019KAGVSC05RHV4QAS76VPV6J7', '-', '-system-');
-INSERT INTO contact (id, company_id, hash, name) values ('019KAGVX9MQRRV9H0G9N3Q9FMC', '019KAGVSC05RHV4QAS76VPV6J7', '-', '-system-');
-INSERT INTO product (id, license_id,hash,name) values ('019KAGVX9MYDYS8M2FNABNKGV1', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
-INSERT INTO variety (id, license_id, hash,name) values ('019KAGVX9MK1NZWTN7D14F09FC', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
-INSERT INTO section (id, license_id, hash,name) values ('019KAGVX9MYQCNKPGWMCA49EGW', '019KAGVX9M1FRBJ7EZQDTMD6JA', '-', '-system-');
+INSERT INTO company (id, stat, hash, name) VALUES ('018NY6XC00CP00000000000000', 0, '-', '-system-');
+INSERT INTO license (id, company_id, stat, hash, name) VALUES ('018NY6XC00LC00000000000000', '018NY6XC00CP00000000000000', 0, '-', '-system-');
 
+INSERT INTO company (id, stat, hash, name) VALUES ('018NY6XC00CP00000000000001', 0, '-', '-unknown-');
+INSERT INTO license (id, company_id, stat, hash, name) VALUES ('018NY6XC00LC00000000000001', '018NY6XC00CP00000000000001', 0, '-', '-unknown-');
 
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0C474J20SEWDM5XSJ', '-', 'Plant/Seed');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0J008XMJ25DCBK17P', '-', 'Plant/Clone');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0KANK9BMYFS5BDFCB', '-', 'Plant/Plant');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0AT9P3779ATHDK6MC', '-', 'Plant/Tissue');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00CT00000000000000', '018NY6XC00CP00000000000000', '-', '-system-');
 
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC01MVH9QAZ75KEPY4D', '-', 'Raw/Flower');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC05QXA1BCA13PNAK5J', '-', 'Raw/Trim');
--- INSERT INTO product_type (id, hash, name) VALUES ('', '-', 'Flower/Lot');
--- INSERT INTO product_type (id, hash, name) VALUES ('', '-', 'Trim/Raw');
--- INSERT INTO product_type (id, hash, name) VALUES ('', '-', 'Trim/Lot');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT00000000000000', '-', '-system-');
+INSERT INTO product (id, license_id, product_type_id, hash, name) VALUES ('018NY6XC00PR00000000000000', '018NY6XC00LC00000000000000', '018NY6XC00PT00000000000000', '-', '-system-');
 
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0CYZQ68Q2184AE10A', '-', 'Process/Flower');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0W8ESY93TK05TPFKN', '-', 'Process/Trim');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0Q16ECBP02ET3RRMT', '-', 'Process/Mix');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT00000000000001', '-', '-unknown-');
+INSERT INTO product (id, license_id, product_type_id, hash, name) VALUES ('018NY6XC00PR00000000000001', '018NY6XC00LC00000000000001', '018NY6XC00PT00000000000001', '-', '-unknown-');
 
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC06Y7WBPCY2XNHP2FE', '-', 'Process/Extract/CO2');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0K109NHQ92CCKEJW5', '-', 'Process/Extract/Hash');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0VX8100VFN3YXKBYH', '-', 'Process/Extract/Kief');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTY9THKSEQ8NFS1J', '-', 'Plant/Seed');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT3EZZ4GN6105M64', '-', 'Plant/Clone');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTRPPDT8NJY2MWQW', '-', 'Plant/Plant');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT2BKFPCEFB9G1Z2', '-', 'Plant/Tissue');
 
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0WMF1XY879SECK50W', '-', 'Package/Flower');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC03MRD8MDZJXGM5MXF', '-', 'Package/Edible/Liquid');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0QXVE5AC12DCNM6RS', '-', 'Package/Edible/Solid');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0ZHAEQCFNYMXDXWKV', '-', 'Package/Capsule');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC062S4TRBT5FBJW98V', '-', 'Package/Tincture');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC0EFWWVV8DE89JVNTY', '-', 'Package/Transdermal');
-INSERT INTO product_type (id, hash, name) VALUES ('019KAGVSC02549AK0RQWFAMNVB', '-', 'Package/Suppository');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTYM8J81K9HFGEMQ', '-', 'Raw/Grade A');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTGBW49J6YD3WM84', '-', 'Raw/Grade B');
 
--- INSERT INTO product_type (id, hash, name) VALUES ('', '-', 'Package/Tincture');
--- 019KAGVSC0XJFGAZ56F4K9MCBJ
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTAF3TFBB51C8HX6', '-', 'Process/Grade A');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT8ZPGMPR8H2TAXH', '-', 'Process/Grade B');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT63ECNBAZH32YC3', '-', 'Process/Blend');
 
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTR9M5Z9S4T31C4R', '-', 'Process/Extract/CO2');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTACC942KY9DCERR', '-', 'Process/Extract/Hash');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTNPA4TPCYSKD5XN', '-', 'Process/Extract/Kief');
 
--- root program -- for adminstrative API access
-INSERT INTO program (id, company_id, hash, name) VALUES ('019KAGVSC0QPM7X728Z15ZTE37', '019KAGVSC05RHV4QAS76VPV6J7', '-', '-system-');
-INSERT INTO auth_program (id, company_id, code) VALUES ('019KAGVSC0QPM7X728Z15ZTE37', '019KAGVSC05RHV4QAS76VPV6J7', '-system-');
-INSERT INTO auth_program_secret (id, program_id, code) VALUES (ulid_create(), '019KAGVSC0QPM7X728Z15ZTE37', 'system-program-secret');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTGMB39NHCZ8EDEZ', '-', 'Package/Flower');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTSF5NTC899SR0JF', '-', 'Package/Extract');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTGRX4Q9SZBHDA5Z', '-', 'Package/Mixed/Infused');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT7N83PFNCX8ZFEF', '-', 'Package/Edible/Liquid');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTBNDY5VJ8JQ6NKP', '-', 'Package/Edible/Solid');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT25F95HPG583AJB', '-', 'Package/Capsule');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTD9Q4QPFBH0G9H2', '-', 'Package/Tincture');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTHPB8YG56S0MCAC', '-', 'Package/Transdermal');
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PTBJ3G5FDAJN60EX', '-', 'Package/Suppository');
 
+INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PT8AXVZGNZN3A0QT', '-', 'Waste');
 
--- utility records
+INSERT INTO variety (id, license_id, hash, name) VALUES ('018NY6XC00VR00000000000000', '018NY6XC00LC00000000000000', '-', '-system-');
 
--- INSERT INTO company (id, stat, hash, name) VALUES ('019KAGVX9M70EDAH44N1B3JNSM', 200, '-', 'leafdata-import.openthc.com');
--- INSERT INTO auth_company values ('019KAGVX9M70EDAH44N1B3JNSM', 'leafdata-import.openthc.org');
-
--- INSERT INTO company (id, stat, hash, name) values ('', 200, '-', 'biotrack-import.openthc.com');
--- INSERT INTO auth_company values ('', 'biotrack-import.openthc.org');
-
--- INSERT INTO company values ('', 200, '-', 'metrc-import.openthc.com');
--- INSERT INTO auth_company values ('', 'metrc-import.openthc.org');
-
--- INSERT INTO company values ('', 200, '-', 'csv-import.openthc.com');
--- INSERT INTO auth_company values ('', 'csv-import.openthc.org');
+INSERT INTO section (id, license_id, hash, name) VALUES ('018NY6XC00ZN00000000000000', '018NY6XC00LC00000000000000', '-', '-system-');

@@ -29,7 +29,7 @@ CREATE TABLE auth_service (
 
 CREATE TABLE auth_service_ticket (
 	id varchar(26) PRIMARY KEY,
-	program_id varchar(26) not null,
+	service_id varchar(26) not null,
 	code varchar(32) not null
 );
 
@@ -175,15 +175,9 @@ CREATE TABLE lot_family (
 
 CREATE TABLE lot_source (
 	id varchar(26) primary key,
-	lot_id varchar(26) not null references lot(id),
-	source_lot_id varchar(26) references lot(id),
-	source_plant_collect varchar(26) references plant_collect(id)
-);
-
-
-CREATE TABLE lab_result_lot (
-	lab_result_id varchar(26) not null,
-	lot_id varchar(26) not null
+	lot_id varchar(26) not null,
+	source_lot_id varchar(26),
+	source_plant_collect varchar(26)
 );
 
 
@@ -257,6 +251,12 @@ CREATE TABLE lab_result (
 	type varchar(32) not null,
 	name varchar(256) not null,
 	meta jsonb
+);
+
+
+CREATE TABLE lab_result_lot (
+	lab_result_id varchar(26) not null,
+	lot_id varchar(26) not null
 );
 
 
@@ -381,7 +381,7 @@ CREATE TABLE log_alert (
 
 
 CREATE TABLE log_audit (
-	id varchar(26) PRIMARY KEY,
+	id varchar(26) DEFAULT ulid_create() NOT NULL PRIMARY KEY,
 	created_at timestamp with time zone DEFAULT now() not null,
 	pk varchar(26) not null,
 	code varchar(64) not null,
@@ -390,7 +390,7 @@ CREATE TABLE log_audit (
 
 
 CREATE TABLE log_delta (
-	id varchar(26) PRIMARY KEY,
+	id varchar(26) DEFAULT ulid_create() NOT NULL PRIMARY KEY,
 	op char(6) not null,
 	created_at timestamp with time zone DEFAULT now() not null,
 	pk varchar(26),
