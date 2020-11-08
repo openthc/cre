@@ -13,9 +13,9 @@ class Simple extends \OpenTHC\Middleware\Base
 
 		$dbc = $this->_container->DB;
 
-		if (empty($_POST['program'])) {
+		if (empty($_POST['service'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Parameter "program" missing [MAS#017]' ]
+				'meta' => [ 'detail' => 'Parameter "service" missing [MAS#017]' ]
 			], 400);
 		}
 
@@ -32,16 +32,15 @@ class Simple extends \OpenTHC\Middleware\Base
 		}
 
 
-		// Lookup Program
-		$sql = 'SELECT id, company_id FROM auth_program WHERE id = :c';
-		$arg = array(':c' => $_POST['program']);
-		$program_id = $dbc->fetchOne($sql, $arg);
-		if (empty($program_id)) {
+		// Lookup Service
+		$sql = 'SELECT id, company_id FROM auth_service WHERE id = :c';
+		$arg = array(':c' => $_POST['service']);
+		$service_id = $dbc->fetchOne($sql, $arg);
+		if (empty($service_id)) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid "program" [MAS#043]' ]
+				'meta' => [ 'detail' => 'Invalid "service" [MAS#043]' ]
 			], 403);
 		}
-		$_SESSION['program_id'] = $program_id;
 
 
 		// Lookup Company
@@ -72,7 +71,7 @@ class Simple extends \OpenTHC\Middleware\Base
 			], 403);
 		}
 
-		$_SESSION['program_id'] = $program_id;
+		$_SESSION['service_id'] = $service_id;
 		$_SESSION['company_id'] = $company_id;
 		$_SESSION['license_id'] = $L['id'];
 
