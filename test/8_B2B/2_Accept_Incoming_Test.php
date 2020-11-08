@@ -12,7 +12,7 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 
 	function test_accept_g_to_p()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
 
 		$res = $this->httpClient->get($this->_url_path . '/incoming');
 		$res = $this->assertValidResponse($res);
@@ -39,9 +39,9 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 
 	function test_accept_p_to_r()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
 
-		$Z = $this->find_random_section();
+		$Z = $this->find_random_zone();
 
 		$res = $this->httpClient->get($this->_url_path . '/incoming');
 		$res = $this->assertValidResponse($res);
@@ -54,7 +54,7 @@ class Accept_Incoming extends \Test\Components\OpenTHC_Test_Case
 
 		// Post Empty Array to Accept ALL, FULL
 		$res = $this->_post($this->_url_path . '/' . $t0['id'] . '/accept', [
-			'section_id' => $Z['id'],
+			'zone_id' => $Z['id'],
 		]);
 		$res = $this->assertValidResponse($res, 201);
 		// var_dump($res);

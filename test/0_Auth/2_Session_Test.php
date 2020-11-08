@@ -12,7 +12,7 @@ class Session extends \Test\Components\OpenTHC_Test_Case
 	function test_session_create()
 	{
 		$res = $this->_post('/auth/open', [
-			'program' => $_ENV['api-program-a'],
+			'service' => $_ENV['api-service-a'],
 			'company' => $_ENV['api-company-g0'],
 			'license' => $_ENV['api-license-g0']
 		]);
@@ -24,7 +24,7 @@ class Session extends \Test\Components\OpenTHC_Test_Case
 		$this->assertIsArray($res);
 		$this->assertCount(2, $res);
 		$this->assertRegExp('/\w{26,256}/', $res['data']);
-		$this->assertRegExp('/path.+domain.+secure/', $sch);
+		$this->assertRegExp('/^openthc.+path.+secure.+httponly.+samesite/', $sch);
 
 		// Ping It
 		$res = $this->httpClient->get('/auth/ping');
@@ -83,7 +83,7 @@ class Session extends \Test\Components\OpenTHC_Test_Case
 	function test_session_delete()
 	{
 		$res = $this->_post('/auth/open', [
-			'program' => $_ENV['api-program-a'],
+			'service' => $_ENV['api-service-a'],
 			'company' => $_ENV['api-company-g0'],
 			'license' => $_ENV['api-license-g0']
 		]);

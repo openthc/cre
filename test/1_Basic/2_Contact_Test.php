@@ -12,7 +12,7 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	public function test_public_read()
@@ -20,16 +20,16 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
-		$res = $this->httpClient->get('/config/contact');
+		$res = $this->httpClient->get('/contact');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/contact/four_zero_four');
+		$res = $this->httpClient->get('/contact/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/contact/1');
+		$res = $this->httpClient->get('/contact/1');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/contact?' . http_build_query([
+		$res = $this->httpClient->get('/contact?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
 		$this->assertValidResponse($res, 403);
@@ -38,7 +38,7 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_create()
 	{
-		$res = $this->_post('/config/contact', [
+		$res = $this->_post('/contact', [
 			'company' => $_ENV['api-company-g0'],
 			'name' => 'UNITTEST Contact CREATE',
 		]);
@@ -54,31 +54,31 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/config/contact?' . http_build_query([
+		$res = $this->httpClient->get('/contact?' . http_build_query([
 			'q' => 'UNITTEST',
 		]));
 		$res = $this->assertValidResponse($res);
 
 		// Name
-		// $res = $this->httpClient->get('/config/contact/name');
+		// $res = $this->httpClient->get('/contact/name');
 		// $this->assertEquals(200, $res->getStatusCode());
 		//
-		// $res = $this->httpClient->get('/config/contact/name/WeedTraQR');
+		// $res = $this->httpClient->get('/contact/name/WeedTraQR');
 		// $this->assertEquals(200, $res->getStatusCode());
 		// // SQLSTATE[42P01]: Undefined table: 7 ERROR:  relation 'contact' does not exist
 		// // LINE 1: SELECT * FROM contact WHERE guid = $1
 		// // echo($res->getBody()->getContents());die;
 
-		// $res = $this->httpClient->get('/config/contact?' . http_build_query([
+		// $res = $this->httpClient->get('/contact?' . http_build_query([
 		// 	'name' => 'WeedTraQR',
 		// ]));
 		// $this->assertTrue(false);
 
 		// Partial Name
-		// $res = $this->httpClient->get('/config/contact/name/OpenT');
+		// $res = $this->httpClient->get('/contact/name/OpenT');
 		// $this->assertEquals(200, $res->getStatusCode());
 
-		// $res = $this->httpClient->get('/config/contact?' . http_build_query([
+		// $res = $this->httpClient->get('/contact?' . http_build_query([
 		// 	'name' => 'OpenT',
 		// 	]));
 		// $this->assertTrue(false);
@@ -88,10 +88,10 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_single()
 	{
-		$res = $this->httpClient->get('/config/contact/four_zero_four');
+		$res = $this->httpClient->get('/contact/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get('/config/contact/019KAGVX9MQRRV9H0G9N3Q9FMC');
+		$res = $this->httpClient->get('/contact/019KAGVX9MQRRV9H0G9N3Q9FMC');
 		$this->assertValidResponse($res);
 
 	}
@@ -100,7 +100,7 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 	{
 		$obj = $this->_data_stash_get();
 		// var_dump($obj);
-		$res = $this->_post('/config/contact/' . $obj['id'], [
+		$res = $this->_post('/contact/' . $obj['id'], [
 			'name' => 'UNITTEST Contact CREATE-UPDATE'
 		]);
 		$res = $this->assertValidResponse($res);
@@ -145,17 +145,17 @@ class Contact extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_delete()
 	{
-		$res = $this->httpClient->delete('/config/contact/four_zero_four');
+		$res = $this->httpClient->delete('/contact/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		$c0 = $this->_data_stash_get();
 		var_dump($c0);
 
 		// Two Times to Delete?
-		$res = $this->httpClient->delete('/config/contact/' . $c0['id']);
+		$res = $this->httpClient->delete('/contact/' . $c0['id']);
 		$this->assertValidResponse($res, 423);
 
-		$res = $this->httpClient->delete('/config/contact/' . $c0['id']);
+		$res = $this->httpClient->delete('/contact/' . $c0['id']);
 		$this->assertValidResponse($res, 410);
 
 

@@ -10,7 +10,7 @@ class Raw_Net extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	function test_wet_dry_net_200()
@@ -80,7 +80,7 @@ class Raw_Net extends \Test\Components\OpenTHC_Test_Case
 		$arg = [
 			// 'product_id' => '',
 			'strain_id' => $pA['strain_id'],
-			// 'section_id' => $pA['section_id'],
+			// 'zone_id' => $pA['zone_id'],
 			'net' => $net,
 		];
 		// print_r($arg);

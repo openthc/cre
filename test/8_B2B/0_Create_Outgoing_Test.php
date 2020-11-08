@@ -12,7 +12,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 
 	function test_create_deliver_g_to_p()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_target' => $_ENV['api-license-p0'],
@@ -38,7 +38,7 @@ class Create_Outgoing extends \Test\Components\OpenTHC_Test_Case
 
 	function test_create_deliver_p_to_r()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_target' => $_ENV['api-license-r0'],

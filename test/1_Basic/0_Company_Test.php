@@ -10,7 +10,7 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	public function test_public_read()
@@ -18,16 +18,16 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
-		$res = $this->httpClient->get('/config/company');
+		$res = $this->httpClient->get('/company');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/company/four_zero_four');
+		$res = $this->httpClient->get('/company/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/company/1');
+		$res = $this->httpClient->get('/company/1');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/company?' . http_build_query([
+		$res = $this->httpClient->get('/company?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
 		$this->assertValidResponse($res, 403);
@@ -36,9 +36,9 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_create_as_root()
 	{
-		$this->auth($_ENV['api-program-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
-		$res = $this->httpClient->post('/config/company', [ 'form_params' => [
+		$res = $this->httpClient->post('/company', [ 'form_params' => [
 			'name' => 'UNITTEST Company CREATE',
 			'code' => 'CO123456',
 		]]);
@@ -58,16 +58,16 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/config/company');
+		$res = $this->httpClient->get('/company');
 		$res = $this->assertValidResponse($res);
 
 
-		$res = $this->httpClient->get('/config/company?' . http_build_query([
+		$res = $this->httpClient->get('/company?' . http_build_query([
 			'name' => 'system'
 		]));
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/config/company?' . http_build_query([
+		$res = $this->httpClient->get('/company?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
 		$res = $this->assertValidResponse($res);
@@ -83,23 +83,23 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_single()
 	{
-		$res = $this->httpClient->get('/config/company/four_zero_four');
+		$res = $this->httpClient->get('/company/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		// System
-		$res = $this->httpClient->get('/config/company/019KAGVSC05RHV4QAS76VPV6J7');
+		$res = $this->httpClient->get('/company/019KAGVSC05RHV4QAS76VPV6J7');
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/config/company/' . $_ENV['api-company-g0']);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-g0']);
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/config/company/' . $_ENV['api-company-p0']);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-p0']);
 		$this->assertValidResponse($res);
 
-		// $res = $this->httpClient->get('/config/company/' . $_ENV['api-company-l0']);
+		// $res = $this->httpClient->get('/company/' . $_ENV['api-company-l0']);
 		// $this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/config/company/' . $_ENV['api-company-r0']);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-r0']);
 		$this->assertValidResponse($res);
 
 	}
@@ -108,7 +108,7 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 	{
 		$c0 = $this->_data_stash_get();
 
-		$res = $this->_post('/config/company/' . $c0['id'],  [
+		$res = $this->_post('/company/' . $c0['id'],  [
 			'name' => 'UNITTEST Company CREATE-UPDATE',
 		]);
 		$res = $this->assertValidResponse($res);
@@ -122,14 +122,14 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_delete()
 	{
-		$res = $this->httpClient->delete('/config/company/four_zero_four');
+		$res = $this->httpClient->delete('/company/four_zero_four');
 		$this->assertValidResponse($res, 405);
 
 		// do stuff?
-		$res = $this->httpClient->delete('/config/company/' . $_ENV['api-company-g0']);
+		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-g0']);
 		$this->assertValidResponse($res, 405);
 
-		$res = $this->httpClient->delete('/config/company/' . $_ENV['api-company-p0']);
+		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-p0']);
 		$this->assertValidResponse($res, 405);
 
 	}
@@ -137,14 +137,14 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_delete_as_root()
 	{
-		$this->auth($_ENV['api-program-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
-		$res = $this->httpClient->delete('/config/company/four_zero_four');
+		$res = $this->httpClient->delete('/company/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 
 		// Make New Company
-		$res = $this->_post('/config/company', [
+		$res = $this->_post('/company', [
 			'name' => 'UNITTEST Company DELETE',
 			'code' => 'DELETE',
 		]);
@@ -160,7 +160,7 @@ class Company extends \Test\Components\OpenTHC_Test_Case
 		$this->assertNotEmpty($c0['id']);
 
 		// Delete This Company
-		$res = $this->httpClient->delete('/config/company/' . $c0['id']);
+		$res = $this->httpClient->delete('/company/' . $c0['id']);
 		$this->assertValidResponse($res, 405);
 		// $this->assertEquals(405, $res->getStatusCode());
 		// , 'Confirms we cannot delete Company');

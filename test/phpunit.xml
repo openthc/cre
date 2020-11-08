@@ -3,6 +3,8 @@
 	OpenTHC PHPUnit Configuration File
 -->
 <phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 	backupGlobals="false"
 	backupStaticAttributes="false"
 	bootstrap="boot.php"
@@ -12,14 +14,16 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	processIsolation="false"
-	stopOnError="true"
-	stopOnFailure="true"
-	stopOnRisky="true"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnRisky="false"
 	timeoutForSmallTests="1"
 	timeoutForMediumTests="10"
 	timeoutForLargeTests="60"
 	verbose="false"
 	>
+
+	<coverage />
 
 	<php>
 
@@ -28,35 +32,35 @@
 		<env name="api-uri" value="https://cre.openthc.dev/" />
 
 		<!-- root/system accounts -->
-		<env name="api-program-0" value="019KAGVSC0QPM7X728Z15ZTE37" />
-		<env name="api-company-0" value="019KAGVSC05RHV4QAS76VPV6J7" />
-		<env name="api-license-0" value="019KAGVX9M1FRBJ7EZQDTMD6JA" />
+		<env name="api-service-0" value="018NY6XC00QPM7X728Z15ZTE37" />
+		<env name="api-company-0" value="018NY6XC005RHV4QAS76VPV6J7" />
+		<env name="api-license-0" value="018NY6XC001FRBJ7EZQDTMD6JA" />
 
-		<env name="api-program-a" value="019KAGVSC04QR1WM5H86QRCGXG" />
-		<env name="api-program-b" value="" />
-		<env name="api-program-c" value="019KAGVSC0XHVSZMJGXA37B05S" />
+		<env name="api-service-a" value="018NY6XC004QR1WM5H86QRCGXG" />
+		<env name="api-service-b" value="" />
+		<env name="api-service-c" value="018NY6XC00XHVSZMJGXA37B05S" />
 
 		<!-- Farmer / Grower / Producer -->
-		<env name="api-company-g0" value="019KAGVX9M209XSPAMRCXSRYF2" />
-		<env name="api-license-g0" value="019KAGVX9MNVQVXP6A24ND2CBW" />
+		<env name="api-company-g0" value="018NY6XC00209XSPAMRCXSRYF2" />
+		<env name="api-license-g0" value="018NY6XC00NVQVXP6A24ND2CBW" />
 		<env name="api-contact-g0" value="" />
 		<env name="api-license-g0-secret" value="" />
 
 		<!-- Processor / Manufacturer / Distributor -->
-		<env name="api-company-p0" value="019KAGVX9MY0BZDEJFRXBW82T4" />
-		<env name="api-license-p0" value="019KAGVX9MQQS4S9MC1WX5A76G" />
+		<env name="api-company-p0" value="018NY6XC00Y0BZDEJFRXBW82T4" />
+		<env name="api-license-p0" value="018NY6XC00QQS4S9MC1WX5A76G" />
 		<env name="api-contact-p0" value="" />
 		<env name="api-license-p0-secret" value="" />
 
 		<!-- Laboratory -->
-		<env name="api-company-l0" value="019KAGVX9MXFHHT41X08Y6JX23" />
-		<env name="api-license-l0" value="019KAGVX9MMGS6HQZ6787CB92R" />
+		<env name="api-company-l0" value="018NY6XC00XFHHT41X08Y6JX23" />
+		<env name="api-license-l0" value="018NY6XC00MGS6HQZ6787CB92R" />
 		<env name="api-contact-l0" value="" />
 		<env name="api-license-l0-secret" value="" />
 
 		<!-- Retail / Dispensary -->
-		<env name="api-company-r0" value="019KAGVX9MH3QJW8QGE7CXNAAQ" />
-		<env name="api-license-r0" value="019KAGVX9MD60MW90N4GTB75Y1" />
+		<env name="api-company-r0" value="018NY6XC00H3QJW8QGE7CXNAAQ" />
+		<env name="api-license-r0" value="018NY6XC00D60MW90N4GTB75Y1" />
 		<env name="api-contact-r0" value="" />
 		<env name="api-license-r0-secret" value="" />
 
@@ -109,7 +113,7 @@
 	<logging>
 		<!-- <log type="coverage-html" target="../webroot/test-output" /> -->
 		<log type="junit" target="../webroot/test-output/output.xml" />
-		<log type="testdox-html" target="../webroot/test-output/testdox.html" />
+		<!-- <log type="testdox-html" target="../webroot/test-output/testdox.html" /> -->
 	</logging>
 
 </phpunit>

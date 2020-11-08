@@ -141,7 +141,7 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 
 	function find_random_section()
 	{
-		$res = $this->httpClient->get('/config/section');
+		$res = $this->httpClient->get('/section');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));
@@ -184,7 +184,7 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 	{
 		$res = $this->httpClient->post('/auth/open', $body = [
 			'form_params' => [
-				'program' => $p ?: $_ENV['api-program-a'],
+				'service' => $p ?: $_ENV['api-service-a'],
 				'company' => $c ?: $_ENV['api-company-a'],
 				'license' => $l ?: $_ENV['api-license-a'],
 			],

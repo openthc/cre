@@ -7,12 +7,12 @@ namespace Test\Basic;
 
 class Product extends \Test\Components\OpenTHC_Test_Case
 {
-	private $_url_path = '/config/product';
+	private $_url_path = '/product';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	public function test_create()

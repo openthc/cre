@@ -10,19 +10,19 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	public function test_create()
 	{
 		$sl0 = $this->find_random_lot(''); // of type Seed or Clone?
 		$s = $this->find_random_strain();
-		$z = $this->find_random_section();
+		$z = $this->find_random_zone();
 
 		$res = $this->_post('/plant', [
 			'source' => '', // A Lot of Clones, Plants or Seeds
 			'strain' => $s['id'], // A New Strain
-			'section' => $z['id'], // Optional
+			'zone' => $z['id'], // Optional
 			'qty' => 10,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -44,7 +44,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->get('/plant?strain=');
 		$this->assertValidResponse($res, 200);
 
-		$res = $this->httpClient->get('/plant?section=');
+		$res = $this->httpClient->get('/plant?zone=');
 		$this->assertValidResponse($res, 200);
 
 	}

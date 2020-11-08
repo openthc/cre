@@ -10,7 +10,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-c'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+		$this->auth($_ENV['api-service-c'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
 	}
 
 	/**

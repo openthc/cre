@@ -15,7 +15,7 @@ class Lab_Result_Create extends \Test\Components\OpenTHC_Test_Case
 
 	function test_create_sample()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$res = $this->httpClient->get('/lot');
 		$res = $this->assertValidResponse($res);
@@ -74,7 +74,7 @@ class Lab_Result_Create extends \Test\Components\OpenTHC_Test_Case
 
 	function test_create_result()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
 
 
 		$res = $this->httpClient->get('/transfer/incoming');

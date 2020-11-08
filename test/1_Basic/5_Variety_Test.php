@@ -20,16 +20,16 @@ class Variety extends \Test\Components\OpenTHC_Test_Case
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
-		$res = $this->httpClient->get('/config/variety');
+		$res = $this->httpClient->get('/variety');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/variety/four_zero_four');
+		$res = $this->httpClient->get('/variety/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/variety/1');
+		$res = $this->httpClient->get('/variety/1');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/variety?' . http_build_query([
+		$res = $this->httpClient->get('/variety?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
 		$this->assertValidResponse($res, 403);
@@ -40,7 +40,7 @@ class Variety extends \Test\Components\OpenTHC_Test_Case
 	{
 		$name = sprintf('UNITTEST Variety CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/config/variety', [
+		$res = $this->_post('/variety', [
 			'name' => $name,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -57,19 +57,19 @@ class Variety extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/config/variety?q=UNITTEST');
+		$res = $this->httpClient->get('/variety?q=UNITTEST');
 		$res = $this->assertValidResponse($res);
 	}
 
 	public function test_single()
 	{
-		$res = $this->httpClient->get('/config/variety/four_zero_four');
+		$res = $this->httpClient->get('/variety/four_zero_four');
 		$res = $this->assertValidResponse($res, 404);
 
 		// Find Early One
 		$obj = $this->_data_stash_get();
 
-		$res = $this->httpClient->get('/config/variety/' . $obj['id']);
+		$res = $this->httpClient->get('/variety/' . $obj['id']);
 		$res = $this->assertValidResponse($res);
 
 		$this->assertIsArray($res['data']);
@@ -83,7 +83,7 @@ class Variety extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_delete()
 	{
-		$res = $this->httpClient->delete('/config/variety/four_zero_four');
+		$res = $this->httpClient->delete('/variety/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		// Find Early One
@@ -91,14 +91,14 @@ class Variety extends \Test\Components\OpenTHC_Test_Case
 		//var_dump($obj);
 
 		// First call to Delete gives 202
-		$res = $this->httpClient->delete('/config/variety/' . $obj['id']);
+		$res = $this->httpClient->delete('/variety/' . $obj['id']);
 		$this->assertValidResponse($res, 202);
 
 		// Second Call should give 410
-		$res = $this->httpClient->delete('/config/variety/' . $obj['id']);
+		$res = $this->httpClient->delete('/variety/' . $obj['id']);
 		$this->assertValidResponse($res, 410);
 
-		$res = $this->httpClient->delete('/config/variety/' . $obj['id']);
+		$res = $this->httpClient->delete('/variety/' . $obj['id']);
 		$this->assertValidResponse($res, 423);
 
 		unlink($this->_tmp_file);

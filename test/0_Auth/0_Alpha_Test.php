@@ -1,7 +1,7 @@
 <?php
 /**
  * Notes about the Auth module
- * The "program-key" cooresponds to a code that is a company object identifier
+ * The "service-key" cooresponds to a code that is a company object identifier
  * The "license-key" cooresponds to a code that is a license object identifier
  *
  * Licenses can belong to a company in a 1:M way
@@ -46,7 +46,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	{
 		// Fail
 		$res = $this->_post('/auth/open', [
-			'program' => 'garbage-data',
+			'service' => 'garbage-data',
 			'company' => 'garbage-data',
 			'license' => 'garbage-data',
 		]);
@@ -63,7 +63,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	{
 		// TEST COMPANY A
 		$res = $this->_post('/auth/open', [
-			'program' => $_ENV['api-program-a'],
+			'service' => $_ENV['api-service-a'],
 			'company' => $_ENV['api-company-g0'],
 			'license' => $_ENV['api-license-g0']
 		]);
@@ -82,7 +82,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	function test_open_fail_company_license()
 	{
 		$res = $this->_post('/auth/open', [
-			'program' => $_ENV['api-program-a'],
+			'service' => $_ENV['api-service-a'],
 			'company' => $_ENV['api-company-g0'],
 			'license' => $_ENV['api-license-p0']
 		]);

@@ -12,7 +12,7 @@ class Update_Outgoing extends \Test\Components\OpenTHC_Test_Case
 
 	function test_update_deliver_g_to_p()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		// Now Create a G_TO_P Transfer
 		$res = $this->_post($this->_url_path, [
@@ -112,7 +112,7 @@ class Update_Outgoing extends \Test\Components\OpenTHC_Test_Case
 
 	function test_update_deliver_p_to_r()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
 
 		// Now Create a P_TO_R Transfer
 		$res = $this->_post($this->_url_path, [

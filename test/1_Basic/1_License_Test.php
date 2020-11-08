@@ -12,7 +12,7 @@ class License extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 
@@ -21,16 +21,16 @@ class License extends \Test\Components\OpenTHC_Test_Case
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
-		$res = $this->httpClient->get('/config/license');
+		$res = $this->httpClient->get('/license');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/license/four_zero_four');
+		$res = $this->httpClient->get('/license/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/license/1');
+		$res = $this->httpClient->get('/license/1');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/config/license?' . http_build_query([
+		$res = $this->httpClient->get('/license?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
 		$this->assertValidResponse($res, 403);
@@ -41,9 +41,9 @@ class License extends \Test\Components\OpenTHC_Test_Case
 	function test_create_as_root()
 	{
 		// Root Connection
-		$this->auth($_ENV['api-program-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
-		$res = $this->_post('/config/license', [
+		$res = $this->_post('/license', [
 			'company' => $_ENV['api-company-g0'],
 			'name' => 'UNITTEST License CREATE',
 		]);
@@ -57,11 +57,11 @@ class License extends \Test\Components\OpenTHC_Test_Case
 
 	function test_search()
 	{
-		$res = $this->httpClient->get('/config/license');
+		$res = $this->httpClient->get('/license');
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 
-		$res = $this->httpClient->get('/config/license?q=UNITTEST');
+		$res = $this->httpClient->get('/license?q=UNITTEST');
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 
@@ -72,10 +72,10 @@ class License extends \Test\Components\OpenTHC_Test_Case
 
 	function test_single()
 	{
-		$res = $this->httpClient->get('/config/license/four_zero_four');
+		$res = $this->httpClient->get('/license/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get('/config/license/019KAGVX9M1FRBJ7EZQDTMD6JA');
+		$res = $this->httpClient->get('/license/019KAGVX9M1FRBJ7EZQDTMD6JA');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 		$this->assertEquals('-system-', $res['data']['name']);
@@ -87,11 +87,11 @@ class License extends \Test\Components\OpenTHC_Test_Case
 
 	function test_update_as_root()
 	{
-		$this->auth($_ENV['api-program-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
 		$obj = $this->_data_stash_get();
 
-		$res = $this->_post('/config/license/' . $obj['id'], [
+		$res = $this->_post('/license/' . $obj['id'], [
 			'company' => $_ENV['api-company-g0'],
 			'name' => 'UNITTEST License CREATE-UPDATE',
 		]);
@@ -104,11 +104,11 @@ class License extends \Test\Components\OpenTHC_Test_Case
 
 	function test_delete_as_root()
 	{
-		$this->auth($_ENV['api-program-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
 		$obj = $this->_data_stash_get();
 
-		$res = $this->httpClient->delete('/config/license/' . $obj['id']);
+		$res = $this->httpClient->delete('/license/' . $obj['id']);
 		$this->assertValidResponse($res, 405);
 
 	}

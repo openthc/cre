@@ -10,7 +10,7 @@ class Raw_Net_Overage extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	function test_too_much_net()
@@ -31,7 +31,6 @@ class Raw_Net_Overage extends \Test\Components\OpenTHC_Test_Case
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);
-		//
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']);

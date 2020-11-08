@@ -38,7 +38,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	 */
 	public function test_access_auth()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$res = $this->httpClient->get('/lot');
 		$this->assertValidResponse($res);
@@ -50,7 +50,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_create()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
@@ -74,7 +74,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	function test_convert()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
@@ -101,7 +101,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->delete('/lot/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 		$res = $this->httpClient->delete('/lot/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
@@ -112,7 +112,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_search()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$res = $this->httpClient->get('/lot');
 		$this->assertValidResponse($res);
@@ -121,7 +121,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_single_404()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$res = $this->httpClient->get('/lot/four_zero_four');
 		$this->assertValidResponse($res, 404);
@@ -129,7 +129,7 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_update()
 	{
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 
 		$l0 = $this->find_random_lot();
 		$l0['qty'] = floatval($l0['qty']);

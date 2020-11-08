@@ -12,20 +12,20 @@ class Alpha extends \Test\Components\OpenTHC_Test_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-program-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	function test_create()
 	{
 		$p = $this->find_random_product();
 		$s = $this->find_random_strain();
-		$z = $this->find_random_section();
+		$z = $this->find_random_zone();
 
 		$res = $this->_post($this->_url_path, [
 			// 'source' => '', // A Plant
 			'product' => $p['id'],
 			'strain' => $s['id'],
-			'section' => $z['id'],
+			'zone' => $z['id'],
 			'qty' => 1234,
 		]);
 		$res = $this->assertValidResponse($res, 201);
