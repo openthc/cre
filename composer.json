@@ -17,7 +17,6 @@
 		"ext-PDO": "*",
 		"ext-session": "*",
 		"ext-sockets": "*",
-		"casbin/casbin": "1.0.3",
 		"edoceo/radix": "dev-master",
 		"openthc/common": "dev-master"
 	},

@@ -14,11 +14,12 @@
 	\c openthc_cre openthc_cre
 	\i 10-tables.sql
 	\i 20-pk.sql
-	\i 30.fk.sql
+	\i 30-fk.sql
 	\i 40-constraint.sql
 	\i 50-udx.sql
 	\i 60-idx.sql
-	\i 70-trigger.sql
+	\i 70-views.sql
+	\i 80-triggers.sql
 	\i 90-data.sql
 
 ## Configure Apache

@@ -32,9 +32,9 @@
 		<env name="api-uri" value="https://cre.openthc.dev/" />
 
 		<!-- root/system accounts -->
-		<env name="api-service-0" value="018NY6XC00QPM7X728Z15ZTE37" />
-		<env name="api-company-0" value="018NY6XC005RHV4QAS76VPV6J7" />
-		<env name="api-license-0" value="018NY6XC001FRBJ7EZQDTMD6JA" />
+		<env name="api-service-0" value="018NY6XC00SERVICE000000000" />
+		<env name="api-company-0" value="018NY6XC00C0MPANY000000000" />
+		<env name="api-license-0" value="018NY6XC00L1CENSE000000000" />
 
 		<env name="api-service-a" value="018NY6XC004QR1WM5H86QRCGXG" />
 		<env name="api-service-b" value="" />
@@ -111,9 +111,7 @@
 	</testsuites>
 
 	<logging>
-		<!-- <log type="coverage-html" target="../webroot/test-output" /> -->
-		<log type="junit" target="../webroot/test-output/output.xml" />
-		<!-- <log type="testdox-html" target="../webroot/test-output/testdox.html" /> -->
+		<junit outputFile="../webroot/test-output/output.xml" />
 	</logging>
 
 </phpunit>
