@@ -3,7 +3,7 @@
  * Test Section Create/Update/Delete
  */
 
-namespace Test\Basic;
+namespace Test\Core;
 
 class Section extends \Test\Components\OpenTHC_Test_Case
 {

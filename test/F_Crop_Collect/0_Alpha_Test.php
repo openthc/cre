@@ -3,7 +3,7 @@
  *
  */
 
-namespace Test\Plant_Collect;
+namespace Test\Crop_Collect;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
 {

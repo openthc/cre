@@ -3,7 +3,7 @@
  * Test Packaging Functions
  */
 
-namespace Test\Lot_Package;
+namespace Test\Package;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
 {

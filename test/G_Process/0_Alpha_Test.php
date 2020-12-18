@@ -3,7 +3,7 @@
  * Test Lot Processes
  */
 
-namespace Test\Lot_Process;
+namespace Test\Process;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
 {

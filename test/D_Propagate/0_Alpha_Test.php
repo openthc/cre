@@ -3,7 +3,7 @@
  * Tests the inventory section of the API
  */
 
-namespace Test\Lot_Source;
+namespace Test\Propagate;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
 {

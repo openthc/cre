@@ -3,7 +3,7 @@
  *
  */
 
-namespace Test\Basic;
+namespace Test\Core;
 
 class License extends \Test\Components\OpenTHC_Test_Case
 {

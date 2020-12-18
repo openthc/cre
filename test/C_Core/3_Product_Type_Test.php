@@ -3,7 +3,7 @@
  * Make a bunch of different Product of different Types
  */
 
-namespace Test\Basic;
+namespace Test\Core;
 
 class Product_Type extends \Test\Components\OpenTHC_Test_Case
 {

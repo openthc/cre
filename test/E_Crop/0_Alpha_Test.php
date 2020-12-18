@@ -3,7 +3,7 @@
  * Test Plant Stuff
  */
 
-namespace Test\Plant;
+namespace Test\Crop;
 
 class Alpha extends \Test\Components\OpenTHC_Test_Case
 {

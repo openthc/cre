@@ -3,7 +3,7 @@
  *
  */
 
-namespace Test\Plant_Collect;
+namespace Test\Crop_Collect;
 
 class Raw_Raw_Net_Lot extends \Test\Components\OpenTHC_Test_Case
 {
