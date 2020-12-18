@@ -6,19 +6,26 @@
 require_once(dirname(dirname(__FILE__)) . '/boot.php');
 
 $cfg = [];
-$cfg['debug'] = true;
-// 'settings' => [
-// 	'routerCacheFile' => '/tmp/slim-router.cache',
-// ]
+// $cfg['debug'] = true;
+$cfg['settings'] = [];
+// $cfg['settings']['routerCacheFile'] = '/tmp/slim-router.cache';
+
 $app = new \App\Core($cfg);
 $con = $app->getContainer();
+
+if ($cfg['debug']) {
+	unset($con['errorHandler']);
+	unset($con['phpErrorHandler']);
+	unset($con['notFoundHandler']);
+}
+
 
 // Use my Custom Response Object
 class Custom_Response extends \Slim\Http\Response
 {
 	function __construct($c=200, $h=null)
 	{
-		$h = new \Slim\Http\Headers(['Content-Type' => 'text/html; charset=utf-8']);
+		$h = new \Slim\Http\Headers(['content-type' => 'text/html; charset=utf-8']);
 		parent::__construct($c, $h);
 		$this->withProtocolVersion('1.1');
 	}
@@ -26,9 +33,8 @@ class Custom_Response extends \Slim\Http\Response
 	function withJSON($data, $code=null, $flag=null)
 	{
 		if (empty($flag)) {
-			$flag = JSON_NUMERIC_CHECK | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
+			$flag = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
 		}
-		// if (empty($code))
 
 		return parent::withJSON($data, $code, $flag);
 	}
@@ -36,35 +42,33 @@ class Custom_Response extends \Slim\Http\Response
 
 $con['response'] = function($c) {
 	$r = new Custom_Response();
-	// $r = new \Slim\Http\Response(200, $h);
 	return $r;
 };
 
-
-// unset($con['errorHandler']);
-// unset($con['phpErrorHandler']);
-// unset($con['notFoundHandler']);
-// set_error_handler(function ($severity, $message, $file, $line) {
-//     if (!(error_reporting() & $severity)) {
-//         // This error code is not included in error_reporting, so ignore it
-//         return;
-//     }
-//     throw new \ErrorException($message, 0, $severity, $file, $line);
-// });
-
+// Database
 $con['DB'] = function($c) {
-	$cfg = \OpenTHC\Config::get('database_main');
-	$c = sprintf('pgsql:host=%s;dbname=%s', $cfg['hostname'], $cfg['database']);
-	$u = $cfg['username'];
-	$p = $cfg['password'];
-	$dbc = new \Edoceo\Radix\DB\SQL($c, $u, $p);
+
+	$url = getenv('OPENTHC_POSTGRES_URL');
+	$url = parse_url($url);
+	$url['path'] = trim($url['path'], '/');
+
+	$dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], $url['path']);
+	$dbc = new \Edoceo\Radix\DB\SQL($dsn, $url['user'], $url['pass']);
+
 	return $dbc;
 };
 
+// Redis
 $con['Redis'] = function($c) {
-	$cfg = \OpenTHC\Config::get('redis_pubsub');
+
+	$url = getenv('OPENTHC_REDIS_URL');
+	$url = parse_url($url);
+	$url['path'] = intval(trim($url['path'], '/'));
+
 	$red = new \Redis();
-	$red->connect($cfg['hostname']);
+	$red->connect($url['host']);
+	$red->select($url['path']);
+
 	return $red;
 };
 
@@ -72,60 +76,66 @@ $con['Redis'] = function($c) {
 // Authentication
 $app->group('/auth', 'App\Module\Auth')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Global Company Details (License and Contact container)
-$app->group('/config/company', 'App\Module\Company')
-	// Inject from Custom via Magic
+// Global Company
+$app->group('/company', 'App\Module\Company')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Global License Details
-$app->group('/config/license', 'App\Module\License')
+// Global License
+$app->group('/license', 'App\Module\License')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Global Contact Details
-$app->group('/config/contact', 'App\Module\Contact')
+// Global Contact
+$app->group('/contact', 'App\Module\Contact')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
 /*
-	License Specific Data
-*/
+ * Company/License Specific Data
+ */
 
-// Config Strain Details
-$app->group('/config/strain', 'App\Module\Strain')
+// Config Product
+$app->group('/product', 'App\Module\Product')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Config Product Details
-$app->group('/config/product', 'App\Module\Product')
+// Config Variety
+$app->group('/variety', 'App\Module\Variety')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
 // Config Section
-$app->group('/config/section', 'App\Module\Section')
+$app->group('/section', 'App\Module\Section')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
 // Inventory Lot
@@ -133,24 +143,26 @@ $app->group('/lot', 'App\Module\Lot')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Plant
+// Crop
 $app->group('/plant', 'App\Module\Plant')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Plant Collect
+// Crop Collect
 $app->group('/plant-collect', 'App\Module\PlantCollect')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
 	->add('OpenTHC\Middleware\Log\HTTP')
-;
+	;
 
 
 // Lab Samples and Results
@@ -159,30 +171,37 @@ $app->group('/lab', 'App\Module\Lab')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
 	->add('OpenTHC\Middleware\Log\HTTP')
-;
+	;
 
 
-
-// Transfer
+// B2B
 $app->group('/b2b', 'App\Module\Transfer')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// Retail Sale
+// B2C
 $app->group('/b2c', 'App\Module\Sale')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP');
+	->add('OpenTHC\Middleware\Log\HTTP')
+	;
 
 
-// $app->add('App\Middleware\Log\PubSub');
-// $app->add('App\Middleware\IP');
-
+// ULID Generator
 $app->get('/ulid', 'App\Controller\ULID');
+
+
+// Common Middleware
+// $app->add('App\Middleware\Log\PubSub');
+// $app->add('App\Middleware\RateLimit');
+// $app->add('App\Middleware\IP');
+// $app->add('App\Middleware\TestMode');
+
 
 // Custom Middleware?
 $f = sprintf('%s/Custom/boot.php', APP_ROOT);
@@ -193,5 +212,6 @@ if (is_file($f)) {
 
 // And...go!
 $app->run();
+
 
 exit(0);
