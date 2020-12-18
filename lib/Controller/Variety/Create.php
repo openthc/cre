@@ -18,7 +18,7 @@ class Create extends \App\Controller\Base
 			//'type' => $_POST['type'],
 		);
 
-		// Check Strain Record
+		// Check Variety Record
 		$sql = 'SELECT id FROM variety WHERE license_id = :l AND name = :n';
 		$arg = array(
 			':l' => $_ENV['license_id'],

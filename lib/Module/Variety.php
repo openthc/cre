@@ -1,21 +1,21 @@
 <?php
 /**
- * Strain Routes
+ * Variety Routes
  */
 
 namespace App\Module;
 
-class Strain extends \OpenTHC\Module\Base
+class Variety extends \OpenTHC\Module\Base
 {
 	function __invoke($a)
 	{
-		$a->get('', 'App\Controller\Strain\Search');
-		$a->post('', 'App\Controller\Strain\Create');
+		$a->get('', 'App\Controller\Variety\Search');
+		$a->post('', 'App\Controller\Variety\Create');
 
-		$a->get('/{id}', 'App\Controller\Strain\Single');
-		$a->post('/{id}', 'App\Controller\Strain\Update');
+		$a->get('/{id}', 'App\Controller\Variety\Single');
+		$a->post('/{id}', 'App\Controller\Variety\Update');
 
-		$a->delete('/{id}', 'App\Controller\Strain\Delete');
+		$a->delete('/{id}', 'App\Controller\Variety\Delete');
 
 	}
 }
