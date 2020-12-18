@@ -1,16 +1,19 @@
 /**
- * Base Data for an OpenTHC Cannabis Reporting Engine
+ * Base Data for the OpenTHC Cannabis Reporting Engine
  */
 
--- system records
+-- system data
 INSERT INTO company (id, stat, hash, name) VALUES ('018NY6XC00C0MPANY000000000', 0, '-', '-system-');
 INSERT INTO company (id, stat, hash, name) VALUES ('018NY6XC00C0MPANY000000001', 0, '-', '-orphan-');
+INSERT INTO service (id, company_id, stat, hash, name) VALUES ('018NY6XC00SERV1CE000000000', '018NY6XC00C0MPANY000000000', 0, '-', '-system-');
 
 INSERT INTO license (id, company_id, stat, hash, name) VALUES ('018NY6XC00L1CNSE0000000000', '018NY6XC00C0MPANY000000000', 0, '-', '-system-');
 INSERT INTO license (id, company_id, stat, hash, name) VALUES ('018NY6XC00L1CNSE0000000001', '018NY6XC00C0MPANY000000001', 0, '-', '-orphan-');
 
 INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT000000000', '018NY6XC00C0MPANY000000000', '-', '-system-');
 
+
+-- global data
 INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PR0DUCTTYPE00000', '-', '-system-');
 INSERT INTO product_type (id, hash, name) VALUES ('018NY6XC00PR0DUCTTYPE00001', '-', '-orphan-');
 
