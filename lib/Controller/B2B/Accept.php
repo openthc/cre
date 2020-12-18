@@ -3,7 +3,7 @@
  * Accept B2B Sale
  */
 
-namespace App\Controller\Transfer;
+namespace App\Controller\B2B;
 
 class Accept extends \App\Controller\Base
 {
@@ -17,33 +17,70 @@ class Accept extends \App\Controller\Base
 			':l0' => $_ENV['license_id'],
 			':t0' => $ARG['id']
 		);
-		$T = $dbc->fetchRow($sql, $arg);
-		if (empty($T['id'])) {
-			return $this->send404('Transfer Not Found [CTS#020]');
+		$T_incoming = $dbc->fetchRow($sql, $arg);
+
+		// Outgoing Record
+		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_target = :l0 AND id = :t0';
+		$arg = array(
+			':l0' => $_ENV['license_id'],
+			':t0' => $ARG['id'],
+		);
+		$T_outgoing = $dbc->fetchRow($sql, $arg);
+
+		// Got them Both?
+		if (empty($T_incoming['id']) || empty($T_outgoing['id'])) {
+			return $RES->withJSON(array(
+				'meta' => [
+					'detail' => 'B2B Sale Not Found',
+					'incoming' => $T_incoming['id'],
+					'outgoing' => $T_outgoing['id'],
+				],
+				'data' => null
+			), 404);
 		}
-		if (200 != $T['stat']) {
-			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Transfer State [CTA#028]' ],
-				'data' => $T,
-			], 409);
+
+		// Both Active?
+		if ((200 != $T_incoming['stat']) && (200 != $T_outgoing['stat'])) {
+			return $RES->withJSON(array(
+				'meta' => [
+					'detail' => 'Invalid B2B Sale State',
+					'incoming' => $T_incoming['stat'],
+					'outgoing' => $T_outgoing['stat'],
+				],
+				'data' => null
+			), 412);
 		}
 
-		// Copy Items
-		$arg = [
-			':t0' => $T['id'],
-		];
-		$b2b_outgoing_item_list = $dbc->fetchAll('SELECT * FROM b2b_outgoing_item WHERE b2b_outgoing_id = :t0', $arg);
 
-		// $sql = 'SELECT count(id) FROM b2b_outgoing_item WHERE b2b_outgoing_id = ?';
-		// $arg = array($T['id']);
-		// $chk0 = $dbc->fetchOne($sql, $arg);
-		// if (empty($chk0)) {
-		// 	$dbc->query('DELETE FROM b2b_outgoing WHERE id = ?', [ $T['id'] ]);
-		// 	$dbc->query('DELETE FROM b2b_incoming WHERE id = ?', [ $T['id'] ]);
-		// 	return $this->sendError('Transfer has no items [CTU#125]');
-		// }
+		// Verify Source Items
+		$source_item = $dbc->fetchAll('SELECT * FROM b2b_outgoing_item WHERE b2b_outgoing_id = :t0 AND stat = 200', [
+			':t0' => $T_outgoing['id']
+		]);
+		if (0 == count($source_item)) {
+			// Fail
+			return $RES->withJSON(array(
+				'meta' => [
+					'detail' => 'No Source Items',
+				],
+				'data' => null
+			), 412);
+		}
 
-		// Allowed
+		// Verify Target Items
+		$target_item = $dbc->fetchAll('SELECT * FROM b2b_incoming_item WHERE b2b_incoming_id = :t0 AND stat = 200', [
+			':t0' => $T_incoming['id']
+		]);
+		if (0 == count($target_item)) {
+			// Fail
+			return $RES->withJSON(array(
+				'meta' => [
+					'detail' => 'No Target Items',
+				],
+				'data' => $target_item
+			), 412);
+		}
+
+		// Seems Legit
 		$dbc->query('BEGIN');
 
 		$sql = 'UPDATE b2b_outgoing SET stat = 307 WHERE id = ?';
@@ -63,7 +100,7 @@ class Accept extends \App\Controller\Base
 
 		// Copy To b2b_incoming_item
 		// Copy to lot for target license
-		// Change Owner of the Transferred Lots?
+		// Change Owner of the transferred Lots?
 		// Or Assign New Landed Values?
 		foreach ($b2b_outgoing_item_list as $b2b_outgoing_item) {
 
@@ -78,9 +115,9 @@ class Accept extends \App\Controller\Base
 			// ];
 			// $dbc->query($sql, $arg);
 
-			// Copy Strain Details
+			// Copy Variety Details
 			// $st1 = [ 'id' => _ulid() ];
-			// $sql = 'INSERT INTO strain () VALUES (SELECT :st1, :l0, stat, flag, hash, name, meta FROM strain WHERE ';
+			// $sql = 'INSERT INTO variety () VALUES (SELECT :st1, :l0, stat, flag, hash, name, meta FROM variety WHERE ';
 			// $arg = [
 			// 	':l0' => $_ENV['license_id'],
 			// 	':pt0' => $pr0['id'],
@@ -91,7 +128,7 @@ class Accept extends \App\Controller\Base
 				'id' => _ulid(),
 				'license_id' => $_ENV['license_id'],
 				'product_id' => $lot_source['product_id'], // These have to be immutable now
-				'strain_id' => $lot_source['strain_id'], // These have to be immutable now
+				'variety_id' => $lot_source['variety_id'], // These have to be immutable now
 				'section_id' => $Z['id'],
 				'qty' => $b2b_outgoing_item['qty'],
 				'hash' => '-',
@@ -118,13 +155,13 @@ class Accept extends \App\Controller\Base
 
 		$dbc->query('COMMIT');
 
-		return $RES->withJSON([
-			'meta' => [ 'detail' => 'Nothing '],
-			'data' => [
-				'transfer' => $T,
-				'transfer_item' => $b2b_outgoing_item_list,
-			]
-		], 200);
+		$T1 = $dbc->fetchRow('SELECT * FROM b2b_incoming WHERE id = ?', $T_incoming['id']);
+		$T1['item_list'] = $dbc->fetchAll('SELECT * FROM b2b_incoming_item WHERE b2b_incoming_id = ?', $T_incoming['id']);
+
+		return $RES->withJSON(array(
+			'meta' => [],
+			'data' => $T1
+		), 201);
 
 	}
 }

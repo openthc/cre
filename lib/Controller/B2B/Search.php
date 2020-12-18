@@ -1,9 +1,9 @@
 <?php
 /**
- * Transfer Search
+ * B2B Search
  */
 
-namespace App\Controller\Transfer;
+namespace App\Controller\B2B;
 
 class Search extends \App\Controller\Base
 {

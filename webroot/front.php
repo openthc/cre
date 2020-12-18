@@ -175,7 +175,7 @@ $app->group('/lab', 'App\Module\Lab')
 
 
 // B2B
-$app->group('/b2b', 'App\Module\Transfer')
+$app->group('/b2b', 'App\Module\B2B')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
@@ -184,7 +184,7 @@ $app->group('/b2b', 'App\Module\Transfer')
 
 
 // B2C
-$app->group('/b2c', 'App\Module\Sale')
+$app->group('/b2c', 'App\Module\B2C')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')

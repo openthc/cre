@@ -1,9 +1,9 @@
 <?php
 /**
- * Update Transfer
+ * B2B Update
  */
 
-namespace App\Controller\Transfer;
+namespace App\Controller\B2B;
 
 class Update extends \App\Controller\Base
 {
@@ -19,7 +19,7 @@ class Update extends \App\Controller\Base
 		);
 		$T = $dbc->fetchRow($sql, $arg);
 		if (empty($T['id'])) {
-			return $this->send404('Transfer Not Found [CTU#022]');
+			return $this->send404('B2B Sale Not Found [CTU#022]');
 		}
 
 		if ($_ENV['license_id'] == $T['license_id_source']) {
@@ -77,7 +77,7 @@ class Update extends \App\Controller\Base
 				$arg = array($T['id']);
 				$chk0 = $dbc->fetchOne($sql, $arg);
 				if (empty($chk0)) {
-					return $this->sendError('Transfer has no items [CTU#050]');
+					return $this->sendError('B2B Sale has no items [CTU#050]');
 				}
 
 				// Allowed

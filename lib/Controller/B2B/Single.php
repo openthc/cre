@@ -1,9 +1,9 @@
 <?php
 /**
- * Single Transfer
+ * B2B Single
  */
 
-namespace App\Controller\Transfer;
+namespace App\Controller\B2B;
 
 class Single extends \App\Controller\Base
 {
@@ -18,7 +18,7 @@ class Single extends \App\Controller\Base
 		);
 		$T = $dbc->fetchRow($sql, $arg);
 		if (empty($T['id'])) {
-			return $this->send404('Transfer Not Found [CTS#020]');
+			return $this->send404('B2B Sale Not Found [CTS#020]');
 		}
 
 		// Items
