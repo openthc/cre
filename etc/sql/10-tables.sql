@@ -157,6 +157,7 @@ CREATE TABLE lot (
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
 	hash varchar(64) not null,
+	qty numeric(16,4),
 	meta jsonb
 );
 
@@ -192,6 +193,7 @@ CREATE TABLE plant (
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
 	hash varchar(64) not null,
+	qty numeric(16,4),
 	meta jsonb
 );
 
