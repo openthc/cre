@@ -1,7 +1,7 @@
 <?php
 /**
- * Create a B2B owned by the Origin License
- * Create a Global B2B visible to Target License
+ * Create a B2B Sale owned by the Origin License
+ * Create a Global B2B Sale visible to Target License
  */
 
 namespace App\Controller\B2B;
@@ -58,8 +58,8 @@ class Create extends \App\Controller\Base
 		unset($rec_incoming['meta']);
 
 		return $RES->withJSON(array(
+			'data' => $rec_incoming,
 			'meta' => [],
-			'data' => $rec_incoming
 		), 201);
 
 	}

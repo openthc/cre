@@ -30,24 +30,24 @@ class Accept extends \App\Controller\Base
 		// Got them Both?
 		if (empty($T_incoming['id']) || empty($T_outgoing['id'])) {
 			return $RES->withJSON(array(
+				'data' => null,
 				'meta' => [
 					'detail' => 'B2B Sale Not Found',
 					'incoming' => $T_incoming['id'],
 					'outgoing' => $T_outgoing['id'],
 				],
-				'data' => null
 			), 404);
 		}
 
 		// Both Active?
 		if ((200 != $T_incoming['stat']) && (200 != $T_outgoing['stat'])) {
 			return $RES->withJSON(array(
+				'data' => null,
 				'meta' => [
 					'detail' => 'Invalid B2B Sale State',
 					'incoming' => $T_incoming['stat'],
 					'outgoing' => $T_outgoing['stat'],
 				],
-				'data' => null
 			), 412);
 		}
 
@@ -59,10 +59,10 @@ class Accept extends \App\Controller\Base
 		if (0 == count($source_item)) {
 			// Fail
 			return $RES->withJSON(array(
+				'data' => null,
 				'meta' => [
 					'detail' => 'No Source Items',
 				],
-				'data' => null
 			), 412);
 		}
 
@@ -73,10 +73,10 @@ class Accept extends \App\Controller\Base
 		if (0 == count($target_item)) {
 			// Fail
 			return $RES->withJSON(array(
+				'data' => $target_item,
 				'meta' => [
 					'detail' => 'No Target Items',
 				],
-				'data' => $target_item
 			), 412);
 		}
 
@@ -159,8 +159,8 @@ class Accept extends \App\Controller\Base
 		$T1['item_list'] = $dbc->fetchAll('SELECT * FROM b2b_incoming_item WHERE b2b_incoming_id = ?', $T_incoming['id']);
 
 		return $RES->withJSON(array(
+			'data' => $T1,
 			'meta' => [],
-			'data' => $T1
 		), 201);
 
 	}

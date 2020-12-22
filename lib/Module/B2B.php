@@ -24,7 +24,7 @@ class B2B extends \OpenTHC\Module\Base
 
 		// $a->get('/incoming/{id}', 'App\Controller\B2B\Single');
 		// $a->post('/incoming/{id}', 'App\Controller\B2B\Update');
-		//
+
 		// $a->get('/outgoing/{id}', 'App\Controller\B2B\Single');
 		// $a->post('/outgoing/{id}', 'App\Controller\B2B\Update');
 

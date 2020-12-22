@@ -19,7 +19,7 @@ class Update extends \App\Controller\Base
 		);
 		$T = $dbc->fetchRow($sql, $arg);
 		if (empty($T['id'])) {
-			return $this->send404('B2B Sale Not Found [CTU#022]');
+			return $this->send404('B2B Sale not found [CTU-022]');
 		}
 
 		if ($_ENV['license_id'] == $T['license_id_source']) {
@@ -28,7 +28,7 @@ class Update extends \App\Controller\Base
 		// 	return $this->_update_from_target($RES, $T);
 		}
 
-		return $this->sendError('Request Failed [CTU#030]');
+		return $this->sendError('Request Failed [CTU-030]');
 	}
 
 	/*
@@ -62,8 +62,8 @@ class Update extends \App\Controller\Base
 			$dbc->insert('b2b_outgoing_item', $obj_o);
 
 			return $RES->withJSON([
-				'meta' => [],
 				'data' => $obj_o,
+				'meta' => [],
 			], 201);
 
 		}
@@ -77,7 +77,7 @@ class Update extends \App\Controller\Base
 				$arg = array($T['id']);
 				$chk0 = $dbc->fetchOne($sql, $arg);
 				if (empty($chk0)) {
-					return $this->sendError('B2B Sale has no items [CTU#050]');
+					return $this->sendError('B2B Sale has no items [CTU-050]');
 				}
 
 				// Allowed
@@ -96,14 +96,14 @@ class Update extends \App\Controller\Base
 				$chk1 = $dbc->query($sql, $arg);
 
 				if ($chk0 != $chk1) {
-					throw new \Exception("Update Error '$chk0' != '$chk1' [CTU#062]");
+					throw new \Exception("Update Error '$chk0' != '$chk1' [CTU-062]");
 				}
 
 				$dbc->query('COMMIT');
 
 				return $RES->withJSON([
-					'meta' => [],
 					'data' => $T,
+					'meta' => [],
 				], 202);
 
 				break;
@@ -111,7 +111,7 @@ class Update extends \App\Controller\Base
 		}
 
 		// Bad Request
-		return $this->sendError('Bad Request [CTU#104]', 400);
+		return $this->sendError('Bad Request [CTU-104]', 400);
 
 	}
 

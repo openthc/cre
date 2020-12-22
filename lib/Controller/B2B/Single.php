@@ -18,7 +18,7 @@ class Single extends \App\Controller\Base
 		);
 		$T = $dbc->fetchRow($sql, $arg);
 		if (empty($T['id'])) {
-			return $this->send404('B2B Sale Not Found [CTS#020]');
+			return $this->send404('B2B Not Found [CTS-020]');
 		}
 
 		// Items
