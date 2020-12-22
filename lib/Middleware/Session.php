@@ -36,6 +36,7 @@ class Session extends \OpenTHC\Middleware\Base
 		}
 
 		if ($start) {
+
 			session_start();
 
 			// Export from session into $_ENV

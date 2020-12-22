@@ -28,7 +28,6 @@ class PubSub extends \OpenTHC\Middleware\Base
 
 		return $RES;
 
-
 	}
 
 }

@@ -1,7 +1,7 @@
 <?php
 /**
-
-*/
+ * Company
+ */
 
 namespace App\Module;
 

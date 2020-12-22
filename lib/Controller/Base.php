@@ -78,7 +78,7 @@ class Base extends \OpenTHC\Controller\Base
 	}
 
 	/**
-	 * Send and Error Response
+	 * Send an Error Response
 	 */
 	function sendError($e, $c=500)
 	{
