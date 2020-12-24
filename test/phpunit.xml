@@ -10,7 +10,7 @@
 	bootstrap="boot.php"
 	cacheResult="false"
 	colors="true"
-	convertErrorsToExceptions="true"
+	convertErrorsToExceptions="true" 
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	processIsolation="false"
@@ -34,7 +34,7 @@
 		<!-- root/system accounts -->
 		<env name="api-service-0" value="018NY6XC00SERVICE000000000" />
 		<env name="api-company-0" value="018NY6XC00C0MPANY000000000" />
-		<env name="api-license-0" value="018NY6XC00L1CENSE000000000" />
+		<env name="api-license-0" value="018NY6XC00LICENSE000000000" />
 
 		<env name="api-service-a" value="018NY6XC004QR1WM5H86QRCGXG" />
 		<env name="api-service-b" value="" />
@@ -68,44 +68,48 @@
 
 	<testsuites>
 
+		<testsuite name="System">
+			<directory>A_System</directory>
+		</testsuite>
+
 		<testsuite name="Auth">
-			<directory>0_Auth</directory>
+			<directory>B_Auth</directory>
 		</testsuite>
 
-		<testsuite name="Basic">
-			<directory>1_Basic</directory>
+		<testsuite name="Core">
+			<directory>C_Core</directory>
 		</testsuite>
 
-		<testsuite name="Lot-Source">
-			<directory>2_Lot_Source</directory>
+		<testsuite name="Propagate">
+			<directory>D_Propagate</directory>
 		</testsuite>
 
-		<testsuite name="Plant">
-			<directory>3_Plant</directory>
+		<testsuite name="Crop">
+			<directory>E_Crop</directory>
 		</testsuite>
 
-		<testsuite name="Plant-Collect">
-			<directory>4_Plant_Collect</directory>
+		<testsuite name="Crop-Collect">
+			<directory>E_Crop_Collect</directory>
 		</testsuite>
 
-		<testsuite name="Lot-Process">
-			<directory>5_Lot_Process</directory>
+		<testsuite name="Process">
+			<directory>G_Process</directory>
 		</testsuite>
 
 		<testsuite name="Laboratory">
-			<directory>6_Laboratory</directory>
+			<directory>H_Laboratory</directory>
 		</testsuite>
 
-		<testsuite name="Lot-Package">
-			<directory>7_Lot_Package</directory>
+		<testsuite name="I-Package">
+			<directory>I_Package</directory>
 		</testsuite>
 
 		<testsuite name="B2B">
-			<directory>8_B2B</directory>
+			<directory>J_B2B</directory>
 		</testsuite>
 
 		<testsuite name="B2C">
-			<directory>9_B2C</directory>
+			<directory>K_B2C</directory>
 		</testsuite>
 
 	</testsuites>
