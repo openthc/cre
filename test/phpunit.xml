@@ -32,36 +32,36 @@
 		<env name="api-uri" value="https://cre.openthc.dev/" />
 
 		<!-- root/system accounts -->
-		<env name="api-service-0" value="018NY6XC00SERVICE000000000" />
+		<env name="api-service-0" value="018NY6XC00SERV1CE000000000" />
 		<env name="api-company-0" value="018NY6XC00C0MPANY000000000" />
 		<env name="api-license-0" value="018NY6XC00LICENSE000000000" />
 
-		<env name="api-service-a" value="018NY6XC004QR1WM5H86QRCGXG" />
-		<env name="api-service-b" value="" />
-		<env name="api-service-c" value="018NY6XC00XHVSZMJGXA37B05S" />
+		<env name="api-service-a" value="018NY6XC00SERV1CE000000000" />
+		<env name="api-service-b" value="018NY6XC00SERV1CE000000000" />
+		<env name="api-service-c" value="018NY6XC00SERV1CE000000000" />
 
 		<!-- Farmer / Grower / Producer -->
 		<env name="api-company-g0" value="018NY6XC00209XSPAMRCXSRYF2" />
 		<env name="api-license-g0" value="018NY6XC00NVQVXP6A24ND2CBW" />
-		<env name="api-contact-g0" value="" />
+		<env name="api-contact-g0" value="018NY6XC00SWAC5E0AZK1TNKED" />
 		<env name="api-license-g0-secret" value="" />
 
 		<!-- Processor / Manufacturer / Distributor -->
 		<env name="api-company-p0" value="018NY6XC00Y0BZDEJFRXBW82T4" />
 		<env name="api-license-p0" value="018NY6XC00QQS4S9MC1WX5A76G" />
-		<env name="api-contact-p0" value="" />
+		<env name="api-contact-p0" value="018NY6XC00R4QW6XFFHF01ABRM" />
 		<env name="api-license-p0-secret" value="" />
 
 		<!-- Laboratory -->
 		<env name="api-company-l0" value="018NY6XC00XFHHT41X08Y6JX23" />
 		<env name="api-license-l0" value="018NY6XC00MGS6HQZ6787CB92R" />
-		<env name="api-contact-l0" value="" />
+		<env name="api-contact-l0" value="018NY6XC00VQYGR3X21FAZHA5R" />
 		<env name="api-license-l0-secret" value="" />
 
 		<!-- Retail / Dispensary -->
 		<env name="api-company-r0" value="018NY6XC00H3QJW8QGE7CXNAAQ" />
 		<env name="api-license-r0" value="018NY6XC00D60MW90N4GTB75Y1" />
-		<env name="api-contact-r0" value="" />
+		<env name="api-contact-r0" value="018NY6XC00E984HQCWNKJK1Y6D" />
 		<env name="api-license-r0-secret" value="" />
 
 	</php>
