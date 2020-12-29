@@ -19,13 +19,13 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 	{
 		$p = $this->find_random_product();
 		$v = $this->find_random_variety();
-		$z = $this->find_random_zone();
+		$s = $this->find_random_section();
 
 		$res = $this->_post($this->_url_path, [
 			// 'source' => '', // A Plant
 			'product' => $p['id'],
 			'variety' => $v['id'],
-			'zone' => $z['id'],
+			'section' => $s['id'],
 			'qty' => 1234,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -87,7 +87,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->assertValidResponse($res);
 
 		$obj = $res['data'][0];
-		$this->assertCount(14, $obj);
+		$this->assertCount(3, $obj);
 
 		// Good Request
 		$res = $this->httpClient->get($this->_url_path . '/' . $obj['id']);
@@ -98,7 +98,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertIsArray($res['data']);
 
 		$obj = $res['data'];
-		$this->assertCount(14, $obj);
+		$this->assertCount(13, $obj);
 
 	}
 

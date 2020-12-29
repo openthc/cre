@@ -29,7 +29,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertValidResponse($res, 400);
 
 		$res = $this->httpClient->get('/auth/ping');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 200);
 
 		$res = $this->httpClient->post('/auth/ping');
 		$this->assertValidResponse($res, 405);
@@ -55,7 +55,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$this->assertIsArray($res);
 		$this->assertCount(1, $res);
-		$this->assertMatchesRegularExpression('/MAS#043/', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/CAO.098/', $res['meta']['detail']);
 
 	}
 
@@ -90,7 +90,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$this->assertIsArray($res);
 		$this->assertCount(1, $res);
-		$this->assertMatchesRegularExpression('/MAS#077/', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['detail']);
 
 	}
 

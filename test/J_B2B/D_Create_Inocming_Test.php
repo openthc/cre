@@ -7,8 +7,8 @@ namespace Test\J_B2B;
 
 class D_Create_Incoming_Test extends \Test\Components\OpenTHC_Test_Case
 {
-	protected $_tmp_file = '/tmp/unit-test-transfer.json';
 	protected $_url_path = '/b2b';
+	protected $_tmp_file = '/tmp/unit-test-transfer.json';
 
 	function test_create_carrier_p_from_g()
 	{

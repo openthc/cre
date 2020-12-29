@@ -73,9 +73,8 @@ class C_Session_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->get('/auth/ping', [
 			'cookies' => $jar,
 		]);
-		$res = $this->assertValidResponse($res, 403);
-		$this->assertEmpty($res['data']);
-		$this->assertEquals('Invalid Session', $res['meta']['detail']);
+		$res = $this->assertValidResponse($res);
+		$this->assertEmpty($res['data']['sid']);
 
 	}
 
@@ -106,9 +105,8 @@ class C_Session_Test extends \Test\Components\OpenTHC_Test_Case
 
 		// Show it's dead
 		$res = $this->httpClient->get('/auth/ping');
-		$res = $this->assertValidResponse($res, 403);
-		$this->assertEmpty($res['data']);
-		$this->assertEquals('Invalid Session', $res['meta']['detail']);
+		$res = $this->assertValidResponse($res, 200);
+		$this->assertEmpty($res['data']['sid']);
 
 	}
 

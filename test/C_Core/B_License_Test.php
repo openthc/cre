@@ -75,7 +75,7 @@ class B_License_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->get('/license/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get('/license/019KAGVX9M1FRBJ7EZQDTMD6JA');
+		$res = $this->httpClient->get(sprintf('/license/%s', $_ENV['api-license-0']));
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 		$this->assertEquals('-system-', $res['data']['name']);

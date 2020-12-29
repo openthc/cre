@@ -101,7 +101,7 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 
 	function find_random_product()
 	{
-		$res = $this->httpClient->get('/config/product');
+		$res = $this->httpClient->get('/product');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));

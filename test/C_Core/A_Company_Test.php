@@ -87,8 +87,9 @@ class A_Company_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertValidResponse($res, 404);
 
 		// System
-		$res = $this->httpClient->get('/company/018NY6XC00CP00000000000000');
-		$this->assertValidResponse($res);
+		$res = $this->httpClient->get(sprintf('/company/%s', $_ENV['api-company-0']));
+		$res = $this->assertValidResponse($res);
+		$this->assertEquals('-system-', $res['data']['name']);
 
 		$res = $this->httpClient->get('/company/' . $_ENV['api-company-g0']);
 		$this->assertValidResponse($res);
@@ -123,14 +124,14 @@ class A_Company_Test extends \Test\Components\OpenTHC_Test_Case
 	public function test_delete()
 	{
 		$res = $this->httpClient->delete('/company/four_zero_four');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 404);
 
 		// do stuff?
 		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-g0']);
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 405);
 
 		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-p0']);
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 405);
 
 	}
 

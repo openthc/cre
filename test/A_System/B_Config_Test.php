@@ -11,8 +11,8 @@ class B_Config_Test extends \Test\Components\OpenTHC_Test_Case
 		$cfg = \OpenTHC\Config::get('openthc/sso');
 		$this->assertNotEmpty($cfg, 'Missing SSO Config');
 		$this->assertIsArray($cfg);
-		$this->assertArrayHasKey($cfg, 'hostname');
-		$this->assertArrayHasKey($cfg, 'url'); // @deprecated
+		$this->assertArrayHasKey('hostname', $cfg);
+		$this->assertArrayHasKey('url', $cfg);
 
 	}
 }

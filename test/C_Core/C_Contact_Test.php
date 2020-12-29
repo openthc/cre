@@ -91,7 +91,7 @@ class C_Contact_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->get('/contact/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get('/contact/019KAGVX9MQRRV9H0G9N3Q9FMC');
+		$res = $this->httpClient->get(sprintf('/contact/%s', $_ENV['api-contact-0']));
 		$this->assertValidResponse($res);
 
 	}
@@ -149,7 +149,6 @@ class C_Contact_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertValidResponse($res, 404);
 
 		$c0 = $this->_data_stash_get();
-		var_dump($c0);
 
 		// Two Times to Delete?
 		$res = $this->httpClient->delete('/contact/' . $c0['id']);

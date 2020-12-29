@@ -26,7 +26,7 @@ class B_Lab_Result_Create_Test extends \Test\Components\OpenTHC_Test_Case
 
 
 		// Now Send as a Sample to a Laboratory through b2b_transfer
-		$res = $this->_post('/transfer', [
+		$res = $this->_post('/b2b', [
 			'license_id_target' => $_ENV['api-license-l0'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
@@ -41,7 +41,7 @@ class B_Lab_Result_Create_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$l = $this->find_random_lot();
 
-		$url = sprintf('/transfer/%s', $T0['id']);
+		$url = sprintf('/b2b/%s', $T0['id']);
 		$res = $this->_post($url, [
 			'lot_id' => $l['id'],
 			'qty' => 10,
@@ -49,7 +49,7 @@ class B_Lab_Result_Create_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->assertValidResponse($res, 201);
 
 		// Examine Pending Transfer
-		$res = $this->httpClient->get(sprintf('/transfer/%s', $T0['id']));
+		$res = $this->httpClient->get(sprintf('/b2b/%s', $T0['id']));
 		$res = $this->assertValidResponse($res, 200);
 		$T1 = $res['data'];
 		$this->assertIsArray($T1);
@@ -59,7 +59,7 @@ class B_Lab_Result_Create_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertCount(1, $T1['line_item_list']);
 
 		// Commit Transfer
-		$res = $this->_post(sprintf('/transfer/%s', $T0['id']), [ 'status' => 'commit' ]);
+		$res = $this->_post(sprintf('/b2b/%s', $T0['id']), [ 'status' => 'commit' ]);
 		$res = $this->assertValidResponse($res, 202);
 		$T2 = $res['data'];
 		// print_r($T2);
@@ -77,7 +77,7 @@ class B_Lab_Result_Create_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
 
 
-		$res = $this->httpClient->get('/transfer/incoming');
+		$res = $this->httpClient->get('/b2b/incoming');
 		$res = $this->assertValidResponse($res);
 		// var_dump($res);
 
