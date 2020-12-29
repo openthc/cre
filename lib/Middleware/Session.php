@@ -21,6 +21,7 @@ class Session extends \OpenTHC\Middleware\Base
 		} elseif (!empty($_SERVER['HTTP_AUTHORIZATION'])) {
 
 			$x = (preg_match('/^Bearer (.+)$/', $_SERVER['HTTP_AUTHORIZATION'], $m) ? $m[1] : null);
+
 			if (!empty($x)) {
 				session_id($x);
 				$start = true;
@@ -29,6 +30,7 @@ class Session extends \OpenTHC\Middleware\Base
 		} elseif (!empty($_GET['sid'])) {
 
 			$x = (preg_match('/^(\w+)$/', $_GET['sid'], $m) ? $m[1] : null);
+
 			if (!empty($x)) {
 				session_id($x);
 				$start = true;

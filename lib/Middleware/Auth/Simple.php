@@ -13,13 +13,13 @@ class Simple extends \OpenTHC\Middleware\Base
 
 		if (empty($_POST['service'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Parameter "service" missing [MAS-017]' ]
+				'meta' => [ 'detail' => 'Parameter "service" missing [MAS-016]' ]
 			], 400);
 		}
 
 		if (empty($_POST['company'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Parameter "company" missing [MAS-025]' ]
+				'meta' => [ 'detail' => 'Parameter "company" missing [MAS-022]' ]
 			], 400);
 		}
 
