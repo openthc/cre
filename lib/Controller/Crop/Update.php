@@ -1,9 +1,9 @@
 <?php
 /**
- * Update Plant
+ * Update Crop
  */
 
-namespace App\Controller\Plant;
+namespace App\Controller\Crop;
 
 class Update extends \App\Controller\Base
 {
@@ -19,7 +19,7 @@ class Update extends \App\Controller\Base
 
 		$chk = $dbc->fetch_row($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('Plant not found [CPU#022]');
+			return $this->send404('Crop not found [CPU#022]');
 		}
 
 		// Old Object
@@ -45,7 +45,7 @@ class Update extends \App\Controller\Base
 		$this->_container->DB->query($sql, $arg);
 
 		// Log the change
-		$this->logAudit('Plant/Update', $ARG['id'], $meta);
+		$this->logAudit('Crop/Update', $ARG['id'], $meta);
 
 		$this->_container->DB->query('COMMIT');
 

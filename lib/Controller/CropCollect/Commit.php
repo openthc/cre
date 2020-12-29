@@ -1,9 +1,9 @@
 <?php
 /**
- * Commit PlantCollect
+ * Commit CropCollect
  */
 
-namespace App\Controller\PlantCollect;
+namespace App\Controller\CropCollect;
 
 class Commit extends \App\Controller\Base
 {
@@ -70,7 +70,7 @@ class Commit extends \App\Controller\Base
 
 		$pc = $dbc->fetchRow($sql, $arg);
 		if (empty($pc['id'])) {
-			return $this->send404('Plant Collect not found [PCC#024]');
+			return $this->send404('Crop Collect not found [PCC#024]');
 		}
 		if (200 != $pc['stat']) {
 			return $RES->withJSON([
@@ -148,7 +148,7 @@ class Commit extends \App\Controller\Base
 		];
 		$dbc->insert('lot', $lot);
 
-		// Update Plant Collect Record
+		// Update Crop Collect Record
 		$pc['lot_id'] = $lot['id'];
 		$pc['stat'] = 301;
 		$pc['net'] = $pc['net'] + $net;

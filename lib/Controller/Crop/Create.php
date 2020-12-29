@@ -1,9 +1,9 @@
 <?php
 /**
- * Create a Plant owned by a License
+ * Create a Crop owned by a License
  */
 
-namespace App\Controller\Plant;
+namespace App\Controller\Crop;
 
 class Create extends \App\Controller\Base
 {
@@ -13,7 +13,7 @@ class Create extends \App\Controller\Base
 			$_POST['id'] = _ulid();
 		}
 
-		// Plant Record
+		// Crop Record
 		$rec = array(
 			'id' => $_POST['id'],
 			'license_id' => $_ENV['license_id'],
@@ -46,11 +46,11 @@ class Create extends \App\Controller\Base
 		$rec['meta'] = json_encode($_POST);
 		$rec['hash'] = sha1($rec['meta']);
 
-		//$rec = $this->evalObjectScript('Plant/Create', 'Plant', $rec);
+		//$rec = $this->evalObjectScript('Crop/Create', 'Crop', $rec);
 
 		$this->_container->DB->query('BEGIN');
 		$this->_container->DB->insert('plant', $rec);
-		$this->logAudit('Plant/Create', $rec['id'], $_POST);
+		$this->logAudit('Crop/Create', $rec['id'], $_POST);
 		$this->_container->DB->query('COMMIT');
 
 		unset($rec['meta']);

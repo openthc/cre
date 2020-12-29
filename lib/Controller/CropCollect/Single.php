@@ -1,9 +1,9 @@
 <?php
 /**
- * Single PlantCollect
+ * Single CropCollect
  */
 
-namespace App\Controller\PlantCollect;
+namespace App\Controller\CropCollect;
 
 class Single extends \App\Controller\Base
 {
@@ -19,7 +19,7 @@ class Single extends \App\Controller\Base
 
 		$pc0 = $dbc->fetchRow($sql, $arg);
 		if (empty($pc0['id'])) {
-			return $this->send404('Plant Collect not found [CPS#027]');
+			return $this->send404('Crop Collect not found [CPS#027]');
 		}
 
 		$sql = 'SELECT * FROM plant_collect_plant WHERE plant_collect_id = :pc0';
