@@ -119,9 +119,9 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 
 	}
 
-	function find_random_strain()
+	function find_random_variety()
 	{
-		$res = $this->httpClient->get('/config/strain');
+		$res = $this->httpClient->get('/variety');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));

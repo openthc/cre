@@ -10,7 +10,7 @@
 	bootstrap="boot.php"
 	cacheResult="false"
 	colors="true"
-	convertErrorsToExceptions="true" 
+	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	processIsolation="false"
@@ -34,7 +34,7 @@
 		<!-- root/system accounts -->
 		<env name="api-service-0" value="018NY6XC00SERV1CE000000000" />
 		<env name="api-company-0" value="018NY6XC00C0MPANY000000000" />
-		<env name="api-license-0" value="018NY6XC00LICENSE000000000" />
+		<env name="api-license-0" value="018NY6XC00L1CENSE000000000" />
 
 		<env name="api-service-a" value="018NY6XC00SERV1CE000000000" />
 		<env name="api-service-b" value="018NY6XC00SERV1CE000000000" />
