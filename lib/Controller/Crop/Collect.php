@@ -14,7 +14,7 @@
 
 		if (empty($ARG['id'])) {
 			return $RES->withJSON([
-				'data' => [],
+				'data' => null,
 				'meta' => [
 					'detail' => 'Argument Not Provided [CPC#017]',
 				]
@@ -23,7 +23,7 @@
 
 		if (empty($_POST['type'])) {
 			return $RES->withJSON([
-				'data' => [],
+				'data' => null,
 				'meta' => [
 					'detail' => 'Argument Not Provided [CPC#028]',
 				]
@@ -32,7 +32,7 @@
 
 		if (!in_array($_POST['type'], [ 'raw', 'wet', 'dry', 'net'])) {
 			return $RES->withJSON([
-				'data' => [],
+				'data' => null,
 				'meta' => [
 					'detail' => 'Argument Not Valid [CPC#037]',
 				]

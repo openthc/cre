@@ -63,7 +63,6 @@ class Delete extends \App\Controller\Base
 		}
 
 		$dbc->query('COMMIT');
-
 		return $RES->withJSON($ret_data, $ret_code);
 
 	}

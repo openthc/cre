@@ -18,10 +18,10 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->httpClient->post('/auth/shut');
 		$res = $this->assertValidResponse($res, 200);
 
-		$res = $this->httpClient->get('/plant');
+		$res = $this->httpClient->get('/crop');
 		$res = $this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/plant/four_zero_four');
+		$res = $this->httpClient->get('/crop/four_zero_four');
 		$res = $this->assertValidResponse($res, 403);
 
 	}
@@ -29,7 +29,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 	public function test_collect_one_wet()
 	{
 		$p = $this->find_random_plant();
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'wet',
 			'qty' => 1234.56,
@@ -52,7 +52,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$p = $this->find_random_plant();
 		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'wet',
 			'qty' => 1234.56,
@@ -64,7 +64,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$p = $this->find_random_plant();
 		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'wet',
 			'qty' => 1234.56,
@@ -80,7 +80,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$p = $this->find_random_plant();
 		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'dry',
 			'qty' => 1234.56,
@@ -99,7 +99,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$p = $this->find_random_plant();
 		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'net',
 			'qty' => 1234.56,
@@ -124,7 +124,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$p = $this->find_random_plant();
 		$this->assertNotempty($p['id']);
 
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'type' => 'net',
 			'qty' => 1234.56,
@@ -133,7 +133,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$res = $this->_post($url, $arg);
 		$this->assertValidResponse($res, 201);
 
-		$url = sprintf('/plant/%s/collect', $p['id']);
+		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'lot_id' => $p['id'],
 			'type' => 'net',

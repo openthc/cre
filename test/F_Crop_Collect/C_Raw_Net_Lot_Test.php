@@ -38,7 +38,7 @@ class C_Raw_Net_Lot_Test extends \Test\Components\OpenTHC_Test_Case
 		// $this->assertEquals($pcA['id'], $pc3['id']);
 
 		// Get Collect Object
-		$res = $this->httpClient->get('/plant-collect/' . $pcA['id']);
+		$res = $this->httpClient->get('/crop-collect/' . $pcA['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertCount(2, $res);
 
@@ -50,7 +50,7 @@ class C_Raw_Net_Lot_Test extends \Test\Components\OpenTHC_Test_Case
 
 
 		$PR0 = $this->find_random_product();
-		$url = sprintf('/plant-collect/%s/commit', $pcA['id']);
+		$url = sprintf('/crop-collect/%s/commit', $pcA['id']);
 		$arg = [
 			'product_id' => $PR0['id'],
 			'variety_id' => $pA['variety_id'],

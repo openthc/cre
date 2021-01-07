@@ -76,7 +76,7 @@ $con['Redis'] = function($c) {
 // Authentication
 $app->group('/auth', 'App\Module\Auth')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -85,7 +85,7 @@ $app->group('/company', 'App\Module\Company')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -94,7 +94,7 @@ $app->group('/license', 'App\Module\License')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -103,7 +103,7 @@ $app->group('/contact', 'App\Module\Contact')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -116,7 +116,7 @@ $app->group('/product', 'App\Module\Product')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -125,7 +125,7 @@ $app->group('/variety', 'App\Module\Variety')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -134,7 +134,7 @@ $app->group('/section', 'App\Module\Section')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -143,25 +143,25 @@ $app->group('/lot', 'App\Module\Lot')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Crop
-$app->group('/plant', 'App\Module\Plant')
+$app->group('/crop', 'App\Module\Crop')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Crop Collect
-$app->group('/plant-collect', 'App\Module\PlantCollect')
+$app->group('/crop-collect', 'App\Module\CropCollect')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -170,7 +170,7 @@ $app->group('/lab', 'App\Module\Lab')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -179,7 +179,7 @@ $app->group('/b2b', 'App\Module\B2B')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -188,7 +188,7 @@ $app->group('/b2c', 'App\Module\B2C')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 

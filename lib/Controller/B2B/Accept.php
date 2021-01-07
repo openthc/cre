@@ -51,6 +51,28 @@ class Accept extends \App\Controller\Base
 			), 412);
 		}
 
+		// Valid other Attributes
+		$key_list = [
+			'license_id_source',
+			'license_id_target',
+			'stat',
+			'flag',
+		];
+		// foreach ($key_list as $k) {
+		// }
+		// if ((200 != $T_incoming['stat']) && (200 != $T_outgoing['stat'])) {
+		// 	return $RES->withJSON(array(
+		// 		'meta' => [
+		// 			'detail' => 'Invalid Transfer State',
+		// 			'incoming' => $T_incoming['stat'],
+		// 			'outgoing' => $T_outgoing['stat'],
+		// 		],
+		// 		'data' => null
+		// 	), 412);
+		// }
+
+		// I'm the Receiver?
+		// if (licnese == license)
 
 		// Verify Source Items
 		$source_item = $dbc->fetchAll('SELECT * FROM b2b_outgoing_item WHERE b2b_outgoing_id = :t0 AND stat = 200', [
@@ -83,28 +105,20 @@ class Accept extends \App\Controller\Base
 		// Seems Legit
 		$dbc->query('BEGIN');
 
-		$sql = 'UPDATE b2b_outgoing SET stat = 307 WHERE id = ?';
-		$arg = array($T['id']);
-		$dbc->query($sql, $arg);
+		// If qty_rx == qty_tx then stat = 307
+		// update b2b_incoming_item  SET stat = 307, qty = $Q0
+		// update b2b_outgoing_item SET stat = 307
 
-		$sql = 'UPDATE b2b_incoming SET stat = 202 WHERE id = ?';
-		$arg = array($T['id']);
-		$dbc->query($sql, $arg);
+		// if qty_rx != qty_tx then stat = 307
+		// update b2b_incoming_item SET stat = 302, lot_id = new Lot(), qty = $Q1
+		// update b2b_outgoing_item SET stat = 307
 
-		$T['stat'] = 307;
-		$T['b2b_incoming_stat'] = 202;
-		$T['b2b_outgoing_stat'] = 307;
+		// Mark All Items as Fully Received
+		foreach ($source_item as $src) {
 
-		$Z = [];
-		$Z['id'] = $_POST['section_id'];
-
-		// Copy To b2b_incoming_item
-		// Copy to lot for target license
-		// Change Owner of the transferred Lots?
-		// Or Assign New Landed Values?
-		foreach ($b2b_outgoing_item_list as $b2b_outgoing_item) {
-
-			$lot_source = $dbc->fetchRow('SELECT * FROM lot WHERE id = :l1', [ ':l1' => $b2b_outgoing_item['lot_id'] ]);
+			$lo0 = $dbc->fetchRow('SELECT * FROM lot WHERE id = ?', $src['lot_id']);
+			$pr0 = $dbc->fetchRow('SELECT * FROM product WHERE id = ?', $lo0['product_id']);
+			$st0 = $dbc->fetchRow('SELECT * FROM variety WHERE id = ?', $lo0['variety_id']);
 
 			// Copy Product Details
 			// $pr1 = [ 'id' => _ulid() ];
@@ -124,34 +138,35 @@ class Accept extends \App\Controller\Base
 			// ];
 			// $dbc->query($sql, $arg);
 
-			$lot_target = [
-				'id' => _ulid(),
-				'license_id' => $_ENV['license_id'],
-				'product_id' => $lot_source['product_id'], // These have to be immutable now
-				'variety_id' => $lot_source['variety_id'], // These have to be immutable now
-				'section_id' => $Z['id'],
-				'qty' => $b2b_outgoing_item['qty'],
-				'hash' => '-',
-			];
+			$lot1 = [];
+			$lot1['id'] = _ulid();
+			$lot1['license_id'] = $T_incoming['license_id_target'];
+			$lot1['product_id'] = $pr0['id'];
+			$lot1['variety_id'] = $st0['id'];
+			$lot1['section_id'] = '01DZ7JJS2KAHRQWRS7V40X0X94';
+			$lot1['hash'] = '-';
+			$lot1['name'] = $lo0['name'];
+			$lot1['qty'] = $src['qty'];
+			$dbc->insert('lot', $lot1);
 
-			$b2b_incoming_item = [
-				'id' => $b2b_outgoing_item['id'],
-				'b2b_incoming_id' => $T['id'],
-				'lot_id' => $lot_target['id'],
-				'stat' => 200,
-				'flag' => 0,
-				'hash' => '-',
-				'name' => $lot_source['name'],
-				'qty' => $b2b_outgoing_item['qty'],
+			$sql = 'UPDATE b2b_incoming_item SET lot_id = :l1, qty = :q0, stat = 307 WHERE id = :s0';
+			$arg = [
+				':s0' => $src['id'],
+				':l1' => $lot1['id'],
+				':q0' => $lot1['qty'],
 			];
-			if (empty($b2b_incoming_item['name'])) {
-				$b2b_incoming_item['name'] = '-unknown-';
-			}
-
-			$dbc->insert('lot', $lot_target);
-			$dbc->insert('b2b_incoming_item', $b2b_incoming_item);
+			$dbc->query($sql, $arg);
 
 		}
+
+		// Update Transfer Status
+		$sql = 'UPDATE b2b_incoming SET stat = 307 WHERE id = ?';
+		$arg = array($T_incoming['id']);
+		$dbc->query($sql, $arg);
+
+		$sql = 'UPDATE b2b_outgoing SET stat = 307 WHERE id = ?';
+		$arg = array($T_outgoing['id']);
+		$dbc->query($sql, $arg);
 
 		$dbc->query('COMMIT');
 

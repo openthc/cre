@@ -67,7 +67,7 @@ class Update extends \App\Controller\Base
 		$dbc->query($sql, $arg);
 
 		// Log the change
-		$this->logAudit('Lot/Update', $chk['id'], $meta);
+		$this->logAudit('Lot/Update', $ARG['id'], $meta);
 
 		$dbc->query('COMMIT');
 

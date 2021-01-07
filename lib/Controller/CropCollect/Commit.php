@@ -15,7 +15,7 @@ class Commit extends \App\Controller\Base
 		if (empty($_POST['variety_id'])) {
 			return $RES->withJSON([
 				'meta' => [ 'detail' => 'Commit Requires Variety [PCC#016]' ],
-				'data' => [],
+				'data' => null,
 			], 400);
 		}
 

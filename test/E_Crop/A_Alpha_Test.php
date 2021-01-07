@@ -1,6 +1,6 @@
 <?php
 /**
- * Test Plant Stuff
+ * Test crop Stuff
  */
 
 namespace Test\E_Crop;
@@ -19,8 +19,8 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		$v = $this->find_random_variety();
 		$s = $this->find_random_section();
 
-		$res = $this->_post('/plant', [
-			'source' => '', // A Lot of Clones, Plants or Seeds
+		$res = $this->_post('/crop', [
+			'source' => '', // A Lot of Clones, crops or Seeds
 			'variety' => $v['id'], // A New Variety
 			'section' => $s['id'], // Optional
 			'qty' => 10,
@@ -37,14 +37,14 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/plant');
+		$res = $this->httpClient->get('/crop');
 		$this->assertValidResponse($res, 200);
 
 
-		$res = $this->httpClient->get('/plant?variety=');
+		$res = $this->httpClient->get('/crop?variety=');
 		$this->assertValidResponse($res, 200);
 
-		$res = $this->httpClient->get('/plant?section=');
+		$res = $this->httpClient->get('/crop?section=');
 		$this->assertValidResponse($res, 200);
 
 	}
@@ -52,22 +52,22 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 	public function test_single()
 	{
 		// 404
-		$res = $this->httpClient->get('/plant/four_zero_four');
+		$res = $this->httpClient->get('/crop/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		// // NAME
-		// $res = $this->httpClient->get('/plant/name/WeedTraQR');
+		// $res = $this->httpClient->get('/crop/name/WeedTraQR');
 		// $this->assertEquals(200, $res->getStatusCode());
 		//
-		// $res = $this->httpClient->get('/plant?' . http_build_query([
+		// $res = $this->httpClient->get('/crop?' . http_build_query([
 		// 	'name' => 'WeedTraQR'
 		// ]));
 		//
 		// // Partial Name
-		// $res = $this->httpClient->get('/plant/name/WeedTra');
+		// $res = $this->httpClient->get('/crop/name/WeedTra');
 		// $this->assertEquals(200, $res->getStatusCode());
 		//
-		// $res = $this->httpClient->get('/plant?' . http_build_query([
+		// $res = $this->httpClient->get('/crop?' . http_build_query([
 		// 	'name' => 'WeedTra'
 		// ]));
 		// $this->assertTrue(false);
@@ -77,11 +77,11 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 	{
 		// The one we recently created
 		$obj = $this->_data_stash_get();
-		$res = $this->httpClient->get('/plant/' . $obj['id']);
+		$res = $this->httpClient->get('/crop/' . $obj['id']);
 		$res = $this->assertValidResponse($res);
 
-		$this->_post('/plant/' . $obj['id'], [
-			'name' => 'UNITTEST Plant CREATE-UPDATE',
+		$this->_post('/crop/' . $obj['id'], [
+			'name' => 'UNITTEST crop CREATE-UPDATE',
 		]);
 
 	}
@@ -89,18 +89,18 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 	function test_delete()
 	{
 		// 404
-		$res = $this->httpClient->delete('/plant/four_zero_four');
+		$res = $this->httpClient->delete('/crop/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		// $obj = $this->_data_stash_get();
 		//
-		// $res = $this->httpClient->delete('/plant/' . $obj['id']);
+		// $res = $this->httpClient->delete('/crop/' . $obj['id']);
 		// $this->assertValidResponse($res, 202, 'fdafdas');
 		//
-		// $res = $this->httpClient->delete('/plant/' . $obj['id']);
+		// $res = $this->httpClient->delete('/crop/' . $obj['id']);
 		// $this->assertValidResponse($res, 410);
 		//
-		// $res = $this->httpClient->delete('/plant/' . $obj['id']);
+		// $res = $this->httpClient->delete('/crop/' . $obj['id']);
 		// $this->assertValidResponse($res, 423);
 
 
@@ -109,21 +109,21 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 }
 
 
-// public function testPlant()
+// public function testcrop()
 // {
 // 	/**
 // 	 * Unauthenticated Tests
 // 	 */
-// 	$response = $this->httpClient->get('/plant');
+// 	$response = $this->httpClient->get('/crop');
 // 	$this->assertEquals(403, $response->getStatusCode());
 //
-// 	$response = $this->httpClient->get('/plant/FourOhFour');
+// 	$response = $this->httpClient->get('/crop/FourOhFour');
 // 	$this->assertEquals(403, $response->getStatusCode());
 //
-// 	$response = $this->httpClient->get('/plant/1');
+// 	$response = $this->httpClient->get('/crop/1');
 // 	$this->assertEquals(403, $response->getStatusCode());
 //
-// 	$response = $this->httpClient->get('/plant?' . http_build_query([
+// 	$response = $this->httpClient->get('/crop?' . http_build_query([
 // 		'guid' => '1',
 // 	]));
 // 	$this->assertEquals(403, $response->getStatusCode());
@@ -132,16 +132,16 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 // 	 * Authenticated Tests
 // 	 */
 // 	$this->auth('user', 'pass');
-// 	$response = $this->httpClient->get('/plant');
+// 	$response = $this->httpClient->get('/crop');
 // 	$this->assertEquals(200, $response->getStatusCode());
 //
-// 	$response = $this->httpClient->get('/plant/FourOhFour');
+// 	$response = $this->httpClient->get('/crop/FourOhFour');
 // 	$this->assertEquals(404, $response->getStatusCode());
 //
-// 	$response = $this->httpClient->get('/plant/1');
+// 	$response = $this->httpClient->get('/crop/1');
 // 	$this->assertEquals(200, $response->getStatusCode());
 //
-// 	$response = $this->httpClient->get('/plant?' . http_build_query([
+// 	$response = $this->httpClient->get('/crop?' . http_build_query([
 // 		'guid' => '1'
 // 	]));
 // 	$this->assertEquals(200, $response->getStatusCode());

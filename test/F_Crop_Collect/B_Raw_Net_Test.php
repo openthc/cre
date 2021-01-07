@@ -24,7 +24,7 @@ class B_Raw_Net_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect A
-		$url = sprintf('/plant/%s/collect', $pA['id']);
+		$url = sprintf('/crop/%s/collect', $pA['id']);
 		$arg = [
 			'type' => 'raw',
 			'qty' => 1234.56,
@@ -41,7 +41,7 @@ class B_Raw_Net_Test extends \Test\Components\OpenTHC_Test_Case
 
 
 		// Collect A-2
-		$url = sprintf('/plant/%s/collect', $pA['id']);
+		$url = sprintf('/crop/%s/collect', $pA['id']);
 		$arg = [
 			'plant_collect_id' => $pcA['id'],
 			'type' => 'raw',
@@ -60,7 +60,7 @@ class B_Raw_Net_Test extends \Test\Components\OpenTHC_Test_Case
 
 		// Now this Plant Collect Group / Production Run is Together
 		// And we can see it?
-		$res = $this->httpClient->get('/plant-collect/' . $pcA['id']);
+		$res = $this->httpClient->get('/crop-collect/' . $pcA['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']); //
@@ -76,7 +76,7 @@ class B_Raw_Net_Test extends \Test\Components\OpenTHC_Test_Case
 		$raw = 1234.56 + 2345.67;
 		$net = $raw * 0.25;
 
-		$url = sprintf('/plant-collect/%s/commit', $pcA['id']);
+		$url = sprintf('/crop-collect/%s/commit', $pcA['id']);
 		$arg = [
 			// 'product_id' => '',
 			'variety_id' => $pA['variety_id'],

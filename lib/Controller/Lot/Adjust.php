@@ -33,6 +33,7 @@ class Adjust extends \App\Controller\Base
 
 		return $RES->withJSON([
 			'meta' => [ 'detail' => 'Lot Adjusted' ],
+			'data' => null
 		], 202);
 
 	}

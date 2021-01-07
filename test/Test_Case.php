@@ -52,12 +52,11 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 
 		$ret = \json_decode($this->raw, true);
 
-		$this->assertIsArray($ret);
-		// $this->assertArrayHasKey('data', $ret);
-		// $this->assertArrayHasKey('meta', $ret);
-
 		$this->assertArrayNotHasKey('status', $ret);
 		$this->assertArrayNotHasKey('result', $ret);
+		$this->assertArrayHasKey('data', $ret);
+		$this->assertArrayHasKey('meta', $ret);
+		$this->assertIsArray($ret['meta']);
 
 		return $ret;
 	}
@@ -79,7 +78,7 @@ class OpenTHC_Test_Case extends \PHPUnit\Framework\TestCase
 
 	function find_random_plant($c=1)
 	{
-		$res = $this->httpClient->get('/plant');
+		$res = $this->httpClient->get('/crop');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));

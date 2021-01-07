@@ -15,7 +15,7 @@ class Delete extends \App\Controller\Base
 		// If you're not root, deny
 		// @todo replace with acl
 		if ('018NY6XC00SERV1CE000000000' != $_SESSION['service_id']) {
-			return $RES->withJSON([ 'meta' => [ 'detail' => 'Not Allowed [CCD-018]' ]], 403);
+			return $RES->withJSON([ 'meta' => [ 'detail' => 'Not Allowed [CCD-018]' ], 'data' => null], 403);
 		}
 
 		// Lookup
@@ -30,6 +30,7 @@ class Delete extends \App\Controller\Base
 		// But Deny Anyway
 		return $RES->withJSON([
 			'meta' => [ 'detail' => 'Not Allowed [CCD-032]'],
+			'data' => null
 		], 405);
 
 	}

@@ -9,8 +9,6 @@ namespace App\Controller;
 
 class ULID extends \App\Controller\Base
 {
-	const PREFIX_LENGTH_MAX = 12;
-
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$t_want = $_GET['t'];
@@ -33,15 +31,19 @@ class ULID extends \App\Controller\Base
 			}
 		}
 
-		$ulid = \Edoceo\Radix\ULID::create($t_make);
+		// _exit_text($t_make);
+
+		$ulid = \Edoceo\Radix\ULID::generate($t_make);
 
 		$t = substr($ulid, 0, 10);
 		$r = substr($ulid, 10);
 
 		if (!empty($p_want)) {
-
-			$p_want = substr($p_want, 0, self::PREFIX_LENGTH_MAX);
 			$p_size = strlen($p_want);
+			if ($p_size > 8) {
+				$p_want = substr($p_want, 0, 8);
+				$p_size = 8;
+			}
 
 			$r = substr($r, $p_size);
 			$r = $p_want . $r;

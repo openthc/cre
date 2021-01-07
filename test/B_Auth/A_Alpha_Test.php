@@ -55,7 +55,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$this->assertIsArray($res);
 		$this->assertCount(1, $res);
-		$this->assertMatchesRegularExpression('/CAO.098/', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/MAS.039/', $res['meta']['detail']);
 
 	}
 
@@ -90,7 +90,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$this->assertIsArray($res);
 		$this->assertCount(1, $res);
-		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/MAS.068/', $res['meta']['detail']);
 
 	}
 
