@@ -1,0 +1,175 @@
+:toc: left
+:doctype: book
+:source-highlighter: pygments
+:pygments-style: rainbow_dash
+:icons: font
+
+
+= OpenTHC Compliance Reporting Engine *CRE*
+
+The OpenTHC Cannabis/Compliance Reporting Engine is the core component of OpenTHC for the regulation agency.
+This component provides the core database (PostgreSQL) and the core API.
+More information at https://openthc.com/cre
+
+This technicial document is an introduction to, and an overview of, the data model and API.
+More complete documentation can be found at https://api.openthc.org/ which includes more documentation and a complete reference.
+
+
+== Core Data Components
+
+These core dependency objects are necessary for organization and access control for all other items in the system.
+You'll recognize them from nearly an generic business automation type application.
+
+
+=== Company
+
+A Company represents a container for both License and Contact.
+A Company has a name and primary identifier.
+
+    id,name,contact_id
+
+
+=== Contact
+
+A Contact is a natural person in the system.
+All Companies must have at least one Contact, each License must also have a Contact.
+Of course, a Company can have multiple contacts but, one must be designated as primary.
+
+    id,name,email,phone
+
+Generally, the Contact record for the primary, including name, email and phone, is shared with other operators in the system.
+
+
+=== License
+
+A License is a container for the regulated materials such as Crops, Inventory Lots, Lab Results, etc.
+A License has a primary identifier and name of course but, it also includes a type, and address and a contact reference.
+
+    id,type,name,contact_id
+
+
+== Lot - Sources
+
+These are the Inventory Lots of source materials, clones, plants, seeds, tissue.
+
+    code,type,
+
+
+== Crops
+
+The Bushes, Plants, Trees and other Crop materials.
+
+=== Crop Create
+
+Request `POST /crop` to create a new Crop object in the system.
+Optionally include Variety and Section information.
+
+=== Crop Update
+
+Request `POST /crop/{id}` to update an exiting Crop object in the system.
+Optionally include Variety and Section information.
+
+
+=== Crop Convert
+
+Request `POST /crop/{id}/convert` to migrate these Crop objects into Inventory for use on B2B Transactions
+
+
+=== Crop Collect Raw
+
+Get the Wet Material, Per Crop, on a Crop_Collect record of type Wet.
+Use a POST to `/crop/{id}/collect`.
+
+
+=== Crop Collect Net
+
+Collecting Net Materials from one or more prior Crop Collect Raw actions into a Flower/Bulk and Trim/Bulk
+Simply add the net weight to the Crop_Collect record using a POST to `/crop/{id}/collect`.
+
+When ready, one or more Crop_Collect records, of type Net, will be combined to create *Grade-A Bulk*, *Grade-B Bulk*, etc.
+
+
+== Lot :: Process
+
+The Bulk stuff, using `/lot/{}/convert`
+Include one or more Source Lot objects, with quantities consumed.
+Include one output Product description.
+Quantities **MUST** be calculated by the client.
+
+
+== Lot :: Package
+
+The Packaging Stuff stuff, using `/lot/{}/convert`
+
+    source_id,output_id
+
+
+== B2B Transaction
+
+A transfer represents a business-to-business, or more specifically, a license-to-license sale in the system.
+
+[plantuml, diagram-b2b-sale, png]
+....
+object Transfer
+object License_Source
+object License_Target
+object Transfer_Incoming
+object Transfer_Outgoing
+object Transfer_Incoming_Item
+object Transfer_Outgoing_Item
+
+Transfer *-- License_Source
+Transfer *-- License_Target
+
+Transfer <|- Transfer_Incoming
+Transfer <|- Transfer_Outgoing
+Transfer_Incoming -- Transfer_Outgoing
+
+Transfer_Incoming o- Transfer_Incoming_Item
+Transfer_Outgoing o- Transfer_Outgoing_Item
+Transfer_Incoming_Item -- Transfer_Outgoing_Item
+
+....
+
+
+=== Create B2B Transaction
+
+Create a Transfer with a POST to `/transfer` which includes the *Target License*, delivery details.
+Add *Inventory Lots* with a POST to `/transfer/{id}/item` which includes the *Source Lot*, and *Quantity* and any necessary modifiers.
+Once completed the Transfer can be reviewed with a GET to `/transfer/{id}`.
+Send a POST to `/transfer/{id}/commit` to confirm the Transfer and make it available to the receiving side.
+
+
+=== Accept B2B Transaction
+
+Send a POST to `/b2b/{id}/item/{id}` to to adjust any received quantity or price discrepancies.
+Send a POST to `/b2b/{id}/accept` to commit these changes and accept the inventory.
+
+
+== B2C Transaction
+
+For business-to-consumer retail the process is much simpler, as above Accept a Transfer.
+Then simply register a Sale, with the necessary Sale Items.
+
+
+=== B2C Transaction Sale
+
+A Retail, B2C, Sale functions as two parts, first registering the Sale and secondly adding Sale Items.
+
+[plantuml, diagram-b2c-sale, png]
+....
+Program -> CRE: Register a B2C Sale
+Program -->o CRE: Register a B2C Sale Item
+Program -->o CRE: Register a B2C Sale Item
+Program ->x CRE: Commit Sale
+....
+
+
+=== B2C Transaction Void
+
+Sales cannot be edited, a Sale Item or a complete Sale may be voided.
+Simply identify the Sale `DELETE /b2c/{id}` or specific Sale Item(s) `DELETE /b2c/{id}/item/{id}` to be voided.
+Historically, these VOID records will remain -- the CRE will return the material to the Source Lot.
+
+
+include::import.ad[]
