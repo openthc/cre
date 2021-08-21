@@ -20,7 +20,7 @@ class Auth extends \OpenTHC\Module\Base
 			}
 
 			$url = sprintf('https://%s/oauth2/token', $cfg);
-			$RES = $RES->withJSON([]);
+			$RES = $RES->withHeader('content-type', 'text/plain');
 			$RES = $RES->withRedirect($url, 307);
 
 			return $RES;
