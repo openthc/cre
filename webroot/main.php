@@ -7,9 +7,6 @@ require_once(dirname(dirname(__FILE__)) . '/boot.php');
 
 $cfg = [];
 // $cfg['debug'] = true;
-$cfg['settings'] = [];
-// $cfg['settings']['routerCacheFile'] = '/tmp/slim-router.cache';
-
 $app = new \App\Core($cfg);
 $con = $app->getContainer();
 
@@ -148,7 +145,7 @@ $app->group('/lot', 'App\Module\Lot')
 
 
 // Crop
-$app->group('/plant', 'App\Module\Plant')
+$app->group('/crop', 'App\Module\Crop')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
@@ -157,7 +154,7 @@ $app->group('/plant', 'App\Module\Plant')
 
 
 // Crop Collect
-$app->group('/plant-collect', 'App\Module\PlantCollect')
+$app->group('/crop-collect', 'App\Module\CropCollect')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
