@@ -16,7 +16,7 @@
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [
-					'detail' => 'Argument Not Provided [CPC#017]',
+					'detail' => 'Argument Not Provided [CPC-017]',
 				]
 			], 400);
 		}
@@ -25,7 +25,7 @@
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [
-					'detail' => 'Argument Not Provided [CPC#028]',
+					'detail' => 'Argument Not Provided [CPC-028]',
 				]
 			], 400);
 		}
@@ -34,7 +34,7 @@
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [
-					'detail' => 'Argument Not Valid [CPC#037]',
+					'detail' => 'Argument Not Valid [CPC-037]',
 				]
 			], 400);
 		}
@@ -52,7 +52,7 @@
 		];
 		$P = $dbc->fetchRow($sql, $arg);
 		if (empty($P['id'])) {
-			return $this->send404('Crop not found [CPC#052]');
+			return $this->send404('Crop not found [CPC-052]');
 		}
 
 		// Crop Collect

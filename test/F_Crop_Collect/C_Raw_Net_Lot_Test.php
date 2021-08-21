@@ -24,17 +24,25 @@ class C_Raw_Net_Lot_Test extends \Test\Base_Case
 		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect Raw
-		$pcA = $this->post_crop_collect([], $pA, 500);
-		$pcB = $this->post_crop_collect($pcA, $pB, 500);
+		$res = $this->post_crop_collect([], $pA, 500, 'raw');
+		$pcA = $res['data'];
+
+		$res = $this->post_crop_collect($pcA, $pB, 500, 'raw');
+		$pcB = $res['data'];
+
 		$this->assertEquals($pcA['id'], $pcB['id']);
 
 		// Collect Net
-		$pc2 = $this->post_crop_collect($pcA, $pA, 125, 'net');
+		$res = $this->post_crop_collect($pcA, $pA, 125, 'net');
+		$pc2 = $res['data'];
 		$this->assertEquals($pcA['id'], $pc2['id']);
-		$pc3 = $this->post_crop_collect($pcA, $pB, 125, 'net');
+
+		$res = $this->post_crop_collect($pcA, $pB, 125, 'net');
+		$pc3 = $res['data'];
 		$this->assertEquals($pcA['id'], $pc3['id']);
 
-		// $pc3 = $this->post_crop_collect($pcA, $pB, 125, 'net');
+		// $res = $this->post_crop_collect($pcA, $pB, 125, 'net');
+		// $pc3 = $res['data'];
 		// $this->assertEquals($pcA['id'], $pc3['id']);
 
 		// Get Collect Object
@@ -43,7 +51,7 @@ class C_Raw_Net_Lot_Test extends \Test\Base_Case
 		$this->assertCount(2, $res);
 
 		$pcA = $res['data'];
-		$this->assertCount(13, $pcA);
+		$this->assertCount(12, $pcA);
 		$this->assertCount(4, $pcA['collect_list']);
 		$this->assertEquals(1000, $pcA['raw']);
 		$this->assertEquals(250, $pcA['net']);
@@ -65,8 +73,8 @@ class C_Raw_Net_Lot_Test extends \Test\Base_Case
 		$PC301 = $res['data'];
 		$this->assertCount(2, $PC301);
 		$this->assertNotEmpty($PC301['plant_collect']['id']);
-		$this->assertEquals($pcA['raw'], $PC301['plant_collect']['raw']);
-		$this->assertEquals($pcA['net'], $PC301['plant_collect']['net']);
+		$this->assertEquals(1000, $PC301['plant_collect']['raw']);
+		$this->assertEquals(500, $PC301['plant_collect']['net']);
 
 		$this->assertNotEmpty($PC301['lot']['id']);
 		$this->assertEquals(250, $PC301['lot']['qty']);

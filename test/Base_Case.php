@@ -275,13 +275,13 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 	 * $pc Plant Collect ID
 	 * $p Plant ID
 	 */
-	function post_crop_collect($pc, $p, $qty)
+	function post_crop_collect($pc, $p, $qty, $type)
 	{
 		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
 			'plant_collect_id' => $pc['id'],
-			'type' => 'raw',
-			'qty' => 2345.67,
+			'type' => $type,
+			'qty' => $qty,
 			'uom' => 'g',
 		];
 		$res = $this->_post($url, $arg);

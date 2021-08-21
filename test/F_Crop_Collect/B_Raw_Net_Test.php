@@ -67,7 +67,7 @@ class B_Raw_Net_Test extends \Test\Base_Case
 
 		$pcC = $res['data'];
 		// print_r($pc0);
-		$this->assertCount(13, $pcC);
+		$this->assertCount(12, $pcC);
 		$this->assertCount(2, $pcC['collect_list']);
 
 
@@ -78,18 +78,16 @@ class B_Raw_Net_Test extends \Test\Base_Case
 
 		$url = sprintf('/crop-collect/%s/commit', $pcA['id']);
 		$arg = [
-			// 'product_id' => '',
+			// 'product_id' => '', // Use Default Product
 			'variety_id' => $pA['variety_id'],
-			// 'zone_id' => $pA['zone_id'],
-			'net' => $net,
+			// 'section_id' => '', // Use Default Section
+			'qty' => $net,
 		];
-		// print_r($arg);
 		$res = $this->_post($url, $arg);
 
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['data']);
-		// print_r($res);
 
 		$pcD = $res['data'];
 		$this->assertCount(2, $pcD);

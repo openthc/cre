@@ -24,7 +24,7 @@ class C_Raw_Net_Overage_Test extends \Test\Base_Case
 		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect A
-		$url = sprintf('/plant/%s/collect', $pA['id']);
+		$url = sprintf('/crop/%s/collect', $pA['id']);
 		$arg = [
 			'type' => 'raw',
 			'qty' => 1234.56,
@@ -41,7 +41,7 @@ class C_Raw_Net_Overage_Test extends \Test\Base_Case
 		$this->assertEquals(1234.56, $pcA['collect_item']['qty']);
 
 		// Collect B
-		$url = sprintf('/plant/%s/collect', $pA['id']);
+		$url = sprintf('/crop/%s/collect', $pA['id']);
 		$arg = [
 			'plant_collect_id' => $pcA['id'],
 			'type' => 'raw',
@@ -65,23 +65,23 @@ class C_Raw_Net_Overage_Test extends \Test\Base_Case
 		// Now this Plant Collect Group / Production Run is Together
 
 		// And we can see it?
-		$res = $this->httpClient->get('/plant-collect/' . $pcA['id']);
+		$res = $this->httpClient->get('/crop-collect/' . $pcA['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']); //
 		$pcC = $res['data'];
 
-		$this->assertCount(13, $pcC);
+		$this->assertCount(12, $pcC);
 		$this->assertEquals($raw, $pcC['raw']);
 		$this->assertCount(2, $pcC['collect_list']);
 
 		// Commit this to Lock this Raw Weight and record Net
 		$net = $raw + 1;
 
-		$url = sprintf('/plant-collect/%s/commit', $pcA['id']);
+		$url = sprintf('/crop-collect/%s/commit', $pcA['id']);
 		$arg = [
 			'variety_id' => $pA['variety_id'],
-			'net' => $net,
+			'qty' => $net,
 		];
 		$res = $this->_post($url, $arg);
 
@@ -89,7 +89,7 @@ class C_Raw_Net_Overage_Test extends \Test\Base_Case
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['meta']);
 		$this->assertNotEmpty($res['meta']['detail']);
-		$this->assertRegExp('/net too large/i', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/net too large/i', $res['meta']['detail']);
 		$this->assertIsArray($res['data']);
 		$this->assertEquals($raw, $res['data']['raw']);
 

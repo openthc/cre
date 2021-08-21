@@ -9,13 +9,24 @@ class Commit extends \App\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$net = floatval($_POST['net']);
+		// Make sure necessary keys are set
+		$key_list = [ 'variety_id', 'qty' ];
+		foreach ($key_list as $k) {
+			if (!isset($_POST[$k])) {
+				return $RES->withJSON([
+					'data' => null,
+					'meta' => [ 'detail' => 'Commit Requires Variety [PCC-018]' ],
+				], 400);
+			}
+		}
+
+		$net = floatval($_POST['qty']);
 		$net = max($net, 0);
 
 		if (empty($_POST['variety_id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Commit Requires Variety [PCC-016]' ],
+				'meta' => [ 'detail' => 'Commit Requires Variety [PCC-029]' ],
 			], 400);
 		}
 
@@ -163,10 +174,10 @@ class Commit extends \App\Controller\Base
 		$dbc->query($sql, $arg);
 
 		// Relationship
-		$dbc->insert('lot_source', [
+		$dbc->insert('lot_family', [
 			'id' => _ulid(),
 			'lot_id' => $lot['id'],
-			'source_plant_collect_id' => $pc['id'],
+			'plant_collect_id' => $pc['id'],
 		]);
 
 		$dbc->query('COMMIT');

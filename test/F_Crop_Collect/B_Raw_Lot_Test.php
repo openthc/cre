@@ -24,8 +24,11 @@ class B_Raw_Lot_Test extends \Test\Base_Case
 		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect P0
-		$pcA = $this->post_crop_collect([], $pA, 500);
-		$pcB = $this->post_crop_collect($pcA, $pB, 500);
+		$res = $this->post_crop_collect([], $pA, 500, 'raw');
+		$pcA = $res['data'];
+
+		$res = $this->post_crop_collect($pcA, $pB, 500, 'raw');
+		$pcB = $res['data'];
 
 		$this->assertEquals($pcA['id'], $pcB['id']);
 
@@ -37,13 +40,12 @@ class B_Raw_Lot_Test extends \Test\Base_Case
 		$this->assertNotEmpty($res['data']['id']); //
 
 		$pcC = $res['data'];
-		$this->assertCount(13, $pcC);
+		$this->assertCount(12, $pcC);
 		$this->assertCount(2, $pcC['collect_list']);
 
 		// Commit this to Lock this Raw Weight and record Net
 		// 25% Yield
 		$net = $pcC['raw'] * 0.25;
-
 
 		$PR0 = $this->find_random_product();
 		$url = sprintf('/crop-collect/%s/commit', $pcA['id']);
@@ -54,7 +56,6 @@ class B_Raw_Lot_Test extends \Test\Base_Case
 		];
 		$res = $this->_post($url, $arg);
 		$res = $this->assertValidResponse($res, 201);
-		print_r($res);
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['data']);
 
@@ -62,7 +63,7 @@ class B_Raw_Lot_Test extends \Test\Base_Case
 		$this->assertCount(2, $pcD);
 		$this->assertNotEmpty($pcD['plant_collect']['id']);
 		$this->assertEquals($pcC['raw'], $pcD['plant_collect']['raw']);
-		$this->assertEquals($pcC['net'], $pcD['plant_collect']['net']);
+		$this->assertEquals($net, $pcD['plant_collect']['net']);
 
 		$this->assertNotEmpty($pcD['lot']['id']);
 		$this->assertEquals($net, $pcD['lot']['qty']);
