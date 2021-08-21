@@ -61,18 +61,21 @@ class Open extends \App\Controller\Base
 	{
 		if (empty($_POST['service'])) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Parameter "service" missing [CAO-074]' ]
 			], 400);
 		}
 
 		if (empty($_POST['company'])) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Parameter "company" missing [CAO-080]' ]
 			], 400);
 		}
 
 		if (empty($_POST['license'])) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Parameter "license" missing [CAO-086]' ]
 			], 400);
 		}
@@ -85,6 +88,7 @@ class Open extends \App\Controller\Base
 		$service_id = $dbc->fetchOne($sql, $arg);
 		if (empty($service_id)) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Invalid "service" [CAO-098]' ]
 			], 403);
 		}
@@ -95,6 +99,7 @@ class Open extends \App\Controller\Base
 		$company_id = $dbc->fetchOne($sql, $arg);
 		if (empty($company_id)) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Invalid "company" [CAO-108]' ]
 			], 403);
 		}
@@ -105,6 +110,7 @@ class Open extends \App\Controller\Base
 		$L = $dbc->fetchRow($sql, $arg);
 		if (empty($L['id'])) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Invalid "license" [CAO-118]' ]
 			], 403);
 		}
@@ -112,6 +118,7 @@ class Open extends \App\Controller\Base
 		// Company and License Match?
 		if ($company_id != $L['company_id']) {
 			return $RES->withJSON([
+				'data' => null,
 				'meta' => [ 'detail' => 'Invalid "license" [CAO-125]' ]
 			], 403);
 		}

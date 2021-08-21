@@ -21,7 +21,8 @@ class InputDataFilter extends \OpenTHC\Middleware\Base
 			if (empty($data)) {
 				$e = json_last_error_msg();
 				return $RES->withJSON([
-					'meta' => [ 'detail' => sprintf('JSON Parsing Error "%s" [LMI-025]', $e) ]
+					'data' => null,
+					'meta' => [ 'detail' => sprintf('JSON Parsing Error "%s" [LMI-025]', $e) ],
 				], 400);
 			}
 

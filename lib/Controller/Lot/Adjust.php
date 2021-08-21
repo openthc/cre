@@ -32,6 +32,7 @@ class Adjust extends \App\Controller\Base
 		$this->logAudit('Lot/Adjust', $ARG['id'], \json_encode($_POST));
 
 		return $RES->withJSON([
+			'data' => null,
 			'meta' => [ 'detail' => 'Lot Adjusted' ],
 		], 202);
 

@@ -14,8 +14,8 @@ class Commit extends \App\Controller\Base
 
 		if (empty($_POST['variety_id'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Commit Requires Variety [PCC#016]' ],
-				'data' => [],
+				'data' => null,
+				'meta' => [ 'detail' => 'Commit Requires Variety [PCC-016]' ],
 			], 400);
 		}
 
@@ -70,12 +70,12 @@ class Commit extends \App\Controller\Base
 
 		$pc = $dbc->fetchRow($sql, $arg);
 		if (empty($pc['id'])) {
-			return $this->send404('Crop Collect not found [PCC#024]');
+			return $this->send404('Crop Collect not found [PCC-024]');
 		}
 		if (200 != $pc['stat']) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Collect Not Open [PCC#028]' ],
 				'data' => $pc,
+				'meta' => [ 'detail' => 'Collect Not Open [PCC-028]' ],
 			], 409);
 		}
 
@@ -99,8 +99,8 @@ class Commit extends \App\Controller\Base
 		// if (($pc['net'] + $net) > $pc['raw']) {
 		if (($pc['net'] + $net) > $pc['raw']) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Collect Net Too Large [PCC#042]' ],
 				'data' => $pc,
+				'meta' => [ 'detail' => 'Collect Net Too Large [PCC-042]' ],
 			], 413);
 		}
 
@@ -172,12 +172,12 @@ class Commit extends \App\Controller\Base
 		$dbc->query('COMMIT');
 
 		return $RES->withJSON([
-			'meta' => [
-				'detail' => 'Lot Created, Collect Group Closed',
-			],
 			'data' => [
 				'plant_collect' => $pc,
 				'lot' => $lot,
+			],
+			'meta' => [
+				'detail' => 'Lot Created, Collect Group Closed',
 			],
 		], 201);
 

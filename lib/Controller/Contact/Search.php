@@ -23,8 +23,8 @@ SQL;
 		$res = $this->_container->DB->fetchAll($sql, $arg);
 
 		return $RES->withJSON(array(
-			'meta' => 'success',
 			'data' => $res,
+			'meta' => [],
 		));
 
 	}
