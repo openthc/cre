@@ -5,7 +5,7 @@
 
 namespace Test\G_Process;
 
-class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
+class A_Alpha_Test extends \Test\Base_Case
 {
 	protected function setUp() : void
 	{

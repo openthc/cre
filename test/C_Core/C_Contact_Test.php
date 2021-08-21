@@ -5,7 +5,7 @@
 
 namespace Test\C_Core;
 
-class C_Contact_Test extends \Test\Components\OpenTHC_Test_Case
+class C_Contact_Test extends \Test\Base_Case
 {
 	protected $_tmp_file = '/tmp/unit-test-contact.json';
 

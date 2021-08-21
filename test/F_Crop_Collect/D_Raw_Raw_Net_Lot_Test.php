@@ -5,7 +5,7 @@
 
 namespace Test\F_Crop_Collect;
 
-class D_Raw_Raw_Net_Lot_Test extends \Test\Components\OpenTHC_Test_Case
+class D_Raw_Raw_Net_Lot_Test extends \Test\Base_Case
 {
 	protected function setUp() : void
 	{

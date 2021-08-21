@@ -5,7 +5,7 @@
 
 namespace Test\B_Auth;
 
-class B_oAuth2_Test extends \Test\Components\OpenTHC_Test_Case
+class B_oAuth2_Test extends \Test\Base_Case
 {
 	function test_oauth_open()
 	{
@@ -15,12 +15,12 @@ class B_oAuth2_Test extends \Test\Components\OpenTHC_Test_Case
 
 		// Is Redirect to Auth Server
 		$res = $this->httpClient->post('/auth/oauth');
-		$this->assertValidResponse($res, 307);
+		$this->assertValidResponse($res, 307, 'text/plain');
 		$this->assertNotEmpty($res->getHeaderLine('location'));
 
 		// POST to REAL oAuth2 EndPoint
 		$res = $this->httpClient->post('/auth/oauth');
-		$this->assertValidResponse($res, 307);
+		$this->assertValidResponse($res, 307, 'text/plain');
 
 		$loc = $res->getHeaderLine('location');
 		$this->assertNotEmpty($loc);

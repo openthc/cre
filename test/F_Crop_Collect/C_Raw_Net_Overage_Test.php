@@ -5,7 +5,7 @@
 
 namespace Test\F_Crop_Collect;
 
-class C_Raw_Net_Overage_Test extends \Test\Components\OpenTHC_Test_Case
+class C_Raw_Net_Overage_Test extends \Test\Base_Case
 {
 	protected function setUp() : void
 	{
@@ -15,7 +15,7 @@ class C_Raw_Net_Overage_Test extends \Test\Components\OpenTHC_Test_Case
 
 	function test_too_much_net()
 	{
-		$x = $this->find_random_plant(2);
+		$x = $this->find_random_crop(2);
 		$pA = $x[0];
 		$pB = $x[1];
 

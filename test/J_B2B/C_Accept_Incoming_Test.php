@@ -5,7 +5,7 @@
 
 namespace Test\J_B2B;
 
-class C_Accept_Incoming_Test extends \Test\Components\OpenTHC_Test_Case
+class C_Accept_Incoming_Test extends \Test\Base_Case
 {
 	protected $_url_path = '/b2b';
 	protected $_tmp_file = '/tmp/unit-test-transfer.json';

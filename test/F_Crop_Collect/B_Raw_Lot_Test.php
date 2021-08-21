@@ -5,7 +5,7 @@
 
 namespace Test\F_Crop_Collect;
 
-class B_Raw_Lot_Test extends \Test\Components\OpenTHC_Test_Case
+class B_Raw_Lot_Test extends \Test\Base_Case
 {
 	protected function setUp() : void
 	{
@@ -15,7 +15,7 @@ class B_Raw_Lot_Test extends \Test\Components\OpenTHC_Test_Case
 
 	function test_raw_lot()
 	{
-		$x = $this->find_random_plant(2);
+		$x = $this->find_random_crop(2);
 		$pA = $x[0];
 		$pB = $x[1];
 
@@ -24,29 +24,14 @@ class B_Raw_Lot_Test extends \Test\Components\OpenTHC_Test_Case
 		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect P0
-		$pcA = $this->_plant_collect([], $pA, 500);
-		$pcB = $this->_plant_collect($pcA, $pB, 500);
-
-		// $url = sprintf('/plant/%s/collect', $pA['id']);
-		// $arg = [
-		// 	'plant_collect_id' => $pcA['id'],
-		// 	'type' => 'raw',
-		// 	'qty' => 2345.67,
-		// 	'uom' => 'g',
-		// ];
-		// $res = $this->_post($url, $arg);
-		// //
-		// $res = $this->assertValidResponse($res, 201);
-		// // Should Have Collect Information?
-		// $this->assertCount(2, $res);
-		// $this->assertNotEmpty($res['data']['id']); //
-		// $pcB = $res['data'];
+		$pcA = $this->post_crop_collect([], $pA, 500);
+		$pcB = $this->post_crop_collect($pcA, $pB, 500);
 
 		$this->assertEquals($pcA['id'], $pcB['id']);
 
 		// Now this Plant Collect Group / Production Run is Together
 		// And we can see it?
-		$res = $this->httpClient->get('/plant-collect/' . $pcA['id']);
+		$res = $this->httpClient->get('/crop-collect/' . $pcA['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']); //
@@ -61,7 +46,7 @@ class B_Raw_Lot_Test extends \Test\Components\OpenTHC_Test_Case
 
 
 		$PR0 = $this->find_random_product();
-		$url = sprintf('/plant-collect/%s/commit', $pcA['id']);
+		$url = sprintf('/crop-collect/%s/commit', $pcA['id']);
 		$arg = [
 			'product_id' => $PR0['id'],
 			'variety_id' => $pA['variety_id'],

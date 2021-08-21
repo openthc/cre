@@ -5,7 +5,7 @@
 
 namespace Test\B_Auth;
 
-class C_Session_Test extends \Test\Components\OpenTHC_Test_Case
+class C_Session_Test extends \Test\Base_Case
 {
 	protected $_tmp_file = '/tmp/cre-test-auth-session.dat';
 

@@ -5,7 +5,7 @@
 
 namespace Test\H_Laboratory;
 
-class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
+class A_Alpha_Test extends \Test\Base_Case
 {
 	function test_lab()
 	{

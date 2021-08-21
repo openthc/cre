@@ -5,7 +5,7 @@
 
 namespace Test\H_Laboratory;
 
-class B_Lab_Result_Create_Test extends \Test\Components\OpenTHC_Test_Case
+class B_Lab_Result_Create_Test extends \Test\Base_Case
 {
 	protected function setUp() : void
 	{

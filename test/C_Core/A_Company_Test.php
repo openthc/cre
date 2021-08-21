@@ -5,7 +5,7 @@
 
 namespace Test\C_Core;
 
-class A_Company_Test extends \Test\Components\OpenTHC_Test_Case
+class A_Company_Test extends \Test\Base_Case
 {
 	protected function setUp() : void
 	{
@@ -151,13 +151,7 @@ class A_Company_Test extends \Test\Components\OpenTHC_Test_Case
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
-		$this->assertIsArray($res);
-		$this->assertCount(2, $res);
-		$this->assertIsArray($res['data']);
-		// var_dump($res);
-
 		$c0 = $res['data'];
-		$this->assertIsArray($c0);
 		$this->assertNotEmpty($c0['id']);
 
 		// Delete This Company

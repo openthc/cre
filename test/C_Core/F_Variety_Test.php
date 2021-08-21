@@ -5,7 +5,7 @@
 
 namespace Test\C_Core;
 
-class F_Variety_Test extends \Test\Components\OpenTHC_Test_Case
+class F_Variety_Test extends \Test\Base_Case
 {
 	protected $_tmp_file = '/tmp/unit-test-variety.json';
 

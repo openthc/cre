@@ -5,7 +5,7 @@
 
 namespace Test\C_Core;
 
-class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
+class D_Product_Type_Test extends \Test\Base_Case
 {
 
 	protected function setUp() : void
@@ -30,8 +30,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$res = $this->httpClient->get('/product/type?q=1');
 		$res = $this->assertValidResponse($res, 200);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 
 	}
 
@@ -42,8 +40,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 	{
 		$res = $this->httpClient->get('/product/type');
 		$res = $this->assertValidResponse($res, 200);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	/*
@@ -56,8 +52,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0C474J20SEWDM5XSJ',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	/**
@@ -71,8 +65,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0J008XMJ25DCBK17P',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_plant()
@@ -82,8 +74,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0KANK9BMYFS5BDFCB',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_tissue()
@@ -93,8 +83,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0AT9P3779ATHDK6MC',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_raw_flower()
@@ -104,8 +92,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC01MVH9QAZ75KEPY4D',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_raw_trim()
@@ -115,8 +101,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC05QXA1BCA13PNAK5J',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_process_flower()
@@ -126,8 +110,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0CYZQ68Q2184AE10A',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_process_trim()
@@ -137,8 +119,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0W8ESY93TK05TPFKN',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_process_mix()
@@ -148,8 +128,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0Q16ECBP02ET3RRMT',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_process_extract_co2()
@@ -159,8 +137,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC06Y7WBPCY2XNHP2FE',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_process_extract_hash()
@@ -170,8 +146,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0K109NHQ92CCKEJW5',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_process_extract_kief()
@@ -181,8 +155,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0VX8100VFN3YXKBYH',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_package_flower()
@@ -192,8 +164,7 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0WMF1XY879SECK50W',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
+
 	}
 
 	function test_create_package_edible_liquid()
@@ -203,8 +174,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC03MRD8MDZJXGM5MXF',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_package_edible_solid()
@@ -214,8 +183,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0QXVE5AC12DCNM6RS',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_package_capsule()
@@ -225,8 +192,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0ZHAEQCFNYMXDXWKV',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_package_tincture()
@@ -236,8 +201,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC062S4TRBT5FBJW98V',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_package_transdermal()
@@ -247,8 +210,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC0EFWWVV8DE89JVNTY',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 	function test_create_package_suppository()
@@ -258,8 +219,6 @@ class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 			'type' => '019KAGVSC02549AK0RQWFAMNVB',
 		));
 		$res = $this->assertValidResponse($res, 201);
-		$this->assertIsArray($res['meta']);
-		$this->assertIsArray($res['data']);
 	}
 
 }

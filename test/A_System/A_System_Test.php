@@ -4,7 +4,7 @@
 
 namespace Test\A_System;
 
-class A_System_Test extends \Test\Components\OpenTHC_Test_Case
+class A_System_Test extends \Test\Base_Case
 {
 	public function test_system()
 	{

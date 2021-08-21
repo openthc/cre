@@ -3,9 +3,9 @@
  * Tests the inventory section of the API
  */
 
-namespace Test\D_Propogate;
+namespace Test\D_Propagate;
 
-class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
+class A_Alpha_Test extends \Test\Base_Case
 {
 	protected $_url_path = '/lot';
 

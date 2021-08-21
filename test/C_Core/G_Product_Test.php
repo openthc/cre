@@ -5,7 +5,7 @@
 
 namespace Test\C_Core;
 
-class G_Product_Test extends \Test\Components\OpenTHC_Test_Case
+class G_Product_Test extends \Test\Base_Case
 {
 	private $_url_path = '/product';
 

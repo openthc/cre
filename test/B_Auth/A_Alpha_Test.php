@@ -11,7 +11,7 @@
 
 namespace Test\B_Auth;
 
-class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
+class A_Alpha_Test extends \Test\Base_Case
 {
 	public function test_auth()
 	{
@@ -53,10 +53,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 
 		$res = $this->assertValidResponse($res, 403);
 
-		$this->assertIsArray($res);
-		$this->assertCount(1, $res);
 		$this->assertMatchesRegularExpression('/CAO.098/', $res['meta']['detail']);
-
 	}
 
 	function test_open_pass()
@@ -69,10 +66,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		]);
 		$res = $this->assertValidResponse($res);
 
-		$this->assertIsArray($res);
-		$this->assertCount(2, $res);
 		$this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']);
-
 	}
 
 	/**
@@ -88,10 +82,7 @@ class A_Alpha_Test extends \Test\Components\OpenTHC_Test_Case
 		]);
 		$res = $this->assertValidResponse($res, 403);
 
-		$this->assertIsArray($res);
-		$this->assertCount(1, $res);
 		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['detail']);
-
 	}
 
 	// public function testAuthPlain()
