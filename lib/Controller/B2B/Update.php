@@ -7,6 +7,9 @@ namespace App\Controller\B2B;
 
 class Update extends \App\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$dbc = $this->_container->DB;
@@ -41,17 +44,8 @@ class Update extends \App\Controller\Base
 		// Add an Item
 		if (!empty($_POST['lot_id'])) {
 
-			$obj_i = [
-				'id' => _ulid(),
-				'b2b_incoming_id' => $T['id'],
-				'stat' => 200,
-				'name' => '-',
-				'hash' => '-',
-			];
-			$dbc->insert('b2b_incoming_item', $obj_i);
-
 			$obj_o = [
-				'id' => $obj_i['id'],
+				'id' => _ulid(),
 				'b2b_outgoing_id' => $T['id'],
 				'lot_id' => $_POST['lot_id'],
 				'stat' => 200,
@@ -60,6 +54,16 @@ class Update extends \App\Controller\Base
 				'hash' => '-',
 			];
 			$dbc->insert('b2b_outgoing_item', $obj_o);
+
+			$obj_i = [
+				'id' => $obj_o['id'],
+				'b2b_incoming_id' => $T['id'],
+				'stat' => 200,
+				'qty' => $_POST['qty'],
+				'name' => '-',
+				'hash' => '-',
+			];
+			$dbc->insert('b2b_incoming_item', $obj_i);
 
 			return $RES->withJSON([
 				'data' => $obj_o,

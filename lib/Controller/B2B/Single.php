@@ -7,6 +7,9 @@ namespace App\Controller\B2B;
 
 class Single extends \App\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$dbc = $this->_container->DB;

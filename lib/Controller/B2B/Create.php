@@ -30,8 +30,11 @@ class Create extends \App\Controller\Base
 		$sql = 'SELECT id, name FROM license WHERE id = :g';
 		$arg = array(':g' => $_POST['license_id_target']);
 		$L_Target = $dbc->fetchRow($sql, $arg);
-		if (empty($L_Target['name'])) {
-			_exit_text('Fatal', 500);
+		if (empty($L_Target['id'])) {
+			return $RES->withJSON(array(
+				'data' => null,
+				'meta' => [ 'detail' => 'Invalid Target License [CBC-036]' ],
+			), 400);
 		}
 
 		$obj = json_encode($obj);

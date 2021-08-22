@@ -29,8 +29,7 @@ class C_Accept_Incoming_Test extends \Test\Base_Case
 		$this->assertCount(12, $res['data']);
 
 		$t1 = $res['data'];
-		$this->assertEquals(307, $t1['b2b_outgoing_stat']);
-		$this->assertEquals(202, $t1['b2b_incoming_stat']);
+		$this->assertEquals(307, $t1['stat']);
 
 	}
 
