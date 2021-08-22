@@ -7,6 +7,9 @@ require_once(dirname(dirname(__FILE__)) . '/boot.php');
 
 $cfg = [];
 // $cfg['debug'] = true;
+$cfg['settings'] = [];
+// $cfg['settings']['routerCacheFile'] = '/tmp/slim-router.cache';
+
 $app = new \App\Core($cfg);
 $con = $app->getContainer();
 
@@ -44,36 +47,19 @@ $con['response'] = function($c) {
 
 // Database
 $con['DB'] = function($c) {
-
-	$url = getenv('OPENTHC_POSTGRES_URL');
-	$url = parse_url($url);
-	$url['path'] = trim($url['path'], '/');
-
-	$dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], $url['path']);
-	$dbc = new \Edoceo\Radix\DB\SQL($dsn, $url['user'], $url['pass']);
-
-	return $dbc;
+	return _dbc();
 };
 
 // Redis
 $con['Redis'] = function($c) {
-
-	$url = getenv('OPENTHC_REDIS_URL');
-	$url = parse_url($url);
-	$url['path'] = intval(trim($url['path'], '/'));
-
-	$red = new \Redis();
-	$red->connect($url['host']);
-	$red->select($url['path']);
-
-	return $red;
+	return _rdb();
 };
 
 
 // Authentication
 $app->group('/auth', 'App\Module\Auth')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -82,7 +68,7 @@ $app->group('/company', 'App\Module\Company')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -91,7 +77,7 @@ $app->group('/license', 'App\Module\License')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -100,7 +86,7 @@ $app->group('/contact', 'App\Module\Contact')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -113,7 +99,7 @@ $app->group('/product', 'App\Module\Product')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -122,7 +108,7 @@ $app->group('/variety', 'App\Module\Variety')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -131,7 +117,7 @@ $app->group('/section', 'App\Module\Section')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -140,7 +126,7 @@ $app->group('/lot', 'App\Module\Lot')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -149,7 +135,7 @@ $app->group('/crop', 'App\Module\Crop')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -158,7 +144,7 @@ $app->group('/crop-collect', 'App\Module\CropCollect')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -167,7 +153,7 @@ $app->group('/lab', 'App\Module\Lab')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -176,7 +162,7 @@ $app->group('/b2b', 'App\Module\B2B')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
@@ -185,7 +171,7 @@ $app->group('/b2c', 'App\Module\B2C')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')
-	->add('OpenTHC\Middleware\Log\HTTP')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
