@@ -107,7 +107,10 @@ class Base extends \OpenTHC\Controller\Base
 		$R = new \Custom_Response(404);
 		return $R->withJSON([
 			'data' => null,
-			'meta' => [ 'detail' => $m ],
+			'meta' => [
+				'detail' => $m,
+				'path' => $_SERVER['REQUEST_URI'],
+			],
 		]);
 	}
 

@@ -204,7 +204,6 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));
-		// var_dump($res);
 
 		$i = \array_rand($res['data']);
 		$r = $res['data'][$i];

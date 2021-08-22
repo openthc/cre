@@ -66,7 +66,6 @@ class C_Raw_Net_Lot_Test extends \Test\Base_Case
 		];
 		$res = $this->_post($url, $arg);
 		$res = $this->assertValidResponse($res, 201);
-		print_r($res);
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['data']);
 

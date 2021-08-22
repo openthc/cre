@@ -26,7 +26,7 @@ class G_Product_Test extends \Test\Base_Case
 
 		$chk = $this->assertValidResponse($res, 201);
 		// $this->assertNotEmpty($res->getHeaderLine('location'));
-		// $this->assertRegExp('/\/config\/product\/\w{26}/', $res->getHeaderLine('location'));
+		// $this->assertMatchesRegularExpression('/\/config\/product\/\w{26}/', $res->getHeaderLine('location'));
 
 		$res = $chk; // Now use the cleaed one
 		$this->assertIsArray($res['meta']);
@@ -75,7 +75,6 @@ class G_Product_Test extends \Test\Base_Case
 
 		// Find Early One
 		$obj = $this->_data_stash_get();
-		// var_dump($obj);
 
 		// First call to Delete gives 202
 		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);

@@ -66,7 +66,6 @@ class B_Raw_Net_Test extends \Test\Base_Case
 		$this->assertNotEmpty($res['data']['id']); //
 
 		$pcC = $res['data'];
-		// print_r($pc0);
 		$this->assertCount(12, $pcC);
 		$this->assertCount(2, $pcC['collect_list']);
 

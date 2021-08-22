@@ -62,7 +62,6 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 		$res = $this->_post(sprintf('/b2b/%s', $T0['id']), [ 'status' => 'commit' ]);
 		$res = $this->assertValidResponse($res, 202);
 		$T2 = $res['data'];
-		// print_r($T2);
 		$this->assertIsArray($T2);
 		$this->assertCount(7, $T2);
 		$this->assertNotEmpty($T2['id']);
@@ -79,14 +78,12 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 
 		$res = $this->httpClient->get('/b2b/incoming');
 		$res = $this->assertValidResponse($res);
-		// var_dump($res);
 
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThan(1, count($res['data']));
 
 		// $res = $this->httpClient->get('/lot');
 		// $res = $this->assertValidResponse($res);
-		// print_r($res);
 		// $this->assertIsArray($res['meta']);
 		// $this->assertGreaterThan(1, count($res['data']));
 		// $i = \array_rand($res['data']);

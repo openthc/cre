@@ -88,7 +88,6 @@ class F_Variety_Test extends \Test\Base_Case
 
 		// Find Early One
 		$obj = $this->_data_stash_get();
-		//var_dump($obj);
 
 		// First call to Delete gives 202
 		$res = $this->httpClient->delete('/variety/' . $obj['id']);

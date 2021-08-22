@@ -68,8 +68,6 @@ class A_Alpha_Test extends \Test\Base_Case
 
 		$l1 = $res['data'];
 
-		// var_dump($l1);
-
 	}
 
 	function test_convert()
@@ -92,8 +90,6 @@ class A_Alpha_Test extends \Test\Base_Case
 
 		$l1 = $res['data'];
 
-		// var_dump($l1);
-
 	}
 
 	public function test_delete()
@@ -106,7 +102,6 @@ class A_Alpha_Test extends \Test\Base_Case
 		$this->assertValidResponse($res, 404);
 
 		$l0 = $this->find_random_lot();
-		// var_dump($l0);
 
 	}
 

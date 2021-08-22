@@ -35,7 +35,6 @@ class C_Raw_Net_Overage_Test extends \Test\Base_Case
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']);
 		$pcA = $res['data'];
-		// print_r($pcA);
 		$this->assertIsArray($pcA['collect_item']);
 		$this->assertCount(7, $pcA['collect_item']);
 		$this->assertEquals(1234.56, $pcA['collect_item']['qty']);
@@ -53,7 +52,6 @@ class C_Raw_Net_Overage_Test extends \Test\Base_Case
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']); //
 		$pcB = $res['data'];
-		// print_r($pcB);
 		$this->assertIsArray($pcB['collect_item']);
 		$this->assertCount(7, $pcB['collect_item']);
 		$this->assertEquals(2345.67, $pcB['collect_item']['qty']);

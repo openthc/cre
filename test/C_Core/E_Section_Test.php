@@ -181,7 +181,6 @@ class E_Section_Test extends \Test\Base_Case
 
 		// Find Early One
 		$obj = $this->_data_stash_get();
-		//var_dump($s0);
 
 		// First call to Delete gives 202
 		$res = $this->httpClient->delete('/section/' . $obj['id']);

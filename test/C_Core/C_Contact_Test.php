@@ -99,7 +99,6 @@ class C_Contact_Test extends \Test\Base_Case
 	public function test_update()
 	{
 		$obj = $this->_data_stash_get();
-		// var_dump($obj);
 		$res = $this->_post('/contact/' . $obj['id'], [
 			'name' => 'UNITTEST Contact CREATE-UPDATE'
 		]);

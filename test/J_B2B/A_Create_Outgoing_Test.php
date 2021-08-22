@@ -29,7 +29,6 @@ class A_Create_Outgoing_Test extends \Test\Base_Case
 		$this->assertIsArray($T);
 		$this->assertCount(5, $T);
 		$this->assertNotEmpty($T['id']);
-		// var_dump($T);
 
 		$res = $this->httpClient->delete($this->_url_path . '/' . $T['id']);
 		$res = $this->assertValidResponse($res, 202);
@@ -56,7 +55,6 @@ class A_Create_Outgoing_Test extends \Test\Base_Case
 		$this->assertIsArray($T);
 		$this->assertCount(5, $T);
 		$this->assertNotEmpty($T['id']);
-		// var_dump($T);
 
 		$res = $this->httpClient->delete($this->_url_path . '/' . $T['id']);
 		$res = $this->assertValidResponse($res, 202);

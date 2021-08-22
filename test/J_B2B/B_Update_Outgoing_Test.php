@@ -29,7 +29,6 @@ class B_Update_Outgoing_Test extends \Test\Base_Case
 		$this->assertIsArray($T0);
 		$this->assertCount(5, $T0);
 		$this->assertNotEmpty($T0['id']);
-		// var_dump($T0);
 
 		$l = $this->find_random_lot();
 		$res = $this->_post($this->_url_path . '/' . $T0['id'], [
@@ -43,7 +42,6 @@ class B_Update_Outgoing_Test extends \Test\Base_Case
 		$res = $this->httpClient->get($this->_url_path . '/' . $T0['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$T1 = $res['data'];
-		// var_dump($T1);
 		$this->assertIsArray($T1);
 		$this->assertCount(12, $T1);
 		$this->assertNotEmpty($T1['id']);
@@ -55,7 +53,6 @@ class B_Update_Outgoing_Test extends \Test\Base_Case
 		$res = $this->_post($this->_url_path . '/' . $T1['id'], [ 'status' => 'commit' ]);
 		$res = $this->assertValidResponse($res, 202);
 		$T2 = $res['data'];
-		// var_dump($T2);
 		$this->assertIsArray($T2);
 		$this->assertCount(12, $T2);
 		$this->assertNotEmpty($T2['id']);
@@ -129,7 +126,6 @@ class B_Update_Outgoing_Test extends \Test\Base_Case
 		$this->assertIsArray($T0);
 		$this->assertCount(5, $T0);
 		$this->assertNotEmpty($T0['id']);
-		// var_dump($T0);
 
 		$l = $this->find_random_lot();
 		$res = $this->_post($this->_url_path . '/' . $T0['id'], [
@@ -142,7 +138,6 @@ class B_Update_Outgoing_Test extends \Test\Base_Case
 		$res = $this->httpClient->get($this->_url_path . '/' . $T0['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$T1 = $res['data'];
-		// var_dump($T1);
 		$this->assertIsArray($T1);
 		$this->assertCount(12, $T1);
 		$this->assertNotEmpty($T1['id']);
@@ -155,7 +150,6 @@ class B_Update_Outgoing_Test extends \Test\Base_Case
 		$res = $this->_post($this->_url_path . '/' . $T1['id'], [ 'status' => 'commit' ]);
 		$res = $this->assertValidResponse($res, 202);
 		$T2 = $res['data'];
-		// var_dump($T2);
 		$this->assertIsArray($T2);
 		$this->assertCount(12, $T2);
 		$this->assertNotEmpty($T2['id']);

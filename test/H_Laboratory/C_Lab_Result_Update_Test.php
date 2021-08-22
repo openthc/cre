@@ -14,7 +14,6 @@ class C_Lab_Result_Update_Test extends \Test\Base_Case
 		$res = $this->httpClient->get('/lab/result');
 		$res = $this->assertValidResponse($res);
 
-		// var_dump($res);
 
 		$this->assertIsArray($res['meta']);
 		// $this->assertGreaterThan(1, count($res['data']));
