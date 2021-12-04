@@ -137,6 +137,12 @@ $app->group('/crop', 'App\Module\Crop')
 	->add('App\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
+$app->group('/plant', 'App\Module\Crop')
+    ->add('App\Middleware\InputDataFilter')
+    ->add('App\Middleware\Authenticate')
+    ->add('App\Middleware\Session')
+    // ->add('OpenTHC\Middleware\Log\HTTP')
+    ;
 
 
 // Crop Collect
@@ -146,6 +152,12 @@ $app->group('/crop-collect', 'App\Module\CropCollect')
 	->add('App\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
+$app->group('/plant-collect', 'App\Module\CropCollect')
+    ->add('App\Middleware\InputDataFilter')
+    ->add('App\Middleware\Authenticate')
+    ->add('App\Middleware\Session')
+    // ->add('OpenTHC\Middleware\Log\HTTP')
+    ;
 
 
 // Lab Samples and Results
