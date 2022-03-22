@@ -153,22 +153,22 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 		$data['mail_subject'] = $data['subject'];
 		$data['mail_subj'] = $data['subject'];
 
-		$data['app_url'] = 'https://openthc.dev/test/APP_URL'; // v2
-		$data['openthc_app_url'] = 'https://openthc.dev/#TEST_APP_URL'; // v3
-		$data['openthc_sso_url'] = 'https://openthc.dev/#TEST_SSO_URL';
+		$data['app_url'] = 'https://openthc.example.com/test/APP_URL'; // v2
+		$data['openthc_app_url'] = 'https://openthc.example.com/#TEST_APP_URL'; // v3
+		$data['openthc_sso_url'] = 'https://openthc.example.com/#TEST_SSO_URL';
 		$data['auth_context_ticket'] = 'AUTH_CONTEXT_TICKET'; // v3
 
 		$data['company_name'] = 'TEST_COMPANY_NAME';
 		$data['contact_name'] = 'TEST_COMPANY_NAME';
 
 		$data['origin_license'] = 'TEST_LICENSE_SOURCE';
-		$data['origin_license_email'] = sprintf('test+license-source-%06d@openthc.com', $this->_pid);
+		$data['origin_license_email'] = sprintf('test+license-source-%06d@openthc.example.com', $this->_pid);
 
 		$data['target_license'] = 'TEST_LICENSE_TARGET';
-		$data['target_license_email'] = sprintf('test+license-target-%06d@openthc.com', $this->_pid);
+		$data['target_license_email'] = sprintf('test+license-target-%06d@openthc.example.com', $this->_pid);
 
-		$data['mail_link'] = 'https://openthc.dev/#MAIL_LINK'; // @deprecated
-		$data['transfer_link'] = 'https://openthc.dev/#TRANSFER_LINK';
+		$data['mail_link'] = 'https://openthc.example.com/#MAIL_LINK'; // @deprecated
+		$data['transfer_link'] = 'https://openthc.example.com/#TRANSFER_LINK';
 
 		$data['days'] = '420'; // who uses this one?
 		$data['note'] = 'TEST_NOTE'; // ??
@@ -217,7 +217,6 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));
-
 
 		$rnd_list = array();
 		foreach ($res['data'] as $x) {

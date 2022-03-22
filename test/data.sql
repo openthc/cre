@@ -2,65 +2,85 @@
  * Test Data
  */
 
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX9M209XSPAMRCXSRYF2', '-', 'TEST - Grower');
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX9MY0BZDEJFRXBW82T4', '-', 'TEST - Processor');
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX9MXFHHT41X08Y6JX23', '-', 'TEST - Laboratory');
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX9MH3QJW8QGE7CXNAAQ', '-', 'TEST - Retail');
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX90R6XXEYT0NNB8SRRW', '-', 'TEST_COMPANY_E'); -- Retail
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX90VWP5ADM29VY7M8GA', '-', 'TEST_COMPANY_F');
-INSERT INTO company (id, hash, name) VALUES ('019KAGVX90R042KKP7YPQXC51C', '-', 'TEST_COMPANY_G');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000A', '-', 'TEST - Grower');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000B', '-', 'TEST - Processor');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000C', '-', 'TEST - Laboratory');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000D', '-', 'TEST - Retail');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000E', '-', 'TEST_COMPANY_E');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000F', '-', 'TEST_COMPANY_F');
+INSERT INTO company (id, hash, name) VALUES ('018NY6XC00C0MPANY00000000G', '-', 'TEST_COMPANY_G');
 
-INSERT INTO auth_company (id, code) VALUES ('019KAGVX9M209XSPAMRCXSRYF2', '01DG9H1PSQG8VF1M0W3FANX4JE');
-INSERT INTO auth_company (id, code) VALUES ('019KAGVX9MY0BZDEJFRXBW82T4', '01DG9H1PSQ3CW3DSM95YQ9D9DC');
-INSERT INTO auth_company (id, code) VALUES ('019KAGVX9MXFHHT41X08Y6JX23', '01DG9H1PSQ6377JJ4XAE4SCWCV');
-INSERT INTO auth_company (id, code) VALUES ('019KAGVX9MH3QJW8QGE7CXNAAQ', '01DG9H1PSQHQRQM8FRAGD5GTWH');
-
-
-INSERT INTO license (id, company_id, hash, name) VALUES ('019KAGVX9MNVQVXP6A24ND2CBW', '019KAGVX9M209XSPAMRCXSRYF2', '-', 'TEST - Grower');
-INSERT INTO license (id, company_id, hash, name) VALUES ('019KAGVX9MQQS4S9MC1WX5A76G', '019KAGVX9MY0BZDEJFRXBW82T4', '-', 'TEST - Processor');
-INSERT INTO license (id, company_id, hash, name) VALUES ('019KAGVX9MCGZD0YMFKRHRV2F1', '019KAGVX9MY0BZDEJFRXBW82T4', '-', 'TEST - Processor - B');
-INSERT INTO license (id, company_id, hash, name) VALUES ('019KAGVX9MMGS6HQZ6787CB92R', '019KAGVX9MXFHHT41X08Y6JX23', '-', 'TEST - Laboratory');
-INSERT INTO license (id, company_id, hash, name) VALUES ('019KAGVX9MD60MW90N4GTB75Y1', '019KAGVX9MH3QJW8QGE7CXNAAQ', '-', 'TEST - Retail');
-INSERT INTO license (id, company_id, hash, name) VALUES ('019KAGVX9MX1D3B84TP8GQNQ7K', '019KAGVX9MH3QJW8QGE7CXNAAQ', '-', 'TEST - Retail - B');
+INSERT INTO auth_company (id, code) VALUES ('018NY6XC00C0MPANY00000000A', '018NY6XC00C0MPANY00000000A');
+INSERT INTO auth_company (id, code) VALUES ('018NY6XC00C0MPANY00000000B', '018NY6XC00C0MPANY00000000B');
+INSERT INTO auth_company (id, code) VALUES ('018NY6XC00C0MPANY00000000C', '018NY6XC00C0MPANY00000000C');
+INSERT INTO auth_company (id, code) VALUES ('018NY6XC00C0MPANY00000000C', '018NY6XC00C0MPANY00000000C');
 
 
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9MSWAC5E0AZK1TNKED', '019KAGVX9M209XSPAMRCXSRYF2', '-', 'TEST_CONTACT_A');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9M9HS5922QDYTJSPTA', '019KAGVX9M209XSPAMRCXSRYF2', '-', 'TEST_CONTACT_B');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9MR4QW6XFFHF01ABRM', '019KAGVX9MY0BZDEJFRXBW82T4', '-', 'TEST_CONTACT_C');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9MQKX23QCC53E86WJX', '019KAGVX9MY0BZDEJFRXBW82T4', '-', 'TEST_CONTACT_D');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9MVQYGR3X21FAZHA5R', '019KAGVX9MXFHHT41X08Y6JX23', '-', 'TEST_CONTACT_E');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9M279CP0C727WGNDFH', '019KAGVX9MXFHHT41X08Y6JX23', '-', 'TEST_CONTACT_F');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9ME984HQCWNKJK1Y6D', '019KAGVX9MH3QJW8QGE7CXNAAQ', '-', 'TEST_CONTACT_G');
-INSERT INTO contact (id, company_id, hash, name) VALUES ('019KAGVX9MW22K65EW5RT81YG3', '019KAGVX9MH3QJW8QGE7CXNAAQ', '-', 'TEST_CONTACT_H');
-
-INSERT INTO auth_contact (id, username, password) VALUES ('019KAGVX9MSWAC5E0AZK1TNKED', 'test+a@openthc.org', '01DG9H1PSQNPKQC8HV479FZ5TM');
-INSERT INTO auth_contact (id, username, password) VALUES ('019KAGVX9M9HS5922QDYTJSPTA', 'test+b@openthc.org', '01DG9H1PSQF783Z3EPYJFX46KE');
-INSERT INTO auth_contact (id, username, password) VALUES ('019KAGVX9MR4QW6XFFHF01ABRM', 'test+c@openthc.org', '01DG9H1PSQ0PGZEXAXZBA8KF62');
-INSERT INTO auth_contact (id, username, password) VALUES ('019KAGVX9MQKX23QCC53E86WJX', 'test+d@openthc.org', '01DG9H1PSQZK955E2CDGAC53D0');
--- INSERT INTO auth_contact (id, username, password) VALUES ('', 'test+f@openthc.org', '01DG9H1PSQ9TJRH5YG6Q0G54FD');
--- INSERT INTO auth_contact (id, username, password) VALUES ('', 'test+g@openthc.org', '01DG9H1PSQ7EM7D1ETTZR5GAX5');
+INSERT INTO license (id, company_id, hash, name) VALUES ('018NY6XC00L1CENSE00000000A', '018NY6XC00C0MPANY00000000A', '-', 'TEST - Grower');
+INSERT INTO license (id, company_id, hash, name) VALUES ('018NY6XC00L1CENSE00000000B', '018NY6XC00C0MPANY00000000B', '-', 'TEST - Processor');
+INSERT INTO license (id, company_id, hash, name) VALUES ('018NY6XC00L1CENSE00000000C', '018NY6XC00C0MPANY00000000C', '-', 'TEST - Laboratory');
+INSERT INTO license (id, company_id, hash, name) VALUES ('018NY6XC00L1CENSE00000000D', '018NY6XC00C0MPANY00000000D', '-', 'TEST - Retail');
+-- INSERT INTO license (id, company_id, hash, name) VALUES ('018NY6XC00L1CENSE00000000E', '018NY6XC00C0MPANY00000000E', '-', 'TEST - Retail - B');
 
 
-INSERT INTO program (id, company_id, hash, name) VALUES ('019KAGVSC04QR1WM5H86QRCGXG', '019KAGVX90R6XXEYT0NNB8SRRW', '-', 'test-program-e');
-INSERT INTO program (id, company_id, hash, name) VALUES ('019KAGVSC0NHRP3ANZD1YT9ZQ4', '019KAGVX90VWP5ADM29VY7M8GA', '-', 'test-program-f');
-INSERT INTO program (id, company_id, hash, name) VALUES ('019KAGVSC0XHVSZMJGXA37B05S', '019KAGVX90R042KKP7YPQXC51C', '-', 'test-program-g');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000A', '018NY6XC00C0MPANY00000000A', '-', 'TEST_CONTACT_A');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000B', '018NY6XC00C0MPANY00000000A', '-', 'TEST_CONTACT_B');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000C', '018NY6XC00C0MPANY00000000B', '-', 'TEST_CONTACT_C');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000D', '018NY6XC00C0MPANY00000000B', '-', 'TEST_CONTACT_D');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000E', '018NY6XC00C0MPANY00000000C', '-', 'TEST_CONTACT_E');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000F', '018NY6XC00C0MPANY00000000C', '-', 'TEST_CONTACT_F');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000G', '018NY6XC00C0MPANY00000000D', '-', 'TEST_CONTACT_G');
+INSERT INTO contact (id, company_id, hash, name) VALUES ('018NY6XC00C0NTACT00000000H', '018NY6XC00C0MPANY00000000D', '-', 'TEST_CONTACT_H');
 
-INSERT INTO auth_program (id, company_id, code) VALUES ('019KAGVSC04QR1WM5H86QRCGXG', '019KAGVX90R6XXEYT0NNB8SRRW', 'test-program-e-public');
-INSERT INTO auth_program (id, company_id, code) VALUES ('019KAGVSC0NHRP3ANZD1YT9ZQ4', '019KAGVX90VWP5ADM29VY7M8GA', 'test-program-f-public');
-INSERT INTO auth_program (id, company_id, code) VALUES ('019KAGVSC0XHVSZMJGXA37B05S', '019KAGVX90R042KKP7YPQXC51C', 'test-program-g-public');
+INSERT INTO auth_contact (id, username, password) VALUES ('018NY6XC00C0NTACT00000000A', 'test+a@openthc.org', '01DG9H1PSQNPKQC8HV479FZ5TM');
+INSERT INTO auth_contact (id, username, password) VALUES ('018NY6XC00C0NTACT00000000B', 'test+b@openthc.org', '01DG9H1PSQF783Z3EPYJFX46KE');
+INSERT INTO auth_contact (id, username, password) VALUES ('018NY6XC00C0NTACT00000000C', 'test+c@openthc.org', '01DG9H1PSQ0PGZEXAXZBA8KF62');
+INSERT INTO auth_contact (id, username, password) VALUES ('018NY6XC00C0NTACT00000000D', 'test+d@openthc.org', '01DG9H1PSQZK955E2CDGAC53D0');
+INSERT INTO auth_contact (id, username, password) VALUES ('018NY6XC00C0NTACT00000000E', 'test+e@openthc.org', '01DG9H1PSQ9TJRH5YG6Q0G54FD');
+INSERT INTO auth_contact (id, username, password) VALUES ('018NY6XC00C0NTACT00000000F', 'test+f@openthc.org', '01DG9H1PSQ7EM7D1ETTZR5GAX5');
+
+
+INSERT INTO service (id, company_id, hash, name) VALUES ('018NY6XC00SERV1CE00000000A', '018NY6XC00C0MPANY00000000A', '-', 'TEST SERVICE A');
+INSERT INTO service (id, company_id, hash, name) VALUES ('018NY6XC00SERV1CE00000000B', '018NY6XC00C0MPANY00000000A', '-', 'TEST SERVICE B');
+INSERT INTO service (id, company_id, hash, name) VALUES ('018NY6XC00SERV1CE00000000C', '018NY6XC00C0MPANY00000000A', '-', 'TEST SERVICE C');
+
+INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000A', '018NY6XC00C0MPANY00000000A', 'TEST SERVICE A', 'test-service-a-public', 'test-service-a-secret');
+INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000B', '018NY6XC00C0MPANY00000000C', 'TEST SERVICE B', 'test-service-b-public', 'test-service-b-secret');
+INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000C', '018NY6XC00C0MPANY000000003', 'TEST SERVICE C', 'test-service-c-public', 'test-service-c-secret');
 
 --
 -- Run these manually, then trap the results
 --
--- INSERT INTO auth_program_secret (id, program_id, code) VALUES (ulid_create(), '019KAGVSC04QR1WM5H86QRCGXG', 'test-program-e-secret-0');
--- INSERT INTO auth_program_secret (id, program_id, code) VALUES (ulid_create(), '019KAGVSC04QR1WM5H86QRCGXG', 'test-program-e-secret-1');
--- INSERT INTO auth_program_secret (id, program_id, code) VALUES (ulid_create(), '019KAGVSC0NHRP3ANZD1YT9ZQ4', 'test-program-f-secret-0');
--- INSERT INTO auth_program_secret (id, program_id, code) VALUES (ulid_create(), '019KAGVSC0XHVSZMJGXA37B05S', 'test-program-g-secret-0');
+INSERT INTO auth_service_ticket (id, service_id, code) VALUES (ulid_create(), '018NY6XC00SERV1CE00000000A', 'test-service-a-ticket-0');
+INSERT INTO auth_service_ticket (id, service_id, code) VALUES (ulid_create(), '018NY6XC00SERV1CE00000000A', 'test-service-a-ticket-1');
+INSERT INTO auth_service_ticket (id, service_id, code) VALUES (ulid_create(), '018NY6XC00SERV1CE00000000B', 'test-service-b-ticket-0');
+INSERT INTO auth_service_ticket (id, service_id, code) VALUES (ulid_create(), '018NY6XC00SERV1CE00000000C', 'test-service-c-ticket-0');
 
 
 DELETE FROM section WHERE name LIKE 'UNITTEST%';
 DELETE FROM variety WHERE name LIKE 'UNITTEST%';
-DELETE FROM license WHERE name LIKE 'UNITTEST%';
-DELETE FROM contact WHERE name LIKE 'UNITTEST%';
-DELETE FROM company WHERE name LIKE 'UNITTEST%';
 DELETE FROM product WHERE name LIKE 'UNITTEST%';
+DELETE FROM license WHERE name LIKE 'UNITTEST%';
+DELETE FROM company WHERE name LIKE 'UNITTEST%';
+DELETE FROM contact WHERE name LIKE 'UNITTEST%';
+
+
+-- root service -- for adminstrative API access
+-- INSERT INTO service (id, company_id, hash, name) VALUES ('019KAGVSC0QPM7X728Z15ZTE37', '019KAGVSC05RHV4QAS76VPV6J7', '-', '-system-');
+-- INSERT INTO auth_service (id, company_id, code) VALUES ('019KAGVSC0QPM7X728Z15ZTE37', '019KAGVSC05RHV4QAS76VPV6J7', '-system-');
+-- INSERT INTO auth_service_secret (id, service_id, code) VALUES (ulid_create(), '019KAGVSC0QPM7X728Z15ZTE37', 'system-service-secret');
+
+
+-- utility records
+
+-- INSERT INTO company (id, stat, hash, name) VALUES ('019KAGVX9M70EDAH44N1B3JNSM', 200, '-', 'leafdata-import.openthc.com');
+-- INSERT INTO auth_company values ('019KAGVX9M70EDAH44N1B3JNSM', 'leafdata-import.openthc.org');
+
+-- INSERT INTO company (id, stat, hash, name) values ('', 200, '-', 'biotrack-import.openthc.com');
+-- INSERT INTO auth_company values ('', 'biotrack-import.openthc.org');
+
+-- INSERT INTO company values ('', 200, '-', 'metrc-import.openthc.com');
+-- INSERT INTO auth_company values ('', 'metrc-import.openthc.org');
+
+-- INSERT INTO company values ('', 200, '-', 'csv-import.openthc.com');
+-- INSERT INTO auth_company values ('', 'csv-import.openthc.org');
