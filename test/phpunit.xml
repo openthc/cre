@@ -33,6 +33,7 @@
 
 		<!-- root/system accounts -->
 		<env name="api-service-0" value="018NY6XC00SERV1CE000000000" />
+		<env name="api-contact-0" value="018NY6XC00C0NTACT000000000" />
 		<env name="api-company-0" value="018NY6XC00C0MPANY000000000" />
 		<env name="api-license-0" value="018NY6XC00L1CENSE000000000" />
 
@@ -41,33 +42,39 @@
 		<env name="api-service-c" value="018NY6XC00SERV1CE000000000" />
 
 		<!-- Farmer / Grower / Producer -->
-		<env name="api-company-g0" value="018NY6XC00209XSPAMRCXSRYF2" />
-		<env name="api-license-g0" value="018NY6XC00NVQVXP6A24ND2CBW" />
-		<env name="api-contact-g0" value="018NY6XC00SWAC5E0AZK1TNKED" />
+		<env name="api-contact-g0" value="018NY6XC00C0NTACT0000000G0" />
+		<env name="api-company-g0" value="018NY6XC00C0MPANY0000000G0" />
+		<env name="api-license-g0" value="018NY6XC00L1CENSE0000000G0" />
 		<env name="api-license-g0-secret" value="" />
+		<env name="api-license-g1" value="018NY6XC00L1CENSE0000000G0" />
+		<env name="api-license-g1-secret" value="" />
 
 		<!-- Processor / Manufacturer / Distributor -->
-		<env name="api-company-p0" value="018NY6XC00Y0BZDEJFRXBW82T4" />
-		<env name="api-license-p0" value="018NY6XC00QQS4S9MC1WX5A76G" />
-		<env name="api-contact-p0" value="018NY6XC00R4QW6XFFHF01ABRM" />
+		<env name="api-contact-p0" value="018NY6XC00C0NTACT0000000P0" />
+		<env name="api-company-p0" value="018NY6XC00C0MPANY0000000P0" />
+		<env name="api-license-p0" value="018NY6XC00L1CENSE0000000P0" />
 		<env name="api-license-p0-secret" value="" />
 
 		<!-- Laboratory -->
-		<env name="api-company-l0" value="018NY6XC00XFHHT41X08Y6JX23" />
-		<env name="api-license-l0" value="018NY6XC00MGS6HQZ6787CB92R" />
-		<env name="api-contact-l0" value="018NY6XC00VQYGR3X21FAZHA5R" />
+		<env name="api-contact-l0" value="018NY6XC00C0NTACT0000000L0" />
+		<env name="api-company-l0" value="018NY6XC00C0MPANY0000000L0" />
+		<env name="api-license-l0" value="018NY6XC00L1CENSE0000000L0" />
 		<env name="api-license-l0-secret" value="" />
 
 		<!-- Retail / Dispensary -->
-		<env name="api-company-r0" value="018NY6XC00H3QJW8QGE7CXNAAQ" />
-		<env name="api-license-r0" value="018NY6XC00D60MW90N4GTB75Y1" />
-		<env name="api-contact-r0" value="018NY6XC00E984HQCWNKJK1Y6D" />
+		<env name="api-contact-r0" value="018NY6XC00C0NTACT0000000R0" />
+		<env name="api-company-r0" value="018NY6XC00C0MPANY0000000R0" />
+		<env name="api-license-r0" value="018NY6XC00L1CENSE0000000R0" />
 		<env name="api-license-r0-secret" value="" />
 
 	</php>
 
 	<testsuites>
-
+<!--
+		<testsuite name="All">
+			<directory>.</directory>
+		</testsuite>
+-->
 		<testsuite name="System">
 			<directory>A_System</directory>
 		</testsuite>
@@ -88,8 +95,8 @@
 			<directory>E_Crop</directory>
 		</testsuite>
 
-		<testsuite name="Crop-Collect">
-			<directory>E_Crop_Collect</directory>
+		<testsuite name="Crop Collect">
+			<directory>F_Crop_Collect</directory>
 		</testsuite>
 
 		<testsuite name="Process">
@@ -100,22 +107,18 @@
 			<directory>H_Laboratory</directory>
 		</testsuite>
 
-		<testsuite name="I-Package">
+		<testsuite name="Package">
 			<directory>I_Package</directory>
 		</testsuite>
 
-		<testsuite name="B2B">
+		<testsuite name="B2B Transaction">
 			<directory>J_B2B</directory>
 		</testsuite>
 
-		<testsuite name="B2C">
+		<testsuite name="B2C Transaction">
 			<directory>K_B2C</directory>
 		</testsuite>
 
 	</testsuites>
-
-	<logging>
-		<junit outputFile="../webroot/test-output/output.xml" />
-	</logging>
 
 </phpunit>
