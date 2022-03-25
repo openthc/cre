@@ -13,8 +13,8 @@ class C_Session_Test extends \Test\Base_Case
 	{
 		$res = $this->_post('/auth/open', [
 			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-g0'],
-			'license' => $_ENV['api-license-g0']
+			'company' => $_ENV['api-company-a'],
+			'license' => $_ENV['api-license-a']
 		]);
 
 		// Check for Cookie
@@ -82,8 +82,8 @@ class C_Session_Test extends \Test\Base_Case
 	{
 		$res = $this->_post('/auth/open', [
 			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-g0'],
-			'license' => $_ENV['api-license-g0']
+			'company' => $_ENV['api-company-a'],
+			'license' => $_ENV['api-license-a']
 		]);
 
 		// Check for Cookie

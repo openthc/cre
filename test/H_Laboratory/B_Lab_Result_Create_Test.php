@@ -15,7 +15,7 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 
 	function test_create_sample()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$res = $this->httpClient->get('/lot');
 		$res = $this->assertValidResponse($res);
@@ -27,12 +27,12 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 
 		// Now Send as a Sample to a Laboratory through b2b_transfer
 		$res = $this->_post('/b2b', [
-			'license_id_target' => $_ENV['api-license-l0'],
+			'license_id_target' => $_ENV['api-license-d'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => $_ENV['api-contact-g0'],
+				'id' => $_ENV['api-contact-a'],
 			]
 		]);
 
@@ -53,7 +53,7 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 		$res = $this->assertValidResponse($res, 200);
 		$T1 = $res['data'];
 		$this->assertIsArray($T1);
-		$this->assertCount(6, $T1);
+		$this->assertCount(12, $T1);
 		$this->assertNotEmpty($T1['id']);
 		$this->assertIsArray($T1['line_item_list']);
 		$this->assertCount(1, $T1['line_item_list']);
@@ -63,7 +63,7 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 		$res = $this->assertValidResponse($res, 202);
 		$T2 = $res['data'];
 		$this->assertIsArray($T2);
-		$this->assertCount(7, $T2);
+		$this->assertCount(12, $T2);
 		$this->assertNotEmpty($T2['id']);
 		$this->assertEquals(307, $T2['stat']);
 		$this->assertEquals(307, $T2['transfer_outgoing_stat']);
@@ -73,7 +73,7 @@ class B_Lab_Result_Create_Test extends \Test\Base_Case
 
 	function test_create_result()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 
 		$res = $this->httpClient->get('/b2b/incoming');

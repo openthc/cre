@@ -12,7 +12,7 @@ class E_Section_Test extends \Test\Base_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 	}
 
 	public function test_public_read()
@@ -202,7 +202,7 @@ class E_Section_Test extends \Test\Base_Case
 	 */
 	function test_create_g()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$name = sprintf('UNITTEST Section-G CREATE %06x', $this->_pid);
 
@@ -218,7 +218,7 @@ class E_Section_Test extends \Test\Base_Case
 	 */
 	function test_create_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
 
 		$name = sprintf('UNITTEST Section-P CREATE %06x', $this->_pid);
 
@@ -233,7 +233,7 @@ class E_Section_Test extends \Test\Base_Case
 	 */
 	function test_create_l()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-c'], $_ENV['api-license-c']);
 
 		$name = sprintf('UNITTEST Section-L CREATE %06x', $this->_pid);
 
@@ -248,7 +248,7 @@ class E_Section_Test extends \Test\Base_Case
 	 */
 	function test_create_r()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 		$name = sprintf('UNITTEST Section-R CREATE %06x', $this->_pid);
 

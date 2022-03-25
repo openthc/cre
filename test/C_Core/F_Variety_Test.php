@@ -12,7 +12,7 @@ class F_Variety_Test extends \Test\Base_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 	}
 
 	public function test_public_read()
@@ -40,6 +40,7 @@ class F_Variety_Test extends \Test\Base_Case
 	{
 		$name = sprintf('UNITTEST Variety CREATE %06x', $this->_pid);
 
+		// Create Variety
 		$res = $this->_post('/variety', [
 			'name' => $name,
 		]);
@@ -50,6 +51,22 @@ class F_Variety_Test extends \Test\Base_Case
 		$s0 = $res['data'];
 		$this->assertNotEmpty($s0['id']);
 		$this->assertEquals($name, $s0['name']);
+
+		// Create Duplicate Variety
+		$res = $this->_post('/variety', [
+			'name' => $name,
+		]);
+		$res = $this->assertValidResponse($res, 409);
+
+		// Create Duplicate Variety under different license
+		// Reset Auth
+		$this->httpClient = $this->_api();
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+
+		$res = $this->_post('/variety', [
+			'name' => $name,
+		]);
+		$res = $this->assertValidResponse($res, 201);
 
 		$this->_data_stash_put($s0);
 

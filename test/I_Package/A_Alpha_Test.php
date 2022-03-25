@@ -38,7 +38,7 @@ class A_Alpha_Test extends \Test\Base_Case
 	 */
 	public function test_access_auth()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$res = $this->httpClient->get('/lot');
 		$this->assertValidResponse($res);
@@ -50,7 +50,7 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	public function test_create()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
@@ -72,7 +72,7 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	function test_convert()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
@@ -97,7 +97,7 @@ class A_Alpha_Test extends \Test\Base_Case
 		$res = $this->httpClient->delete('/lot/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 		$res = $this->httpClient->delete('/lot/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
@@ -107,7 +107,7 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	public function test_search()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$res = $this->httpClient->get('/lot');
 		$this->assertValidResponse($res);
@@ -116,7 +116,7 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	public function test_single_404()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$res = $this->httpClient->get('/lot/four_zero_four');
 		$this->assertValidResponse($res, 404);
@@ -124,18 +124,17 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	public function test_update()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$l0 = $this->find_random_lot();
 		$l0['qty'] = floatval($l0['qty']);
-
 		$l0['qty'] = $l0['qty'] * 2;
 
 		$res = $this->httpClient->patch('/lot/' . $l0['id'], [ 'json' => $l0 ]);
 		$res = $this->assertValidResponse($res, 200);
 
 		$this->assertIsArray($res['data']);
-		$this->assertCount(14, $res['data']);
+		$this->assertCount(13, $res['data']);
 
 		$l1 = $res['data'];
 		$this->assertNotEmpty($l1['hash']);

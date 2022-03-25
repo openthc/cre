@@ -9,7 +9,7 @@ class A_Alpha_Test extends \Test\Base_Case
 {
 	function test_lab()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$res = $this->httpClient->get('/lab');
 		$res = $this->assertValidResponse($res);

@@ -61,8 +61,8 @@ class A_Alpha_Test extends \Test\Base_Case
 		// TEST COMPANY A
 		$res = $this->_post('/auth/open', [
 			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-g0'],
-			'license' => $_ENV['api-license-g0']
+			'company' => $_ENV['api-company-a'],
+			'license' => $_ENV['api-license-a']
 		]);
 		$res = $this->assertValidResponse($res);
 
@@ -77,8 +77,8 @@ class A_Alpha_Test extends \Test\Base_Case
 	{
 		$res = $this->_post('/auth/open', [
 			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-g0'],
-			'license' => $_ENV['api-license-p0']
+			'company' => $_ENV['api-company-a'],
+			'license' => $_ENV['api-license-a']
 		]);
 		$res = $this->assertValidResponse($res, 403);
 

@@ -12,7 +12,7 @@ class B_License_Test extends \Test\Base_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 	}
 
 
@@ -44,7 +44,7 @@ class B_License_Test extends \Test\Base_Case
 		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
 		$res = $this->_post('/license', [
-			'company' => $_ENV['api-company-g0'],
+			'company' => $_ENV['api-company-a'],
 			'name' => 'UNITTEST License CREATE',
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -92,7 +92,7 @@ class B_License_Test extends \Test\Base_Case
 		$obj = $this->_data_stash_get();
 
 		$res = $this->_post('/license/' . $obj['id'], [
-			'company' => $_ENV['api-company-g0'],
+			'company' => $_ENV['api-company-a'],
 			'name' => 'UNITTEST License CREATE-UPDATE',
 		]);
 

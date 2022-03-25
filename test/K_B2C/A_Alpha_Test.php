@@ -10,7 +10,7 @@ class A_Alpha_Test extends \Test\Base_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-c'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+		$this->auth($_ENV['api-service-c'], $_ENV['api-company-d'], $_ENV['api-license-d']);
 	}
 
 	/**

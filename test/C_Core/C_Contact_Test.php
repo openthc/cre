@@ -12,7 +12,7 @@ class C_Contact_Test extends \Test\Base_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 	}
 
 	public function test_public_read()
@@ -39,7 +39,7 @@ class C_Contact_Test extends \Test\Base_Case
 	public function test_create()
 	{
 		$res = $this->_post('/contact', [
-			'company' => $_ENV['api-company-g0'],
+			'company' => $_ENV['api-company-a'],
 			'name' => 'UNITTEST Contact CREATE',
 		]);
 		$res = $this->assertValidResponse($res, 201);

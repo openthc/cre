@@ -12,7 +12,7 @@ class C_Accept_Incoming_Test extends \Test\Base_Case
 
 	function test_accept_g_to_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
 
 		$res = $this->httpClient->get($this->_url_path . '/incoming');
 		$res = $this->assertValidResponse($res);
@@ -35,7 +35,7 @@ class C_Accept_Incoming_Test extends \Test\Base_Case
 
 	function test_accept_p_to_r()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-r0'], $_ENV['api-license-r0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 		$Z = $this->find_random_section();
 

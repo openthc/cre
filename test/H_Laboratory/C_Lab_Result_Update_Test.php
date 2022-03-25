@@ -9,7 +9,7 @@ class C_Lab_Result_Update_Test extends \Test\Base_Case
 {
 	function test_update_result()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-l0'], $_ENV['api-license-l0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-c'], $_ENV['api-license-c']);
 
 		$res = $this->httpClient->get('/lab/result');
 		$res = $this->assertValidResponse($res);

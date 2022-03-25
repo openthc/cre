@@ -5,13 +5,13 @@
 
 namespace Test\C_Core;
 
-class D_Product_Type_Test extends \Test\Base_Case
+class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
 {
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	/*

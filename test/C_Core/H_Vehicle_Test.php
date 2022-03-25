@@ -5,9 +5,9 @@
 
 namespace Test\C_Core;
 
-class G_Product_Test extends \Test\Base_Case
+class G_Vehicle_Test extends \Test\Base_Case
 {
-	private $_url_path = '/product';
+	private $_url_path = '/';
 
 	protected function setUp() : void
 	{

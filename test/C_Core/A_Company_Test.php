@@ -10,7 +10,7 @@ class A_Company_Test extends \Test\Base_Case
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 	}
 
 	public function test_public_read()
@@ -91,16 +91,16 @@ class A_Company_Test extends \Test\Base_Case
 		$res = $this->assertValidResponse($res);
 		$this->assertEquals('-system-', $res['data']['name']);
 
-		$res = $this->httpClient->get('/company/' . $_ENV['api-company-g0']);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-a']);
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/company/' . $_ENV['api-company-p0']);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-b']);
 		$this->assertValidResponse($res);
 
-		// $res = $this->httpClient->get('/company/' . $_ENV['api-company-l0']);
-		// $this->assertValidResponse($res);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-c']);
+		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/company/' . $_ENV['api-company-r0']);
+		$res = $this->httpClient->get('/company/' . $_ENV['api-company-d']);
 		$this->assertValidResponse($res);
 
 	}
@@ -127,10 +127,10 @@ class A_Company_Test extends \Test\Base_Case
 		$this->assertValidResponse($res, 404);
 
 		// do stuff?
-		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-g0']);
+		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-a']);
 		$this->assertValidResponse($res, 405);
 
-		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-p0']);
+		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-b']);
 		$this->assertValidResponse($res, 405);
 
 	}

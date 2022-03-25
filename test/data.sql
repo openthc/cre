@@ -45,8 +45,8 @@ INSERT INTO service (id, company_id, hash, name) VALUES ('018NY6XC00SERV1CE00000
 INSERT INTO service (id, company_id, hash, name) VALUES ('018NY6XC00SERV1CE00000000C', '018NY6XC00C0MPANY00000000A', '-', 'TEST SERVICE C');
 
 INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000A', '018NY6XC00C0MPANY00000000A', 'TEST SERVICE A', 'test-service-a-public', 'test-service-a-secret');
-INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000B', '018NY6XC00C0MPANY00000000C', 'TEST SERVICE B', 'test-service-b-public', 'test-service-b-secret');
-INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000C', '018NY6XC00C0MPANY000000003', 'TEST SERVICE C', 'test-service-c-public', 'test-service-c-secret');
+INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000B', '018NY6XC00C0MPANY00000000B', 'TEST SERVICE B', 'test-service-b-public', 'test-service-b-secret');
+INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('018NY6XC00SERV1CE00000000C', '018NY6XC00C0MPANY00000000C', 'TEST SERVICE C', 'test-service-c-public', 'test-service-c-secret');
 
 --
 -- Run these manually, then trap the results

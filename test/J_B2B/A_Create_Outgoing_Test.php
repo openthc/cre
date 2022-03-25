@@ -12,15 +12,15 @@ class A_Create_Outgoing_Test extends \Test\Base_Case
 
 	function test_create_deliver_g_to_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_target' => $_ENV['api-license-p0'],
+			'license_id_target' => $_ENV['api-license-b'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => $_ENV['api-contact-g0'],
+				'id' => $_ENV['api-contact-a'],
 			]
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -37,15 +37,15 @@ class A_Create_Outgoing_Test extends \Test\Base_Case
 
 	function test_create_deliver_p_to_r()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-p0'], $_ENV['api-license-p0']);
+		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_target' => $_ENV['api-license-r0'],
+			'license_id_target' => $_ENV['api-license-d'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => $_ENV['api-contact-p0'],
+				'id' => $_ENV['api-contact-b'],
 			]
 		]);
 
