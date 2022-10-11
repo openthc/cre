@@ -72,9 +72,9 @@ CREATE TRIGGER log_delta_lot
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_delta_trigger();
 
-CREATE TRIGGER log_delta_plant
+CREATE TRIGGER log_delta_crop
 	AFTER INSERT OR UPDATE OR DELETE
-	ON plant
+	ON crop
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_delta_trigger();
 

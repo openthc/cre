@@ -166,23 +166,15 @@ CREATE TABLE lot_family (
 	id varchar(26) PRIMARY KEY,
 	lot_id varchar(26) not null,
 	lot_id_output varchar(26),
-	plant_id varchar(26),
-	plant_collect_id varchar(26),
+	crop_id varchar(26),
+	crop_collect_id varchar(26),
 	created_at timestamp with time zone not null default now(),
 	type varchar(4),
 	meta jsonb
 );
 
 
-CREATE TABLE lot_source (
-	id varchar(26) primary key,
-	lot_id varchar(26) not null,
-	source_lot_id varchar(26),
-	source_plant_collect varchar(26)
-);
-
-
-CREATE TABLE plant (
+CREATE TABLE crop (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
 	variety_id varchar(26) not null,
@@ -198,7 +190,7 @@ CREATE TABLE plant (
 );
 
 
-CREATE TABLE plant_collect (
+CREATE TABLE crop_collect (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -213,10 +205,10 @@ CREATE TABLE plant_collect (
 );
 
 
-CREATE TABLE plant_collect_plant (
+CREATE TABLE crop_collect_crop (
 	id varchar(26) PRIMARY KEY,
-	plant_collect_id varchar(26) not null,
-	plant_id varchar(26) not null,
+	crop_collect_id varchar(26) not null,
+	crop_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,

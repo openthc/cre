@@ -55,20 +55,20 @@ ALTER TABLE ONLY lot_family
     ADD FOREIGN KEY (lot_id_output) REFERENCES lot(id);
 
 ALTER TABLE ONLY lot_family
-    ADD FOREIGN KEY (plant_id) REFERENCES plant(id);
+    ADD FOREIGN KEY (crop_id) REFERENCES crop(id);
 
 ALTER TABLE ONLY lot_family
-    ADD FOREIGN KEY (plant_collect_id) REFERENCES plant_collect(id);
+    ADD FOREIGN KEY (crop_collect_id) REFERENCES crop_collect(id);
 
 
 --
--- Plant
+-- Crop
 --
 
-ALTER TABLE ONLY plant
+ALTER TABLE ONLY crop
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
-ALTER TABLE ONLY plant
+ALTER TABLE ONLY crop
     ADD FOREIGN KEY (section_id) REFERENCES section(id);
 
 --
