@@ -5,80 +5,81 @@
 
 set -o errexit
 set -o nounset
-# set -o pipefail
+
+x=${OPENTHC_TEST_BASE:-}
+if [ -z "$x" ]
+then
+	echo "You have to define the environment first"
+	exit 1
+fi
 
 f=$(readlink -f "$0")
 d=$(dirname "$f")
-dt=$(date)
 
 cd "$d"
 
-output_base="../webroot/test-output"
-output_main="$output_base/index.html"
-mkdir -p "$output_base"
+declare -rx OUTPUT_BASE="webroot/test-output"
+declare -rx OUTPUT_MAIN="${OUTPUT_BASE}/index.html"
+declare -rx SOURCE_LIST="
+	boot.php
+	api/
+	bin/
+	lib/
+	sbin/
+	test/
+	view/
+"
+
+mkdir -p "${OUTPUT_BASE}"
 
 
 #
 # Lint
-echo '<h1>Linting</h1>' > "$output_main"
-find ../api/ ../bin/ ../lib/ ../sbin/ ../view/ -type f -name '*.php' -exec php -l {} \; \
-	| grep -v 'No syntax' || true \
-	2>&1 >"$output_base/phplint.txt"
+vendor/openthc/common/test/phplint.sh
+
+
+#
+# PHP-CPD
+vendor/openthc/common/test/phpcpd.sh
+
+
+#
+# PHPStan
+vendor/openthc/common/test/phpstan.sh
 
 
 #
 # PHPUnit
-../vendor/bin/phpunit \
-	--verbose \
-	"$@" 2>&1 | tee "$output_base/output.txt"
-	# --log-junit "$output_base/output.xml" \
-	# --testdox-html "$output_base/testdox.html" \
-	# --testdox-text "$output_base/testdox.txt" \
-	# --testdox-xml "$output_base/testdox.xml" \
+vendor/openthc/common/test/phpunit.sh "$@"
 
 
 #
-# Get Transform
-echo '<h1>Transforming...</h1>' > "$output_main"
-if [ ! -f "report.xsl" ]
-then
-	curl -qs https://openthc.com/pub/phpunit/report.xsl > report.xsl
-fi
+# Final Output
+test_date=$(date)
+test_note=$(tail -n1 "${OUTPUT_BASE}/phpunit.txt")
 
-xsltproc \
-	--nomkdir \
-	--output "$output_base/output.html" \
-	report.xsl \
-	"$output_base/output.xml"
-
-#
-# Final Ouptut
-note=$(tail -n1 "$output_base/output.txt")
-
-cat <<HTML > "$output_main"
+cat <<HTML > "${OUTPUT_MAIN}"
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1, user-scalable=yes">
-<meta name="theme-color" content="#247420">
-<link rel="stylesheet" href="https://cdn.openthc.com/bootstrap/4.4.1/bootstrap.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
-<title>Test Result $dt</title>
+<meta name="theme-color" content="#069420">
+<style>
+html {
+	font-family: sans-serif;
+	font-size: 1.5rem;
+}
+</style>
+<title>Test Result ${test_date}</title>
 </head>
 <body>
-<div class="container mt-4">
-<div class="jumbotron">
-
-<h1>Test Result $dt</h1>
-<h2>$note</h2>
-
-<p>You can view the <a href="output.txt">raw script output</a>,
-or the <a href="output.xml">Unit Test XML</a>
-which we've processed <small>(via XSL)</small> to <a href="output.html">a pretty report</a>
-which is also in <a href="testdox.html">testdox format</a>.
-</p>
-
-</div>
-</div>
+<h1>Test Result ${test_date}</h1>
+<h2>${test_note}</h2>
+<p>Linting: <a href="phplint.txt">phplint.txt</a></p>
+<p>PHPCPD: <a href="phpcpd.txt">phpcpd.txt</a></p>
+<p>PHPStan: <a href="phpstan.xml">phpstan.xml</a> and <a href="phpstan.html">phpstan.html</a></p>
+<p>PHPUnit: <a href="phpunit.txt">phpunit.txt</a>, <a href="phpunit.xml">phpunit.xml</a> and <a href="phpunit.html">phpunit.html</a></p>
+<p>Textdox: <a href="testdox.txt">testdox.txt</a>, <a href="testdox.xml">testdox.xml</a> and <a href="testdox.html">testdox.html</a></p>
 </body>
 </html>
 HTML
