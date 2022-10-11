@@ -56,7 +56,6 @@ class D_Product_Type_Test extends \Test\Base_Case
 
 	/**
 	 * [test_create_clone description]
-	 * @return [type] [description]
 	 */
 	function test_create_clone()
 	{

@@ -27,11 +27,11 @@ class A_Alpha_Test extends \Test\Base_Case
 		$obj0 = $res['data'][0];
 		$obj1 = $res['data'][1];
 
-		$res = $this->_post('/sale');
+		$res = $this->_post('/sale', []);
 		$res = $this->assertValidResponse($res, 201);
 
 		// Add Item
-		$this->post('/sale/' . $res['data']['id'], [
+		$this->_post('/sale/' . $res['data']['id'], [
 			'lot_id' => $obj0['id'],
 			'qty' => 1,
 			'unit_price' => 12,
@@ -39,14 +39,16 @@ class A_Alpha_Test extends \Test\Base_Case
 		$res = $this->assertValidResponse($res, 201);
 
 		// Add Item
-		$this->post('/sale/' . $res['data']['id'], [
+		$this->_post('/sale/' . $res['data']['id'], [
 			'lot_id' => $obj1['id'],
 			'qty' => 2,
 			'unit_price' => 23,
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
-		$res = $this->_post('/sale/' . $res['data']['id']);
+		$res = $this->_post('/sale/' . $res['data']['id'], [
+			'action' => 'COMMIT',
+		]);
 		$res = $this->assertValidResponse($res);
 
 	}

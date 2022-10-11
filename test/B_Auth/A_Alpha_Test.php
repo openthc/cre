@@ -71,7 +71,6 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	/**
 	 * This test will get a 400 response because Company and License don't match
-	 * @return [type] [description]
 	 */
 	function test_open_fail_company_license()
 	{

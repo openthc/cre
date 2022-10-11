@@ -18,10 +18,10 @@ if ( ! \OpenTHC\Config::init(APP_ROOT) ) {
 /**
  * PostgreSQL Connection
  */
-function _dbc()
+function _dbc() : \Edoceo\Radix\DB\SQL
 {
 	static $dbc;
-	if (empty($rdb)) {
+	if (empty($dbc)) {
 		$cfg = \OpenTHC\Config::get('database');
 		$dsn = sprintf('pgsql:application_name=openthc-cre;host=%s;dbname=%s', $cfg['hostname'], $cfg['database']);
 		$dbc = new \Edoceo\Radix\DB\SQL($dsn, $cfg['username'], $cfg['password']);
@@ -32,7 +32,7 @@ function _dbc()
 /**
  * Redis Connection
  */
-function _rdb()
+function _rdb() : \Redis
 {
 	static $rdb;
 	if (empty($rdb)) {

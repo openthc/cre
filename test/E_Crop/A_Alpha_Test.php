@@ -15,7 +15,7 @@ class A_Alpha_Test extends \Test\Base_Case
 
 	public function test_create()
 	{
-		$sl0 = $this->find_random_lot(''); // of type Seed or Clone?
+		$sl0 = $this->find_random_lot(); // of type Seed or Clone?
 		$v = $this->find_random_variety();
 		$s = $this->find_random_section();
 

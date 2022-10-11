@@ -1,0 +1,15 @@
+#
+# OpenTHC PHPStan for CRE
+#
+
+parameters:
+	bootstrapFiles:
+		- %currentWorkingDirectory%/boot.php
+	level: 3
+	paths:
+		- %currentWorkingDirectory%/bin
+		- %currentWorkingDirectory%/lib
+		- %currentWorkingDirectory%/test
+	scanDirectories:
+		- %currentWorkingDirectory%/vendor
+	tipsOfTheDay: false

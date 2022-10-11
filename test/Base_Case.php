@@ -9,6 +9,7 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 {
 	protected $httpClient;
 	protected $_pid = null;
+	protected $raw; // Recent Raw Response Body
 	protected $type_expect = 'application/json';
 	protected $_tmp_file = '/tmp/test-data-pass.json';
 
