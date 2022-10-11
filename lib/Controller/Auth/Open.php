@@ -57,6 +57,9 @@ class Open extends \App\Controller\Base
 
 	}
 
+	/**
+	 *
+	 */
 	function _open_session($RES)
 	{
 		if (empty($_POST['service'])) {
@@ -125,6 +128,7 @@ class Open extends \App\Controller\Base
 
 		session_start();
 
+		$_SESSION['id'] = session_id();
 		$_SESSION['service_id'] = $service_id;
 		$_SESSION['company_id'] = $company_id;
 		$_SESSION['license_id'] = $L['id'];
