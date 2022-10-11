@@ -35,10 +35,10 @@ class ULID extends \App\Controller\Base
 
 		$ulid = \Edoceo\Radix\ULID::create($t_make);
 
-		$t = substr($ulid, 0, 10);
-		$r = substr($ulid, 10);
-
 		if (!empty($p_want)) {
+
+			$t = substr($ulid, 0, 10);
+			$r = substr($ulid, 10);
 
 			$p_want = substr($p_want, 0, self::PREFIX_LENGTH_MAX);
 			$p_size = strlen($p_want);
@@ -46,11 +46,10 @@ class ULID extends \App\Controller\Base
 			$r = substr($r, $p_size);
 			$r = $p_want . $r;
 
+			$ulid = sprintf('%010s%016s', $t, $r);
 		}
 
-		$out = $t. $r;
-
-		_exit_text("$out\n");
+		_exit_text($ulid);
 
 	}
 }
