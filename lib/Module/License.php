@@ -12,6 +12,8 @@ class License extends \OpenTHC\Module\Base
 		$a->get('', 'App\Controller\License\Search');
 		$a->post('', 'App\Controller\License\Create');
 
+		// $a->get('/type', 'App\Controller\License\Search:type');
+
 		$a->get('/{id}', 'App\Controller\License\Single');
 		$a->post('/{id}', 'App\Controller\License\Update');
 

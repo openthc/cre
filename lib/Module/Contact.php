@@ -12,6 +12,8 @@ class Contact extends \OpenTHC\Module\Base
 		$a->get('', 'App\Controller\Contact\Search');
 		$a->post('', 'App\Controller\Contact\Create');
 
+		// $a->get('/type', 'App\Controller\Contact\Search:type');
+
 		$a->get('/{id}', 'App\Controller\Contact\Single');
 		$a->post('/{id}', 'App\Controller\Contact\Update');
 

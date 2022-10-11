@@ -15,6 +15,8 @@ class Company extends \OpenTHC\Module\Base
 
 		$a->post('', 'App\Controller\Company\Create');
 
+		// $a->get('/type', 'App\Controller\Company\Search:type');
+
 		$a->get('/{id}', 'App\Controller\Company\Single');
 		$a->post('/{id}', 'App\Controller\Company\Update');
 

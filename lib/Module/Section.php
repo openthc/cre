@@ -12,6 +12,8 @@ class Section extends \OpenTHC\Module\Base
 		$a->get('', 'App\Controller\Section\Search');
 		$a->post('', 'App\Controller\Section\Create');
 
+		// $a->get('/type', 'App\Controller\Section\Search:type');
+
 		$a->get('/{id}', 'App\Controller\Section\Single');
 		$a->post('/{id}', 'App\Controller\Section\Update');
 
