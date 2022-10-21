@@ -13,6 +13,8 @@ class ULID extends \App\Controller\Base
 
 	function __invoke($REQ, $RES, $ARG)
 	{
+		$RES = $RES->withHeader('content-type', 'text/plain');
+
 		$t_want = $_GET['t'];
 		$p_want = $_GET['p'];
 
@@ -29,7 +31,8 @@ class ULID extends \App\Controller\Base
 				$t_make = sprintf('%d%03d', $u, $v);
 
 			} catch (\Exception $e) {
-				_exit_text("Invalid DateTime Value\n", 400);
+				$RES = $RES->write("Invalid DateTime Value\n");
+				return $RES->withStatus(400);
 			}
 		}
 
@@ -49,7 +52,7 @@ class ULID extends \App\Controller\Base
 			$ulid = sprintf('%010s%016s', $t, $r);
 		}
 
-		_exit_text($ulid);
+		return $RES->write($ulid);
 
 	}
 }
