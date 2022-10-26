@@ -1,6 +1,6 @@
 <?php
 /**
- * Front Controller
+ * Main Controller
  */
 
 require_once(dirname(dirname(__FILE__)) . '/boot.php');
@@ -19,30 +19,8 @@ if ($cfg['debug']) {
 	unset($con['notFoundHandler']);
 }
 
-
-// Use my Custom Response Object
-class Custom_Response extends \Slim\Http\Response
-{
-	function __construct($c=200, $h=null)
-	{
-		$h = new \Slim\Http\Headers(['content-type' => 'text/html; charset=utf-8']);
-		parent::__construct($c, $h);
-		$this->withProtocolVersion('1.1');
-	}
-
-	function withJSON($data, $code=null, $flag=null)
-	{
-		if (empty($flag)) {
-			$flag = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE;
-		}
-
-		return parent::withJSON($data, $code, $flag);
-	}
-}
-
 $con['response'] = function($c) {
-	$r = new Custom_Response();
-	return $r;
+	return new \OpenTHC\HTTP\Response();
 };
 
 // Database
@@ -137,12 +115,6 @@ $app->group('/crop', 'App\Module\Crop')
 	->add('App\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
-$app->group('/plant', 'App\Module\Crop')
-    ->add('App\Middleware\InputDataFilter')
-    ->add('App\Middleware\Authenticate')
-    ->add('App\Middleware\Session')
-    // ->add('OpenTHC\Middleware\Log\HTTP')
-    ;
 
 
 // Crop Collect
@@ -152,12 +124,6 @@ $app->group('/crop-collect', 'App\Module\CropCollect')
 	->add('App\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
-$app->group('/plant-collect', 'App\Module\CropCollect')
-    ->add('App\Middleware\InputDataFilter')
-    ->add('App\Middleware\Authenticate')
-    ->add('App\Middleware\Session')
-    // ->add('OpenTHC\Middleware\Log\HTTP')
-    ;
 
 
 // Lab Samples and Results
@@ -208,5 +174,7 @@ if (is_file($f)) {
 // And...go!
 $app->run();
 
+// $rdb = _rdb();
+// $rdb->publish('openthc_cre', sprintf('%s %s', $_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']));
 
 exit(0);
