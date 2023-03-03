@@ -1,11 +1,13 @@
 <?php
 /**
  *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\C_Core;
+namespace OpenTHC\CRE\Test\C_Core;
 
-class F_Variety_Test extends \Test\Base_Case
+class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected $_tmp_file = '/tmp/unit-test-variety.json';
 

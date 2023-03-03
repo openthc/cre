@@ -1,11 +1,13 @@
 <?php
 /**
  * Tests the inventory section of the API
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\D_Propagate;
+namespace OpenTHC\CRE\Test\D_Propagate;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected $_url_path = '/lot';
 

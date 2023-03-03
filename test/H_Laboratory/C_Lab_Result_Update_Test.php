@@ -1,11 +1,13 @@
 <?php
 /**
  * Update Lab Results
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\H_Laboratory;
+namespace OpenTHC\CRE\Test\H_Laboratory;
 
-class C_Lab_Result_Update_Test extends \Test\Base_Case
+class C_Lab_Result_Update_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	function test_update_result()
 	{

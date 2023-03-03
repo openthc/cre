@@ -1,11 +1,13 @@
 <?php
 /**
  *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\C_Core;
+namespace OpenTHC\CRE\Test\C_Core;
 
-class A_Company_Test extends \Test\Base_Case
+class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{
@@ -124,14 +126,14 @@ class A_Company_Test extends \Test\Base_Case
 	public function test_delete()
 	{
 		$res = $this->httpClient->delete('/company/four_zero_four');
-		$this->assertValidResponse($res, 404);
+		$this->assertValidResponse($res, 403);
 
 		// do stuff?
 		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-a']);
-		$this->assertValidResponse($res, 405);
+		$this->assertValidResponse($res, 403);
 
 		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-b']);
-		$this->assertValidResponse($res, 405);
+		$this->assertValidResponse($res, 403);
 
 	}
 

@@ -1,11 +1,13 @@
 <?php
 /**
  *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\F_Crop_Collect;
+namespace OpenTHC\CRE\Test\F_Crop_Collect;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{

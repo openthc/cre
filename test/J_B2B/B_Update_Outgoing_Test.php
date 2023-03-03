@@ -1,11 +1,13 @@
 <?php
 /**
  * Create Outgoing Transfer
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\J_B2B;
+namespace OpenTHC\CRE\Test\J_B2B;
 
-class B_Update_Outgoing_Test extends \Test\Base_Case
+class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected $_url_path = '/b2b';
 	protected $_tmp_file = '/tmp/unit-test-transfer.json';

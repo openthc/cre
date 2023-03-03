@@ -1,11 +1,13 @@
 <?php
 /**
  * Make a bunch of different Product of different Types
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\C_Core;
+namespace OpenTHC\CRE\Test\C_Core;
 
-class D_Product_Type_Test extends \Test\Base_Case
+class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 
 	protected function setUp() : void

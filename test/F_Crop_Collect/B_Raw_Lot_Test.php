@@ -1,11 +1,13 @@
 <?php
 /**
  * Collect Raw Materials and Lot Directly
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\F_Crop_Collect;
+namespace OpenTHC\CRE\Test\F_Crop_Collect;
 
-class B_Raw_Lot_Test extends \Test\Base_Case
+class B_Raw_Lot_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{

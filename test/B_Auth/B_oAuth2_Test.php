@@ -1,11 +1,13 @@
 <?php
 /**
  * OAuth Testing
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\B_Auth;
+namespace OpenTHC\CRE\Test\B_Auth;
 
-class B_oAuth2_Test extends \Test\Base_Case
+class B_oAuth2_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	function test_oauth_open()
 	{

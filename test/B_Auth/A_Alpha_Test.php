@@ -1,5 +1,9 @@
 <?php
 /**
+ *
+ *
+ * SPDX-License-Identifier: MIT
+ *
  * Notes about the Auth module
  * The "service-key" cooresponds to a code that is a company object identifier
  * The "license-key" cooresponds to a code that is a license object identifier
@@ -9,9 +13,9 @@
  *
  */
 
-namespace Test\B_Auth;
+namespace OpenTHC\CRE\Test\B_Auth;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	public function test_auth()
 	{
@@ -77,7 +81,7 @@ class A_Alpha_Test extends \Test\Base_Case
 		$res = $this->_post('/auth/open', [
 			'service' => $_ENV['api-service-a'],
 			'company' => $_ENV['api-company-a'],
-			'license' => $_ENV['api-license-a']
+			'license' => $_ENV['api-license-c']
 		]);
 		$res = $this->assertValidResponse($res, 403);
 

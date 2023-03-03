@@ -1,11 +1,13 @@
 <?php
 /**
  * Test Lot Processes
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\G_Process;
+namespace OpenTHC\CRE\Test\G_Process;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{

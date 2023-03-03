@@ -1,11 +1,13 @@
 <?php
 /**
  *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\H_Laboratory;
+namespace OpenTHC\CRE\Test\H_Laboratory;
 
-class B_Lab_Result_Create_Test extends \Test\Base_Case
+class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{

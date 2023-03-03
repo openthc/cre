@@ -1,11 +1,13 @@
 <?php
 /**
  * Test Packaging Functions
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\I_Package;
+namespace OpenTHC\CRE\Test\I_Package;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	/**
 	 * Unauthenticated Tests

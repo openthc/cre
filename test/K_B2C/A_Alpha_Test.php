@@ -1,11 +1,13 @@
 <?php
 /**
  * Execute Test for Retail Sales
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\K_B2C;
+namespace OpenTHC\CRE\Test\K_B2C;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{

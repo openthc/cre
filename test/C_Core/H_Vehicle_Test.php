@@ -1,11 +1,13 @@
 <?php
 /**
  *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\C_Core;
+namespace OpenTHC\CRE\Test\C_Core;
 
-class G_Vehicle_Test extends \Test\Base_Case
+class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	private $_url_path = '/';
 

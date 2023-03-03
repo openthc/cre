@@ -1,11 +1,13 @@
 <?php
 /**
  * Tests the inventory laboratory section of the API
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\H_Laboratory;
+namespace OpenTHC\CRE\Test\H_Laboratory;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	function test_lab()
 	{

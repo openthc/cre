@@ -1,10 +1,13 @@
 <?php
 /**
+ *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\A_System;
+namespace OpenTHC\CRE\Test\A_System;
 
-class B_Config_Test extends \Test\Base_Case
+class B_Config_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	public function test_config()
 	{

@@ -1,11 +1,13 @@
 <?php
 /**
  * Test crop Stuff
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\E_Crop;
+namespace OpenTHC\CRE\Test\E_Crop;
 
-class A_Alpha_Test extends \Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	protected function setUp() : void
 	{

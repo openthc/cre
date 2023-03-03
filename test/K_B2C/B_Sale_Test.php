@@ -1,11 +1,13 @@
 <?php
 /**
  *
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test\K_B2C;
+namespace OpenTHC\CRE\Test\K_B2C;
 
-class B_Sale_Test extends \Test\Base_Case
+class B_Sale_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	public function test_create()
 	{

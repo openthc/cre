@@ -1,9 +1,11 @@
 <?php
 /**
  * Base Test Case
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace Test;
+namespace OpenTHC\CRE\Test;
 
 class Base_Case extends \PHPUnit\Framework\TestCase
 {
