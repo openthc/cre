@@ -1,6 +1,8 @@
 <?php
 /**
- * Authenticate group handler
+ * Authenticate Routes
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace App\Module;
@@ -33,16 +35,29 @@ class Auth extends \OpenTHC\Module\Base
 
 		$a->get('/ping', function($REQ, $RES, $ARG) {
 
-			$ret = [
-				'data' => [
-					'sid' => session_id(),
-					// '_ENV' => $_ENV,
-					// '_SESSION' => $_SESSION,
-				],
-				'meta' => [],
-			];
+			$ret = [];
 
-			return $RES->withJSON($ret);
+			$ret_code = $RES->getStatusCode();
+			switch ($ret_code) {
+				case 200:
+					// OK
+					$ret = [
+						'data' => [
+							'sid' => session_id(),
+							// '_ENV' => $_ENV,
+							// '_SESSION' => $_SESSION,
+						],
+						'meta' => [],
+					];
+					break;
+				default:
+					$ret['data'] = null;
+					$ret['meta'] = [
+						'detail' => 'Invalid Session State [LMA-054]'
+					];
+			}
+
+			return $RES->withJSON($ret, $ret_code);
 
 		});
 
