@@ -1,16 +1,23 @@
 <?php
 /**
  * Product Routes
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace App\Module;
 
 class Product extends \OpenTHC\Module\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($a)
 	{
 		$a->get('', 'App\Controller\Product\Search');
 		$a->post('', 'App\Controller\Product\Create');
+
+		$a->get('/status', 'OpenTHC\CRE\Controller\Product\Status');
 
 		$a->get('/type', 'App\Controller\Product\Type');
 		// $a->post('/type', 'App\Controller\Product\Type\Create');
