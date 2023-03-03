@@ -8,8 +8,9 @@
 		],
 		"psr-4": {
 			"App\\": "./lib",
+			"OpenTHC\\CRE\\": "./lib",
 			"Custom\\": "./Custom",
-			"Test\\": "./test"
+			"OpenTHC\\CRE\\Test\\": "./test"
 		}
 	},
 	"require": {
