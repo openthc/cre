@@ -1,6 +1,8 @@
 <?php
 /**
  * Update License
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace App\Controller\License;
@@ -17,7 +19,7 @@ class Update extends \App\Controller\Base
 
 		$chk = $this->_container->DB->fetch_row($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('License not found [CLU#020]');
+			return $this->send404('License not found [CLU-020]');
 		}
 
 		// Old Object

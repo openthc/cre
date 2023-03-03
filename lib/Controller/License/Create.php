@@ -1,25 +1,30 @@
 <?php
 /**
  * Create a Global License
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace App\Controller\License;
 
 class Create extends \App\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$C = array();
 
 		if (empty($_POST['company'])) {
-			return $this->sendError('Missing Paramter "company" [CLC#017]', 400);
+			return $this->sendError('Missing Paramter "company" [CLC-017]', 400);
 		}
 
 		$sql = 'SELECT * FROM company WHERE id = :g';
 		$arg = array(':g' => $_POST['company']);
 		$rec = $this->_container->DB->fetchRow($sql, $arg);
 		if (empty($rec['id'])) {
-			return $this->sendError('Invalid Company [CLC#027]', 400);
+			return $this->sendError('Invalid Company [CLC-027]', 400);
 		}
 		$C = $rec;
 

@@ -1,6 +1,8 @@
 <?php
 /**
  * Single License
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace App\Controller\License;
@@ -14,7 +16,7 @@ class Single extends \App\Controller\Base
 		$rec =$this->_container->DB->fetch_row($sql, $arg);
 
 		if (empty($rec)) {
-			return $this->send404('License not found [CLS#017]');
+			return $this->send404('License not found [CLS-017]');
 		}
 
 		$obj = json_decode($rec['meta'], true);
