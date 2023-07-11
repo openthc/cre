@@ -1,13 +1,15 @@
 <?php
 /**
  * OpenTHC CRE Bootstrap
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 define('APP_ROOT', __DIR__);
 
-error_reporting(E_ALL & ~ E_NOTICE);
+error_reporting(E_ALL & ~ E_NOTICE & ~ E_WARNING);
 
-openlog('openthc-core', LOG_ODELAY|LOG_PID, LOG_LOCAL0);
+openlog('openthc-cre', LOG_ODELAY|LOG_PID, LOG_LOCAL0);
 
 require_once(APP_ROOT . '/vendor/autoload.php');
 
