@@ -48,6 +48,13 @@ class Create extends \App\Controller\Base
 			'meta' => $obj,
 		);
 
+		if ($rec_incoming['license_id_source'] == $rec_incoming['license_id_target']) {
+			return $RES->withJSON([
+				'data' => null,
+				'meta' => [ 'note' => 'Source and Target License are the same! This is not allowed [CBC-054]' ]
+			], 400);
+		}
+
 		$rec_outgoing = $rec_incoming;
 		$rec_outgoing['name'] = sprintf('Ship To: ' . $L_Target['name']);
 
