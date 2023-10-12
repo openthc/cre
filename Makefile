@@ -22,7 +22,7 @@ help:
 #
 # PHP Composer
 composer:
-	composer update --no-dev -a
+	composer update --no-ansi --no-dev --no-progress --quiet --classmap-authoritative
 
 
 #
