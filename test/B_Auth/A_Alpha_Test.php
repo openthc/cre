@@ -57,17 +57,19 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$res = $this->assertValidResponse($res, 403);
 
-		$this->assertMatchesRegularExpression('/CAO.098/', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/CAO.098/', $res['meta']['note']);
 	}
 
 	function test_open_pass()
 	{
 		// TEST COMPANY A
-		$res = $this->_post('/auth/open', [
-			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-a'],
-			'license' => $_ENV['api-license-a']
-		]);
+		$arg = [
+			'service' => getenv('OPENTHC_TEST_SERVICE_ID'),
+			'company' => getenv('OPENTHC_TEST_COMPANY_ID'),
+			'contact' => getenv('OPENTHC_TEST_CONTACT_ID'),
+			'license' => getenv('OPENTHC_TEST_LICENSE_ID'),
+		];
+		$res = $this->_post('/auth/open', $arg);
 		$res = $this->assertValidResponse($res);
 
 		$this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']);
@@ -85,7 +87,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		]);
 		$res = $this->assertValidResponse($res, 403);
 
-		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['detail']);
+		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['note']);
 	}
 
 	// public function testAuthPlain()

@@ -5,7 +5,7 @@
 
 namespace Test\C_Core;
 
-class D_Product_Type_Test extends \Test\Components\OpenTHC_Test_Case
+class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 
 	protected function setUp() : void

@@ -1,6 +1,6 @@
 <?php
 /**
- * Create Outgoing Transfer
+ * Create Incoming Transfer
  *
  * SPDX-License-Identifier: MIT
  */
@@ -14,7 +14,7 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_carrier_p_from_g()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
+		$this->auth(getenv('OPENTHC_TEST_SERVICE_ID'), $_ENV['api-company-b'], $_ENV['api-license-b']);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['api-license-a'],
