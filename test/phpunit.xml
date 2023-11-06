@@ -15,7 +15,7 @@
 	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnError="true"
-	stopOnFailure="false"
+	stopOnFailure="true"
 	stopOnRisky="true"
 	timeoutForSmallTests="1"
 	timeoutForMediumTests="10"
@@ -32,39 +32,37 @@
 		<env name="api-uri" value="https://cre.openthc.dev/" />
 
 		<!-- root/system accounts -->
-		<env name="api-service-0" value="018NY6XC00SERV1CE000000000" />
-		<env name="api-contact-0" value="018NY6XC00C0NTACT000000000" />
-		<env name="api-company-0" value="018NY6XC00C0MPANY000000000" />
-		<env name="api-license-0" value="018NY6XC00L1CENSE000000000" />
+		<env name="api-service-0" value="010PENTHC0SERV1CE000000000" />
+		<env name="api-contact-0" value="010PENTHC0C0NTACT000000000" />
+		<env name="api-company-0" value="010PENTHC0C0MPANY000000000" />
+		<env name="api-license-0" value="010PENTHC0L1CNSE0000000000" />
 
-		<env name="api-service-a" value="018NY6XC00SERV1CE00000000A" />
-		<env name="api-service-b" value="018NY6XC00SERV1CE00000000B" />
-		<env name="api-service-c" value="018NY6XC00SERV1CE00000000C" />
+		<env name="api-service-a" value="010PENTHC0TEST0SERV1CE000A" />
+		<env name="api-service-b" value="010PENTHC0TEST0SERV1CE000B" />
+		<env name="api-service-c" value="010PENTHC0TEST0SERV1CE000C" />
 
 		<!-- Farmer / Grower / Producer -->
-		<env name="api-contact-a" value="018NY6XC00C0NTACT00000000A" />
-		<env name="api-company-a" value="018NY6XC00C0MPANY00000000A" />
-		<env name="api-license-a" value="018NY6XC00L1CENSE00000000A" />
+		<env name="api-contact-a" value="010PENTHC0TEST0C0NTACT000A" />
+		<env name="api-company-a" value="010PENTHC0TEST0C0MPANY000A" />
+		<env name="api-license-a" value="010PENTHC0TEST0L1CENSE000A" />
 		<env name="api-license-a-secret" value="" />
-		<!-- <env name="api-license-g1" value="018NY6XC00L1CENSE00000000A" /> -->
-		<!-- <env name="api-license-g1-secret" value="" /> -->
 
 		<!-- Processor / Manufacturer / Distributor -->
-		<env name="api-contact-b" value="018NY6XC00C0NTACT00000000B" />
-		<env name="api-company-b" value="018NY6XC00C0MPANY00000000B" />
-		<env name="api-license-b" value="018NY6XC00L1CENSE00000000B" />
+		<env name="api-contact-b" value="010PENTHC0TEST0C0NTACT000B" />
+		<env name="api-company-b" value="010PENTHC0TEST0C0MPANY000B" />
+		<env name="api-license-b" value="010PENTHC0TEST0L1CENSE000B" />
 		<env name="api-license-b-secret" value="" />
 
 		<!-- Laboratory -->
-		<env name="api-contact-c" value="018NY6XC00C0NTACT00000000C" />
-		<env name="api-company-c" value="018NY6XC00C0MPANY00000000C" />
-		<env name="api-license-c" value="018NY6XC00L1CENSE00000000C" />
+		<env name="api-contact-c" value="010PENTHC0TEST0C0NTACT000E" />
+		<env name="api-company-c" value="010PENTHC0TEST0C0MPANY000C" />
+		<env name="api-license-c" value="010PENTHC0TEST0L1CENSE000C" />
 		<env name="api-license-c-secret" value="" />
 
 		<!-- Retail / Dispensary -->
-		<env name="api-contact-d" value="018NY6XC00C0NTACT00000000D" />
-		<env name="api-company-d" value="018NY6XC00C0MPANY00000000D" />
-		<env name="api-license-d" value="018NY6XC00L1CENSE00000000D" />
+		<env name="api-contact-d" value="010PENTHC0TEST0C0NTACT000G" />
+		<env name="api-company-d" value="010PENTHC0TEST0C0MPANY000D" />
+		<env name="api-license-d" value="010PENTHC0TEST0L1CENSE000D" />
 		<env name="api-license-d-secret" value="" />
 
 	</php>
