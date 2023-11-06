@@ -13,15 +13,15 @@ class Auth extends \OpenTHC\Module\Base
 	{
 		$a->post('/oauth', function($REQ, $RES, $ARG) {
 
-			$cfg = \OpenTHC\Config::get('openthc/sso/hostname');
+			$cfg = \OpenTHC\Config::get('openthc/sso/origin');
 			if (empty($cfg)) {
 				return $RES->withJSON([
 					'data' => null,
-					'meta' => [ 'detail' => 'Invalid Configuration [AMA-018]' ],
+					'meta' => [ 'note' => 'Invalid Configuration [AMA-018]' ],
 				], 403);
 			}
 
-			$url = sprintf('https://%s/oauth2/token', $cfg);
+			$url = sprintf('%s/oauth2/token', $cfg);
 			$RES = $RES->withHeader('content-type', 'text/plain');
 			$RES = $RES->withRedirect($url, 307);
 
