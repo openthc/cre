@@ -7,10 +7,9 @@
 			"vendor/erusev/parsedown-extra/test"
 		],
 		"psr-4": {
-			"App\\": "./lib",
 			"OpenTHC\\CRE\\": "./lib",
-			"Custom\\": "./Custom",
-			"OpenTHC\\CRE\\Test\\": "./test"
+			"OpenTHC\\CRE\\Test\\": "./test",
+			"Custom\\": "./Custom"
 		}
 	},
 	"require": {

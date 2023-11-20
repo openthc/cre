@@ -5,7 +5,7 @@
  * Provides hook for lua_script
  */
 
-namespace App\Controller;
+namespace OpenTHC\CRE\Controller;
 
 use Edoceo\Radix\ULID;
 

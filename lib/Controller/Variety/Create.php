@@ -3,9 +3,9 @@
  * Create a Variety owned by a License
  */
 
-namespace App\Controller\Variety;
+namespace OpenTHC\CRE\Controller\Variety;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	/**
 	 *

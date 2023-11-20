@@ -4,9 +4,9 @@
  * Collects Wet, Dry and Net materials
  */
 
- namespace App\Controller\Crop;
+ namespace OpenTHC\CRE\Controller\Crop;
 
- class Collect extends \App\Controller\Base
+ class Collect extends \OpenTHC\CRE\Controller\Base
  {
  	function __invoke($REQ, $RES, $ARG)
  	{

@@ -3,9 +3,9 @@
  * Create a Global Company
  */
 
-namespace App\Controller\Company;
+namespace OpenTHC\CRE\Controller\Company;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

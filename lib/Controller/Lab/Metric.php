@@ -3,9 +3,9 @@
  * Lab Metrics List
  */
 
-namespace App\Controller\Lab;
+namespace OpenTHC\CRE\Controller\Lab;
 
-class Metric extends \App\Controller\Base
+class Metric extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

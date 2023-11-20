@@ -3,9 +3,9 @@
  * Lab Search for Results or Samples
  */
 
-namespace App\Controller\Lab;
+namespace OpenTHC\CRE\Controller\Lab;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	/**
 	 *

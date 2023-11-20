@@ -3,7 +3,7 @@
  * Log some details to PubSub
  */
 
-namespace App\Middleware\Log;
+namespace OpenTHC\CRE\Middleware\Log;
 
 class PubSub extends \OpenTHC\Middleware\Base
 {

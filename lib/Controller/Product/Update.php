@@ -3,9 +3,9 @@
  * Update Product
  */
 
-namespace App\Controller\Product;
+namespace OpenTHC\CRE\Controller\Product;
 
-class Update extends \App\Controller\Base
+class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

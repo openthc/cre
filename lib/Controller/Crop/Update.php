@@ -3,9 +3,9 @@
  * Update Crop
  */
 
-namespace App\Controller\Crop;
+namespace OpenTHC\CRE\Controller\Crop;
 
-class Update extends \App\Controller\Base
+class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

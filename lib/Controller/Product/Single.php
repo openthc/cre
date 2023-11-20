@@ -3,9 +3,9 @@
  * Single Product
  */
 
-namespace App\Controller\Product;
+namespace OpenTHC\CRE\Controller\Product;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

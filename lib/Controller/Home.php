@@ -3,9 +3,9 @@
  * Home
  */
 
-namespace App\Controller;
+namespace OpenTHC\CRE\Controller;
 
-class Home extends \App\Controller\Base
+class Home extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

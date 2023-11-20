@@ -3,9 +3,9 @@
  * Create a Crop owned by a License
  */
 
-namespace App\Controller\Crop;
+namespace OpenTHC\CRE\Controller\Crop;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

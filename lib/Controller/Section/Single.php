@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace App\Controller\Section;
+namespace OpenTHC\CRE\Controller\Section;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	/**
 	 *

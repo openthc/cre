@@ -3,9 +3,9 @@
  * Contact Search Interface
  */
 
-namespace App\Controller\Contact;
+namespace OpenTHC\CRE\Controller\Contact;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

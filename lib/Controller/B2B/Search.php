@@ -3,9 +3,9 @@
  * B2B Search
  */
 
-namespace App\Controller\B2B;
+namespace OpenTHC\CRE\Controller\B2B;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

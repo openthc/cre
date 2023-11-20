@@ -3,9 +3,9 @@
  * Search Product
  */
 
-namespace App\Controller\Product;
+namespace OpenTHC\CRE\Controller\Product;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

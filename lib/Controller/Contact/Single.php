@@ -3,9 +3,9 @@
  * Single Contact
  */
 
-namespace App\Controller\Contact;
+namespace OpenTHC\CRE\Controller\Contact;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

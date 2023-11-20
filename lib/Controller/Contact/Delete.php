@@ -3,9 +3,9 @@
  * Delete a Contact
  */
 
-namespace App\Controller\Contact;
+namespace OpenTHC\CRE\Controller\Contact;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

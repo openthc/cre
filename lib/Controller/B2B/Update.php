@@ -3,9 +3,9 @@
  * B2B Update
  */
 
-namespace App\Controller\B2B;
+namespace OpenTHC\CRE\Controller\B2B;
 
-class Update extends \App\Controller\Base
+class Update extends \OpenTHC\CRE\Controller\Base
 {
 	/**
 	 *

@@ -3,9 +3,9 @@
  * Update Inventory
  */
 
-namespace App\Controller\Inventory;
+namespace OpenTHC\CRE\Controller\Inventory;
 
-class Update extends \App\Controller\Base
+class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

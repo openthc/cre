@@ -3,9 +3,9 @@
  * Single Variety
  */
 
-namespace App\Controller\Variety;
+namespace OpenTHC\CRE\Controller\Variety;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

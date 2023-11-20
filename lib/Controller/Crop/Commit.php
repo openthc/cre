@@ -3,9 +3,9 @@
  * Commits a Group of Crop Collections
  */
 
- namespace App\Controller\Crop;
+ namespace OpenTHC\CRE\Controller\Crop;
 
- class Commit extends \App\Controller\Base
+ class Commit extends \OpenTHC\CRE\Controller\Base
  {
  	function __invoke($REQ, $RES, $ARG)
  	{

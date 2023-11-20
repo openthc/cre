@@ -3,9 +3,9 @@
  * Mark a Variety as Deleted
  */
 
-namespace App\Controller\Variety;
+namespace OpenTHC\CRE\Controller\Variety;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

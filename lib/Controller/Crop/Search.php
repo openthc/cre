@@ -3,9 +3,9 @@
  * Search Crop
  */
 
-namespace App\Controller\Crop;
+namespace OpenTHC\CRE\Controller\Crop;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

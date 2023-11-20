@@ -3,9 +3,9 @@
  * Update Company
  */
 
-namespace App\Controller\Company;
+namespace OpenTHC\CRE\Controller\Company;
 
-class Update extends \App\Controller\Base
+class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

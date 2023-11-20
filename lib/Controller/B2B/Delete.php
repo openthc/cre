@@ -3,9 +3,9 @@
  * B2B Deleted
  */
 
-namespace App\Controller\B2B;
+namespace OpenTHC\CRE\Controller\B2B;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

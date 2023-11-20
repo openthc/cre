@@ -5,9 +5,9 @@
  * @param p String to prefix random segment
  */
 
-namespace App\Controller;
+namespace OpenTHC\CRE\Controller;
 
-class ULID extends \App\Controller\Base
+class ULID extends \OpenTHC\CRE\Controller\Base
 {
 	const PREFIX_LENGTH_MAX = 12;
 

@@ -3,9 +3,9 @@
  * Return a List of Company Objects
  */
 
-namespace App\Controller\Company;
+namespace OpenTHC\CRE\Controller\Company;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

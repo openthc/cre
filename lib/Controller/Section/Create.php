@@ -3,9 +3,9 @@
  * Create a Section owned by a License
  */
 
-namespace App\Controller\Section;
+namespace OpenTHC\CRE\Controller\Section;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

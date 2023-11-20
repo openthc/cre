@@ -6,9 +6,9 @@
 // acl_permit();
 // acl_reject()
 
-namespace App\Controller\Company;
+namespace OpenTHC\CRE\Controller\Company;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

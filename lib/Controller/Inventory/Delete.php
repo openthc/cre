@@ -3,9 +3,9 @@
  * Delete a Inventory Object
  */
 
-namespace App\Controller\Inventory;
+namespace OpenTHC\CRE\Controller\Inventory;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

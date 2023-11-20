@@ -3,9 +3,9 @@
  * Open a Session
  */
 
-namespace App\Controller\Auth;
+namespace OpenTHC\CRE\Controller\Auth;
 
-class Open extends \App\Controller\Base
+class Open extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

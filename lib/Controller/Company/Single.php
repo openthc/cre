@@ -3,9 +3,9 @@
  * Single Company
  */
 
-namespace App\Controller\Company;
+namespace OpenTHC\CRE\Controller\Company;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

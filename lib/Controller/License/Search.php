@@ -3,9 +3,9 @@
  *
  */
 
-namespace App\Controller\License;
+namespace OpenTHC\CRE\Controller\License;
 
-class Search extends \App\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

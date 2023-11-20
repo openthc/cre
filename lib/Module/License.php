@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace App\Module;
+namespace OpenTHC\CRE\Module;
 
 class License extends \OpenTHC\Module\Base
 {
@@ -14,17 +14,17 @@ class License extends \OpenTHC\Module\Base
 	 */
 	function __invoke($a)
 	{
-		$a->get('', 'App\Controller\License\Search');
-		$a->post('', 'App\Controller\License\Create');
+		$a->get('', 'OpenTHC\CRE\Controller\License\Search');
+		$a->post('', 'OpenTHC\CRE\Controller\License\Create');
 
 		$a->get('/status', 'OpenTHC\CRE\Controller\License\Status');
 
-		// $a->get('/type', 'App\Controller\License\Search:type');
+		// $a->get('/type', 'OpenTHC\CRE\Controller\License\Search:type');
 
-		$a->get('/{id}', 'App\Controller\License\Single');
-		$a->post('/{id}', 'App\Controller\License\Update');
+		$a->get('/{id}', 'OpenTHC\CRE\Controller\License\Single');
+		$a->post('/{id}', 'OpenTHC\CRE\Controller\License\Update');
 
-		$a->delete('/{id}', 'App\Controller\License\Delete');
+		$a->delete('/{id}', 'OpenTHC\CRE\Controller\License\Delete');
 
 	}
 }

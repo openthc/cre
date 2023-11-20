@@ -3,9 +3,9 @@
  * Create a Product owned by a License
  */
 
-namespace App\Controller\Product;
+namespace OpenTHC\CRE\Controller\Product;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

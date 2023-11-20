@@ -3,7 +3,7 @@
  * Inflate the JSON inbound
  */
 
-namespace App\Middleware;
+namespace OpenTHC\CRE\Middleware;
 
 class InputDataFilter extends \OpenTHC\Middleware\Base
 {

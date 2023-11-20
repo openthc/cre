@@ -3,9 +3,9 @@
  * Create a Inventory owned by a License
  */
 
-namespace App\Controller\Inventory;
+namespace OpenTHC\CRE\Controller\Inventory;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

@@ -3,9 +3,9 @@
  * Accept B2B Sale
  */
 
-namespace App\Controller\B2B;
+namespace OpenTHC\CRE\Controller\B2B;
 
-class Accept extends \App\Controller\Base
+class Accept extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

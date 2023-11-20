@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace App\Middleware;
+namespace OpenTHC\CRE\Middleware;
 
 class Session extends \OpenTHC\Middleware\Base
 {

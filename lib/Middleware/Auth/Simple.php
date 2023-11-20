@@ -3,7 +3,7 @@
  * Simple Authentication
  */
 
-namespace App\Middleware\Auth;
+namespace OpenTHC\CRE\Middleware\Auth;
 
 class Simple extends \OpenTHC\Middleware\Base
 {

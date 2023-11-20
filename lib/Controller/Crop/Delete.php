@@ -3,9 +3,9 @@
  * Delete a Crop Object
  */
 
-namespace App\Controller\Crop;
+namespace OpenTHC\CRE\Controller\Crop;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

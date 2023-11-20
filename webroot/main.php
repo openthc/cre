@@ -10,7 +10,7 @@ $cfg = [];
 $cfg['settings'] = [];
 // $cfg['settings']['routerCacheFile'] = '/tmp/slim-router.cache';
 
-$app = new \App\Core($cfg);
+$app = new \OpenTHC\CRE\Core($cfg);
 $con = $app->getContainer();
 
 if ($cfg['debug']) {
@@ -35,35 +35,35 @@ $con['Redis'] = function($c) {
 
 
 // Authentication
-$app->group('/auth', 'App\Module\Auth')
-	->add('App\Middleware\Session')
+$app->group('/auth', 'OpenTHC\CRE\Module\Auth')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Global Company
-$app->group('/company', 'App\Module\Company')
-	->add('App\Middleware\InputDataFilter')
+$app->group('/company', 'OpenTHC\CRE\Module\Company')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Global License
-$app->group('/license', 'App\Module\License')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/license', 'OpenTHC\CRE\Module\License')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Global Contact
-$app->group('/contact', 'App\Module\Contact')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/contact', 'OpenTHC\CRE\Module\Contact')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
@@ -73,95 +73,95 @@ $app->group('/contact', 'App\Module\Contact')
  */
 
 // Config Product
-$app->group('/product', 'App\Module\Product')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/product', 'OpenTHC\CRE\Module\Product')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Config Variety
-$app->group('/variety', 'App\Module\Variety')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/variety', 'OpenTHC\CRE\Module\Variety')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Config Section
-$app->group('/section', 'App\Module\Section')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/section', 'OpenTHC\CRE\Module\Section')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Inventory
 $app->group('/inventory', 'OpenTHC\CRE\Module\Inventory')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Crop
-$app->group('/crop', 'App\Module\Crop')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/crop', 'OpenTHC\CRE\Module\Crop')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Crop Collect
-$app->group('/crop-collect', 'App\Module\CropCollect')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/crop-collect', 'OpenTHC\CRE\Module\CropCollect')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // Lab Samples and Results
-$app->group('/lab', 'App\Module\Lab')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/lab', 'OpenTHC\CRE\Module\Lab')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // B2B
-$app->group('/b2b', 'App\Module\B2B')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/b2b', 'OpenTHC\CRE\Module\B2B')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // B2C
-$app->group('/b2c', 'App\Module\B2C')
-	->add('App\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
-	->add('App\Middleware\Session')
+$app->group('/b2c', 'OpenTHC\CRE\Module\B2C')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;
 
 
 // ULID Generator
-$app->get('/ulid', 'App\Controller\ULID');
+$app->get('/ulid', 'OpenTHC\CRE\Controller\ULID');
 
 
 // Common Middleware
-// $app->add('App\Middleware\Log\PubSub');
-// $app->add('App\Middleware\RateLimit');
-// $app->add('App\Middleware\IP');
-// $app->add('App\Middleware\TestMode');
+// $app->add('OpenTHC\CRE\Middleware\Log\PubSub');
+// $app->add('OpenTHC\CRE\Middleware\RateLimit');
+// $app->add('OpenTHC\CRE\Middleware\IP');
+// $app->add('OpenTHC\CRE\Middleware\TestMode');
 
 
 // Custom Middleware?

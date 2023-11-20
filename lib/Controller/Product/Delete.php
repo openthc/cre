@@ -3,9 +3,9 @@
  * Delete a Product
  */
 
-namespace App\Controller\Product;
+namespace OpenTHC\CRE\Controller\Product;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

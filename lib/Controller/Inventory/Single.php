@@ -3,9 +3,9 @@
  * Single Inventory
  */
 
-namespace App\Controller\Inventory;
+namespace OpenTHC\CRE\Controller\Inventory;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

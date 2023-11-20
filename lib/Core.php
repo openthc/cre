@@ -1,9 +1,9 @@
 <?php
 /**
- * A Slim App Core with improved error handlers
+ * A Slim OpenTHC\CRE Core with improved error handlers
  */
 
-namespace App;
+namespace OpenTHC\CRE;
 
 class Core extends \OpenTHC\App
 {

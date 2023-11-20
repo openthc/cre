@@ -3,7 +3,7 @@
  * Lab Routes
  */
 
-namespace App\Module;
+namespace OpenTHC\CRE\Module;
 
 class Lab extends \OpenTHC\Module\Base
 {
@@ -16,20 +16,20 @@ class Lab extends \OpenTHC\Module\Base
 			), 200);
 		});
 
-		$a->get('/metric', 'App\Controller\Lab\Metric');
+		$a->get('/metric', 'OpenTHC\CRE\Controller\Lab\Metric');
 
-		$a->get('/sample', 'App\Controller\Lab\Search');
-		$a->get('/result', 'App\Controller\Lab\Search');
+		$a->get('/sample', 'OpenTHC\CRE\Controller\Lab\Search');
+		$a->get('/result', 'OpenTHC\CRE\Controller\Lab\Search');
 
-		// $a->post('', 'App\Controller\Lab\Create');
+		// $a->post('', 'OpenTHC\CRE\Controller\Lab\Create');
 
-		// $a->get('/{id}', 'App\Controller\Lab\Single');
-		// $a->patch('/{id}', 'App\Controller\Lab\Update');
-		// // $a->post('/{id}', 'App\Controller\Lot\Update');
-		// $a->post('/{id}/adjust', 'App\Controller\Lab\Adjust');
-		// // $a->post('/{id}/split', 'App\Controller\Lot\Split');
-		// // $a->post('/{id}/revert', 'App\Controller\Lot\Revert');
-		// $a->delete('/{id}', 'App\Controller\Lab\Delete');
+		// $a->get('/{id}', 'OpenTHC\CRE\Controller\Lab\Single');
+		// $a->patch('/{id}', 'OpenTHC\CRE\Controller\Lab\Update');
+		// // $a->post('/{id}', 'OpenTHC\CRE\Controller\Lot\Update');
+		// $a->post('/{id}/adjust', 'OpenTHC\CRE\Controller\Lab\Adjust');
+		// // $a->post('/{id}/split', 'OpenTHC\CRE\Controller\Lot\Split');
+		// // $a->post('/{id}/revert', 'OpenTHC\CRE\Controller\Lot\Revert');
+		// $a->delete('/{id}', 'OpenTHC\CRE\Controller\Lab\Delete');
 
 	}
 }

@@ -3,9 +3,9 @@
  * Create a Global Contact
  */
 
-namespace App\Controller\Contact;
+namespace OpenTHC\CRE\Controller\Contact;
 
-class Create extends \App\Controller\Base
+class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

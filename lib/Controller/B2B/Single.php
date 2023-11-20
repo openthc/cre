@@ -3,9 +3,9 @@
  * B2B Single
  */
 
-namespace App\Controller\B2B;
+namespace OpenTHC\CRE\Controller\B2B;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	/**
 	 *

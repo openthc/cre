@@ -3,9 +3,9 @@
  * Delete License
  */
 
-namespace App\Controller\License;
+namespace OpenTHC\CRE\Controller\License;
 
-class Delete extends \App\Controller\Base
+class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

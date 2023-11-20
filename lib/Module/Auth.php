@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace App\Module;
+namespace OpenTHC\CRE\Module;
 
 class Auth extends \OpenTHC\Module\Base
 {
@@ -29,7 +29,7 @@ class Auth extends \OpenTHC\Module\Base
 
 		});
 
-		$a->post('/open', 'App\Controller\Auth\Open')
+		$a->post('/open', 'OpenTHC\CRE\Controller\Auth\Open')
 			// ->add('Custom\Middleware\AutoCreate')
 			;
 

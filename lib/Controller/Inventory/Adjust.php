@@ -3,9 +3,9 @@
  * Adjust a Inventory owned by a License
  */
 
-namespace App\Controller\Inventory;
+namespace OpenTHC\CRE\Controller\Inventory;
 
-class Adjust extends \App\Controller\Base
+class Adjust extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

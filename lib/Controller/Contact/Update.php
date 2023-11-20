@@ -3,9 +3,9 @@
  * Update Contact
  */
 
-namespace App\Controller\Contact;
+namespace OpenTHC\CRE\Controller\Contact;
 
-class Update extends \App\Controller\Base
+class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

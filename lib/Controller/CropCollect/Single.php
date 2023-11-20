@@ -3,9 +3,9 @@
  * Single CropCollect
  */
 
-namespace App\Controller\CropCollect;
+namespace OpenTHC\CRE\Controller\CropCollect;
 
-class Single extends \App\Controller\Base
+class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{

@@ -3,13 +3,13 @@
  * CropCollect Route Handlers
  */
 
-namespace App\Module;
+namespace OpenTHC\CRE\Module;
 
 class CropCollect extends \OpenTHC\Module\Base
 {
 	function __invoke($a)
 	{
-		$a->get('/{id}', 'App\Controller\CropCollect\Single');
-		$a->post('/{id}/commit', 'App\Controller\CropCollect\Commit');
+		$a->get('/{id}', 'OpenTHC\CRE\Controller\CropCollect\Single');
+		$a->post('/{id}/commit', 'OpenTHC\CRE\Controller\CropCollect\Commit');
 	}
 }
