@@ -7,6 +7,9 @@ namespace OpenTHC\CRE\Controller\Company;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$obj = array(

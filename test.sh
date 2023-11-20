@@ -4,7 +4,10 @@
 #
 
 set -o errexit
+set -o errtrace
 set -o nounset
+set -o pipefail
+
 
 x=${OPENTHC_TEST_BASE:-}
 if [ -z "$x" ]

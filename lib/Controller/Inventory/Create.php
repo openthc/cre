@@ -7,6 +7,9 @@ namespace OpenTHC\CRE\Controller\Inventory;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$this->_promote_post_vars();
@@ -68,6 +71,9 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 	}
 
+	/**
+	 *
+	 */
 	private function create_from_convert($RES)
 	{
 		$response_meta = [
@@ -208,11 +214,17 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 	}
 
+	/**
+	 *
+	 */
 	private function create_from_parent($RES)
 	{
 		return $RES->withJSON(null, 501);
 	}
 
+	/**
+	 *
+	 */
 	private function create_from_scratch($RES)
 	{
 

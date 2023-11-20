@@ -18,7 +18,7 @@ class Crop extends \OpenTHC\Module\Base
 		$a->delete('/{id}', 'OpenTHC\CRE\Controller\Crop\Delete');
 
 		$a->post('/{id}/collect', 'OpenTHC\CRE\Controller\Crop\Collect');
-		$a->post('/{id}/finish', 'OpenTHC\CRE\Controller\Crop\Commit');
+		$a->post('/{id}/finish', 'OpenTHC\CRE\Controller\Crop\Finish');
 
 	}
 }

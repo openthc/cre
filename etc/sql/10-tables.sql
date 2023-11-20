@@ -15,6 +15,13 @@ CREATE TABLE auth_contact (
 );
 
 
+CREATE TABLE auth_contact_ticket (
+	id varchar(26) PRIMARY KEY,
+	contact_id varchar(26) not null,
+	code varchar(32) not null
+);
+
+
 CREATE TABLE auth_service (
 	id varchar(26) PRIMARY KEY,
 	company_id varchar(26) not null,
@@ -23,14 +30,6 @@ CREATE TABLE auth_service (
 	code varchar(256) not null,
 	hash varchar(256) not null,
 	name varchar(256) not null
-);
-
-
-
-CREATE TABLE auth_service_ticket (
-	id varchar(26) PRIMARY KEY,
-	service_id varchar(26) not null,
-	code varchar(32) not null
 );
 
 

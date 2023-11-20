@@ -7,6 +7,9 @@ namespace OpenTHC\CRE\Controller\Crop;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		if (empty($_POST['id'])) {

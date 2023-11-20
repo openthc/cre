@@ -9,9 +9,6 @@ namespace OpenTHC\CRE\Module;
 
 class Section extends \OpenTHC\Module\Base
 {
-	/**
-	 *
-	 */
 	function __invoke($a)
 	{
 		$a->get('', 'OpenTHC\CRE\Controller\Section\Search');

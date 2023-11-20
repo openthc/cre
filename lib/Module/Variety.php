@@ -9,9 +9,6 @@ namespace OpenTHC\CRE\Module;
 
 class Variety extends \OpenTHC\Module\Base
 {
-	/**
-	 *
-	 */
 	function __invoke($a)
 	{
 		$a->get('', 'OpenTHC\CRE\Controller\Variety\Search');
