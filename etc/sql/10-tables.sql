@@ -162,10 +162,10 @@ CREATE TABLE inventory (
 );
 
 
-CREATE TABLE lot_family (
+CREATE TABLE inventory_family (
 	id varchar(26) PRIMARY KEY,
-	lot_id varchar(26) not null,
-	lot_id_output varchar(26),
+	inventory_id varchar(26) not null,
+	inventory_id_output varchar(26),
 	crop_id varchar(26),
 	crop_collect_id varchar(26),
 	created_at timestamp with time zone not null default now(),
@@ -248,9 +248,9 @@ CREATE TABLE lab_result (
 );
 
 
-CREATE TABLE lab_result_lot (
+CREATE TABLE lab_result_inventory (
 	lab_result_id varchar(26) not null,
-	lot_id varchar(26) not null
+	inventory_id varchar(26) not null
 );
 
 
@@ -301,7 +301,7 @@ CREATE TABLE b2b_outgoing (
 CREATE TABLE b2b_incoming_item (
 	id varchar(26) PRIMARY KEY,
 	b2b_incoming_id varchar(26) not null,
-	lot_id varchar(26),
+	inventory_id varchar(26),
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -317,7 +317,7 @@ CREATE TABLE b2b_incoming_item (
 CREATE TABLE b2b_outgoing_item (
 	id varchar(26) PRIMARY KEY,
 	b2b_outgoing_id varchar(26) not null,
-	lot_id varchar(26) not null,
+	inventory_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -348,7 +348,7 @@ CREATE TABLE b2c_sale (
 CREATE TABLE b2c_sale_item (
 	id varchar(26) DEFAULT ulid_create() NOT NULL PRIMARY KEY,
 	b2c_sale_id varchar(26) NOT NULL,
-	lot_id varchar(26) not null,
+	inventory_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,

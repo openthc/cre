@@ -46,8 +46,8 @@ $tab_list = [
 	'plant' => [],
 
 	'lab_result' => [],
-	'lot' => [],
-	// 'lab_result_lot',
+	'inventory' => [],
+	// 'lab_result_inventory',
 	// 'lab_result_metric',
 	// 'log_audit',
 	// 'log_delta',

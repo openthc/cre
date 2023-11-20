@@ -15,7 +15,7 @@ class B_Raw_Lot_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 	}
 
-	function test_raw_lot()
+	function test_raw_inventory()
 	{
 		$x = $this->find_random_crop(2);
 		$pA = $x[0];
@@ -67,8 +67,8 @@ class B_Raw_Lot_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertEquals($pcC['raw'], $pcD['plant_collect']['raw']);
 		$this->assertEquals($net, $pcD['plant_collect']['net']);
 
-		$this->assertNotEmpty($pcD['lot']['id']);
-		$this->assertEquals($net, $pcD['lot']['qty']);
+		$this->assertNotEmpty($pcD['inventory']['id']);
+		$this->assertEquals($net, $pcD['inventory']['qty']);
 		// $this->assertCount(2, $pcD['collect_list']);
 
 	}

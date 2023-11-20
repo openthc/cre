@@ -26,7 +26,7 @@ class C_Session_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertIsArray($res);
 		$this->assertCount(2, $res);
 		$this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']);
-		$this->assertMatchesRegularExpression('/^openthc.+path.+secure.+httponly.+samesite/i', $sch);
+		$this->assertMatchesRegularExpression('/^openthc\-cre=.+path.+secure.+httponly.+samesite/i', $sch);
 
 		// Ping It
 		$res = $this->httpClient->get('/auth/ping');
@@ -66,7 +66,7 @@ class C_Session_Test extends \OpenTHC\CRE\Test\Base_Case
 		// Check Cookies
 		$res_head = $res->getHeaders();
 		$sch = $res->getHeaderLine('set-cookie');
-		$this->assertMatchesRegularExpression('/^openthc=deleted.+path.+secure.+httponly.+samesite/i', $sch);
+		$this->assertMatchesRegularExpression('/^openthc\-cre=deleted.+path.+secure.+httponly.+samesite/i', $sch);
 
 		$res = $this->assertValidResponse($res);
 		// $this->assertEmpty($res);
@@ -95,7 +95,7 @@ class C_Session_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertIsArray($res);
 		$this->assertCount(2, $res);
 		$this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']);
-		$this->assertMatchesRegularExpression('/^openthc.+path.+secure.+httponly.+samesite/i', $sch);
+		$this->assertMatchesRegularExpression('/^openthc\-cre=.+path.+secure.+httponly.+samesite/i', $sch);
 
 		// Shut My Session
 		$res = $this->httpClient->get('/auth/shut');

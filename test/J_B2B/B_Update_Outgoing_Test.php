@@ -32,9 +32,9 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertCount(5, $T0);
 		$this->assertNotEmpty($T0['id']);
 
-		$l = $this->find_random_lot();
+		$l = $this->find_random_inventory();
 		$res = $this->_post($this->_url_path . '/' . $T0['id'], [
-			'lot_id' => $l['id'],
+			'inventory_id' => $l['id'],
 			'qty' => 10,
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -87,15 +87,15 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base_Case
 		// $res = $this->_post($this->_url_path . '/' . $obj['id']);
 
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
+		// 	'inventory_id' => '',
 		// 	'qty' => 10,
 		// ]);
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
+		// 	'inventory_id' => '',
 		// 	'qty' => 10,
 		// ]);
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
+		// 	'inventory_id' => '',
 		// 	'qty' => 10,
 		// ]);
 
@@ -132,9 +132,9 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertCount(5, $T0);
 		$this->assertNotEmpty($T0['id']);
 
-		$l = $this->find_random_lot();
+		$l = $this->find_random_inventory();
 		$res = $this->_post($this->_url_path . '/' . $T0['id'], [
-			'lot_id' => $l['id'],
+			'inventory_id' => $l['id'],
 			'qty' => 10,
 		]);
 		$res = $this->assertValidResponse($res, 201);

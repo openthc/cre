@@ -41,11 +41,11 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->assertValidResponse($res, 201);
 		$T0 = $res['data'];
 
-		$l = $this->find_random_lot();
+		$l = $this->find_random_inventory();
 
 		$url = sprintf('/b2b/%s', $T0['id']);
 		$res = $this->_post($url, [
-			'lot_id' => $l['id'],
+			'inventory_id' => $l['id'],
 			'qty' => 10,
 		]);
 		$res = $this->assertValidResponse($res, 201);

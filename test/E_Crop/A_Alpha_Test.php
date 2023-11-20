@@ -17,12 +17,12 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_create()
 	{
-		$sl0 = $this->find_random_lot(); // of type Seed or Clone?
+		$sl0 = $this->find_random_inventory(); // of type Seed or Clone?
 		$v = $this->find_random_variety();
 		$s = $this->find_random_section();
 
 		$res = $this->_post('/crop', [
-			'source' => '', // A Lot of Clones, crops or Seeds
+			'source' => '', // Inventory of Clones, crops or Seeds
 			'variety' => $v['id'], // A New Variety
 			'section' => $s['id'], // Optional
 			'qty' => 10,

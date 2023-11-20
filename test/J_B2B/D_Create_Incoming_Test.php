@@ -84,15 +84,15 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertValidResponse($res, 201, __METHOD__);
 
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
+		// 	'inventory_id' => '',
 		// 	'qty' => 10,
 		// ]);
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
+		// 	'inventory_id' => '',
 		// 	'qty' => 10,
 		// ]);
 		// $this->_post('/transfer/' . $t0['id'] . '/item', [
-		// 	'lot_id' => '',
+		// 	'inventory_id' => '',
 		// 	'qty' => 10,
 		// ]);
 

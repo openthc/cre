@@ -7,6 +7,9 @@ namespace App\Controller\Variety;
 
 class Create extends \App\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$oid = \Edoceo\Radix\ULID::generate();

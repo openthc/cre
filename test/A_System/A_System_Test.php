@@ -13,7 +13,7 @@ class A_System_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		// Paths?
 		$dir = sprintf('%s/var/', APP_ROOT);
-		$this->assertTrue(is_dir($dir));
+		$this->assertTrue(is_dir($dir), 'Missing /var');
 
 		// Runtime Dependencies?
 	}

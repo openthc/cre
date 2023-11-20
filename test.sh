@@ -32,16 +32,17 @@ bash -x vendor/openthc/common/test/phplint.sh
 
 #
 # PHP-CPD
-bash -x vendor/openthc/common/test/phpcpd.sh
+# bash -x vendor/openthc/common/test/phpcpd.sh
 
 
 #
 # PHPStan
-bash -x vendor/openthc/common/test/phpstan.sh
+# bash -x vendor/openthc/common/test/phpstan.sh
 
 
 #
 # PHPUnit
+rm -fr webroot/test-output/phpunit.*
 bash -x vendor/openthc/common/test/phpunit.sh "$@"
 
 

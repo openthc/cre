@@ -1,15 +1,15 @@
 <?php
 /**
- * Single Lot
+ * Single Inventory
  */
 
-namespace App\Controller\Lot;
+namespace App\Controller\Inventory;
 
 class Single extends \App\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$sql = 'SELECT * FROM lot WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT * FROM inventory WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_ENV['license_id'],
 			':g' => $ARG['id']
@@ -17,7 +17,7 @@ class Single extends \App\Controller\Base
 
 		$rec =$this->_container->DB->fetch_row($sql, $arg);
 		if (empty($rec['id'])) {
-			return $this->send404('Lot not found [CLS#020]');
+			return $this->send404('Inventory not found [CLS#020]');
 		}
 
 		return $RES->withJSON([

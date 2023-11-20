@@ -96,8 +96,8 @@ class B_Raw_Net_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertEquals($raw, $pcD['plant_collect']['raw']);
 		$this->assertEquals($net, $pcD['plant_collect']['net']);
 
-		$this->assertNotEmpty($pcD['lot']['id']);
-		$this->assertEquals($net, $pcD['lot']['qty']);
+		$this->assertNotEmpty($pcD['inventory']['id']);
+		$this->assertEquals($net, $pcD['inventory']['qty']);
 		// $this->assertCount(2, $pcD['collect_list']);
 
 	}

@@ -135,7 +135,7 @@ Transfer_Incoming_Item -- Transfer_Outgoing_Item
 === Create B2B Transaction
 
 Create a Transfer with a POST to `/transfer` which includes the *Target License*, delivery details.
-Add *Inventory* with a POST to `/transfer/{id}/item` which includes the *Source Lot*, and *Quantity* and any necessary modifiers.
+Add *Inventory* with a POST to `/transfer/{id}/item` which includes the *Source Inventory*, and *Quantity* and any necessary modifiers.
 Once completed the Transfer can be reviewed with a GET to `/transfer/{id}`.
 Send a POST to `/transfer/{id}/commit` to confirm the Transfer and make it available to the receiving side.
 

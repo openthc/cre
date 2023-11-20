@@ -34,7 +34,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		// Add Item
 		$this->_post('/sale/' . $res['data']['id'], [
-			'lot_id' => $obj0['id'],
+			'inventory_id' => $obj0['id'],
 			'qty' => 1,
 			'unit_price' => 12,
 		]);
@@ -42,7 +42,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		// Add Item
 		$this->_post('/sale/' . $res['data']['id'], [
-			'lot_id' => $obj1['id'],
+			'inventory_id' => $obj1['id'],
 			'qty' => 2,
 			'unit_price' => 23,
 		]);

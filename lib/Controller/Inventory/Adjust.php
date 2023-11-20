@@ -10,7 +10,7 @@ class Adjust extends \App\Controller\Base
 	function __invoke($REQ, $RES, $ARG)
 	{
 		// Check for existance
-		$sql = 'SELECT id, qty, meta FROM lot WHERE license_id = :l AND id = :id';
+		$sql = 'SELECT id, qty, meta FROM inventory WHERE license_id = :l AND id = :id';
 		$arg = array(
 			':l' => $_ENV['license_id'],
 			':id' => $ARG['id'],
@@ -23,7 +23,7 @@ class Adjust extends \App\Controller\Base
 		// Adjust the Quantity
 		$qty = floatval($_POST['qty']) ?: floatval($chk['qty']);
 
-		$sql = 'UPDATE lot SET qty = :q WHERE id = :pk';
+		$sql = 'UPDATE inventory SET qty = :q WHERE id = :pk';
 		$arg = array(
 			':pk' => $ARG['id'],
 			':q' => $qty,

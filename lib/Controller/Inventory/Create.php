@@ -80,7 +80,7 @@ class Create extends \App\Controller\Base
 		$meta_table = array();
 		foreach ($_POST['source'] as $index => $source) {
 			// @todo because we're updating `qty` below, we might want to use FOR UPDATE here, or maybe execute all updates in 1 xaction? /mbw
-			$lot = $dbc->fetchRow('SELECT id, product_id, variety_id, section_id, meta, qty FROM lot WHERE license_id = :l0 AND id = :pk', [
+			$lot = $dbc->fetchRow('SELECT id, product_id, variety_id, section_id, meta, qty FROM inventory WHERE license_id = :l0 AND id = :pk', [
 				':l0' => $_ENV['license_id'],
 				':pk' => $source['id'],
 				// ':pk' => $_POST['source'][0]['id'],
@@ -124,7 +124,7 @@ class Create extends \App\Controller\Base
 				'meta' => [ 'detail' => 'Invalid Variety given [CLC#123]' ],
 				'data' => [
 					'_POST' => $_POST,
-					'lot_list' => $lot_list,
+					'inventory_list' => $lot_list,
 					'arg' => $arg,
 				]
 			], 400);
@@ -155,7 +155,7 @@ class Create extends \App\Controller\Base
 			], 400);
 		}
 
-		// Create new Lot object
+		// Create new Inventory object
 		$l1 = [
 			'id' => _ulid(),
 			'license_id' => $_ENV['license_id'],
@@ -181,7 +181,7 @@ class Create extends \App\Controller\Base
 
 		$dbc->query('BEGIN');
 
-		$dbc->insert('lot', $l1);
+		$dbc->insert('inventory', $l1);
 
 		foreach ($lot_list as $source_lot) {
 			$meta0 = $meta_table[$source_lot['id']];
@@ -190,7 +190,7 @@ class Create extends \App\Controller\Base
 				'qty' => $l1['qty'],
 			];
 
-			$sql = 'UPDATE lot SET meta = :meta, qty = :qty WHERE license_id = :l0 AND id = :pk';
+			$sql = 'UPDATE inventory SET meta = :meta, qty = :qty WHERE license_id = :l0 AND id = :pk';
 			$res = $dbc->query($sql, [
 				':pk' => $source_lot['id'],
 				':l0' => $_ENV['license_id'],
@@ -219,7 +219,7 @@ class Create extends \App\Controller\Base
 		$DBC = $this->_container->DB;
 
 		// Check for existance
-		$sql = 'SELECT id FROM lot WHERE license_id = :l AND id = :id';
+		$sql = 'SELECT id FROM inventory WHERE license_id = :l AND id = :id';
 		$arg = array(
 			':l' => $_ENV['license_id'],
 			':id' => $_POST['id'],
@@ -324,7 +324,7 @@ class Create extends \App\Controller\Base
 
 		// $DBC->query('BEGIN');
 		$this->logAudit('Inventory/Create', $rec['id'], $rec['meta']);
-		$DBC->insert('lot', $rec);
+		$DBC->insert('inventory', $rec);
 		// $DBC->query('COMMIT');
 
 		return $RES->withJSON([

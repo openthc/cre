@@ -157,10 +157,10 @@ class Commit extends \App\Controller\Base
 			'qty' => $net,
 			'hash' => '-',
 		];
-		$dbc->insert('lot', $lot);
+		$dbc->insert('inventory', $lot);
 
 		// Update Crop Collect Record
-		$pc['lot_id'] = $lot['id'];
+		$pc['inventory_id'] = $lot['id'];
 		$pc['stat'] = 301;
 		$pc['net'] = $pc['net'] + $net;
 
@@ -174,9 +174,9 @@ class Commit extends \App\Controller\Base
 		$dbc->query($sql, $arg);
 
 		// Relationship
-		$dbc->insert('lot_family', [
+		$dbc->insert('inventory_family', [
 			'id' => _ulid(),
-			'lot_id' => $lot['id'],
+			'inventory_id' => $lot['id'],
 			'plant_collect_id' => $pc['id'],
 		]);
 
@@ -185,7 +185,7 @@ class Commit extends \App\Controller\Base
 		return $RES->withJSON([
 			'data' => [
 				'plant_collect' => $pc,
-				'lot' => $lot,
+				'inventory' => $lot,
 			],
 			'meta' => [
 				'note' => 'Inventory Created, Collect Group Closed',

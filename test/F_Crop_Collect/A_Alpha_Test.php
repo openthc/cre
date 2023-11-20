@@ -137,7 +137,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$url = sprintf('/crop/%s/collect', $p['id']);
 		$arg = [
-			'lot_id' => $p['id'],
+			'inventory_id' => $p['id'],
 			'type' => 'net',
 			'qty' => 12.34,
 			'uom' => 'g',

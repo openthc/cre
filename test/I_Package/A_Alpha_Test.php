@@ -54,7 +54,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$l0 = $this->find_random_lot();
+		$l0 = $this->find_random_inventory();
 		$p0 = $this->find_random_product();
 
 		$res = $this->_post('/inventory', [
@@ -76,7 +76,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$l0 = $this->find_random_lot();
+		$l0 = $this->find_random_inventory();
 		$p0 = $this->find_random_product();
 
 		$res = $this->_post('/inventory', [
@@ -103,7 +103,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->httpClient->delete('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$l0 = $this->find_random_lot();
+		$l0 = $this->find_random_inventory();
 
 	}
 
@@ -128,7 +128,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$l0 = $this->find_random_lot();
+		$l0 = $this->find_random_inventory();
 		$l0['qty'] = floatval($l0['qty']);
 		$l0['qty'] = $l0['qty'] * 2;
 

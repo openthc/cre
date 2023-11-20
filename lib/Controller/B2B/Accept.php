@@ -118,13 +118,13 @@ class Accept extends \App\Controller\Base
 		// update b2b_outgoing_item SET stat = 307
 
 		// if qty_rx != qty_tx then stat = 307
-		// update b2b_incoming_item SET stat = 302, lot_id = new Lot(), qty = $Q1
+		// update b2b_incoming_item SET stat = 302, inventory_id = new Lot(), qty = $Q1
 		// update b2b_outgoing_item SET stat = 307
 
 		// Mark All Items as Fully Received
 		foreach ($source_item as $src) {
 
-			$lo0 = $dbc->fetchRow('SELECT * FROM lot WHERE id = ?', $src['lot_id']);
+			$lo0 = $dbc->fetchRow('SELECT * FROM inventory WHERE id = ?', $src['inventory_id']);
 			$pr0 = $dbc->fetchRow('SELECT * FROM product WHERE id = ?', $lo0['product_id']);
 			$vt0 = $dbc->fetchRow('SELECT * FROM variety WHERE id = ?', $lo0['variety_id']);
 			// $sn0 = $dbc->fetchRow('SELECT * FROM section WHERE license_id = :l0 AND id = :s0', [ ':s0' => $_POST['section_id'] ]);
@@ -155,9 +155,9 @@ class Accept extends \App\Controller\Base
 			$lot1['section_id'] = $_POST['section_id'];
 			$lot1['hash'] = '-';
 			$lot1['qty'] = $src['qty'];
-			$dbc->insert('lot', $lot1);
+			$dbc->insert('inventory', $lot1);
 
-			$sql = 'UPDATE b2b_incoming_item SET lot_id = :l1, qty = :q0, stat = 307 WHERE id = :s0';
+			$sql = 'UPDATE b2b_incoming_item SET inventory_id = :l1, qty = :q0, stat = 307 WHERE id = :s0';
 			$arg = [
 				':s0' => $src['id'],
 				':l1' => $lot1['id'],

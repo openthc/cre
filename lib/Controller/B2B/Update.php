@@ -42,12 +42,12 @@ class Update extends \App\Controller\Base
 		$dbc = $this->_container->DB;
 
 		// Add an Item
-		if (!empty($_POST['lot_id'])) {
+		if (!empty($_POST['inventory_id'])) {
 
 			$obj_o = [
 				'id' => _ulid(),
 				'b2b_outgoing_id' => $T['id'],
-				'lot_id' => $_POST['lot_id'],
+				'inventory_id' => $_POST['inventory_id'],
 				'stat' => 200,
 				'qty' => $_POST['qty'],
 				'name' => '-',
@@ -94,7 +94,7 @@ class Update extends \App\Controller\Base
 				$T['transfer_outgoing_stat'] = 307;
 
 				// Decrement Inventory
-				// $sql = 'UPDATE lot SET qty = qty - (SELECT qty FROM transfer_outgoing_item WHERE b2b_outgoing_id = ? AND lot_id = lot.id)';
+				// $sql = 'UPDATE inventory SET qty = qty - (SELECT qty FROM transfer_outgoing_item WHERE b2b_outgoing_id = ? AND inventory_id = inventory.id)';
 				// $arg = array($T['id']);
 
 				$chk1 = $dbc->query($sql, $arg);

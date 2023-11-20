@@ -45,19 +45,19 @@ ALTER TABLE ONLY inventory
 
 
 --
--- Lot Family
+-- Inventory Family
 --
 
-ALTER TABLE ONLY lot_family
-    ADD FOREIGN KEY (lot_id) REFERENCES lot(id);
+ALTER TABLE ONLY inventory_family
+    ADD FOREIGN KEY (inventory_id) REFERENCES inventory(id);
 
-ALTER TABLE ONLY lot_family
-    ADD FOREIGN KEY (lot_id_output) REFERENCES lot(id);
+ALTER TABLE ONLY inventory_family
+    ADD FOREIGN KEY (inventory_id_output) REFERENCES inventory(id);
 
-ALTER TABLE ONLY lot_family
+ALTER TABLE ONLY inventory_family
     ADD FOREIGN KEY (crop_id) REFERENCES crop(id);
 
-ALTER TABLE ONLY lot_family
+ALTER TABLE ONLY inventory_family
     ADD FOREIGN KEY (crop_collect_id) REFERENCES crop_collect(id);
 
 
@@ -99,7 +99,7 @@ ALTER TABLE ONLY b2b_incoming_item
     ADD FOREIGN KEY (b2b_incoming_id) REFERENCES b2b_incoming(id);
 
 ALTER TABLE ONLY b2b_incoming_item
-    ADD FOREIGN KEY (lot_id) REFERENCES lot(id);
+    ADD FOREIGN KEY (inventory_id) REFERENCES inventory(id);
 
 --
 --
@@ -119,7 +119,7 @@ ALTER TABLE ONLY b2b_outgoing_item
     ADD FOREIGN KEY (b2b_outgoing_id) REFERENCES b2b_outgoing(id);
 
 ALTER TABLE ONLY b2b_outgoing_item
-    ADD FOREIGN KEY (lot_id) REFERENCES lot(id);
+    ADD FOREIGN KEY (inventory_id) REFERENCES inventory(id);
 
 
 --
@@ -133,4 +133,4 @@ ALTER TABLE ONLY b2c_sale_item
     ADD FOREIGN KEY (b2c_sale_id) REFERENCES b2c_sale(id);
 
 ALTER TABLE ONLY b2c_sale_item
-    ADD FOREIGN KEY (lot_id) REFERENCES lot(id);
+    ADD FOREIGN KEY (inventory_id) REFERENCES inventory(id);

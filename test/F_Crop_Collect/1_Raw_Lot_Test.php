@@ -1,6 +1,6 @@
 <?php
 /**
- * Collect Raw Materials and Lot Directly
+ * Collect Raw Materials and Inventory Directly
  */
 
 namespace Test\Crop_Collect;
@@ -13,7 +13,7 @@ class Raw_Lot extends \OpenTHC\CRE\Test\Base_Case
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
-	function test_raw_lot()
+	function test_raw_inventory()
 	{
 		$x = $this->find_random_plant(2);
 		$pA = $x[0];
@@ -79,8 +79,8 @@ class Raw_Lot extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertEquals($pcC['raw'], $pcD['plant_collect']['raw']);
 		$this->assertEquals($pcC['net'], $pcD['plant_collect']['net']);
 
-		$this->assertNotEmpty($pcD['lot']['id']);
-		$this->assertEquals($net, $pcD['lot']['qty']);
+		$this->assertNotEmpty($pcD['inventory']['id']);
+		$this->assertEquals($net, $pcD['inventory']['qty']);
 		// $this->assertCount(2, $pcD['collect_list']);
 
 	}

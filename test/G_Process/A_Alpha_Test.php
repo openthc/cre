@@ -17,7 +17,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_convert_one_to_one()
 	{
-		$l0 = $this->find_random_lot();
+		$l0 = $this->find_random_inventory();
 		$p0 = $this->find_random_product();
 
 		$res = $this->_post('/inventory', [
@@ -32,8 +32,8 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_convert_two_to_one()
 	{
-		$l0 = $this->find_random_lot();
-		$l1 = $this->find_random_lot();
+		$l0 = $this->find_random_inventory();
+		$l1 = $this->find_random_inventory();
 
 		$p0 = $this->find_random_product();
 
