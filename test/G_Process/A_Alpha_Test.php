@@ -20,7 +20,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
 
-		$res = $this->_post('/lot', [
+		$res = $this->_post('/inventory', [
 			'source' => $l0['id'],
 			'product_id' => $p0['id'],
 			'qty' => 5,
@@ -37,7 +37,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$p0 = $this->find_random_product();
 
-		$res = $this->_post('/lot', [
+		$res = $this->_post('/inventory', [
 			'source' => [
 				[
 					'id' => $l0['id'],

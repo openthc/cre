@@ -14,21 +14,21 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	public function test_access()
 	{
-		$res = $this->httpClient->get('/lot');
+		$res = $this->httpClient->get('/inventory');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/lot/four_zero_four');
+		$res = $this->httpClient->get('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/lot/1');
+		$res = $this->httpClient->get('/inventory/1');
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->get('/lot?' . http_build_query([
+		$res = $this->httpClient->get('/inventory?' . http_build_query([
 			'guid' => '1',
 		]));
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->_post('/lot/four_zero_four', [
+		$res = $this->_post('/inventory/four_zero_four', [
 			'qty' => 1,
 		]);
 		$this->assertValidResponse($res, 405);
@@ -42,10 +42,10 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$res = $this->httpClient->get('/lot');
+		$res = $this->httpClient->get('/inventory');
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/lot/four_zero_four');
+		$res = $this->httpClient->get('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 	}
@@ -57,7 +57,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
 
-		$res = $this->_post('/lot', [
+		$res = $this->_post('/inventory', [
 			'source' => $l0['id'],
 			'product_id' => $p0['id'],
 			'qty' => 500,
@@ -79,7 +79,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$l0 = $this->find_random_lot();
 		$p0 = $this->find_random_product();
 
-		$res = $this->_post('/lot', [
+		$res = $this->_post('/inventory', [
 			'source' => $l0['id'],
 			'product_id' => $p0['id'],
 			'qty' => 10,
@@ -96,11 +96,11 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_delete()
 	{
-		$res = $this->httpClient->delete('/lot/four_zero_four');
+		$res = $this->httpClient->delete('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
-		$res = $this->httpClient->delete('/lot/four_zero_four');
+		$res = $this->httpClient->delete('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 		$l0 = $this->find_random_lot();
@@ -111,7 +111,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$res = $this->httpClient->get('/lot');
+		$res = $this->httpClient->get('/inventory');
 		$this->assertValidResponse($res);
 
 	}
@@ -120,7 +120,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$res = $this->httpClient->get('/lot/four_zero_four');
+		$res = $this->httpClient->get('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 404);
 	}
 
@@ -132,7 +132,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$l0['qty'] = floatval($l0['qty']);
 		$l0['qty'] = $l0['qty'] * 2;
 
-		$res = $this->httpClient->patch('/lot/' . $l0['id'], [ 'json' => $l0 ]);
+		$res = $this->httpClient->patch('/inventory/' . $l0['id'], [ 'json' => $l0 ]);
 		$res = $this->assertValidResponse($res, 200);
 
 		$this->assertIsArray($res['data']);

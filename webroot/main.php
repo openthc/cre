@@ -99,8 +99,8 @@ $app->group('/section', 'App\Module\Section')
 	;
 
 
-// Inventory Lot
-$app->group('/lot', 'App\Module\Lot')
+// Inventory
+$app->group('/inventory', 'App\Module\Lot')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')

@@ -167,7 +167,7 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 
 	function find_random_lot()
 	{
-		$res = $this->httpClient->get('/lot');
+		$res = $this->httpClient->get('/inventory');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThanOrEqual(1, count($res['data']));

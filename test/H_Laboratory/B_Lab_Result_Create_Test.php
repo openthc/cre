@@ -19,7 +19,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
 
-		$res = $this->httpClient->get('/lot');
+		$res = $this->httpClient->get('/inventory');
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThan(1, count($res['data']));
@@ -84,7 +84,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertIsArray($res['meta']);
 		$this->assertGreaterThan(1, count($res['data']));
 
-		// $res = $this->httpClient->get('/lot');
+		// $res = $this->httpClient->get('/inventory');
 		// $res = $this->assertValidResponse($res);
 		// $this->assertIsArray($res['meta']);
 		// $this->assertGreaterThan(1, count($res['data']));

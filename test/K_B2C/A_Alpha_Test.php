@@ -20,7 +20,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	public function test_create()
 	{
-		$res = $this->httpClient->get('/lot');
+		$res = $this->httpClient->get('/inventory');
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 

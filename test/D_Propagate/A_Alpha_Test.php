@@ -9,7 +9,7 @@ namespace OpenTHC\CRE\Test\D_Propagate;
 
 class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 {
-	protected $_url_path = '/lot';
+	protected $_url_path = '/inventory';
 
 	protected function setUp() : void
 	{

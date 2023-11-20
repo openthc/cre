@@ -89,17 +89,17 @@ Simply add the net weight to the Crop_Collect record using a POST to `/crop/{id}
 When ready, one or more Crop_Collect records, of type Net, will be combined to create *Grade-A Bulk*, *Grade-B Bulk*, etc.
 
 
-== Lot :: Process
+== Inventory :: Process
 
-The Bulk stuff, using `/lot/{}/convert`
+The Bulk stuff, using `/inventory/{}/convert`
 Include one or more Source Lot objects, with quantities consumed.
 Include one output Product description.
 Quantities **MUST** be calculated by the client.
 
 
-== Lot :: Package
+== Inventory :: Package
 
-The Packaging Stuff stuff, using `/lot/{}/convert`
+The Packaging Stuff stuff, using `/inventory/{}/convert`
 
     source_id,output_id
 
