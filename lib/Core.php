@@ -43,11 +43,10 @@ class Core extends \OpenTHC\App
 
 				// Debug information?
 				if ($c->debug) {
-					// var_dump($ERR); exit;
 					return $RES->withJSON([
 						'data' => [],
 						'meta' => [
-							'detail' => $msg,
+							'note' => $msg,
 							'origin' => 'app',
 							'source' => [
 								'code' => $ERR->getCode(),
@@ -93,11 +92,10 @@ class Core extends \OpenTHC\App
 
 				// Debug information?
 				if ($c->debug) {
-					// var_dump($ERR); exit;
 					return $RES->withJSON([
 						'data' => [],
 						'meta' => [
-							'detail' => $msg,
+							'note' => $msg,
 							'origin' => 'php',
 							'source' => [
 								'code' => $ERR->getCode(),
@@ -116,7 +114,7 @@ class Core extends \OpenTHC\App
 				return $RES->withJSON([
 					'data' => [],
 					'meta' => [
-						'detail' => $msg,
+						'note' => $msg,
 						'origin' => 'app',
 					]
 				]);
@@ -131,7 +129,7 @@ class Core extends \OpenTHC\App
 				return $RES->withJSON(array(
 					'data' => [],
 					'meta' => [
-						'detail' => 'HTTP Method Not Allowed',
+						'note' => 'HTTP Method Not Allowed',
 					],
 				));
 			};
