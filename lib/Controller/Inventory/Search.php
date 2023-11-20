@@ -1,9 +1,9 @@
 <?php
 /**
- * Search Lot
+ * Search Inventory
  */
 
-namespace App\Controller\Lot;
+namespace App\Controller\Inventory;
 
 class Search extends \App\Controller\Base
 {

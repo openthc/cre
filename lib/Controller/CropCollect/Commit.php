@@ -147,7 +147,7 @@ class Commit extends \App\Controller\Base
 		// 	}
 		// }
 
-		// Create the Lot
+		// Create the Inventory
 		$lot = [
 			'id' => _ulid(),
 			'license_id' => $_ENV['license_id'],
@@ -188,7 +188,7 @@ class Commit extends \App\Controller\Base
 				'lot' => $lot,
 			],
 			'meta' => [
-				'detail' => 'Lot Created, Collect Group Closed',
+				'note' => 'Inventory Created, Collect Group Closed',
 			],
 		], 201);
 

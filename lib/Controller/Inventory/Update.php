@@ -1,9 +1,9 @@
 <?php
 /**
- * Update Lot
+ * Update Inventory
  */
 
-namespace App\Controller\Lot;
+namespace App\Controller\Inventory;
 
 class Update extends \App\Controller\Base
 {
@@ -18,7 +18,7 @@ class Update extends \App\Controller\Base
 
 		$lo0 = $dbc->fetch_row($sql, $arg);
 		if (empty($lo0)) {
-			return $this->send404('Lot not found [CLU#020]');
+			return $this->send404('Inventory not found [CLU#020]');
 		}
 
 		// Old Object
@@ -67,7 +67,7 @@ class Update extends \App\Controller\Base
 		$dbc->query($sql, $arg);
 
 		// Log the change
-		$this->logAudit('Lot/Update', $ARG['id'], $meta);
+		$this->logAudit('Inventory/Update', $ARG['id'], $meta);
 
 		$dbc->query('COMMIT');
 

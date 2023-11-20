@@ -1,9 +1,9 @@
 <?php
 /**
- * Adjust a Lot owned by a License
+ * Adjust a Inventory owned by a License
  */
 
-namespace App\Controller\Lot;
+namespace App\Controller\Inventory;
 
 class Adjust extends \App\Controller\Base
 {
@@ -17,7 +17,7 @@ class Adjust extends \App\Controller\Base
 		);
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
 		if (empty($chk['id'])) {
-			return $this->send404('Lot not found [CLA#020]');
+			return $this->send404('Inventory not found [CLA-020]');
 		}
 
 		// Adjust the Quantity
@@ -29,11 +29,11 @@ class Adjust extends \App\Controller\Base
 			':q' => $qty,
 		);
 		$this->_container->DB->query($sql, $arg);
-		$this->logAudit('Lot/Adjust', $ARG['id'], \json_encode($_POST));
+		$this->logAudit('Inventory/Adjust', $ARG['id'], \json_encode($_POST));
 
 		return $RES->withJSON([
 			'data' => null,
-			'meta' => [ 'detail' => 'Lot Adjusted' ],
+			'meta' => [ 'note' => 'Inventory Adjusted' ],
 		], 202);
 
 	}

@@ -31,16 +31,16 @@ ALTER TABLE ONLY section
 --
 --
 
-ALTER TABLE ONLY lot
+ALTER TABLE ONLY inventory
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
-ALTER TABLE ONLY lot
+ALTER TABLE ONLY inventory
     ADD FOREIGN KEY (product_id) REFERENCES product(id);
 
-ALTER TABLE ONLY lot
+ALTER TABLE ONLY inventory
     ADD FOREIGN KEY (variety_id) REFERENCES variety(id);
 
-ALTER TABLE ONLY lot
+ALTER TABLE ONLY inventory
     ADD FOREIGN KEY (section_id) REFERENCES section(id);
 
 

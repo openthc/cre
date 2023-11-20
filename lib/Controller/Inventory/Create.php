@@ -1,9 +1,9 @@
 <?php
 /**
- * Create a Lot owned by a License
+ * Create a Inventory owned by a License
  */
 
-namespace App\Controller\Lot;
+namespace App\Controller\Inventory;
 
 class Create extends \App\Controller\Base
 {
@@ -202,7 +202,7 @@ class Create extends \App\Controller\Base
 
 		unset($l1['meta']);
 		return $RES->withJSON([
-			'meta' => ['detail' => 'Lot Conversion Created'],
+			'meta' => ['detail' => 'Inventory Conversion Created'],
 			'data' => $l1,
 		], 201);
 
@@ -229,7 +229,7 @@ class Create extends \App\Controller\Base
 			return $RES->withStatus(409);
 		}
 
-		// Create Lot Object
+		// Create Inventory Object
 		$obj = array(
 			'id' => $_POST['id'],
 			'product' => $_POST['product'],
@@ -296,7 +296,7 @@ class Create extends \App\Controller\Base
 			}
 		}
 
-		// Create Lot Record
+		// Create Inventory Record
 		$rec = array(
 			'id' => $obj['id'],
 			'license_id' => $_ENV['license_id'],
@@ -323,7 +323,7 @@ class Create extends \App\Controller\Base
 		$rec['hash'] = sha1($rec['meta']);
 
 		// $DBC->query('BEGIN');
-		$this->logAudit('Lot/Create', $rec['id'], $rec['meta']);
+		$this->logAudit('Inventory/Create', $rec['id'], $rec['meta']);
 		$DBC->insert('lot', $rec);
 		// $DBC->query('COMMIT');
 

@@ -93,7 +93,7 @@ class Update extends \App\Controller\Base
 				$T['stat'] = 307;
 				$T['transfer_outgoing_stat'] = 307;
 
-				// Decrement Lots
+				// Decrement Inventory
 				// $sql = 'UPDATE lot SET qty = qty - (SELECT qty FROM transfer_outgoing_item WHERE b2b_outgoing_id = ? AND lot_id = lot.id)';
 				// $arg = array($T['id']);
 

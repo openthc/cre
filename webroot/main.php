@@ -100,7 +100,7 @@ $app->group('/section', 'App\Module\Section')
 
 
 // Inventory
-$app->group('/inventory', 'App\Module\Lot')
+$app->group('/inventory', 'OpenTHC\CRE\Module\Inventory')
 	->add('App\Middleware\InputDataFilter')
 	->add('App\Middleware\Authenticate')
 	->add('App\Middleware\Session')

@@ -145,7 +145,7 @@ CREATE TABLE product_type (
 );
 
 
-CREATE TABLE lot (
+CREATE TABLE inventory (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,
 	product_id varchar(26) not null,

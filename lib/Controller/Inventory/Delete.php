@@ -1,9 +1,9 @@
 <?php
 /**
- * Delete a Lot Object
+ * Delete a Inventory Object
  */
 
-namespace App\Controller\Lot;
+namespace App\Controller\Inventory;
 
 class Delete extends \App\Controller\Base
 {
@@ -20,32 +20,32 @@ class Delete extends \App\Controller\Base
 		// Find and Update
 		$cur = $dbc->fetchRow($sql, $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Lot not found [CLD#023]');
+			return $this->send404('Inventory not found [CLD#023]');
 		}
 
-		$this->logAudit('Lot/Delete', $ARG['id'], null);
+		$this->logAudit('Inventory/Delete', $ARG['id'], null);
 
 		// Status State Machine
 		switch ($cur['stat']) {
 		case 200:
 			$ret_code = 202;
-			$ret_text = 'Lot Delete Requested';
+			$ret_text = 'Inventory Delete Requested';
 			$chk = $dbc->query('UPDATE lot SET stat = 410 WHERE license_id = :l0 AND id = :pk', $arg);
-			$this->logAudit('Lot/Delete/Create', $ARG['id'], null);
+			$this->logAudit('Inventory/Delete/Create', $ARG['id'], null);
 			break;
 		case 410:
 			$ret_code = 410;
-			$ret_text = 'Lot Delete Confirmed';
+			$ret_text = 'Inventory Delete Confirmed';
 			$chk = $dbc->query('UPDATE lot SET stat = 423 WHERE license_id = :l0 AND id = :pk', $arg);
-			$this->logAudit('Lot/Delete/Commit', $ARG['id'], null);
+			$this->logAudit('Inventory/Delete/Commit', $ARG['id'], null);
 			break;
 		case 423:
 			$ret_code = 423;
-			$ret_text = 'Lot Locked';
+			$ret_text = 'Inventory Locked';
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Lot Status [CLD#039]');
+			throw new \Exception('Invalid Inventory Status [CLD#039]');
 		}
 
 		$dbc->query('COMMIT');

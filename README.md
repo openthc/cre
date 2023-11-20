@@ -31,10 +31,10 @@ More information is available at https://openthc.com/cre
  * Crop/Collect/Raw - Collect raw materials from the crop
  * Crop/Collect/Net - Account for net materials Dry/Cured/Trimmed state.
  * Crop/Collect/Lot - Creates Production Inventory Lot
- * Lot/Create
- * Lot/Convert - One or more Source Lots into one Output Lot
- * Lot/Combine
- * Lot/Sample - Remove a Small Portion for Unique Sample (Employee, QA, Vendor, etc)
+ * Inventory/Create
+ * Inventory/Convert - One or more Source Lots into one Output Lot
+ * Inventory/Combine
+ * Inventory/Sample - Remove a Small Portion for Unique Sample (Employee, QA, Vendor, etc)
  * B2B/Create - File the B2B Transaction
  * B2B/Commit - Commit/Send the B2B Transaction
  * B2B/Accept - Accept/Receive the B2B Transaction
@@ -52,7 +52,7 @@ More information is available at https://openthc.com/cre
 ## APIs
 
  * Simple [API Interface](https://api.openthc.org/)
- * Direct Write/Update of Objects (Crop, Lot, B2B, B2C)
+ * Direct Write/Update of Objects (Crop, Inventory, B2B, B2C)
  * Indirect Update via Actions
 
 

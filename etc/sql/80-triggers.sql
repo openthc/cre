@@ -66,9 +66,9 @@ CREATE TRIGGER log_delta_variety
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_delta_trigger();
 
-CREATE TRIGGER log_delta_lot
+CREATE TRIGGER log_delta_inventory
 	AFTER INSERT OR UPDATE OR DELETE
-	ON lot
+	ON inventory
 	FOR EACH ROW
 	EXECUTE PROCEDURE log_delta_trigger();
 

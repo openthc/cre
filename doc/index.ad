@@ -42,15 +42,15 @@ Generally, the Contact record for the primary, including name, email and phone, 
 
 === License
 
-A License is a container for the regulated materials such as Crops, Inventory Lots, Lab Results, etc.
+A License is a container for the regulated materials such as Crops, Inventory, Lab Results, etc.
 A License has a primary identifier and name of course but, it also includes a type, and address and a contact reference.
 
     id,type,name,contact_id
 
 
-== Lot - Sources
+== Inventory - Sources
 
-These are the Inventory Lots of source materials, clones, plants, seeds, tissue.
+These are the Inventory of source materials, clones, plants, seeds, tissue.
 
     code,type,
 
@@ -92,7 +92,7 @@ When ready, one or more Crop_Collect records, of type Net, will be combined to c
 == Inventory :: Process
 
 The Bulk stuff, using `/inventory/{}/convert`
-Include one or more Source Lot objects, with quantities consumed.
+Include one or more Source Inventory objects, with quantities consumed.
 Include one output Product description.
 Quantities **MUST** be calculated by the client.
 
@@ -135,7 +135,7 @@ Transfer_Incoming_Item -- Transfer_Outgoing_Item
 === Create B2B Transaction
 
 Create a Transfer with a POST to `/transfer` which includes the *Target License*, delivery details.
-Add *Inventory Lots* with a POST to `/transfer/{id}/item` which includes the *Source Lot*, and *Quantity* and any necessary modifiers.
+Add *Inventory* with a POST to `/transfer/{id}/item` which includes the *Source Lot*, and *Quantity* and any necessary modifiers.
 Once completed the Transfer can be reviewed with a GET to `/transfer/{id}`.
 Send a POST to `/transfer/{id}/commit` to confirm the Transfer and make it available to the receiving side.
 
@@ -169,7 +169,7 @@ Program ->x CRE: Commit Sale
 
 Sales cannot be edited, a Sale Item or a complete Sale may be voided.
 Simply identify the Sale `DELETE /b2c/{id}` or specific Sale Item(s) `DELETE /b2c/{id}/item/{id}` to be voided.
-Historically, these VOID records will remain -- the CRE will return the material to the Source Lot.
+Historically, these VOID records will remain -- the CRE will return the material to the Source Inventory.
 
 
 include::import.ad[]
