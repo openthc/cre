@@ -17,7 +17,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 
 		$rec =$this->_container->DB->fetch_row($sql, $arg);
 		if (empty($rec['id'])) {
-			return $this->send404('Variety Not Found [CSS#020]');
+			return $this->send404('Variety Not Found [CSS-020]');
 		}
 
 		return $RES->withJSON([

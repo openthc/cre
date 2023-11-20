@@ -19,21 +19,21 @@ class Authenticate extends \OpenTHC\Middleware\Base
 		if (empty($_SESSION['service_id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Not Authorized [LMA-015]' ]
+				'meta' => [ 'note' => 'Not Authorized [LMA-015]' ]
 			], 403);
 		}
 
 		if (empty($_SESSION['company_id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Not Authorized [LMA-022]' ]
+				'meta' => [ 'note' => 'Not Authorized [LMA-022]' ]
 			], 403);
 		}
 
 		if (empty($_SESSION['license_id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Not Authorized [LMA-029]' ]
+				'meta' => [ 'note' => 'Not Authorized [LMA-029]' ]
 			], 403);
 		}
 
@@ -99,13 +99,13 @@ class Authenticate extends \OpenTHC\Middleware\Base
 			$_ENV['license_id'] = $_SESSION['License']['id'];
 
 			// if (empty($_SESSION['Company']['id'])) {
-			// 	return $RES->withJSON(['meta' => [ 'detail' => 'Invalid Company' ]], 400);
+			// 	return $RES->withJSON(['meta' => [ 'note' => 'Invalid Company' ]], 400);
 			// }
 			// if (empty($_SESSION['Contact']['id'])) {
-			// 	return $RES->withJSON(['meta' => [ 'detail' => 'Invalid Contact' ]], 400);
+			// 	return $RES->withJSON(['meta' => [ 'note' => 'Invalid Contact' ]], 400);
 			// }
 			// if (empty($_SESSION['License']['id'])) {
-			// 	return $RES->withJSON(['meta' => [ 'detail' => 'Invalid License' ]], 400);
+			// 	return $RES->withJSON(['meta' => [ 'note' => 'Invalid License' ]], 400);
 			// }
 
 		}

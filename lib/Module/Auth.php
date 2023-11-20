@@ -53,7 +53,7 @@ class Auth extends \OpenTHC\Module\Base
 				default:
 					$ret['data'] = null;
 					$ret['meta'] = [
-						'detail' => 'Invalid Session State [LMA-054]'
+						'note' => 'Invalid Session State [LMA-054]'
 					];
 			}
 

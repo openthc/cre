@@ -34,7 +34,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			$this->logAudit('Company/Create', $rec['id'], $rec);
 		} catch (\Exception $e) {
 			$this->logAudit('Company/Create/Error', $rec['id'], $e);
-			return $RES->withJSON([ 'meta' => [ 'detail' => $e->getMessage() ]], 500);
+			return $RES->withJSON([ 'meta' => [ 'note' => $e->getMessage() ]], 500);
 		}
 
 		$link = sprintf('/company/%s', $rec['id']);

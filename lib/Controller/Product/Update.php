@@ -31,7 +31,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 				);
 				$this->_container->DB->insert('product', $P0);
 			} else {
-				return $this->send404('Product not found [CPU#033]');
+				return $this->send404('Product not found [CPU-033]');
 			}
 
 		}

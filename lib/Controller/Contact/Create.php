@@ -12,7 +12,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$C = array();
 
 		if (empty($_POST['company'])) {
-			return $this->sendError('Missing "company" parameter [CCC#017]', 400);
+			return $this->sendError('Missing "company" parameter [CCC-017]', 400);
 		}
 
 
@@ -20,7 +20,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$arg = array(':g' => $_POST['company']);
 		$rec = $this->_container->DB->fetchRow($sql, $arg);
 		if (empty($rec['id'])) {
-			return $this->sendError('Invalid "company" parameter [CCC#028]', 400);
+			return $this->sendError('Invalid "company" parameter [CCC-028]', 400);
 		}
 
 		$C = $rec;

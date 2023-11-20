@@ -9,7 +9,7 @@ namespace OpenTHC\CRE\Test\C_Core;
 
 class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 {
-	private $_url_path = '/';
+	private $_url_path = '/vehicle';
 
 	protected function setUp() : void
 	{
@@ -19,7 +19,7 @@ class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_create()
 	{
-		$name = sprintf('UNITTEST Product CREATE %06x', $this->_pid);
+		$name = sprintf('UNITTEST Vehicle CREATE %06x', $this->_pid);
 
 		$res = $this->_post($this->_url_path, [
 			'name' => $name,

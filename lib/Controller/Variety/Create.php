@@ -18,7 +18,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$obj = array(
 			'id' => $oid,
 			'name' => $_POST['name'],
-			//'type' => $_POST['type'],
+			'type' => $_POST['type'],
 		);
 
 		// Check Variety Record
@@ -30,7 +30,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
 		if (!empty($chk)) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Variety Duplicate [CSC#030]' ],
+				'meta' => [ 'note' => 'Variety Duplicate [CSC-030]' ],
 				'data' => $chk,
 			], 409);
 		}

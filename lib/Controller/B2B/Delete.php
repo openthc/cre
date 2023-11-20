@@ -55,7 +55,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 
 		return $RES->withJSON(array(
 			'data' => [],
-			'meta' => [ 'detail' => $ret_text ],
+			'meta' => [ 'note' => $ret_text ],
 		), $ret_code);
 
 	}

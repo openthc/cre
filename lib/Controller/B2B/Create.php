@@ -33,7 +33,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		if (empty($L_Target['id'])) {
 			return $RES->withJSON(array(
 				'data' => null,
-				'meta' => [ 'detail' => 'Invalid Target License [CBC-036]' ],
+				'meta' => [ 'note' => 'Invalid Target License [CBC-036]' ],
 			), 400);
 		}
 

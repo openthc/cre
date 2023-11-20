@@ -20,13 +20,13 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		if (empty($obj['name'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Product Name [CPC#023]' ]
+				'meta' => [ 'note' => 'Invalid Product Name [CPC-023]' ]
 			], 400);
 		}
 
 		if (empty($obj['product_type_id'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Product Type [CPC#029]' ],
+				'meta' => [ 'note' => 'Invalid Product Type [CPC-029]' ],
 			], 400);
 		}
 
@@ -41,7 +41,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON([
 				'data' => $chk,
 				'meta' => [
-					'detail' => 'Conflict/Duplicate',
+					'note' => 'Conflict/Duplicate',
 				]
 			], 409);
 		}
@@ -66,7 +66,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		return $RES->withJSON([
 			'data' => $obj,
 			'meta' => [
-				'detail' => 'Product Created',
+				'note' => 'Product Created',
 			],
 		], 201);
 

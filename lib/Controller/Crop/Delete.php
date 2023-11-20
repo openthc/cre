@@ -20,7 +20,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Find and Update
 		$cur = $dbc->fetchRow($sql, $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Crop not found [CPD#022]');
+			return $this->send404('Crop not found [CPD-022]');
 		}
 
 		$this->logAudit('Crop/Delete', $ARG['id'], null);
@@ -45,13 +45,13 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Crop Status [CPD#039]');
+			throw new \Exception('Invalid Crop Status [CPD-039]');
 		}
 
 		$dbc->query('COMMIT');
 
 		return $RES->withJSON(array(
-			'meta' => [ 'detail' => $ret_text ],
+			'meta' => [ 'note' => $ret_text ],
 			'data' => [],
 		), $ret_code);
 

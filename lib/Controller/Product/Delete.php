@@ -24,7 +24,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Find and Update
 		$cur = $dbc->fetchRow('SELECT id, stat FROM product WHERE license_id = :l AND id = :g FOR UPDATE NOWAIT', $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Product not found [CPD#027]');
+			return $this->send404('Product not found [CPD-027]');
 		}
 
 		// Process Delete
@@ -49,14 +49,14 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			break;
 		default:
 			// Failure
-			throw new \Exception(sprintf('Invalid Product Status "%s/%d" [CPD#046]', $cur['id'], $cur['stat']));
+			throw new \Exception(sprintf('Invalid Product Status "%s/%d" [CPD-046]', $cur['id'], $cur['stat']));
 		}
 
 		$dbc->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'data' => [],
-			'meta' => [ 'detail' => $ret_text ],
+			'meta' => [ 'note' => $ret_text ],
 		), $ret_code);
 
 	}

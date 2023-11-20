@@ -20,7 +20,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Find and Update
 		$cur = $dbc->fetchRow($sql, $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Inventory not found [CLD#023]');
+			return $this->send404('Inventory not found [CLD-023]');
 		}
 
 		$this->logAudit('Inventory/Delete', $ARG['id'], null);
@@ -45,13 +45,13 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Inventory Status [CLD#039]');
+			throw new \Exception('Invalid Inventory Status [CLD-039]');
 		}
 
 		$dbc->query('COMMIT');
 
 		return $RES->withJSON(array(
-			'meta' => [ 'detail' => $ret_text ],
+			'meta' => [ 'note' => $ret_text ],
 			'data' => [],
 		), $ret_code);
 

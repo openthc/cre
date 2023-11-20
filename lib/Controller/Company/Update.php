@@ -18,7 +18,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$chk = $dbc->fetchRow($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('Company not found [CCU#021]');
+			return $this->send404('Company not found [CCU-021]');
 		}
 
 		// Old Object

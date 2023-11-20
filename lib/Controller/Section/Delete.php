@@ -24,7 +24,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Find and Update
 		$cur = $dbc->fetchRow('SELECT id, stat FROM section WHERE license_id = :l AND id = :g FOR UPDATE NOWAIT', $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Section not found [CSZ#027]');
+			return $this->send404('Section not found [CSZ-027]');
 		}
 
 		switch ($cur['stat']) {
@@ -46,14 +46,14 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Section Status [ZCD#039]');
+			throw new \Exception('Invalid Section Status [ZCD-039]');
 		}
 
 		$dbc->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'data' => [],
-			'meta' => [ 'detail' => $ret_text ],
+			'meta' => [ 'note' => $ret_text ],
 		), $ret_code);
 
 	}

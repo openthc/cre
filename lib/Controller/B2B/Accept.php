@@ -32,7 +32,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON(array(
 				'data' => null,
 				'meta' => [
-					'detail' => 'B2B Sale Not Found',
+					'note' => 'B2B Sale Not Found',
 					'incoming' => $T_incoming['id'],
 					'outgoing' => $T_outgoing['id'],
 				],
@@ -44,7 +44,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON(array(
 				'data' => null,
 				'meta' => [
-					'detail' => 'Invalid B2B Sale State',
+					'note' => 'Invalid B2B Sale State',
 					'incoming' => $T_incoming['stat'],
 					'outgoing' => $T_outgoing['stat'],
 				],
@@ -63,7 +63,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 		// if ((200 != $T_incoming['stat']) && (200 != $T_outgoing['stat'])) {
 		// 	return $RES->withJSON(array(
 		// 		'meta' => [
-		// 			'detail' => 'Invalid Transfer State',
+		// 			'note' => 'Invalid Transfer State',
 		// 			'incoming' => $T_incoming['stat'],
 		// 			'outgoing' => $T_outgoing['stat'],
 		// 		],
@@ -91,7 +91,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON(array(
 				'data' => null,
 				'meta' => [
-					'detail' => 'No Source Items [CBA-086]',
+					'note' => 'No Source Items [CBA-086]',
 				],
 			), 412);
 		}
@@ -105,7 +105,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON(array(
 				'data' => $target_item,
 				'meta' => [
-					'detail' => 'No Target Items [CBA-100]',
+					'note' => 'No Target Items [CBA-100]',
 				],
 			), 412);
 		}

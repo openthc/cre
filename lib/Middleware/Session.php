@@ -54,7 +54,7 @@ class Session extends \OpenTHC\Middleware\Base
 				// @todo Session Destroy Here
 				// $RES = $RES->withJSON([
 				// 	'data' => null,
-				// 	'meta' => [ 'detail' => 'Invalid Session State [LMS-048]' ]
+				// 	'meta' => [ 'note' => 'Invalid Session State [LMS-048]' ]
 				// ], 403);
 			}
 

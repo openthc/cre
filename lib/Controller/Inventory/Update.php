@@ -18,7 +18,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$lo0 = $dbc->fetch_row($sql, $arg);
 		if (empty($lo0)) {
-			return $this->send404('Inventory not found [CLU#020]');
+			return $this->send404('Inventory not found [CLU-020]');
 		}
 
 		// Old Object

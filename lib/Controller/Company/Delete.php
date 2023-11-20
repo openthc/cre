@@ -17,7 +17,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		if ('018NY6XC00SERV1CE000000000' != $_SESSION['service_id']) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Not Allowed [CCD-018]' ]
+				'meta' => [ 'note' => 'Not Allowed [CCD-018]' ]
 			], 403);
 		}
 
@@ -33,7 +33,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// But Deny Anyway
 		return $RES->withJSON([
 			'data' => null,
-			'meta' => [ 'detail' => 'Not Allowed [CCD-032]'],
+			'meta' => [ 'note' => 'Not Allowed [CCD-032]'],
 		], 405);
 
 	}

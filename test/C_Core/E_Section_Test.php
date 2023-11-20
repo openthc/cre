@@ -165,7 +165,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->assertValidResponse($res, 200);
 
 		$this->assertIsArray($res['meta']);
-		$this->assertIsString($res['meta']['detail']);
+		$this->assertIsString($res['meta']['note']);
 
 		$this->assertIsArray($res['data']);
 

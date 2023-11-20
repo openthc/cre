@@ -10,7 +10,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 	function __invoke($REQ, $RES, $ARG)
 	{
 		// But Deny Anyway
-		return $this->sendError('Not Allowed [CCD#014]', 405);
+		return $this->sendError('Not Allowed [CCD-014]', 405);
 
 		// return $this->one_step_delete($REQ, $RES, $ARG);
 		// return $this->two_step_delete($REQ, $RES, $ARG);
@@ -58,7 +58,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		$obj = $dbc->fetchRow($sql, $arg);
 
 		if (empty($obj['id'])) {
-			return $this->send404('License not found [CLD#064]');
+			return $this->send404('License not found [CLD-064]');
 		}
 
 		switch ($obj['stat']) {
@@ -67,25 +67,25 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			$sql = 'UPDATE license SET stat = 423 WHERE company_id = :c0 AND id = :c1';
 			$chk = $dbc->query($sql, $arg);
 			$this->logAudit('License/Delete/Create', $ARG['id'], null);
-			$ret_data['detail'] = 'Delete Requested';
+			$ret_data['note'] = 'Delete Requested';
 			break;
 		case 410:
 			$ret_code = 410;
 			$ret_data['status'] = 'failure';
-			$ret_data['detail'] = 'Delete Completed';
+			$ret_data['note'] = 'Delete Completed';
 			break;
 		case 423:
 			$ret_code = 410;
 			$sql = 'UPDATE license SET stat = 410 WHERE company_id = :c0 AND id = :c1';
 			$chk = $dbc->query($sql, $arg);
 			$this->logAudit('License/Delete/Commit', $ARG['id'], null);
-			$ret_data['detail'] = 'Delete Confirmed';
+			$ret_data['note'] = 'Delete Confirmed';
 			break;
 		default:
 			return $RES->withJSON(array(
 				'data' => array(),
 				'meta' => array(
-					'detail' => sprintf('Invalid License Status "%d" [CPD#046]', $obj['stat']),
+					'note' => sprintf('Invalid License Status "%d" [CPD-046]', $obj['stat']),
 				),
 			), 500);
 		}
@@ -96,7 +96,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 
 		// return $RES->withJSON(array(
 		// 	'status' => 'failure',
-		// 	'result' => 'Not Allowed [CLD#014]',
+		// 	'result' => 'Not Allowed [CLD-014]',
 		// ), 405);
 	}
 }

@@ -24,7 +24,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Find and Update
 		$cur = $dbc->fetchRow('SELECT id, stat FROM variety WHERE license_id = :l AND id = :g FOR UPDATE NOWAIT', $arg);
 		if (empty($cur['id'])) {
-			return $this->send404('Variety not Found [CSD#026]');
+			return $this->send404('Variety not Found [CSD-026]');
 		}
 
 		switch ($cur['stat']) {
@@ -46,13 +46,13 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Variety Status [ZCD#039]');
+			throw new \Exception('Invalid Variety Status [ZCD-039]');
 		}
 
 		$dbc->query('COMMIT');
 
 		return $RES->withJSON(array(
-			'meta' => [ 'detail' => $ret_text ],
+			'meta' => [ 'note' => $ret_text ],
 			'data' => [],
 		), $ret_code);
 

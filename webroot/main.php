@@ -44,7 +44,7 @@ $app->group('/auth', 'OpenTHC\CRE\Module\Auth')
 // Global Company
 $app->group('/company', 'OpenTHC\CRE\Module\Company')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
-	->add('App\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
 	->add('OpenTHC\CRE\Middleware\Session')
 	// ->add('OpenTHC\Middleware\Log\HTTP')
 	;

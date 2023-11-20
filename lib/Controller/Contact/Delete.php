@@ -20,7 +20,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		$rec = $dbc->fetch_row($sql, $arg);
 
 		if (empty($rec)) {
-			return $this->send404('Contact not found [CCD#023]');
+			return $this->send404('Contact not found [CCD-023]');
 		}
 
 		// Find and Update
@@ -44,22 +44,22 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 			$sql = 'UPDATE contact SET stat = 423 WHERE company_id = :c0 AND id = :c1';
 			$chk = $dbc->query($sql, $arg);
 			$this->logAudit('Contact/Delete/Create', $ARG['id'], null);
-			$ret_data['meta']['detail'] = 'Delete Requested';
+			$ret_data['meta']['note'] = 'Delete Requested';
 			break;
 		case 410:
 			$ret_code = 410;
-			$ret_data['meta']['detail'] = 'Delete Completed';
+			$ret_data['meta']['note'] = 'Delete Completed';
 			break;
 		case 423:
 			$ret_code = 410;
 			$sql = 'UPDATE contact SET stat = 410 WHERE company_id = :c0 AND id = :c1';
 			$chk = $dbc->query($sql, $arg);
 			$this->logAudit('Contact/Delete/Commit', $ARG['id'], null);
-			$ret_data['meta']['detail'] = 'Delete Confirmed';
+			$ret_data['meta']['note'] = 'Delete Confirmed';
 			break;
 		default:
 			// Failure
-			throw new \Exception('Invalid Contact Status [CCD#064]');
+			throw new \Exception('Invalid Contact Status [CCD-064]');
 		}
 
 		$dbc->query('COMMIT');

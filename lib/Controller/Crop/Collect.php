@@ -16,7 +16,7 @@
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [
-					'detail' => 'Argument Not Provided [CPC-017]',
+					'note' => 'Argument Not Provided [CPC-017]',
 				]
 			], 400);
 		}
@@ -25,7 +25,7 @@
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [
-					'detail' => 'Argument Not Provided [CPC-028]',
+					'note' => 'Argument Not Provided [CPC-028]',
 				]
 			], 400);
 		}
@@ -34,7 +34,7 @@
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [
-					'detail' => 'Argument Not Valid [CPC-037]',
+					'note' => 'Argument Not Valid [CPC-037]',
 				]
 			], 400);
 		}
@@ -93,7 +93,7 @@
 		return $RES->withJSON([
 			'data' => $ret,
 			'meta' => [
-				'detail' => 'Crop Collect Created',
+				'note' => 'Crop Collect Created',
 			]
 		], 201);
 

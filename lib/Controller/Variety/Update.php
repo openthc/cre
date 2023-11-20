@@ -18,7 +18,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$chk = $this->_container->DB->fetch_row($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('Variety Not Found [CSU#023]');
+			return $this->send404('Variety Not Found [CSU-023]');
 		}
 
 		// Old Object

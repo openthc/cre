@@ -88,7 +88,7 @@ class Base extends \OpenTHC\Controller\Base
 		} elseif (is_string($e)) {
 			$ret = [
 				'data' => null,
-				'meta' => [ 'detail' => $e ],
+				'meta' => [ 'note' => $e ],
 			];
 		}
 
@@ -108,7 +108,7 @@ class Base extends \OpenTHC\Controller\Base
 		return $R->withJSON([
 			'data' => null,
 			'meta' => [
-				'detail' => $m,
+				'note' => $m,
 				'path' => $_SERVER['REQUEST_URI'],
 			],
 		]);

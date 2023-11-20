@@ -88,8 +88,8 @@ class C_Raw_Net_Overage_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->assertValidResponse($res, 413);
 		$this->assertCount(2, $res);
 		$this->assertIsArray($res['meta']);
-		$this->assertNotEmpty($res['meta']['detail']);
-		$this->assertMatchesRegularExpression('/net too large/i', $res['meta']['detail']);
+		$this->assertNotEmpty($res['meta']['note']);
+		$this->assertMatchesRegularExpression('/net too large/i', $res['meta']['note']);
 		$this->assertIsArray($res['data']);
 		$this->assertEquals($raw, $res['data']['raw']);
 

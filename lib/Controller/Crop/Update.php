@@ -19,7 +19,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$chk = $dbc->fetch_row($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('Crop not found [CPU#022]');
+			return $this->send404('Crop not found [CPU-022]');
 		}
 
 		// Old Object

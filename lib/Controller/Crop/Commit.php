@@ -13,7 +13,7 @@
 			return $RES->withJSON([
 				'data' => [],
 				'meta' => [
-					'detail' => 'Argument Not Provided [CPC#017]',
+					'note' => 'Argument Not Provided [CPC-017]',
 				]
 			], 400);
 

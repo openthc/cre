@@ -60,7 +60,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		return $RES->withJSON(array(
 			'data' => $obj1,
-			'meta' => [ 'detail' => 'Section Updated' ],
+			'meta' => [ 'note' => 'Section Updated' ],
 		));
 
 	}

@@ -13,14 +13,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		// if (!is_array($_POST['output'])) {
 		// 	return $RES->withJSON([
-		// 		'meta' => [ 'detail' => 'Invalid Parameter for "output" [CLC#016]' ],
+		// 		'meta' => [ 'note' => 'Invalid Parameter for "output" [CLC-016]' ],
 		// 		'data' => $_POST,
 		// 	], 400);
 		// }
 
 		if (!isset($_POST['qty'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Parameter for "output.qty" [CLC#023]' ],
+				'meta' => [ 'note' => 'Invalid Parameter for "output.qty" [CLC-023]' ],
 				'data' => $_POST,
 			], 400);
 		}
@@ -28,7 +28,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$_POST['qty'] = floatval($_POST['qty']);
 		if ($_POST['qty'] <= 0) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Parameter for "output.qty" [CLC#031]' ],
+				'meta' => [ 'note' => 'Invalid Parameter for "output.qty" [CLC-031]' ],
 				'data' => $_POST,
 			], 400);
 		}
@@ -62,7 +62,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 
 		return $RES->withJSON([
-			'meta' => [ 'detail' => 'Invalid Parameters [CLC#072]' ],
+			'meta' => [ 'note' => 'Invalid Parameters [CLC-072]' ],
 			'data' => $_POST,
 		], 400);
 
@@ -121,7 +121,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 		if (empty($S['id'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Variety given [CLC#123]' ],
+				'meta' => [ 'note' => 'Invalid Variety given [CLC-123]' ],
 				'data' => [
 					'_POST' => $_POST,
 					'inventory_list' => $lot_list,
@@ -150,7 +150,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 		if (empty($Z['id'])) {
 			return $RES->withJSON([
-				'meta' => [ 'detail' => 'Invalid Section [CLC#137]' ],
+				'meta' => [ 'note' => 'Invalid Section [CLC-137]' ],
 				'data' => $_POST,
 			], 400);
 		}
@@ -202,7 +202,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		unset($l1['meta']);
 		return $RES->withJSON([
-			'meta' => ['detail' => 'Inventory Conversion Created'],
+			'meta' => ['note' => 'Inventory Conversion Created'],
 			'data' => $l1,
 		], 201);
 

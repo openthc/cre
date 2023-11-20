@@ -17,7 +17,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
 		if (empty($chk)) {
-			return $this->send404('Contact not found [CCU#020]');
+			return $this->send404('Contact not found [CCU-020]');
 		}
 
 		// Old Object

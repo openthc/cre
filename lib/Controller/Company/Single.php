@@ -14,7 +14,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 		$rec = $this->_container->DB->fetch_row($sql, $arg);
 
 		if (empty($rec)) {
-			return $this->send404('Company not found [CCS#017]');
+			return $this->send404('Company not found [CCS-017]');
 		}
 
 		// @todo Merge Meta to Main?

@@ -15,7 +15,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 			if (!isset($_POST[$k])) {
 				return $RES->withJSON([
 					'data' => null,
-					'meta' => [ 'detail' => 'Commit Requires Variety [PCC-018]' ],
+					'meta' => [ 'note' => 'Commit Requires Variety [PCC-018]' ],
 				], 400);
 			}
 		}
@@ -26,7 +26,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		if (empty($_POST['variety_id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'detail' => 'Commit Requires Variety [PCC-029]' ],
+				'meta' => [ 'note' => 'Commit Requires Variety [PCC-029]' ],
 			], 400);
 		}
 
@@ -86,7 +86,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		if (200 != $pc['stat']) {
 			return $RES->withJSON([
 				'data' => $pc,
-				'meta' => [ 'detail' => 'Collect Not Open [PCC-028]' ],
+				'meta' => [ 'note' => 'Collect Not Open [PCC-028]' ],
 			], 409);
 		}
 
@@ -111,7 +111,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		if (($pc['net'] + $net) > $pc['raw']) {
 			return $RES->withJSON([
 				'data' => $pc,
-				'meta' => [ 'detail' => 'Collect Net Too Large [PCC-042]' ],
+				'meta' => [ 'note' => 'Collect Net Too Large [PCC-042]' ],
 			], 413);
 		}
 

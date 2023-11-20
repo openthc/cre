@@ -65,7 +65,7 @@ class Core extends \OpenTHC\App
 				return $RES->withJSON([
 					'data' => [],
 					'meta' => [
-						'detail' => $msg,
+						'note' => $msg,
 						'origin' => 'app',
 					]
 				]);

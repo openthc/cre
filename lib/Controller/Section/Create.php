@@ -16,7 +16,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON([
 				'data' => [],
 				'meta' => [
-					'failure' => 'Invalid Section Name [CZC#019]',
+					'failure' => 'Invalid Section Name [CZC-019]',
 				]
 			], 400);
 		}
@@ -56,7 +56,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		return $RES->withJSON(array(
 			'data' => $obj,
 			'meta' => [
-				'detail' => 'Section Created',
+				'note' => 'Section Created',
 			]
 		), 201);
 
