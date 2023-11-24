@@ -92,8 +92,8 @@ class Base extends \OpenTHC\Controller\Base
 			];
 		}
 
-		$R = new \Custom_Response($c);
-		return $R->withJSON($ret);
+		$RES = new \OpenTHC\HTTP\Response($c);
+		return $RES->withJSON($ret, $c);
 
 	}
 
@@ -104,14 +104,14 @@ class Base extends \OpenTHC\Controller\Base
 	 */
 	function send404($m)
 	{
-		$R = new \Custom_Response(404);
-		return $R->withJSON([
+		$RES = new \OpenTHC\HTTP\Response(404);
+		return $RES->withJSON([
 			'data' => null,
 			'meta' => [
 				'note' => $m,
 				'path' => $_SERVER['REQUEST_URI'],
 			],
-		]);
+		], 404);
 	}
 
 }
