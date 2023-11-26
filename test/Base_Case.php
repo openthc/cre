@@ -25,10 +25,10 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 	/**
 	 *
 	 */
-	protected function _api()
+	protected function _api(array $cfg=[])
 	{
 		// create our http client (Guzzle)
-		$c = new \GuzzleHttp\Client(array(
+		$opt = array(
 			'base_uri' => $_ENV['api-uri'],
 			'allow_redirects' => false,
 			'debug' => $_ENV['debug-http'],
@@ -37,7 +37,11 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 			),
 			'http_errors' => false,
 			'cookies' => true,
-		));
+		);
+
+		$opt = array_merge($opt, $cfg);
+
+		$c = new \GuzzleHttp\Client($opt);
 
 		return $c;
 	}
