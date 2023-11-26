@@ -219,7 +219,26 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	 */
 	private function create_from_parent($RES)
 	{
-		return $RES->withJSON(null, 501);
+		$l1 = [
+			'id' => _ulid(),
+			'license_id' => $_ENV['license_id'],
+			'product_id' => $_POST['product']['id'],
+			'variety_id' => $_POST['variety']['id'],
+			'section_id' => '018NY6XC00SECT10N000000000',
+			'qty' => $_POST['qty'],
+			'hash' => '-',
+		];
+
+		$dbc = $this->_container->DB;
+		$dbc->query('BEGIN');
+		$dbc->insert('inventory', $l1);
+		$dbc->query('COMMIT');
+
+		return $RES->withJSON([
+			'meta' => [ 'note' => 'Inventory Conversion Created'],
+			'data' => $l1,
+		], 201);
+
 	}
 
 	/**
