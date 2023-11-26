@@ -38,8 +38,8 @@ class Base extends \OpenTHC\Controller\Base
 	 * Evaluate Scripts applied to the Object
 	 * @param string $src Script Source location
 	 * @param string $obj_name The Name of the object to be sent to the lua script
-	 * @param data-array $obj_data The data-array of the object
-	 * @return data-array the modified $obj_data
+	 * @param array $obj_data The data-array of the object
+	 * @return array the modified $obj_data
 	 */
 	function evalObjectScript($src, $obj_name, $obj_data)
 	{
@@ -47,7 +47,7 @@ class Base extends \OpenTHC\Controller\Base
 
 		foreach ($script_list as $f) {
 
-			$lua = new Lua();
+			$lua = new \Lua();
 			$lua->assign($obj_name, $obj_data);
 			$obj_data = $lua->eval(file_get_contents($f));
 		}
@@ -58,7 +58,7 @@ class Base extends \OpenTHC\Controller\Base
 
 	/**
 	 * Load the lua sources from the specified path
-	 * @param [type] $src name of the controller to load scripts for
+	 * @param string $src name of the controller to load scripts for
 	 * @return array List of lua scripts
 	 */
 	function _load_scripts($src)
