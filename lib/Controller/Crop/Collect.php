@@ -1,15 +1,20 @@
 <?php
 /**
  * Add a Collection Record to a Crop
- * Collects Wet, Dry and Net materials
+ * Collects Raw(Harvest/Manicure/Wet) Net(Cure/Dry) materials
+ *
+ *
  */
 
- namespace OpenTHC\CRE\Controller\Crop;
+namespace OpenTHC\CRE\Controller\Crop;
 
- class Collect extends \OpenTHC\CRE\Controller\Base
- {
- 	function __invoke($REQ, $RES, $ARG)
- 	{
+class Collect extends \OpenTHC\CRE\Controller\Base
+{
+	/**
+	 *
+	 */
+	function __invoke($REQ, $RES, $ARG)
+	{
 		$dbc = $this->_container->DB;
 
 		if (empty($ARG['id'])) {
@@ -59,6 +64,27 @@
 		$PC = [
 			'id' => $_POST['plant_collect_id'],
 		];
+		// Want Specific Plant Collect
+		if ( ! empty($PC['id'])) {
+			// Lookup
+			$chk = $dbc->fetchRow('SELECT * FROM plant_collect WHERE id = ?', [ $PC['id'] ]);
+			if (empty($chk['id'])) {
+				// Create one w/specified ID
+				$dbc->insert('plant_collect', [
+					'id' => $PC['id'],
+					'license_id' => $_ENV['license_id'],
+					'hash' => '-',
+				]);
+			} else {
+				if ($chk['license_id'] != $_ENV['license_id']) {
+					return $this->withJSON([
+						'meta' => [ 'note' => 'Plant Collect ID Conflict [CPC#075]' ],
+						'data' => null,
+				], 409);
+			}
+		}
+
+		// Create PC?
 		if (empty($PC['id'])) {
 			$PC = [
 				'id' => _ulid(),
@@ -80,8 +106,12 @@
 		];
 		$dbc->insert('plant_collect_plant', $PCP);
 
-		$sql = "UPDATE plant_collect SET raw = (SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = 'raw')";
-		$sql.= ", net = (SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = 'net')";
+		$sql = <<<SQL
+		UPDATE plant_collect
+		SET raw = (SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = 'raw')
+		    , net = (SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = 'net')
+		WHERE plant_collect.id = :pc0
+		SQL;
 		$arg = [ ':pc0' => $PC['id'] ];
 		$dbc->query($sql, $arg);
 
