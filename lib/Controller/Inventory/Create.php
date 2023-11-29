@@ -1,6 +1,8 @@
 <?php
 /**
  * Create a Inventory owned by a License
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\Inventory;
@@ -111,16 +113,13 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Validate Variety
-		// From Own License, or System License
 		$S = [];
-		$sql = "SELECT * FROM variety WHERE (license_id = :l0 OR license_id = '019KAGVX9M1FRBJ7EZQDTMD6JA') AND id = :pk";
+		$sql = "SELECT * FROM variety WHERE license_id = :l0 AND id = :pk";
 		$arg = [
-			':l0' => $_SESSION['License']['id']
+			':l0' => $_SESSION['License']['id'],
+			':pk' => $_POST['variety']['id'],
 		];
-		if (!empty($_POST['variety']['id'])) {
-			$arg[':pk'] = $_POST['variety']['id'];
-			$S = $dbc->fetchRow($sql, $arg);
-		}
+		$S = $dbc->fetchRow($sql, $arg);
 		if (empty($S['id'])) {
 			$arg[':pk'] = $lot_list[0]['variety_id'];
 			$S = $dbc->fetchRow($sql, $arg);
@@ -129,9 +128,9 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON([
 				'meta' => [ 'note' => 'Invalid Variety given [CLC-123]' ],
 				'data' => [
-					'_POST' => $_POST,
 					'inventory_list' => $lot_list,
-					'arg' => $arg,
+					// '_POST' => $_POST,
+					// 'arg' => $arg,
 				]
 			], 400);
 		}
@@ -165,7 +164,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$l1 = [
 			'id' => _ulid(),
 			'license_id' => $_SESSION['License']['id'],
-			'product_id' => $_POST['product_id'],
+			'product_id' => $obj['product_id'],
 			'variety_id' => $S['id'],
 			'section_id' => $Z['id'],
 			// 'qty' => $_POST['qty'], // _POST['qty'] is the output qty, so we need to know the qty of the lot piece used
@@ -208,7 +207,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		unset($l1['meta']);
 		return $RES->withJSON([
-			'meta' => ['note' => 'Inventory Conversion Created'],
+			'meta' => [ 'note' => 'Inventory Conversion Created' ],
 			'data' => $l1,
 		], 201);
 
