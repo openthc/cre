@@ -178,6 +178,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 			'id' => _ulid(),
 			'inventory_id' => $lot['id'],
 			'plant_collect_id' => $pc['id'],
+			'type' => 'PCL0',
 		]);
 
 		$dbc->query('COMMIT');
