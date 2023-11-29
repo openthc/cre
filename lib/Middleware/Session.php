@@ -58,14 +58,6 @@ class Session extends \OpenTHC\Middleware\Base
 				// ], 403);
 			}
 
-			// Export from session into $_ENV
-			// Attach to $REQ->withAttribute?
-			foreach ($_SESSION as $k => $v) {
-				if ('_' != substr($k, 0, 1)) {
-					$_ENV[$k] = $v;
-				}
-			}
-
 		}
 
 		// Next

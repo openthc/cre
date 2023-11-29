@@ -12,9 +12,9 @@ class Search extends \OpenTHC\CRE\Controller\Base
 		$sql_where = array();
 		$sql_param = array();
 
-		if (!empty($_ENV['company_id'])) {
+		if (!empty($_SESSION['Company']['id'])) {
 			$sql_where[] = 'company_id = :c0';
-			$sql_param[':c0'] = $_ENV['company_id'];
+			$sql_param[':c0'] = $_SESSION['Company']['id'];
 		}
 
 		if (count($sql_where)) {

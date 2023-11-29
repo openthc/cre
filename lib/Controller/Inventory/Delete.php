@@ -13,7 +13,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT id, stat FROM inventory WHERE license_id = :l0 AND id = :pk FOR UPDATE NOWAIT';
 		$arg = array(
-			':l0' => $_ENV['license_id'],
+			':l0' => $_SESSION['License']['id'],
 			':pk' => $ARG['id']
 		);
 

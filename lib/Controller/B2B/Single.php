@@ -16,7 +16,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_source = :l AND id = :g';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
 		);
 		$T = $dbc->fetchRow($sql, $arg);

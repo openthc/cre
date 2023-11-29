@@ -12,7 +12,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		$dbc = $this->_container->DB;
 
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
 		);
 

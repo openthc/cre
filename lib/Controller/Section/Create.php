@@ -16,7 +16,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			return $RES->withJSON([
 				'data' => [],
 				'meta' => [
-					'failure' => 'Invalid Section Name [CZC-019]',
+					'note' => 'Invalid Section Name [CSC-019]',
 				]
 			], 400);
 		}
@@ -40,7 +40,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		// Section Record
 		$rec = array(
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'id' => $oid,
 			'hash' => null,
 			'name' => $obj['name'],

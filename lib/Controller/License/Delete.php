@@ -52,7 +52,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT id, stat FROM license WHERE company_id = :c0 AND id = :c1 FOR UPDATE NOWAIT';
 		$arg = array(
-			':c0' => $_ENV['company_id'],
+			':c0' => $_SESSION['Company']['id'],
 			':c1' => $ARG['id']
 		);
 		$obj = $dbc->fetchRow($sql, $arg);

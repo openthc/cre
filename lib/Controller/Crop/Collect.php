@@ -52,7 +52,7 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT * FROM plant WHERE license_id = :l0 AND id = :pk FOR UPDATE';
 		$arg = [
-			':l0' => $_ENV['license_id'],
+			':l0' => $_SESSION['License']['id'],
 			':pk' => $ARG['id']
 		];
 		$P = $dbc->fetchRow($sql, $arg);
@@ -72,15 +72,16 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 				// Create one w/specified ID
 				$dbc->insert('plant_collect', [
 					'id' => $PC['id'],
-					'license_id' => $_ENV['license_id'],
+					'license_id' => $_SESSION['License']['id'],
 					'hash' => '-',
 				]);
 			} else {
-				if ($chk['license_id'] != $_ENV['license_id']) {
+				if ($chk['license_id'] != $_SESSION['License']['id']) {
 					return $this->withJSON([
 						'meta' => [ 'note' => 'Plant Collect ID Conflict [CPC#075]' ],
 						'data' => null,
-				], 409);
+					], 409);
+				}
 			}
 		}
 
@@ -88,7 +89,7 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 		if (empty($PC['id'])) {
 			$PC = [
 				'id' => _ulid(),
-				'license_id' => $_ENV['license_id'],
+				'license_id' => $_SESSION['License']['id'],
 				'hash' => '-',
 			];
 			$dbc->insert('plant_collect', $PC);

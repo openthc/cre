@@ -14,7 +14,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 		// Incoming Record
 		$sql = 'SELECT * FROM b2b_incoming WHERE license_id_target = :l0 AND id = :t0';
 		$arg = array(
-			':l0' => $_ENV['license_id'],
+			':l0' => $_SESSION['License']['id'],
 			':t0' => $ARG['id']
 		);
 		$T_incoming = $dbc->fetchRow($sql, $arg);
@@ -22,7 +22,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 		// Outgoing Record
 		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_target = :l0 AND id = :t0';
 		$arg = array(
-			':l0' => $_ENV['license_id'],
+			':l0' => $_SESSION['License']['id'],
 			':t0' => $ARG['id'],
 		);
 		$T_outgoing = $dbc->fetchRow($sql, $arg);
@@ -74,7 +74,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 		if (empty($_POST['section_id'])) {
 			$sql = 'SELECT id FROM section WHERE license_id = :l0 ORDER BY id LIMIT 1';
 			$arg = [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 			];
 			$_POST['section_id'] = $dbc->fetchOne($sql, $arg);
 		}
@@ -133,7 +133,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 			// $pr1 = [ 'id' => _ulid() ];
 			// $sql = 'INSERT INTO product (id, license_id, product_type_id, stat, flag, hash, name) VALUES (SELECT :pr1, :l0, product_type_id, stat, flag, hash, name FROM product WHERE id = :pr0)';
 			// $arg = [
-			// 	':l0' => $_ENV['license_id'],
+			// 	':l0' => $_SESSION['License']['id'],
 			// 	':pr1' => $pr1['id'],
 			// ];
 			// $dbc->query($sql, $arg);
@@ -142,7 +142,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 			// $st1 = [ 'id' => _ulid() ];
 			// $sql = 'INSERT INTO variety () VALUES (SELECT :st1, :l0, stat, flag, hash, name, meta FROM variety WHERE ';
 			// $arg = [
-			// 	':l0' => $_ENV['license_id'],
+			// 	':l0' => $_SESSION['License']['id'],
 			// 	':pt0' => $pr0['id'],
 			// ];
 			// $dbc->query($sql, $arg);

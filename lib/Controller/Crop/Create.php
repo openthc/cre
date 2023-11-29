@@ -19,7 +19,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Crop Record
 		$rec = array(
 			'id' => $_POST['id'],
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			// 'variety_id' => $_POST['variety'],
 			// 'section_id' => $_POST['section'],
 			'stat' => 200,

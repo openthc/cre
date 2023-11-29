@@ -11,7 +11,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 	{
 		$sql = 'SELECT * FROM inventory WHERE license_id = :l AND id = :g';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
 		);
 

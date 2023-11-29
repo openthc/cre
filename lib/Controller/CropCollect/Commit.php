@@ -36,7 +36,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		if (empty($_POST['product_id'])) {
 			$sql = 'SELECT id FROM product WHERE license_id = :l0 AND product_type_id = :pt0 ORDER BY id LIMIT 1';
 			$arg = [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 				':pt0' => '019KAGVSC01MVH9QAZ75KEPY4D',
 			];
 			$_POST['product_id'] = $dbc->fetchOne($sql, $arg);
@@ -46,14 +46,14 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		if (!empty($_POST['product_id'])) {
 			$sql = 'SELECT id FROM product WHERE license_id = :l0 AND id = :p1';
 			$arg = [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 				':p1' => $_POST['product_id'],
 			];
 			$chk = $dbc->fetchOne($sql, $arg);
 			if (empty($chk)) {
 				$dbc->insert('product', [
 					'id' => $_POST['product_id'],
-					'license_id' => $_ENV['license_id'],
+					'license_id' => $_SESSION['License']['id'],
 					'product_type_id' => '019KAGVSC01MVH9QAZ75KEPY4D',
 					'name' => '-unknown-',
 					'hash' => '-',
@@ -65,7 +65,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		if (empty($_POST['section_id'])) {
 			$sql = 'SELECT id FROM section WHERE license_id = :l0 ORDER BY id LIMIT 1';
 			$arg = [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 			];
 			$_POST['section_id'] = $dbc->fetchOne($sql, $arg);
 		}
@@ -75,7 +75,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT * FROM plant_collect WHERE license_id = :l AND id = :g FOR UPDATE';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
 		);
 
@@ -150,7 +150,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		// Create the Inventory
 		$lot = [
 			'id' => _ulid(),
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'product_id' => $_POST['product_id'],
 			'variety_id' => $_POST['variety_id'],
 			'section_id' => $_POST['section_id'],

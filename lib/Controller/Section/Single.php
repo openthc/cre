@@ -16,7 +16,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 	{
 		$sql = 'SELECT * FROM section WHERE license_id = :l0 AND id = :pk';
 		$arg = [
-			':l0' => $_ENV['license_id'],
+			':l0' => $_SESSION['License']['id'],
 			':pk' => $ARG['id']
 		];
 

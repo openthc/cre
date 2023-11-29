@@ -12,7 +12,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT id, meta FROM section WHERE license_id = :l AND id = :g';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id'],
 		);
 
@@ -21,7 +21,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			// Insert?
 			$chk = [
 				'id' => $ARG['id'],
-				'license_id' => $_ENV['license_id'],
+				'license_id' => $_SESSION['License']['id'],
 				'name' => $ARG['id'],
 				'hash' => '-',
 			];

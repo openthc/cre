@@ -14,7 +14,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Lookup
 		$sql = 'SELECT * FROM contact WHERE id = :c1 AND company_id = :c0';
 		$arg = array(
-			':c0' => $_ENV['company_id'],
+			':c0' => $_SESSION['Company']['id'],
 			':c1' => $ARG['id']
 		);
 		$rec = $dbc->fetch_row($sql, $arg);
@@ -34,7 +34,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT id, stat FROM contact WHERE company_id = :c0 AND id = :c1 FOR UPDATE NOWAIT';
 		$arg = array(
-			':c0' => $_ENV['company_id'],
+			':c0' => $_SESSION['Company']['id'],
 			':c1' => $ARG['id']
 		);
 		$cur = $dbc->fetchRow($sql, $arg);

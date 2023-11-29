@@ -23,7 +23,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		// Source License
 		$sql = 'SELECT id, name FROM license WHERE id = :g';
-		$arg = array(':g' => $_ENV['license_id']);
+		$arg = array(':g' => $_SESSION['License']['id']);
 		$L_Source = $dbc->fetchRow($sql, $arg);
 
 		// Build B2B Here

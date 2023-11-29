@@ -33,7 +33,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Check Product Record, Return Duplicate?
 		$sql = 'SELECT id FROM product WHERE license_id = :l AND name = :n';
 		$arg = [
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':n' => $_POST['name'],
 		];
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
@@ -49,7 +49,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Product Record
 		$rec = [
 			'id' => $oid,
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'product_type_id' => $_POST['type'],
 			'stat' => 200,
 			'hash' => null,

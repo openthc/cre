@@ -22,7 +22,7 @@ class Search extends \OpenTHC\CRE\Controller\Base
 		SQL;
 
 		$arg = [
-			':l0' => $_ENV['license_id'],
+			':l0' => $_SESSION['License']['id'],
 		];
 
 		$res = $this->_container->DB->fetchAll($sql, $arg);

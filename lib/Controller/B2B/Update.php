@@ -17,7 +17,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 		// Find in View
 		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_source = :l AND id = :g';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
 		);
 		$T = $dbc->fetchRow($sql, $arg);
@@ -25,9 +25,9 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			return $this->send404('B2B Sale not found [CTU-022]');
 		}
 
-		if ($_ENV['license_id'] == $T['license_id_source']) {
+		if ($_SESSION['License']['id'] == $T['license_id_source']) {
 			return $this->_update_from_source($RES, $T);
-		// } elseif ($_ENV['license_id'] == $T['license_id_target']) {
+		// } elseif ($_SESSION['License']['id'] == $T['license_id_target']) {
 		// 	return $this->_update_from_target($RES, $T);
 		}
 

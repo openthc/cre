@@ -24,7 +24,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Check Variety Record
 		$sql = 'SELECT id FROM variety WHERE license_id = :l AND name = :n';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':n' => $_POST['name'],
 		);
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
@@ -37,7 +37,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		// Variety Record
 		$rec = array(
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'id' => $oid,
 			'hash' => null,
 			'name' => $obj['name'],

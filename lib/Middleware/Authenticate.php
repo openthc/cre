@@ -16,21 +16,21 @@ class Authenticate extends \OpenTHC\Middleware\Base
 	{
 		$this->evalJWT();
 
-		if (empty($_SESSION['service_id'])) {
+		if (empty($_SESSION['Service']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Not Authorized [LMA-015]' ]
 			], 403);
 		}
 
-		if (empty($_SESSION['company_id'])) {
+		if (empty($_SESSION['Company']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Not Authorized [LMA-022]' ]
 			], 403);
 		}
 
-		if (empty($_SESSION['license_id'])) {
+		if (empty($_SESSION['License']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Not Authorized [LMA-029]' ]
@@ -85,28 +85,6 @@ class Authenticate extends \OpenTHC\Middleware\Base
 			];
 			// Should have Matching Header
 			// $_SERVER['HTTP_OPENTHC_LICENSE']
-
-			// Legacy Session Values in CRE
-			$_SESSION['service_id'] = $jwt['iss'];
-			$_SESSION['contact_id'] = $_SESSION['Contact']['id'];
-			$_SESSION['company_id'] = $_SESSION['Company']['id'];
-			$_SESSION['license_id'] = $_SESSION['License']['id'];
-
-			$_ENV['service_id'] = $_SESSION['service_id'];
-			$_ENV['contact_id'] = $_SESSION['Contact']['id'];
-			$_ENV['company_id'] = $_SESSION['Company']['id'];
-			$_ENV['license_id'] = $_SESSION['License']['id'];
-			$_ENV['license_id'] = $_SESSION['License']['id'];
-
-			// if (empty($_SESSION['Company']['id'])) {
-			// 	return $RES->withJSON(['meta' => [ 'note' => 'Invalid Company' ]], 400);
-			// }
-			// if (empty($_SESSION['Contact']['id'])) {
-			// 	return $RES->withJSON(['meta' => [ 'note' => 'Invalid Contact' ]], 400);
-			// }
-			// if (empty($_SESSION['License']['id'])) {
-			// 	return $RES->withJSON(['meta' => [ 'note' => 'Invalid License' ]], 400);
-			// }
 
 		}
 

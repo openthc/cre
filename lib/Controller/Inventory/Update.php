@@ -11,7 +11,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 	{
 		$dbc = $this->_container->DB;
 
-		$sql = 'SELECT id, meta FROM lot WHERE id = :g';
+		$sql = 'SELECT id, meta FROM inventory WHERE id = :g';
 		$arg = array(
 			':g' => $ARG['id'],
 		);
@@ -37,7 +37,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 		$obj1 = array_merge($obj0, $obj1);
 		$meta = json_encode($obj1);
 
-		$sql = 'UPDATE lot SET';
+		$sql = 'UPDATE inventory SET';
 		$sql.= ' name = :n';
 		$arg[':n'] = trim($_POST['name']);
 
@@ -55,10 +55,10 @@ class Update extends \OpenTHC\CRE\Controller\Base
 		$sql.= ' WHERE id = :g';
 		$arg[':g'] = $ARG['id'];
 
-   		$dbc->query('BEGIN');
+		$dbc->query('BEGIN');
 
 		// // Update the record
-		// $sql = 'UPDATE lot SET hash = :h, meta = :m WHERE id = :g';
+		// $sql = 'UPDATE inventory SET hash = :h, meta = :m WHERE id = :g';
 		// $arg = array(
 		// 	':g' => $ARG['id'],
 		// 	':h' => sha1($meta),
@@ -71,7 +71,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$dbc->query('COMMIT');
 
-		$lo1 = $dbc->fetchRow('SELECT * FROM lot WHERE id = :pk', $lo0['id']);
+		$lo1 = $dbc->fetchRow('SELECT * FROM inventory WHERE id = :pk', $lo0['id']);
 
 		return $RES->withJSON([
 			'meta' => [],

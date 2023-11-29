@@ -43,8 +43,7 @@ class Auth extends \OpenTHC\Module\Base
 					// OK
 					$ret = [
 						'data' => [
-							'sid' => session_id(),
-							// '_ENV' => $_ENV,
+							'sid' => $_SESSION['id'],
 							// '_SESSION' => $_SESSION,
 						],
 						'meta' => [],

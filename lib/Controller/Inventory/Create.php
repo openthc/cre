@@ -87,7 +87,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		foreach ($_POST['source'] as $index => $source) {
 			// @todo because we're updating `qty` below, we might want to use FOR UPDATE here, or maybe execute all updates in 1 xaction? /mbw
 			$lot = $dbc->fetchRow('SELECT id, product_id, variety_id, section_id, meta, qty FROM inventory WHERE license_id = :l0 AND id = :pk', [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 				':pk' => $source['id'],
 				// ':pk' => $_POST['source'][0]['id'],
 			]);
@@ -115,7 +115,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$S = [];
 		$sql = "SELECT * FROM variety WHERE (license_id = :l0 OR license_id = '019KAGVX9M1FRBJ7EZQDTMD6JA') AND id = :pk";
 		$arg = [
-			':l0' => $_ENV['license_id']
+			':l0' => $_SESSION['License']['id']
 		];
 		if (!empty($_POST['variety']['id'])) {
 			$arg[':pk'] = $_POST['variety']['id'];
@@ -142,14 +142,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$sql = 'SELECT * FROM section WHERE license_id = :l0 AND id = :pk';
 		if (!empty($_POST['section']['id'])) {
 			$arg = [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 				':pk' => $_POST['section']['id'],
 			];
 			$Z = $dbc->fetchRow($sql, $arg);
 		}
 		if (empty($Z['id'])) {
 			$arg = [
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 				':pk' => $lot_list[0]['section_id'],
 			];
 			$Z = $dbc->fetchRow($sql, $arg);
@@ -164,7 +164,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Create new Inventory object
 		$l1 = [
 			'id' => _ulid(),
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'product_id' => $_POST['product_id'],
 			'variety_id' => $S['id'],
 			'section_id' => $Z['id'],
@@ -199,7 +199,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			$sql = 'UPDATE inventory SET meta = :meta, qty = :qty WHERE license_id = :l0 AND id = :pk';
 			$res = $dbc->query($sql, [
 				':pk' => $source_lot['id'],
-				':l0' => $_ENV['license_id'],
+				':l0' => $_SESSION['License']['id'],
 				':qty' => floatval($source_lot['qty'] - $source_lot['qty_used']),
 				':meta' => json_encode($meta0),
 			]);
@@ -221,7 +221,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	{
 		$l1 = [
 			'id' => _ulid(),
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'product_id' => $_POST['product']['id'],
 			'variety_id' => $_POST['variety']['id'],
 			'section_id' => '018NY6XC00SECT10N000000000',
@@ -252,7 +252,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Check for existance
 		$sql = 'SELECT id FROM inventory WHERE license_id = :l AND id = :id';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':id' => $_POST['id'],
 		);
 		$chk = $DBC->fetchRow($sql, $arg);
@@ -275,14 +275,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		// Lookup Product
 		$sql = 'SELECT id FROM product WHERE license_id = :l AND id = :g';
-		$arg = array($_ENV['license_id'], $obj['product']['id']);
+		$arg = array($_SESSION['License']['id'], $obj['product']['id']);
 		$P = $DBC->fetchRow($sql, $arg);
 		if (empty($P['id'])) {
 			// throw new \Exception('Product Not Found');
 			// $P['id'] = $obj['product'];
 			$P = [];
 			$P['id'] = _ulid();
-			$P['license_id'] = $_ENV['license_id'];
+			$P['license_id'] = $_SESSION['License']['id'];
 			$P['product_type_id'] = '';
 			$P['name'] = '-';
 			$P['hash'] = '-';
@@ -292,14 +292,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		// Lookup Variety
 		$sql = 'SELECT id FROM variety WHERE license_id = :l AND id = :g';
-		$arg = array($_ENV['license_id'], $obj['variety']['id']);
+		$arg = array($_SESSION['License']['id'], $obj['variety']['id']);
 		$S = $DBC->fetchRow($sql, $arg);
 		if (empty($S['id'])) {
 			// Variety Not Found
 			// throw new \Exception('Variety Not Found');
 			$S['id'] = $DBC->insert('variety', array(
 				'id' => $obj['variety']['id'],
-				'license_id' => $_ENV['license_id'],
+				'license_id' => $_SESSION['License']['id'],
 				'name' => '-',
 				'hash' => md5(json_encode($obj['variety'])),
 			));
@@ -312,14 +312,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			// It's already a hard-coded value in other files
 			if ('019KAGVX9MYQCNKPGWMCA49EGW' != $obj['section']['id']) {
 				$sql = 'SELECT id FROM section WHERE license_id = :l AND id = :g';
-				$arg = array($_ENV['license_id'], $obj['section']['id']);
+				$arg = array($_SESSION['License']['id'], $obj['section']['id']);
 				$Z = $DBC->fetchRow($sql, $arg);
 				if (empty($Z['id'])) {
 					// Section Not Found
 					//throw new \Exception('Section Not Found');
 					$Z['id'] = $DBC->insert('section', array(
 						'id' => $obj['section']['id'],
-						'license_id' => $_ENV['license_id'],
+						'license_id' => $_SESSION['License']['id'],
 						'name' => '-', // $obj['section']['name'],
 						'hash' => md5(json_encode($obj['section'])),
 					));
@@ -330,7 +330,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Create Inventory Record
 		$rec = array(
 			'id' => $obj['id'],
-			'license_id' => $_ENV['license_id'],
+			'license_id' => $_SESSION['License']['id'],
 			'product_id' => $P['id'],
 			'variety_id' => $S['id'],
 			'section_id' => $Z['id'],

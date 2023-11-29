@@ -12,7 +12,7 @@ class Adjust extends \OpenTHC\CRE\Controller\Base
 		// Check for existance
 		$sql = 'SELECT id, qty, meta FROM inventory WHERE license_id = :l AND id = :id';
 		$arg = array(
-			':l' => $_ENV['license_id'],
+			':l' => $_SESSION['License']['id'],
 			':id' => $ARG['id'],
 		);
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
