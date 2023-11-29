@@ -86,52 +86,55 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		$dbc = $this->_container->DB;
 
 		// Lookup Service
-		$sql = 'SELECT id, company_id FROM auth_service WHERE id = :c';
+		$sql = 'SELECT id, company_id, name, code FROM auth_service WHERE id = :c';
 		$arg = array(':c' => $_POST['service']);
-		$service_id = $dbc->fetchOne($sql, $arg);
-		if (empty($service_id)) {
+		$Service = $dbc->fetchRow($sql, $arg);
+		if (empty($Service['id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Invalid "service" [CAO-098]' ]
+				'meta' => [ 'note' => 'Invalid Service [CAO-098]' ]
 			], 403);
 		}
 
 		// Lookup Company
 		$sql = 'SELECT id FROM company WHERE id = :c';
 		$arg = array(':c' => $_POST['company']);
-		$company_id = $dbc->fetchOne($sql, $arg);
-		if (empty($company_id)) {
+		$Company = $dbc->fetchRow($sql, $arg);
+		if (empty($Company['id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Invalid "company" [CAO-108]' ]
+				'meta' => [ 'note' => 'Invalid Company [CAO-108]' ]
 			], 403);
 		}
 
 		// Lookup License
-		$sql = 'SELECT id,company_id,stat,name FROM license WHERE id = :l';
-		$arg = array(':l' => $_POST['license']);
-		$L = $dbc->fetchRow($sql, $arg);
-		if (empty($L['id'])) {
+		$sql = 'SELECT id,company_id,stat,name FROM license WHERE id = :l0';
+		$arg = [
+			// ':c0' => $Company['id'],
+			':l0' => $_POST['license'],
+		];
+		$License = $dbc->fetchRow($sql, $arg);
+		if (empty($License['id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Invalid "license" [CAO-118]' ]
+				'meta' => [ 'note' => 'Invalid License [CAO-118]' ]
 			], 403);
 		}
 
 		// Company and License Match?
-		if ($company_id != $L['company_id']) {
+		if ($Company['id'] != $License['company_id']) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Invalid "license" [CAO-125]' ]
+				'meta' => [ 'note' => 'Invalid License [CAO-125]' ]
 			], 403);
 		}
 
 		session_start();
 
 		$_SESSION['id'] = session_id();
-		$_SESSION['service_id'] = $service_id;
-		$_SESSION['company_id'] = $company_id;
-		$_SESSION['license_id'] = $L['id'];
+		$_SESSION['Service'] = $Service;
+		$_SESSION['Company'] = $Company;
+		$_SESSION['License'] = $License;
 
 		return $RES;
 	}
