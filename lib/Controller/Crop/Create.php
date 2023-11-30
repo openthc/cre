@@ -17,33 +17,35 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Crop Record
-		$rec = array(
+		$obj = array(
 			'id' => $_POST['id'],
 			'license_id' => $_SESSION['License']['id'],
-			// 'variety_id' => $_POST['variety'],
-			// 'section_id' => $_POST['section'],
 			'stat' => 200,
 		);
 
-		// @todo maybe we should do this validation before we introduce $rec, it confusing /mbw
-		if (!empty($_POST['variety'])) {
+		// Variety Check
+		if ( ! empty($_POST['variety'])) {
 			if (is_array($_POST['variety'])) {
-				if (!empty($_POST['variety']['id'])) {
-					$rec['variety_id'] = $_POST['variety']['id'];
-				}
-			} else {
-				$rec['variety_id'] = $_POST['variety'];
+				$obj['variety_id'] = $_POST['variety']['id'];
+			} elseif (is_string($_POST['variety'])) {
+				$obj['variety_id'] = $_POST['variety'];
 			}
+		} elseif ( ! empty($_POST['variety_id'])) {
+			$obj['variety_id'] = $_POST['variety_id'];
+		}
+		if (empty($obj['variety_id'])) {
+			// Invalid Request
+			// $obj['variety_id'] = '018NY6XC00VAR1ETY000000000';
+			return $this->sendError('Invalid Variety [CCC-038]', 400);
 		}
 
-		if (!empty($_POST['section'])) {
-			if (is_array($_POST['section'])) {
-				if (!empty($_POST['section']['id'])) {
-					$rec['section_id'] = $_POST['section']['id'];
-				}
-			} else {
-				$rec['section_id'] = $_POST['section'];
-			}
+		// Find and Auto-Create?
+		$v0 = [];
+		$v0['id'] = $obj['variety_id'];
+		$v0['license_id'] = $_SESSION['License']['id'];
+		$v0 = $this->findVariety($dbc, $v0, true);
+		if (empty($v0['id'])) {
+			return $this->sendError('Invalid Variety [CCC-046]', 400);
 		}
 
 		$rec['meta'] = json_encode($_POST);
