@@ -99,6 +99,15 @@ $app->group('/section', 'OpenTHC\CRE\Module\Section')
 	;
 
 
+// Config Section
+$app->group('/vehicle', 'OpenTHC\CRE\Module\Vehicle')
+	->add('OpenTHC\CRE\Middleware\InputDataFilter')
+	->add('OpenTHC\CRE\Middleware\Authenticate')
+	->add('OpenTHC\CRE\Middleware\Session')
+	// ->add('OpenTHC\Middleware\Log\HTTP')
+	;
+
+
 // Inventory
 $app->group('/inventory', 'OpenTHC\CRE\Module\Inventory')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
