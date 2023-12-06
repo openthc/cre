@@ -24,6 +24,9 @@ ALTER TABLE ONLY product
 ALTER TABLE ONLY variety
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
+ALTER TABLE ONLY vehicle
+    ADD FOREIGN KEY (license_id) REFERENCES license(id);
+
 ALTER TABLE ONLY section
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 

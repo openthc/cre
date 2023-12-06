@@ -116,6 +116,20 @@ CREATE TABLE variety (
 );
 
 
+CREATE TABLE vehicle (
+	id varchar(26) PRIMARY KEY,
+	license_id varchar(26) not null,
+	created_at timestamp with time zone not null DEFAULT now(),
+	updated_at timestamp with time zone not null DEFAULT now(),
+	deleted_at timestamp with time zone,
+	stat int not null DEFAULT 200,
+	flag int not null DEFAULT 0,
+	hash varchar(64) not null,
+	name varchar(256) not null,
+	meta jsonb
+);
+
+
 CREATE TABLE product (
 	id varchar(26) PRIMARY KEY,
 	license_id varchar(26) not null,

@@ -50,3 +50,5 @@ INSERT INTO product (id, license_id, product_type_id, hash, name) VALUES ('010PE
 INSERT INTO variety (id, license_id, hash, name) VALUES ('010PENTHC0VAR1ETY000000000', '010PENTHC0L1CNSE0000000000', '-', '-system-');
 
 INSERT INTO section (id, license_id, hash, name) VALUES ('010PENTHC0SECT10N000000000', '010PENTHC0L1CNSE0000000000', '-', '-system-');
+
+INSERT INTO vehicle (id, license_id, hash, name) VALUES ('010PENTHC0VEH1CLE000000000', '010PENTHC0L1CNSE0000000000', '-', '-system-');
