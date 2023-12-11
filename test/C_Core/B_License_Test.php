@@ -48,6 +48,7 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->_post('/license', [
 			'company_id' => $_ENV['api-company-a'],
 			'name' => 'UNITTEST License CREATE',
+			'type' => 'Grower',
 		]);
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertIsArray($res['data']);
@@ -84,6 +85,10 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$obj = $this->_data_stash_get();
 
+		$res = $this->httpClient->get(sprintf('/license/%s', $obj['id']));
+		$res = $this->assertValidResponse($res, 200);
+		$this->assertIsArray($res['data']);
+		$this->assertCount(4, $res['data']);
 	}
 
 
@@ -101,6 +106,12 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 
+		//validate the name was changed
+		$res = $this->httpClient->get(sprintf('/license/%s', $obj['id']));
+		$res = $this->assertValidResponse($res, 200);
+		$this->assertIsArray($res['data']);
+		$this->assertCount(4, $res['data']);
+		$this->assertSame($res['data']['name'], 'UNITTEST License CREATE-UPDATE');
 	}
 
 

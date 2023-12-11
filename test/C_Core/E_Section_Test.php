@@ -115,6 +115,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$res = $this->_post('/section', [
 			'name' => $name,
+			'type' => 'inventory',
 		]);
 		$res = $this->assertValidResponse($res, 201);
 

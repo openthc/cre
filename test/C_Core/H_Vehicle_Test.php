@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
+class H_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 {
 	private $_url_path = '/vehicle';
 
@@ -23,7 +23,11 @@ class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$res = $this->_post($this->_url_path, [
 			'name' => $name,
-			'type' => '019KAGVSC0C474J20SEWDM5XSJ',
+			'make' => 'Toyota',
+			'model' => 'Corolla',
+			'color' => 'Grey',
+			'vin' => '1234567890ABCDEF0',
+			'vrn' => 'ABC123',
 		]);
 
 		$res = $this->assertValidResponse($res, 201);
@@ -58,10 +62,41 @@ class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	}
 
+	public function test_single()
+	{
+		$obj = $this->_data_stash_get();
+		$res = $this->httpClient->get(sprintf('%s/%s', $this->_url_path, $obj['id']));
+		$res = $this->assertValidResponse($res, 200);
+		$this->assertIsArray($res['data']);
+		$this->assertCount(7, $res['data']);
+	}
+
+
 	public function test_update()
 	{
-		$res = $this->httpClient->get($this->_url_path . '/four_zero_four');
-		$this->assertValidResponse($res, 404);
+		$obj = $this->_data_stash_get();
+
+		$name = sprintf('UNITTEST Vehicle UPDATE %06x', $this->_pid);
+
+		$res = $this->_post(sprintf('%s/%s', $this->_url_path, $obj['id']), [
+			'name' => $name,
+		]);
+
+		$res = $this->assertValidResponse($res, 201);
+
+		$this->assertIsArray($res['data']);
+
+		$s0 = $res['data'];
+		$this->assertNotEmpty($s0['id']);
+		$this->assertEquals($name, $s0['name']);
+
+		// fetch and validate
+		$res = $this->httpClient->get(sprintf('%s/%s', $this->_url_path, $obj['id']));
+		$res = $this->assertValidResponse($res);
+
+		$this->assertIsArray($res['data']);
+		$this->assertEquals($name, $res['data']['name']);
+
 
 	}
 

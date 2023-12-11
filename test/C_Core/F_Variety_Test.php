@@ -45,6 +45,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 		// Create Variety
 		$res = $this->_post('/variety', [
 			'name' => $name,
+			'type' => 'Hybrid',
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
@@ -57,6 +58,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 		// Create Duplicate Variety
 		$res = $this->_post('/variety', [
 			'name' => $name,
+			'type' => 'Hybrid',
 		]);
 		$res = $this->assertValidResponse($res, 409);
 
@@ -67,6 +69,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 
 		$res = $this->_post('/variety', [
 			'name' => $name,
+			'type' => 'Sativa',
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
@@ -98,10 +101,33 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	}
 
-	// public function test_update()
-	// {
-	// 	$this->assertTrue(false);
-	// }
+	public function test_update()
+	{
+		$name = sprintf('UNITTEST Variety UPDATE %06x', $this->_pid);
+		// Find Early One
+		$obj = $this->_data_stash_get();
+		$url = sprintf('/variety/%s', $obj['id']);
+
+		$res = $this->_post($url, [
+			'name' => $name,
+			'type' => 'Hemp'
+		]);
+
+		$res = $this->assertValidResponse($res, 201);
+
+		$this->assertIsArray($res['data']);
+
+		$s0 = $res['data'];
+		$this->assertNotEmpty($s0['id']);
+		$this->assertEquals($name, $s0['name']);
+
+		// fetch and validate
+		$res = $this->httpClient->get($url);
+		$res = $this->assertValidResponse($res);
+
+		$this->assertIsArray($res['data']);
+		$this->assertEquals($name, $res['data']['name']);
+	}
 
 	public function test_delete()
 	{

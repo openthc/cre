@@ -20,8 +20,8 @@ class Raw_Lot extends \OpenTHC\CRE\Test\Base_Case
 		$pB = $x[1];
 
 		$this->assertNotEquals($pA['id'], $pB['id']);
-		$this->assertNotEmpty($pA['strain_id']);
-		$this->assertNotEmpty($pB['strain_id']);
+		$this->assertNotEmpty($pA['variety_id']);
+		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect P0
 		$pcA = $this->_plant_collect([], $pA, 500);
@@ -46,7 +46,7 @@ class Raw_Lot extends \OpenTHC\CRE\Test\Base_Case
 
 		// Now this Plant Collect Group / Production Run is Together
 		// And we can see it?
-		$res = $this->httpClient->get('/plant-collect/' . $pcA['id']);
+		$res = $this->httpClient->get('/crop/collect/' . $pcA['id']);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertCount(2, $res);
 		$this->assertNotEmpty($res['data']['id']); //
@@ -61,10 +61,10 @@ class Raw_Lot extends \OpenTHC\CRE\Test\Base_Case
 
 
 		$PR0 = $this->find_random_product();
-		$url = sprintf('/plant-collect/%s/commit', $pcA['id']);
+		$url = sprintf('/crop/collect/%s/commit', $pcA['id']);
 		$arg = [
 			'product_id' => $PR0['id'],
-			'strain_id' => $pA['strain_id'],
+			'variety_id' => $pA['variety_id'],
 			'qty' => $net,
 		];
 		$res = $this->_post($url, $arg);

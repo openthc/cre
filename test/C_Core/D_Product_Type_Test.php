@@ -44,4 +44,18 @@ class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->assertValidResponse($res, 200);
 	}
 
+	/**
+	 * Only Authorized can Create Product Type
+	 */
+	function test_create()
+	{
+		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$res = $this->_post('/product/type', [
+			'name' => 'Budder',
+			'type' => '018NY6XC00PTACC942KY9DCERR',
+		]);
+
+		$res = $this->assertValidResponse($res, 201);
+	}
+
 }

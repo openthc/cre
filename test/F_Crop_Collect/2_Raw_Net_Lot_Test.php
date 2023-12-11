@@ -20,8 +20,8 @@ class Raw_Net_Lot extends \OpenTHC\CRE\Test\Base_Case
 		$pB = $x[1];
 
 		$this->assertNotEquals($pA['id'], $pB['id']);
-		$this->assertNotEmpty($pA['strain_id']);
-		$this->assertNotEmpty($pB['strain_id']);
+		$this->assertNotEmpty($pA['variety_id']);
+		$this->assertNotEmpty($pB['variety_id']);
 
 		// Collect Raw
 		$pcA = $this->_plant_collect([], $pA, 500);
@@ -53,7 +53,7 @@ class Raw_Net_Lot extends \OpenTHC\CRE\Test\Base_Case
 		$url = sprintf('/plant-collect/%s/commit', $pcA['id']);
 		$arg = [
 			'product_id' => $PR0['id'],
-			'strain_id' => $pA['strain_id'],
+			'variety_id' => $pA['variety_id'],
 			'qty' => 250,
 		];
 		$res = $this->_post($url, $arg);

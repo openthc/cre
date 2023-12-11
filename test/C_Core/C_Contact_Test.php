@@ -96,6 +96,10 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->httpClient->get(sprintf('/contact/%s', $_ENV['api-contact-0']));
 		$this->assertValidResponse($res);
 
+		$obj = $this->_data_stash_get();
+		$res = $this->httpClient->get(sprintf('/contact/%s', $obj['id']));
+		$res = $this->assertValidResponse($res);
+		$this->assertIsArray($res['data']);
 	}
 
 	public function test_update()
@@ -105,6 +109,11 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
 			'name' => 'UNITTEST Contact CREATE-UPDATE'
 		]);
 		$res = $this->assertValidResponse($res);
+
+		$res = $this->httpClient->get(sprintf('/contact/%s', $obj['id']));
+		$res = $this->assertValidResponse($res);
+		$this->assertIsArray($res['data']);
+		$this->assertSame($res['data']['name'], 'UNITTEST Contact CREATE-UPDATE');
 
 		// // Update guid
 		// $this->assertTrue(false);
@@ -158,6 +167,37 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->httpClient->delete('/contact/' . $c0['id']);
 		$this->assertValidResponse($res, 410);
 
+
+	}
+
+	public function test_create_contact_with_email_and_phone()
+	{
+		// $id = bin2hex(random_bytes(12));
+		$email = $this->faker->safeEmail();
+		$phone = $this->faker->phoneNumber();
+		$res = $this->_post('/contact', [
+			// 'id' => $id,
+			'company' => $_ENV['api-company-a'],
+			'name' => 'UNITTEST Contact CREATE',
+			'email' => $email,
+			'phone' => $phone
+		]);
+		$res = $this->assertValidResponse($res, 201);
+		$this->assertIsArray($res['data']);
+
+		// $res = $res['data'];
+		// $this->_data_stash_put($res);
+
+		// test that the email and phone is returned
+		$res = $this->httpClient->get(sprintf('/contact/%s', $res['data']['id']));
+		// print_r($res->getBody()->getContents());
+		$res = $this->assertValidResponse($res);
+		$this->assertIsArray($res['data']);
+
+		// print_r($res);
+		// TODO:
+		$this->assertSame($res['data']['email'], $email);
+		$this->assertSame($res['data']['phone'], $phone);
 
 	}
 

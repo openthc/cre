@@ -81,6 +81,10 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 		$c0 = $res['data'][0];
 		$this->assertIsArray($c0);
 
+		$c0 = $this->_data_stash_get();
+		$res = $this->httpClient->get('/company/' . $c0['id']);
+		$res = $this->assertValidResponse($res);
+		$this->assertIsArray($res['data']);
 	}
 
 	public function test_single()
@@ -116,6 +120,13 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 		]);
 		$res = $this->assertValidResponse($res);
 
+		//assert that the new name has updated appended to it
+		$res = $this->httpClient->get('/company/' . $c0['id']);
+		//FIXME: the returned response does not match the API specs, please look into this
+		$res = $this->assertValidResponse($res);
+		$this->assertIsArray($res['data']);
+		$this->assertSame($res['data']['name'], 'UNITTEST Company CREATE-UPDATE');
+
 		// Update phone
 		// $this->assertTrue(false);
 
@@ -149,6 +160,7 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 		// Make New Company
 		$res = $this->_post('/company', [
 			'name' => 'UNITTEST Company DELETE',
+			'type' => 'Grower',
 			'code' => 'DELETE',
 		]);
 		$res = $this->assertValidResponse($res, 201);

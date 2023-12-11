@@ -119,11 +119,11 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 			case 'application/json':
 				$ret = json_decode($this->raw, true);
 				// $ret['code'] = $res->getStatusCode();
-				// $this->assertIsArray($ret);
-				// // $this->assertArrayHasKey('data', $ret);
-				// // $this->assertArrayHasKey('meta', $ret);
-				// $this->assertArrayNotHasKey('status', $ret);
-				// $this->assertArrayNotHasKey('result', $ret);
+				$this->assertIsArray($ret);
+				$this->assertArrayHasKey('data', $ret);
+				$this->assertArrayHasKey('meta', $ret);
+				$this->assertArrayNotHasKey('status', $ret);
+				$this->assertArrayNotHasKey('result', $ret);
 				return $ret;
 			break;
 		}
