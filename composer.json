@@ -13,6 +13,7 @@
 		}
 	},
 	"require": {
+		"edoceo/lowline": "2022.0.280",
 		"edoceo/radix": "2021.0.0",
 		"openthc/common": "dev-master"
 	},
