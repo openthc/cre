@@ -3,7 +3,7 @@
 --
 
 
-CREATE VIEW transfer AS SELECT
+CREATE VIEW b2b_outgoing_incoming AS SELECT
  o.id AS id
 , o.license_id_source
 , o.license_id_target
@@ -13,7 +13,7 @@ FROM b2b_outgoing AS o
 JOIN b2b_incoming AS i ON o.id = i.id;
 
 
-CREATE VIEW b2b_item AS SELECT
+CREATE VIEW b2b_outgoing_incoming_item AS SELECT
  toi.id AS id
 , toi.b2b_outgoing_id AS b2b_id
 , toi.inventory_id AS source_inventory_id

@@ -47,6 +47,9 @@ ALTER TABLE ONLY inventory
     ADD FOREIGN KEY (section_id) REFERENCES section(id);
 
 
+ALTER TABLE ONLY inventory_adjust
+    ADD FOREIGN KEY (inventory_id) REFERENCES inventory(id);
+
 --
 -- Inventory Family
 --
@@ -81,6 +84,8 @@ ALTER TABLE ONLY crop
 ALTER TABLE ONLY lab_result
     ADD FOREIGN KEY (license_id) REFERENCES license(id);
 
+ALTER TABLE ONLY public.lab_result_file
+    ADD CONSTRAINT lab_result_file_lab_result_id_fkey FOREIGN KEY (lab_result_id) REFERENCES public.lab_result(id);
 
 ALTER TABLE ONLY lab_result_metric
     ADD FOREIGN KEY (lab_metric_id) REFERENCES lab_metric(id);
