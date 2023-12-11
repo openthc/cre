@@ -17,13 +17,30 @@ class Main extends \OpenTHC\CRE\Controller\Base
 		return $RES->write($html);
 	}
 
+	function _get_name($path)
+	{
+		$path = str_replace('/', ' ', $path);
+		// $path = ucfirst($path);
+		$path = ucwords($path);
+		$path = str_replace('B2b', 'B2B', $path);
+		$path = str_replace('B2c', 'B2C', $path);
+		return $path;
+	}
+
+
 	function _get_path()
 	{
 		$path = $_SERVER['REQUEST_URI'];
 		$path = strtok($path, '?');
 		$path = str_replace('/browse/', '', $path);
 
-		if (preg_match('/^(company|license|contact|section|vehicle|crop|crop\/collect|inventory|inventory\/adjust|lab|b2b\/outgoing|b2b\/incoming|b2c)/', $path, $m)) {
+		// Complex Names
+		if (preg_match('/^(crop\/collect|inventory\/adjust|lab\/result|license\/type|product\/type)/', $path, $m)) {
+			$path = $m[1];
+			return $path;
+		}
+
+		if (preg_match('/^(contact|company|license|section|variety|product|vehicle|crop|inventory|b2b\/outgoing|b2b\/incoming|b2c)/', $path, $m)) {
 			$path = $m[1];
 			// $base = $m[1];
 			// switch ($base) {
@@ -42,10 +59,11 @@ class Main extends \OpenTHC\CRE\Controller\Base
 	function _get_table($path)
 	{
 		switch ($path) {
+			case 'contact':
 			case 'company':
 			case 'license':
-			case 'contact':
 			case 'section':
+			case 'variety':
 			case 'product':
 			case 'vehicle':
 			case 'inventory':
@@ -56,6 +74,7 @@ class Main extends \OpenTHC\CRE\Controller\Base
 			case 'inventory/adjust': return 'inventory_adjust';
 			case 'product/type': return 'product_type';
 			case 'lab': return 'lab_result';
+			case 'lab/result': return 'lab_result';
 			case 'b2b/outgoing':
 			case 'b2b/incoming':
 				return str_replace('/', '_', $path);

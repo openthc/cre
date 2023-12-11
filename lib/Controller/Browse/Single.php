@@ -13,6 +13,7 @@ class Single extends \OpenTHC\CRE\Controller\Browse\Main
 
 		$data = [];
 		$data['path'] = $path;
+		$data['name'] = $this->_get_name($path);
 		$data['table'] = $this->_get_table($path);
 
 		$data['object_id'] = $ARG['id'];
@@ -35,9 +36,15 @@ class Single extends \OpenTHC\CRE\Controller\Browse\Main
 		$data['object'] = $res;
 
 		$data['License'] = $dbc->fetchRow('SELECT id, name FROM license WHERE id = :l0', [ ':l0' => $data['object']['license_id'] ]);
-		$data['Section'] = $dbc->fetchRow('SELECT id, name FROM section WHERE id = :l0', [ ':l0' => $data['object']['section_id'] ]);
-		$data['Variety'] = $dbc->fetchRow('SELECT id, name FROM variety WHERE id = :l0', [ ':l0' => $data['object']['variety_id'] ]);
-		$data['Product'] = $dbc->fetchRow('SELECT id, name FROM product WHERE id = :l0', [ ':l0' => $data['object']['product_id'] ]);
+		if (isset($data['object']['section_id'])) {
+			$data['Section'] = $dbc->fetchRow('SELECT id, name FROM section WHERE id = :l0', [ ':l0' => $data['object']['section_id'] ]);
+		}
+		if (isset($data['object']['variety_id'])) {
+			$data['Variety'] = $dbc->fetchRow('SELECT id, name FROM variety WHERE id = :l0', [ ':l0' => $data['object']['variety_id'] ]);
+		}
+		if (isset($data['object']['product_id'])) {
+			$data['Product'] = $dbc->fetchRow('SELECT id, name FROM product WHERE id = :l0', [ ':l0' => $data['object']['product_id'] ]);
+		}
 
 
 		$html = $this->render('browse/single.php', $data);

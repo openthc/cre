@@ -37,13 +37,18 @@ if ($sql_where) {
 $dbc = _dbc();
 $res = $dbc->fetchAll($sql, $arg);
 if (empty($res)) {
-	echo "NO RESULT\n";
+	echo '<div class="container">';
+	echo '<div class="alert alert-warning">No results</div>';
+	echo '</div>';
 	return;
 }
 
 ?>
 
 <div class="container-fluid">
+
+<h1><?= __h($data['name']) ?></h1>
+
 <table class="table table-sm">
 <thead class="table-dark">
 	<tr>

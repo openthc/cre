@@ -159,7 +159,7 @@
 
 <ul class="list-group">
 <li class="list-group-item d-flex justify-content-between align-items-center">
-	<div><a href="/browse/lab">/lab</a> - Inventory Lab Samples and Results</div>
+	<div><a href="/browse/lab/result">/lab/result</a> - Inventory Lab Samples and Results</div>
 	<div>
 		<span class="badge bg-primary">BioTrack</span>
 		<span class="badge bg-primary">CCRS</span>

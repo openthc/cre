@@ -6,6 +6,9 @@
 ?>
 
 <div class="container">
+
+<h1><?= __h($data['name']) ?> :: <?= $data['object']['id'] ?></h1>
+
 <table class="table">
 	<tr>
 		<td>ID</td><td><?= __h($data['object']['id']) ?></td>
@@ -105,8 +108,6 @@
 
 
 
-<?php
-
-echo '<pre>';
-echo __h(json_encode($data['object'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
-echo '</pre>';
+<!--
+<?= __h(json_encode($data['object'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)); ?>
+-->

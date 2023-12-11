@@ -18,6 +18,7 @@ class Browse extends \OpenTHC\Module\Base
 		$a->get('/contact', 'OpenTHC\CRE\Controller\Browse\Search');
 		$a->get('/company', 'OpenTHC\CRE\Controller\Browse\Search');
 		$a->get('/license', 'OpenTHC\CRE\Controller\Browse\Search');
+		$a->get('/license/type', 'OpenTHC\CRE\Controller\Browse\Search');
 		$a->get('/section', 'OpenTHC\CRE\Controller\Browse\Search');
 		$a->get('/variety', 'OpenTHC\CRE\Controller\Browse\Search');
 		$a->get('/product', 'OpenTHC\CRE\Controller\Browse\Search');
@@ -44,6 +45,7 @@ class Browse extends \OpenTHC\Module\Base
 		$a->get('/crop/collect/{id}', 'OpenTHC\CRE\Controller\Browse\Single');
 		$a->get('/inventory/{id}', 'OpenTHC\CRE\Controller\Browse\Single');
 		$a->get('/inventory/adjust/{id}', 'OpenTHC\CRE\Controller\Browse\Single');
+		$a->get('/lab/result', 'OpenTHC\CRE\Controller\Browse\Search');
 		$a->get('/b2b/outgoing/{id}', 'OpenTHC\CRE\Controller\Browse\Single');
 		$a->get('/b2b/incoming/{id}', 'OpenTHC\CRE\Controller\Browse\Single');
 		$a->get('/b2c/{id}', 'OpenTHC\CRE\Controller\Browse\Single');
