@@ -76,7 +76,7 @@ docs)
 # Install or Update the OpenTHC Application
 install)
 
-	composer update --no-ansi --no-dev --no-progress --quiet --classmap-authoritative
+	composer install --no-ansi --no-dev --no-progress --quiet --classmap-authoritative
 
 	npm install --quiet
 
