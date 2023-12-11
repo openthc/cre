@@ -1,0 +1,29 @@
+{
+  "name": "openthc-cre",
+  "version": "420.23.343",
+  "description": "OpenTHC CRE",
+  "main": "main.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "6.4.2",
+    "@highlightjs/cdn-assets": "^11.8.0",
+    "bootstrap": "5.3.2",
+    "jquery": "3.7.1"
+  },
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openthc/cre.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/openthc/cre/issues"
+  },
+  "homepage": "https://github.com/openthc/cre#readme"
+}
