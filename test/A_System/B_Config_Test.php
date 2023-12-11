@@ -27,5 +27,8 @@ class B_Config_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertNotEmpty($cfg, 'Missing SSO Config');
 		$this->assertIsArray($cfg);
 		$this->assertArrayHasKey('origin', $cfg);
+		$this->assertArrayHasKey('oauth-client-id', $cfg);
+		$this->assertArrayHasKey('oauth-client-sk', $cfg);
+
 	}
 }

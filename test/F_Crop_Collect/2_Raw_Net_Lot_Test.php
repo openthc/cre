@@ -3,7 +3,7 @@
  *
  */
 
-namespace Test\Crop_Collect;
+namespace OpenTHC\CRE\Test\Crop_Collect;
 
 class Raw_Net_Lot extends \OpenTHC\CRE\Test\Base_Case
 {

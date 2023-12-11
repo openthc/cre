@@ -63,7 +63,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 		// Create Duplicate Variety under different license
 		// Reset Auth
 		$this->httpClient = $this->_api();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth($_ENV['api-service-b'], $_ENV['api-company-b'], $_ENV['api-license-b']);
 
 		$res = $this->_post('/variety', [
 			'name' => $name,
@@ -74,7 +74,10 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	}
 
-	public function test_search()
+	/**
+	 * @depends test_create
+	 */
+	public function test_search($x)
 	{
 		$res = $this->httpClient->get('/variety?q=UNITTEST');
 		$res = $this->assertValidResponse($res);

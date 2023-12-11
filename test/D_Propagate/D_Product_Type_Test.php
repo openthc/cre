@@ -3,7 +3,7 @@
  * Make a bunch of different Product of different Types
  */
 
-namespace Test\C_Core;
+namespace OpenTHC\CRE\Test\D_Propagate;
 
 class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base_Case
 {

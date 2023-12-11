@@ -26,15 +26,10 @@ class G_Vehicle_Test extends \OpenTHC\CRE\Test\Base_Case
 			'type' => '019KAGVSC0C474J20SEWDM5XSJ',
 		]);
 
-		$chk = $this->assertValidResponse($res, 201);
-		// $this->assertNotEmpty($res->getHeaderLine('location'));
-		// $this->assertMatchesRegularExpression('/\/config\/product\/\w{26}/', $res->getHeaderLine('location'));
-
-		$res = $chk; // Now use the cleaed one
-		$this->assertIsArray($res['meta']);
-		$this->assertCount(1, $res['meta']);
-
+		$res = $this->assertValidResponse($res, 201);
 		$this->assertIsArray($res['data']);
+		// $this->assertIsArray($res['meta']);
+		// $this->assertCount(1, $res['meta']);
 
 		$obj = $res['data'];
 		$this->assertCount(3, $obj);

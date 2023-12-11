@@ -46,7 +46,7 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
 
 		$res = $this->_post('/license', [
-			'company' => $_ENV['api-company-a'],
+			'company_id' => $_ENV['api-company-a'],
 			'name' => 'UNITTEST License CREATE',
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -94,7 +94,7 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base_Case
 		$obj = $this->_data_stash_get();
 
 		$res = $this->_post('/license/' . $obj['id'], [
-			'company' => $_ENV['api-company-a'],
+			'company_id' => $_ENV['api-company-a'],
 			'name' => 'UNITTEST License CREATE-UPDATE',
 		]);
 
