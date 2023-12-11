@@ -3,27 +3,27 @@
  */
 
 CREATE TABLE auth_company (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	code varchar(256) not null
 );
 
 
 CREATE TABLE auth_contact (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	username varchar(256) not null,
 	password varchar(256) not null
 );
 
 
 CREATE TABLE auth_contact_ticket (
-	id varchar(26) PRIMARY KEY,
+	id varchar(26) NOT NULL PRIMARY KEY,
 	contact_id varchar(26) not null,
 	code varchar(32) not null
 );
 
 
 CREATE TABLE auth_service (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	company_id varchar(26) not null,
 	stat integer not null default 100,
 	flag integer not null default 0,
@@ -34,7 +34,7 @@ CREATE TABLE auth_service (
 
 
 CREATE TABLE company (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -47,7 +47,7 @@ CREATE TABLE company (
 
 
 CREATE TABLE license (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	company_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -61,7 +61,7 @@ CREATE TABLE license (
 
 
 CREATE TABLE contact (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	company_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -75,7 +75,7 @@ CREATE TABLE contact (
 
 
 CREATE TABLE service (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	company_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -89,7 +89,7 @@ CREATE TABLE service (
 
 
 CREATE TABLE section (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -103,7 +103,7 @@ CREATE TABLE section (
 
 
 CREATE TABLE variety (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -117,7 +117,7 @@ CREATE TABLE variety (
 
 
 CREATE TABLE vehicle (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -131,7 +131,7 @@ CREATE TABLE vehicle (
 
 
 CREATE TABLE product (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	product_type_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -146,7 +146,7 @@ CREATE TABLE product (
 
 
 CREATE TABLE product_type (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
 	deleted_at timestamp with time zone,
@@ -159,7 +159,7 @@ CREATE TABLE product_type (
 
 
 CREATE TABLE inventory (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	product_id varchar(26) not null,
 	variety_id varchar(26) not null,
@@ -175,8 +175,22 @@ CREATE TABLE inventory (
 );
 
 
+CREATE TABLE public.inventory_adjust (
+	id character varying(64) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
+	inventory_id character varying(64) NOT NULL,
+	license_id character varying(64) NOT NULL,
+	flag integer DEFAULT 0 NOT NULL,
+	stat integer DEFAULT 100 NOT NULL,
+	created_at timestamp with time zone DEFAULT now() NOT NULL,
+	updated_at timestamp with time zone,
+	hash character varying(64) NOT NULL,
+	data jsonb,
+	name text
+);
+
+
 CREATE TABLE inventory_family (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	inventory_id varchar(26) not null,
 	inventory_id_output varchar(26),
 	crop_id varchar(26),
@@ -188,7 +202,7 @@ CREATE TABLE inventory_family (
 
 
 CREATE TABLE crop (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	variety_id varchar(26) not null,
 	section_id varchar(26) not null,
@@ -204,7 +218,7 @@ CREATE TABLE crop (
 
 
 CREATE TABLE crop_collect (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -219,7 +233,7 @@ CREATE TABLE crop_collect (
 
 
 CREATE TABLE crop_collect_crop (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	crop_collect_id varchar(26) not null,
 	crop_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -236,7 +250,7 @@ CREATE TABLE crop_collect_crop (
 
 
 CREATE TABLE lab_metric (
-	id varchar(26) PRIMARY KEY,
+	id varchar(26) NOT NULL PRIMARY KEY,
 	stat int not null DEFAULT 200,
 	flag int not null DEFAULT 0,
 	sort int not null DEFAULT 0,
@@ -247,7 +261,7 @@ CREATE TABLE lab_metric (
 
 
 CREATE TABLE lab_result (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
 	updated_at timestamp with time zone not null DEFAULT now(),
@@ -286,7 +300,7 @@ CREATE TABLE lab_result_inventory (
 
 
 CREATE TABLE lab_result_metric (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	lab_result_id varchar(26) not null,
 	lab_metric_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -300,7 +314,7 @@ CREATE TABLE lab_result_metric (
 
 
 CREATE TABLE b2b_incoming (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id_source varchar(26) not null,
 	license_id_target varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -315,7 +329,7 @@ CREATE TABLE b2b_incoming (
 
 
 CREATE TABLE b2b_outgoing (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	license_id_source varchar(26) not null,
 	license_id_target varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -330,7 +344,7 @@ CREATE TABLE b2b_outgoing (
 
 
 CREATE TABLE b2b_incoming_item (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	b2b_incoming_id varchar(26) not null,
 	inventory_id varchar(26),
 	created_at timestamp with time zone not null DEFAULT now(),
@@ -346,7 +360,7 @@ CREATE TABLE b2b_incoming_item (
 
 
 CREATE TABLE b2b_outgoing_item (
-	id varchar(26) DEFAULT public.ulid_create() PRIMARY KEY,
+	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	b2b_outgoing_id varchar(26) not null,
 	inventory_id varchar(26) not null,
 	created_at timestamp with time zone not null DEFAULT now(),
