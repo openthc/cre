@@ -43,7 +43,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			'id' => $oid,
 			'license_id_source' => $L_Source['id'],
 			'license_id_target' => $L_Target['id'],
-			'name' => sprintf('From: ' . $L_Source['name']),
+			'name' => sprintf('Sold By: ' . $L_Source['name']),
 			'hash' => sha1($obj),
 			'meta' => $obj,
 		);
