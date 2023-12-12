@@ -29,11 +29,11 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$obj0 = $res['data'][0];
 		$obj1 = $res['data'][1];
 
-		$res = $this->_post('/sale', []);
+		$res = $this->_post('/b2c', []);
 		$res = $this->assertValidResponse($res, 201);
 
 		// Add Item
-		$this->_post('/sale/' . $res['data']['id'], [
+		$this->_post(sprintf('/b2c/%s', $res['data']['id']), [
 			'inventory_id' => $obj0['id'],
 			'qty' => 1,
 			'unit_price' => 12,
@@ -41,14 +41,14 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->assertValidResponse($res, 201);
 
 		// Add Item
-		$this->_post('/sale/' . $res['data']['id'], [
+		$this->_post(sprintf('/b2c/%s', $res['data']['id']), [
 			'inventory_id' => $obj1['id'],
 			'qty' => 2,
 			'unit_price' => 23,
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
-		$res = $this->_post('/sale/' . $res['data']['id'], [
+		$res = $this->_post(sprintf('/b2c/%s/commit', $res['data']['id']), [
 			'action' => 'COMMIT',
 		]);
 		$res = $this->assertValidResponse($res);

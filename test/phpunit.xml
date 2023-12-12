@@ -14,7 +14,7 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	processIsolation="false"
-	stopOnError="true"
+	stopOnError="false"
 	stopOnFailure="false"
 	stopOnRisky="true"
 	timeoutForSmallTests="1"
