@@ -29,7 +29,7 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 	{
 		// create our http client (Guzzle)
 		$opt = array(
-			'base_uri' => getenv('OPENTHC_TEST_BASE'),
+			'base_uri' => OPENTHC_TEST_ORIGIN,
 			'allow_redirects' => false,
 			'debug' => $_ENV['debug-http'],
 			'request.options' => array(

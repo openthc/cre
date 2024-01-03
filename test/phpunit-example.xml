@@ -27,8 +27,11 @@
 
 	<php>
 
+		<const name="OPENTHC_TEST_ORIGIN" value="https://cre.openthc.example.com" />
+
 		<env name="debug-http" value="false" />
 
+		<!-- @todo these should be moved to CONST -->
 		<!-- root/system accounts -->
 		<env name="api-service-0" value="010PENTHC0SERV1CE000000000" />
 		<env name="api-contact-0" value="010PENTHC0C0NTACT000000000" />
