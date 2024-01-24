@@ -7,6 +7,8 @@ namespace OpenTHC\CRE\Controller\Contact;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$C = array();

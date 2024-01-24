@@ -9,6 +9,8 @@ namespace OpenTHC\CRE\Controller\Vehicle;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	/**
 	 *
 	 */

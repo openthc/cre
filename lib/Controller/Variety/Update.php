@@ -7,6 +7,8 @@ namespace OpenTHC\CRE\Controller\Variety;
 
 class Update extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	function __invoke($REQ, $RES, $ARG)
 	{
 

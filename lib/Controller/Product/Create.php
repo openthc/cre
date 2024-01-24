@@ -7,6 +7,8 @@ namespace OpenTHC\CRE\Controller\Product;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$source_data = $_POST;

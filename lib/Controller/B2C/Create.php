@@ -9,6 +9,8 @@ namespace OpenTHC\CRE\Controller\B2C;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$oid = \Edoceo\Radix\ULID::create();

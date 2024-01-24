@@ -9,6 +9,8 @@ namespace OpenTHC\CRE\Controller\Inventory;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	/**
 	 *
 	 */

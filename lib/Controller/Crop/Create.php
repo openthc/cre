@@ -7,6 +7,8 @@ namespace OpenTHC\CRE\Controller\Crop;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	/**
 	 *
 	 */
@@ -22,6 +24,8 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			'license_id' => $_SESSION['License']['id'],
 			'stat' => 200,
 		);
+
+		// Section Check
 
 		// Variety Check
 		if ( ! empty($_POST['variety'])) {

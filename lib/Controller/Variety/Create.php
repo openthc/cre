@@ -7,6 +7,8 @@ namespace OpenTHC\CRE\Controller\Variety;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	/**
 	 *
 	 */

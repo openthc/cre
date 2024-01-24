@@ -8,6 +8,8 @@ namespace OpenTHC\CRE\Controller\B2B;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\Traits\JSONValidator;
+
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$dbc = $this->_container->DB;
