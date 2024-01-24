@@ -12,6 +12,11 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
+		$source_data = $_POST;
+		$source_data = \Opis\JsonSchema\Helper::toJSON($source_data);
+		$schema_spec = \OpenTHC\CRE\Variety::getJSONSchema();
+		$this->validateJSON($source_data, $schema_spec);
+
 		$oid = \Edoceo\Radix\ULID::generate();
 
 		// Variety Object

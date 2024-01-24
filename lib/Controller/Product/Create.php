@@ -9,6 +9,11 @@ class Create extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
+		$source_data = $_POST;
+		$source_data = \Opis\JsonSchema\Helper::toJSON($source_data);
+		$schema_spec = \OpenTHC\CRE\Product::getJSONSchema();
+		$this->validateJSON($source_data, $schema_spec);
+
 		$oid = _ulid();
 
 		// Product Object

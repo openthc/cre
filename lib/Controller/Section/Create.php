@@ -7,8 +7,16 @@ namespace OpenTHC\CRE\Controller\Section;
 
 class Create extends \OpenTHC\CRE\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
+		$source_data = $_POST;
+		$source_data = \Opis\JsonSchema\Helper::toJSON($source_data);
+		$schema_spec = \OpenTHC\CRE\Section::getJSONSchema();
+		$this->validateJSON($source_data, $schema_spec);
+
 		$_POST['name'] = trim($_POST['name']);
 		$_POST['type'] = trim($_POST['type']);
 
