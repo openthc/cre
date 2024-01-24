@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\Bong;
+namespace OpenTHC\CRE;
 
 class Section
 {
