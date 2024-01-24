@@ -16,6 +16,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	{
 		$source_data = $_POST;
 		$source_data = \Opis\JsonSchema\Helper::toJSON($source_data);
+		if (empty($source_data->id)) {
+			$source_data->id = \Edoceo\Radix\ULID::generate();
+		}
+
 		$schema_spec = \OpenTHC\CRE\Section::getJSONSchema();
 		$this->validateJSON($source_data, $schema_spec);
 
@@ -35,15 +39,9 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			$_POST['type'] = 'section';
 		}
 
-
-		$oid = $_POST['id'];
-		if (empty($oid)) {
-			$oid = _ulid();
-		}
-
 		// Section Object
 		$obj = array(
-			'id' => $oid,
+			'id' => $source_data->id,
 			'name' => $_POST['name'],
 			'type' => $_POST['type'],
 		);
@@ -51,7 +49,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Section Record
 		$rec = array(
 			'license_id' => $_SESSION['License']['id'],
-			'id' => $oid,
+			'id' => $source_data->id,
 			'hash' => null,
 			'name' => $obj['name'],
 			'meta' => json_encode($obj),

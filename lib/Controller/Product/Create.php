@@ -13,6 +13,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	{
 		$source_data = $_POST;
 		$source_data = \Opis\JsonSchema\Helper::toJSON($source_data);
+		if (empty($source_data->id)) {
+			$source_data->id = \Edoceo\Radix\ULID::generate();
+		}
+
 		$schema_spec = \OpenTHC\CRE\Product::getJSONSchema();
 		$this->validateJSON($source_data, $schema_spec);
 

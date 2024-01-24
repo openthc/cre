@@ -16,20 +16,19 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$oid = \Edoceo\Radix\ULID::generate();
-
-		// Vehicle Object
-		$obj = array(
-			'id' => $oid,
-			'name' => $_POST['name'],
-			'type' => $_POST['type'],
-		);
+		$source_data = $_POST;
+		$source_data = \Opis\JsonSchema\Helper::toJSON($source_data);
+		if (empty($source_data->id)) {
+			$source_data->id = \Edoceo\Radix\ULID::generate();
+		}
+		$schema_spec = \OpenTHC\CRE\Variety::getJSONSchema();
+		$this->validateJSON($source_data, $schema_spec);
 
 		// Check Vehicle Record
 		$sql = 'SELECT id FROM vehicle WHERE license_id = :l AND name = :n';
 		$arg = array(
 			':l' => $_SESSION['License']['id'],
-			':n' => $_POST['name'],
+			':n' => $source_data->name,
 		);
 		$chk = $this->_container->DB->fetchRow($sql, $arg);
 		if (!empty($chk)) {
@@ -42,10 +41,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		// Vehicle Record
 		$rec = array(
 			'license_id' => $_SESSION['License']['id'],
-			'id' => $oid,
+			'id' => $source_data->id,
 			'hash' => null,
-			'name' => $obj['name'],
-			'meta' => json_encode($obj),
+			'name' => $source_data->name,
+			'meta' => json_encode($source_data),
 		);
 		$rec['hash'] = sha1($rec['meta']);
 
@@ -56,7 +55,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		return $RES->withJSON([
 			'meta' => [],
-			'data' => $obj,
+			'data' => $source_data,
 		], 201);
 
 	}

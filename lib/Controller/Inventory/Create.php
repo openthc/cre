@@ -16,27 +16,32 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
+
+		// if (empty($source_data->id)) {
+		// 	$source_data->id = \Edoceo\Radix\ULID::generate();
+		// }
+
 		$this->_promote_post_vars();
 
 		// if (!is_array($_POST['output'])) {
 		// 	return $RES->withJSON([
-		// 		'meta' => [ 'note' => 'Invalid Parameter for "output" [CLC-016]' ],
 		// 		'data' => $_POST,
+		// 		'meta' => [ 'note' => 'Invalid Parameter for "output" [CLC-016]' ],
 		// 	], 400);
 		// }
 
 		if (!isset($_POST['qty'])) {
 			return $RES->withJSON([
-				'meta' => [ 'note' => 'Invalid Parameter for "output.qty" [CLC-023]' ],
 				'data' => $_POST,
+				'meta' => [ 'note' => 'Invalid Parameter for "output.qty" [CLC-023]' ],
 			], 400);
 		}
 
 		$_POST['qty'] = floatval($_POST['qty']);
 		if ($_POST['qty'] <= 0) {
 			return $RES->withJSON([
-				'meta' => [ 'note' => 'Invalid Parameter for "output.qty" [CLC-031]' ],
 				'data' => $_POST,
+				'meta' => [ 'note' => 'Invalid Parameter for "output.qty" [CLC-031]' ],
 			], 400);
 		}
 
