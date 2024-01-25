@@ -1,6 +1,8 @@
 <?php
 /**
  * Company
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Module;

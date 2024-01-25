@@ -1,6 +1,8 @@
 <?php
 /**
  * B2C Routes
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Module;

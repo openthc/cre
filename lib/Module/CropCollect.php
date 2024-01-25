@@ -1,6 +1,8 @@
 <?php
 /**
  * CropCollect Route Handlers
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Module;

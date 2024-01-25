@@ -1,6 +1,8 @@
 <?php
 /**
  * Inventory Routes
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Module;
