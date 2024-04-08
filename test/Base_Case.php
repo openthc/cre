@@ -7,10 +7,9 @@
 
 namespace OpenTHC\CRE\Test;
 
-class Base_Case extends \PHPUnit\Framework\TestCase
-{
+class Base_Case extends \OpenTHC\Test\Base {
+
 	protected $httpClient;
-	protected $_pid = null;
 	protected $raw; // Recent Raw Response Body
 	protected $type_expect = 'application/json';
 	protected $_tmp_file = '/tmp/test-data-pass.json';
@@ -18,7 +17,6 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 	function __construct($name = null, array $data = [], $dataName = '')
 	{
 		parent::__construct($name, $data, $dataName);
-		$this->_pid = getmypid();
 
 	}
 
@@ -90,45 +88,23 @@ class Base_Case extends \PHPUnit\Framework\TestCase
 	}
 
 
-	function assertValidResponse($res, $code=200, $type_expect=null, $dump=null)
-	{
-		$this->raw = $res->getBody()->getContents();
+	function assertValidResponse($res, $code_expect=200, $type_expect=null, $dump=null) {
 
-		$hrc = $res->getStatusCode();
+		$ret = parent::assertValidResponse($res, $code_expect, $type_expect, $dump);
 
-		if (empty($dump)) {
-			if ($code != $hrc) {
-				$dump = "HTTP $hrc != $code";
-			}
-		}
-
-		if (!empty($dump)) {
-			echo "\n<<< $dump <<< $hrc <<<\n{$this->raw}\n###\n";
-		}
-
-		$this->assertEquals($code, $res->getStatusCode());
-
-		if (empty($type_expect)) {
-			$type_expect = $this->type_expect;
-		}
-		$type_actual = $res->getHeaderLine('content-type');
-		$type_actual = strtok($type_actual, ';');
-		$this->assertEquals($type_expect, $type_actual);
-
-		switch ($type_actual) {
-			case 'application/json':
-				$ret = json_decode($this->raw, true);
-				// $ret['code'] = $res->getStatusCode();
-				$this->assertIsArray($ret);
-				$this->assertArrayHasKey('data', $ret);
-				$this->assertArrayHasKey('meta', $ret);
-				$this->assertArrayNotHasKey('status', $ret);
-				$this->assertArrayNotHasKey('result', $ret);
-				return $ret;
+		switch ($type_expect) {
+		case 'application/json':
+			$this->assertIsArray($ret);
+			$this->assertArrayHasKey('data', $ret);
+			$this->assertArrayHasKey('meta', $ret);
+			$this->assertArrayNotHasKey('status', $ret);
+			$this->assertArrayNotHasKey('result', $ret);
 			break;
 		}
 
-		return $this->raw;
+
+		return $ret;
+
 	}
 
 
