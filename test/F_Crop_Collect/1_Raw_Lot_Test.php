@@ -5,17 +5,17 @@
 
 namespace Test\Crop_Collect;
 
-class Raw_Lot extends \OpenTHC\CRE\Test\Base_Case
+class Raw_Lot extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	function test_raw_inventory()
 	{
-		$x = $this->find_random_plant(2);
+		$x = $this->find_random_crop(2);
 		$pA = $x[0];
 		$pB = $x[1];
 

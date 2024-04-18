@@ -7,11 +7,12 @@
 
 namespace OpenTHC\CRE\Test;
 
-class Base_Case extends \OpenTHC\Test\Base {
+class Base extends \OpenTHC\Test\Base {
 
 	protected $httpClient;
-	protected $raw; // Recent Raw Response Body
+
 	protected $type_expect = 'application/json';
+
 	protected $_tmp_file = '/tmp/test-data-pass.json';
 
 	function __construct($name = null, array $data = [], $dataName = '')
@@ -114,9 +115,9 @@ class Base_Case extends \OpenTHC\Test\Base {
 	{
 		$res = $this->httpClient->post('/auth/open', $body = [
 			'form_params' => [
-				'service' => $p ?: $_ENV['api-service-a'],
-				'company' => $c ?: $_ENV['api-company-a'],
-				'license' => $l ?: $_ENV['api-license-a'],
+				'service' => $p ?: $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+				'company' => $c ?: $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+				'license' => $l ?: $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
 			],
 		]);
 

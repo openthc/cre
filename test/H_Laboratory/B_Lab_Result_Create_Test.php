@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Test\H_Laboratory;
 
-class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
+class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{
@@ -17,7 +17,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_sample()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 
 		$res = $this->httpClient->get('/inventory');
 		$res = $this->assertValidResponse($res);
@@ -34,7 +34,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => $_ENV['api-contact-a'],
+				'id' => OPENTHC_TEST_CLIENT_CONTACT_A,
 			]
 		]);
 
@@ -75,7 +75,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_result()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 
 		$res = $this->httpClient->get('/b2b/incoming');

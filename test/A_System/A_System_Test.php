@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Test\A_System;
 
-class A_System_Test extends \OpenTHC\CRE\Test\Base_Case
+class A_System_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_system()
 	{

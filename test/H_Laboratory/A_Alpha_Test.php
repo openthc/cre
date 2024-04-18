@@ -7,11 +7,11 @@
 
 namespace OpenTHC\CRE\Test\H_Laboratory;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	function test_lab()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 
 		$res = $this->httpClient->get('/lab');
 		$res = $this->assertValidResponse($res);

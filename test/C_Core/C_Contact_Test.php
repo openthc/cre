@@ -7,14 +7,14 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
+class C_Contact_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_tmp_file = '/tmp/unit-test-contact.json';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	public function test_public_read()
@@ -41,7 +41,7 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
 	public function test_create()
 	{
 		$res = $this->_post('/contact', [
-			'company' => $_ENV['api-company-a'],
+			'company' => OPENTHC_TEST_CLIENT_COMPANY_A,
 			'name' => 'UNITTEST Contact CREATE',
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -93,7 +93,7 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
 		$res = $this->httpClient->get('/contact/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get(sprintf('/contact/%s', $_ENV['api-contact-0']));
+		$res = $this->httpClient->get(sprintf('/contact/%s', OPENTHC_TEST_CLIENT_CONTACT_0));
 		$this->assertValidResponse($res);
 
 		$obj = $this->_data_stash_get();
@@ -173,11 +173,11 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base_Case
 	public function test_create_contact_with_email_and_phone()
 	{
 		// $id = bin2hex(random_bytes(12));
-		$email = $this->faker->safeEmail();
-		$phone = $this->faker->phoneNumber();
+		$email = sprintf('%s@test.openthc.example.com', _ulid());
+		$phone = '2345678910';
 		$res = $this->_post('/contact', [
 			// 'id' => $id,
-			'company' => $_ENV['api-company-a'],
+			'company' => OPENTHC_TEST_CLIENT_COMPANY_A,
 			'name' => 'UNITTEST Contact CREATE',
 			'email' => $email,
 			'phone' => $phone

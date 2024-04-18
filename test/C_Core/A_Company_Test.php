@@ -7,12 +7,12 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
+class A_Company_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	public function test_public_read()
@@ -38,7 +38,7 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_create_as_root()
 	{
-		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_0, OPENTHC_TEST_CLIENT_COMPANY_0, OPENTHC_TEST_CLIENT_LICENSE_0);
 
 		$res = $this->httpClient->post('/company', [ 'form_params' => [
 			'name' => 'UNITTEST Company CREATE',
@@ -93,17 +93,17 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertValidResponse($res, 404);
 
 		// System
-		$res = $this->httpClient->get(sprintf('/company/%s', $_ENV['api-company-0']));
+		$res = $this->httpClient->get(sprintf('/company/%s', OPENTHC_TEST_CLIENT_COMPANY_0));
 		$res = $this->assertValidResponse($res);
 		$this->assertEquals('-system-', $res['data']['name']);
 
-		$res = $this->httpClient->get('/company/' . $_ENV['api-company-a']);
+		$res = $this->httpClient->get('/company/' . OPENTHC_TEST_CLIENT_COMPANY_A);
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/company/' . $_ENV['api-company-b']);
+		$res = $this->httpClient->get('/company/' . OPENTHC_TEST_CLIENT_COMPANY_B);
 		$this->assertValidResponse($res);
 
-		$res = $this->httpClient->get('/company/' . $_ENV['api-company-c']);
+		$res = $this->httpClient->get('/company/' . OPENTHC_TEST_CLIENT_COMPANY_C);
 		$this->assertValidResponse($res);
 
 		$res = $this->httpClient->get('/company/' . $_ENV['api-company-d']);
@@ -140,10 +140,10 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 		$this->assertValidResponse($res, 403);
 
 		// do stuff?
-		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-a']);
+		$res = $this->httpClient->delete('/company/' . OPENTHC_TEST_CLIENT_COMPANY_A);
 		$this->assertValidResponse($res, 403);
 
-		$res = $this->httpClient->delete('/company/' . $_ENV['api-company-b']);
+		$res = $this->httpClient->delete('/company/' . OPENTHC_TEST_CLIENT_COMPANY_B);
 		$this->assertValidResponse($res, 403);
 
 	}
@@ -151,7 +151,7 @@ class A_Company_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	public function test_delete_as_root()
 	{
-		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_0, OPENTHC_TEST_CLIENT_COMPANY_0, OPENTHC_TEST_CLIENT_LICENSE_0);
 
 		$res = $this->httpClient->delete('/company/four_zero_four');
 		$this->assertValidResponse($res, 404);

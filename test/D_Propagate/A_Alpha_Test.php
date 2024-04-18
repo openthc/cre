@@ -7,14 +7,14 @@
 
 namespace OpenTHC\CRE\Test\D_Propagate;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/inventory';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	function test_create()

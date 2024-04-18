@@ -15,7 +15,7 @@
 
 namespace OpenTHC\CRE\Test\B_Auth;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_auth()
 	{
@@ -64,10 +64,10 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	{
 		// TEST COMPANY A
 		$arg = [
-			'service' => getenv('OPENTHC_TEST_SERVICE_ID'),
-			'company' => getenv('OPENTHC_TEST_COMPANY_ID'),
-			'contact' => getenv('OPENTHC_TEST_CONTACT_ID'),
-			'license' => getenv('OPENTHC_TEST_LICENSE_ID'),
+			'service' => OPENTHC_TEST_SERVICE_ID,
+			'company' => OPENTHC_TEST_COMPANY_ID,
+			'contact' => OPENTHC_TEST_CONTACT_ID,
+			'license' => OPENTHC_TEST_LICENSE_ID,
 		];
 		$res = $this->_post('/auth/open', $arg);
 		$res = $this->assertValidResponse($res);
@@ -81,9 +81,9 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	function test_open_fail_company_license()
 	{
 		$res = $this->_post('/auth/open', [
-			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-a'],
-			'license' => $_ENV['api-license-c']
+			'service' => OPENTHC_TEST_CLIENT_SERVICE_A,
+			'company' => OPENTHC_TEST_CLIENT_COMPANY_A,
+			'license' => OPENTHC_TEST_CLIENT_LICENSE_C
 		]);
 		$res = $this->assertValidResponse($res, 403);
 
@@ -99,8 +99,8 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
 	// 			'business' => '123456789',
 	// 			'username' => 'test@openthc.org',
 	// 			'password' => 'password',
-	// 			'client-key' => $_ENV['api-client-key'],
-	// 			'vendor-key' => $_ENV['api-vendor-key'],
+	// 			'client-key' => api-client-key,
+	// 			'vendor-key' => api-vendor-key,
 	// 		)
 	// 	));
 	//

@@ -7,14 +7,14 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
+class E_Section_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_tmp_file = '/tmp/unit-test-section.json';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	public function test_public_read()
@@ -205,7 +205,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	function test_create_g()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 
 		$name = sprintf('UNITTEST Section-G CREATE %06x', $this->_pid);
 
@@ -221,7 +221,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	function test_create_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
 
 		$name = sprintf('UNITTEST Section-P CREATE %06x', $this->_pid);
 
@@ -236,7 +236,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	function test_create_l()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-c'], $_ENV['api-license-c']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_C, OPENTHC_TEST_CLIENT_LICENSE_C);
 
 		$name = sprintf('UNITTEST Section-L CREATE %06x', $this->_pid);
 
@@ -251,7 +251,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	function test_create_r()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 		$name = sprintf('UNITTEST Section-R CREATE %06x', $this->_pid);
 

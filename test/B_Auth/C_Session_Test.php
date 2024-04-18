@@ -7,16 +7,16 @@
 
 namespace OpenTHC\CRE\Test\B_Auth;
 
-class C_Session_Test extends \OpenTHC\CRE\Test\Base_Case
+class C_Session_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_tmp_file = '/tmp/cre-test-auth-session.dat';
 
 	function test_session_create()
 	{
 		$res = $this->_post('/auth/open', [
-			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-a'],
-			'license' => $_ENV['api-license-a']
+			'service' => OPENTHC_TEST_CLIENT_SERVICE_A,
+			'company' => OPENTHC_TEST_CLIENT_COMPANY_A,
+			'license' => OPENTHC_TEST_CLIENT_LICENSE_A
 		]);
 
 		// Check for Cookie
@@ -83,9 +83,9 @@ class C_Session_Test extends \OpenTHC\CRE\Test\Base_Case
 	function test_session_delete()
 	{
 		$res = $this->_post('/auth/open', [
-			'service' => $_ENV['api-service-a'],
-			'company' => $_ENV['api-company-a'],
-			'license' => $_ENV['api-license-a']
+			'service' => OPENTHC_TEST_CLIENT_SERVICE_A,
+			'company' => OPENTHC_TEST_CLIENT_COMPANY_A,
+			'license' => OPENTHC_TEST_CLIENT_LICENSE_A
 		]);
 
 		// Check for Cookie

@@ -7,14 +7,14 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class G_Product_Test extends \OpenTHC\CRE\Test\Base_Case
+class G_Product_Test extends \OpenTHC\CRE\Test\Base
 {
 	private $_url_path = '/product';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	public function test_create()

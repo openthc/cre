@@ -7,14 +7,14 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
+class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_tmp_file = '/tmp/unit-test-variety.json';
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	public function test_public_read()
@@ -65,7 +65,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base_Case
 		// Create Duplicate Variety under different license
 		// Reset Auth
 		$this->httpClient = $this->_api();
-		$this->auth($_ENV['api-service-b'], $_ENV['api-company-b'], $_ENV['api-license-b']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_B, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
 
 		$res = $this->_post('/variety', [
 			'name' => $name,

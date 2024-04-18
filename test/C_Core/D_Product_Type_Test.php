@@ -7,13 +7,13 @@
 
 namespace OpenTHC\CRE\Test\C_Core;
 
-class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base_Case
+class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base
 {
 
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-a'], $_ENV['api-license-a']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
 	}
 
 	/*
@@ -49,7 +49,7 @@ class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base_Case
 	 */
 	function test_create()
 	{
-		$this->auth($_ENV['api-service-0'], $_ENV['api-company-0'], $_ENV['api-license-0']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_0, OPENTHC_TEST_CLIENT_COMPANY_0, OPENTHC_TEST_CLIENT_LICENSE_0);
 		$res = $this->_post('/product/type', [
 			'name' => 'Budder',
 			'type' => '018NY6XC00PTACC942KY9DCERR',

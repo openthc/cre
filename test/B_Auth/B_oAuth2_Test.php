@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Test\B_Auth;
 
-class B_oAuth2_Test extends \OpenTHC\CRE\Test\Base_Case
+class B_oAuth2_Test extends \OpenTHC\CRE\Test\Base
 {
 	function test_oauth_open()
 	{

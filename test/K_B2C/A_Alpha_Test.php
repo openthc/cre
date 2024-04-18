@@ -7,12 +7,12 @@
 
 namespace OpenTHC\CRE\Test\K_B2C;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base_Case
+class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['api-service-c'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_C, $_ENV['api-company-d'], $_ENV['api-license-d']);
 	}
 
 	/**

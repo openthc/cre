@@ -5,7 +5,7 @@
 parameters:
 	bootstrapFiles:
 		- %currentWorkingDirectory%/boot.php
-	level: 3
+	level: 6
 	paths:
 		- %currentWorkingDirectory%/bin
 		- %currentWorkingDirectory%/lib

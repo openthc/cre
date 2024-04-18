@@ -7,17 +7,17 @@
 
 namespace OpenTHC\CRE\Test\J_B2B;
 
-class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
+class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/b2b';
 	protected $_tmp_file = '/tmp/unit-test-transfer.json';
 
 	function test_create_carrier_p_from_g()
 	{
-		$this->auth(getenv('OPENTHC_TEST_SERVICE_ID'), $_ENV['api-company-b'], $_ENV['api-license-b']);
+		$this->auth(OPENTHC_TEST_SERVICE_ID, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => $_ENV['api-license-a'],
+			'license_id_source' => OPENTHC_TEST_CLIENT_LICENSE_A,
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
@@ -32,10 +32,10 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_carrier_l_from_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-c'], $_ENV['api-license-c']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_C, OPENTHC_TEST_CLIENT_LICENSE_C);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => $_ENV['api-license-b'],
+			'license_id_source' => OPENTHC_TEST_CLIENT_LICENSE_B,
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
@@ -50,10 +50,10 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_carrier_r_from_p()
 	{
-		$this->auth($_ENV['api-service-c'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_C, $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => $_ENV['api-license-b'],
+			'license_id_source' => OPENTHC_TEST_CLIENT_LICENSE_B,
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
@@ -69,15 +69,15 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 	// P files on behalf of G
 	function test_create_pickup_p_from_g()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => $_ENV['api-license-a'],
+			'license_id_source' => OPENTHC_TEST_CLIENT_LICENSE_A,
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
 			'contact' => [
-				'id' => $_ENV['api-contact-b'],
+				'id' => OPENTHC_TEST_CLIENT_CONTACT_B,
 			]
 		]);
 
@@ -109,10 +109,10 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_pickup_l_from_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-d'], $_ENV['api-license-d']);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => $_ENV['api-license-b'],
+			'license_id_source' => OPENTHC_TEST_CLIENT_LICENSE_B,
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
@@ -126,7 +126,7 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 
 	function test_create_pickup_r_from_p()
 	{
-		$this->auth($_ENV['api-service-a'], $_ENV['api-company-b'], $_ENV['api-license-b']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['api-license-d'],
@@ -134,7 +134,7 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base_Case
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
 			'contact' => [
-				'id' => $_ENV['api-contact-b'],
+				'id' => OPENTHC_TEST_CLIENT_CONTACT_B,
 			]
 		]);
 
