@@ -16,13 +16,13 @@
 		"docopt/docopt": "1.0.5",
 		"edoceo/lowline": "2022.0.280",
 		"edoceo/radix": "2021.0.0",
-		"openthc/common": "dev-master",
+		"openthc/common": "dev-main",
 		"opis/json-schema": "2.3.0"
 	},
 	"require-dev": {
 		"php-webdriver/webdriver": "1.15.1",
 		"phpmd/phpmd": "2.15.0",
-		"phpstan/phpstan": "1.10.66",
-		"phpunit/phpunit": "9.6.18"
+		"phpstan/phpstan": "1.11.8",
+		"phpunit/phpunit": "9.6.20"
 	}
 }
