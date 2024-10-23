@@ -23,12 +23,19 @@ class B_Config_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertNotEmpty($cfg, 'Missing Redis Config');
 		$this->assertIsArray($cfg);
 
+		$cfg = \OpenTHC\Config::get('openthc/cre');
+		$this->assertNotEmpty($cfg);
+		$this->assertIsArray($cfg);
+		$this->assertArrayHasKey('origin', $cfg);
+		$this->assertArrayHasKey('public', $cfg);
+		$this->assertArrayHasKey('secret', $cfg);
+
 		$cfg = \OpenTHC\Config::get('openthc/sso');
 		$this->assertNotEmpty($cfg, 'Missing SSO Config');
 		$this->assertIsArray($cfg);
 		$this->assertArrayHasKey('origin', $cfg);
-		$this->assertArrayHasKey('oauth-client-id', $cfg);
-		$this->assertArrayHasKey('oauth-client-sk', $cfg);
+		$this->assertArrayHasKey('client-id', $cfg);
+		$this->assertArrayHasKey('client-sk', $cfg);
 
 	}
 }
