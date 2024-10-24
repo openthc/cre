@@ -9,11 +9,53 @@ class Open extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
+		// v2024 method
+		$data = $REQ->getAttribute('plain_data'); // from Check_Authorization
+		$Contact = $_SERVER['HTTP_OPENTHC_CONTACT'];
+		if (empty($Contact)) {
+			return $RES->withJson([
+				'data' => null,
+				'meta' => [ 'note' => 'Invalid Contact [CAO-018]' ],
+			], 400);
+		}
+		$Company = $_SERVER['HTTP_OPENTHC_COMPANY'];
+		if (empty($Company)) {
+			return $RES->withJson([
+				'data' => null,
+				'meta' => [ 'note' => 'Invalid Company [CAO-025]' ],
+			], 400);
+		}
+		$License = $_SERVER['HTTP_OPENTHC_LICENSE'];
+		if (empty($License)) {
+			return $RES->withJson([
+				'data' => null,
+				'meta' => [ 'note' => 'Invalid License [CAO-032]', 'HTTP_OPENTHC_LICENSE' => $_SERVER['HTTP_OPENTHC_LICENSE'] ],
+			], 400);
+		}
+
+		$token = _random_hash();
+		$this->_container->Redis->setEx($token, $expireTTL=21600, json_encode([
+			'Contact' => $Contact,
+			'Company' => $Company,
+			'License' => $License,
+		]));
+
+		return $RES->withJson([
+			'data' => [
+				'sid' => $token,
+			],
+			'meta' => [],
+		], 200);
+
+		// v2020 method
+		/*
 		$RES = $this->_open_session($RES);
 		if (200 != $RES->getStatusCode()) {
 			return $RES;
 		}
+		*/
 
+		// pre-v2020 method
 		// if (empty($_POST['license-key'])) {
 		// 	return $RES->withJSON([ 'meta' => ['note' => 'Missing "license-key" missing [CAO-022]' ]], 400);
 		// }

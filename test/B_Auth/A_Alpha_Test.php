@@ -114,4 +114,85 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 	// 	// $this->assertMatchesRegularExpression('success', /\w{64,256}/');
 	//
 	// }
+
+	/**
+	 * Test v2024 authentication scheme
+	 */
+	function test_auth_open()
+	{
+		$client_service_pk = \OpenTHC\Config::get('openthc/cre/public');
+		$client_service_sk = \OpenTHC\Config::get('openthc/cre/secret');
+		$server_pk = $client_service_pk;
+
+		$plain_data = json_encode([
+			'pk' => $client_service_pk,
+			'ts' => time(),
+		]);
+		$crypt_box = \OpenTHC\Sodium::encrypt($plain_data, $client_service_sk, $server_pk);
+		$crypt_box = \OpenTHC\Sodium::b64encode($crypt_box);
+		$token = sprintf('%s/%s', $client_service_pk, $crypt_box);
+		$bearer = sprintf('Bearer v2024/%s', $token);
+
+		$res = $this->httpClient->post('/auth/open', [
+			'headers' => [
+				'Authorization' => $bearer,
+				'OpenTHC-Contact' => OPENTHC_TEST_CLIENT_CONTACT_0,
+				'OpenTHC-Company' => OPENTHC_TEST_CLIENT_COMPANY_0,
+				'OpenTHC-License' => OPENTHC_TEST_CLIENT_LICENSE_0,
+			],
+		]);
+
+		// var_dump(($res->getBody()->getContents()));
+		$this->assertEquals(200, $res->getStatusCode());
+		// $this->assertValidResponse($res);
+		// $this->assertNotEmpty($res['data']['sid']);
+		// $this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']['sid']);
+
+		// $this->assertNotEmpty
+	}
+
+
+	/**
+	 * Test the full v2024 authentication handshake
+	 */
+	function test_auth_ping()
+	{
+		$client_service_pk = \OpenTHC\Config::get('openthc/cre/public');
+		$client_service_sk = \OpenTHC\Config::get('openthc/cre/secret');
+		$server_pk = $client_service_pk;
+
+		$plain_data = json_encode([
+			'pk' => $client_service_pk,
+			'ts' => time(),
+		]);
+		$crypt_box = \OpenTHC\Sodium::encrypt($plain_data, $client_service_sk, $server_pk);
+		$crypt_box = \OpenTHC\Sodium::b64encode($crypt_box);
+		$token = sprintf('%s/%s', $client_service_pk, $crypt_box);
+		$bearer = sprintf('Bearer v2024/%s', $token);
+
+		$res = $this->httpClient->post('/auth/open', [
+			'headers' => [
+				'Authorization' => $bearer,
+				'OpenTHC-Contact' => OPENTHC_TEST_CLIENT_CONTACT_0,
+				'OpenTHC-Company' => OPENTHC_TEST_CLIENT_COMPANY_0,
+				'OpenTHC-License' => OPENTHC_TEST_CLIENT_LICENSE_0,
+			],
+		]);
+
+		$body = $res->getBody()->getContents();
+		$body = json_decode($body);
+		$this->assertEquals(200, $res->getStatusCode());
+		$this->assertNotEmpty($body->data->sid);
+		$this->assertMatchesRegularExpression('/\w{26,256}/', $body->data->sid);
+
+		$token0 = $body->data->sid;
+		$bearer0 = sprintf('Bearer v2024/%s', $token0);
+		$res0 = $this->httpClient->get('/auth/ping', [
+			'headers' => [
+				'Authorization' => $bearer0,
+			],
+		]);
+		$this->assertEquals(200, $res0->getStatusCode());
+	}
+
 }

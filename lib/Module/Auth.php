@@ -31,7 +31,8 @@ class Auth extends \OpenTHC\Module\Base
 
 		$a->post('/open', 'OpenTHC\CRE\Controller\Auth\Open')
 			// ->add('Custom\Middleware\AutoCreate')
-			;
+			->add('OpenTHC\CRE\Middleware\Check_Authorization')
+		;
 
 		$a->get('/ping', function($REQ, $RES, $ARG) {
 
@@ -58,7 +59,9 @@ class Auth extends \OpenTHC\Module\Base
 
 			return $RES->withJSON($ret, $ret_code);
 
-		});
+		})
+			->add('OpenTHC\CRE\Middleware\Auth\Token')
+		;
 
 		$a->post('/shut', 'OpenTHC\Controller\Auth\Shut');
 	}
