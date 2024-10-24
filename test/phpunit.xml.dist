@@ -123,6 +123,10 @@
 			<directory>K_B2C</directory>
 		</testsuite>
 
+		<testsuite name="Unit">
+			<directory>Unit</directory>
+		</testsuite>
+
 	</testsuites>
 
 </phpunit>
