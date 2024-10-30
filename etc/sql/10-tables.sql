@@ -293,9 +293,9 @@ CREATE TABLE lab_result_file (
 );
 
 
-CREATE TABLE lab_result_inventory (
-	lab_result_id varchar(26) not null,
-	inventory_id varchar(26) not null
+CREATE TABLE inventory_lab_result (
+	inventory_id varchar(26) not null,
+	lab_result_id varchar(26) not null
 );
 
 

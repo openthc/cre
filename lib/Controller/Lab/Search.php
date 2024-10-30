@@ -15,8 +15,8 @@ class Search extends \OpenTHC\CRE\Controller\Base
 		$sql = <<<SQL
 		SELECT lab_result.*
 		FROM lab_result
-		JOIN lab_result_inventory ON lab_result.id = lab_result_inventory.lab_result_id
-		JOIN inventory ON lab_result_inventory.inventory_id = inventory.id
+		JOIN inventory_lab_result ON lab_result.id = inventory_lab_result.lab_result_id
+		JOIN inventory ON inventory_lab_result.inventory_id = inventory.id
 		WHERE (inventory.license_id = :l0 OR lab_result.license_id = :l0)
 		ORDER BY lab_result.id
 		SQL;
