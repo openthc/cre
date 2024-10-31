@@ -9,8 +9,21 @@ namespace OpenTHC\CRE\Module;
 
 class Auth extends \OpenTHC\Module\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($a)
 	{
+		// $a->get('', function($REQ, $RES, $ARG) {
+		// 	if ( ! empty($_GET['a'])) {
+		// 		// Decipher Token?
+		// 		// Start Session?
+		// 	}
+		// 	// __exit_text($_GET);
+		// });
+		// ->add('Custom\Middleware\AutoCreate')
+		// ->add('OpenTHC\CRE\Middleware\Check_Authorization')
+
 		$a->post('/oauth', function($REQ, $RES, $ARG) {
 
 			$cfg = \OpenTHC\Config::get('openthc/sso/origin');
@@ -37,6 +50,7 @@ class Auth extends \OpenTHC\Module\Base
 		$a->get('/ping', function($REQ, $RES, $ARG) {
 
 			$ret = [];
+			// $RES->getAttribute('sid');
 
 			$ret_code = $RES->getStatusCode();
 			switch ($ret_code) {

@@ -10,34 +10,38 @@ class Open extends \OpenTHC\CRE\Controller\Base
 	function __invoke($REQ, $RES, $ARG)
 	{
 		// v2024 method
-		$data = $REQ->getAttribute('plain_data'); // from Check_Authorization
-		$Contact = $_SERVER['HTTP_OPENTHC_CONTACT'];
-		if (empty($Contact)) {
-			return $RES->withJson([
-				'data' => null,
-				'meta' => [ 'note' => 'Invalid Contact [CAO-018]' ],
-			], 400);
-		}
-		$Company = $_SERVER['HTTP_OPENTHC_COMPANY'];
-		if (empty($Company)) {
-			return $RES->withJson([
-				'data' => null,
-				'meta' => [ 'note' => 'Invalid Company [CAO-025]' ],
-			], 400);
-		}
-		$License = $_SERVER['HTTP_OPENTHC_LICENSE'];
-		if (empty($License)) {
-			return $RES->withJson([
-				'data' => null,
-				'meta' => [ 'note' => 'Invalid License [CAO-032]', 'HTTP_OPENTHC_LICENSE' => $_SERVER['HTTP_OPENTHC_LICENSE'] ],
-			], 400);
-		}
+		// $_SESSION is pre-populated by some Middleware (or Trait)
+		// And has Context set
+
+		// $data = $REQ->getAttribute('plain_data'); // from Check_Authorization
+		// $Contact = $_SERVER['HTTP_OPENTHC_CONTACT_ID'];
+		// if (empty($Contact)) {
+		// 	return $RES->withJson([
+		// 		'data' => null,
+		// 		'meta' => [ 'note' => 'Invalid Contact [CAO-018]' ],
+		// 	], 400);
+		// }
+		// $Company = $_SERVER['HTTP_OPENTHC_COMPANY_ID'];
+		// if (empty($Company)) {
+		// 	return $RES->withJson([
+		// 		'data' => null,
+		// 		'meta' => [ 'note' => 'Invalid Company [CAO-025]' ],
+		// 	], 400);
+		// }
+		// $License = $_SERVER['HTTP_OPENTHC_LICENSE_ID'];
+		// if (empty($License)) {
+		// 	return $RES->withJson([
+		// 		'data' => null,
+		// 		'meta' => [ 'note' => 'Invalid License [CAO-032]' ],
+		// 	], 400);
+		// }
 
 		$token = _random_hash();
 		$this->_container->Redis->setEx($token, $expireTTL=21600, json_encode([
-			'Contact' => $Contact,
-			'Company' => $Company,
-			'License' => $License,
+			'Service' => $_SESSION['Service'],
+			'Contact' => $_SESSION['Contact'],
+			'Company' => $_SESSION['Company'],
+			'License' => $_SESSION['License'],
 		]));
 
 		return $RES->withJson([
@@ -118,12 +122,12 @@ class Open extends \OpenTHC\CRE\Controller\Base
 			], 400);
 		}
 
-		if (empty($_POST['license'])) {
-			return $RES->withJSON([
-				'data' => null,
-				'meta' => [ 'note' => 'Parameter "license" missing [CAO-086]' ]
-			], 400);
-		}
+		// if (empty($_POST['license'])) {
+		// 	return $RES->withJSON([
+		// 		'data' => null,
+		// 		'meta' => [ 'note' => 'Parameter "license" missing [CAO-086]' ]
+		// 	], 400);
+		// }
 
 		$dbc = $this->_container->DB;
 
@@ -150,25 +154,28 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Lookup License
-		$sql = 'SELECT id,company_id,stat,name FROM license WHERE id = :l0';
-		$arg = [
-			// ':c0' => $Company['id'],
-			':l0' => $_POST['license'],
-		];
-		$License = $dbc->fetchRow($sql, $arg);
-		if (empty($License['id'])) {
-			return $RES->withJSON([
-				'data' => null,
-				'meta' => [ 'note' => 'Invalid License [CAO-118]' ]
-			], 403);
-		}
+		$License = [];
+		if ( ! empty($_POST['license'])) {
+			$sql = 'SELECT id,company_id,stat,name FROM license WHERE id = :l0';
+			$arg = [
+				// ':c0' => $Company['id'],
+				':l0' => $_POST['license'],
+			];
+			$License = $dbc->fetchRow($sql, $arg);
+			if (empty($License['id'])) {
+				return $RES->withJSON([
+					'data' => null,
+					'meta' => [ 'note' => 'Invalid License [CAO-118]' ]
+				], 403);
+			}
 
-		// Company and License Match?
-		if ($Company['id'] != $License['company_id']) {
-			return $RES->withJSON([
-				'data' => null,
-				'meta' => [ 'note' => 'Invalid License [CAO-125]' ]
-			], 403);
+			// Company and License Match?
+			if ($Company['id'] != $License['company_id']) {
+				return $RES->withJSON([
+					'data' => null,
+					'meta' => [ 'note' => 'Invalid License [CAO-125]' ]
+				], 403);
+			}
 		}
 
 		session_start();
