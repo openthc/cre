@@ -9,17 +9,18 @@ namespace OpenTHC\CRE\Middleware\Auth;
 
 class Token extends \OpenTHC\Middleware\Base
 {
-    /**
+	/**
 	 *
 	 */
 	public function __invoke($REQ, $RES, $NMW)
 	{
-        // Authorization key
-		if ( ! preg_match('/Bearer v2024\/([\w\-]{43})/', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
+		// Authorization key
+		$auth = $_SERVER['HTTP_AUTHORIZATION'];
+		if ( ! preg_match('/^Bearer v2024\/([\w\-]{43})$/', $auth, $m)) {
 			return $RES->withJson([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Bearer [MAT-021]' ],
-			], 400);
+			], 401);
 		}
 
         $token = $m[1];
@@ -28,7 +29,7 @@ class Token extends \OpenTHC\Middleware\Base
             return $RES->withJson([
 				'data' => null,
 				'meta' => [ 'note' => 'Expired Bearer [MAT-030]' ],
-			], 400);
+			], 401);
         }
 
         $session = json_decode($session);
@@ -36,21 +37,32 @@ class Token extends \OpenTHC\Middleware\Base
             return $RES->withJson([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Contact [MAT-038]' ],
-			], 400);
+			], 401);
         }
         if (empty($session->Company)) {
             return $RES->withJson([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Company [MAT-044]' ],
-			], 400);
+			], 401);
         }
         if (empty($session->License)) {
             return $RES->withJson([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid License [MAT-050]' ],
-			], 400);
+			], 401);
         }
 
-        return $RES->withStatus(200);
+		$_SESSION = [];
+		$_SESSION['Service'] = [ 'id' => $session->Service ];
+		$_SESSION['Contact'] = [ 'id' => $session->Contact ];
+		$_SESSION['Company'] = [ 'id' => $session->Company ];
+		$_SESSION['License'] = [ 'id' => $session->License ];
+
+		// $RES = $RES->withStatus(200);
+		// $REQ = $RES->withAttribute('Contact', $session->Contact);
+
+		$RES = $NMW($REQ, $RES);
+
+        return $RES;
     }
 }

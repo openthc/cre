@@ -21,7 +21,6 @@ class Auth extends \OpenTHC\Module\Base
 		// 	}
 		// 	// __exit_text($_GET);
 		// });
-		// ->add('Custom\Middleware\AutoCreate')
 		// ->add('OpenTHC\CRE\Middleware\Check_Authorization')
 
 		$a->post('/oauth', function($REQ, $RES, $ARG) {
@@ -43,7 +42,6 @@ class Auth extends \OpenTHC\Module\Base
 		});
 
 		$a->post('/open', 'OpenTHC\CRE\Controller\Auth\Open')
-			// ->add('Custom\Middleware\AutoCreate')
 			->add('OpenTHC\CRE\Middleware\Check_Authorization')
 		;
 

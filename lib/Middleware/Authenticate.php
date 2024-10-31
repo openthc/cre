@@ -9,32 +9,42 @@ namespace OpenTHC\CRE\Middleware;
 
 class Authenticate extends \OpenTHC\Middleware\Base
 {
+	use \OpenTHC\CRE\Traits\OpenAuthBox;
+
 	/**
 	 *
 	 */
 	public function __invoke($REQ, $RES, $NMW)
 	{
-		$this->evalJWT();
+		// Authorization key
+		if ( ! preg_match('/Bearer v2024\/([\w\-]{43})\/([\w\-]+)/', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
+			return $RES->withJson([
+				'data' => null,
+				'meta' => [ 'note' => 'Invalid Bearer [CMA-019]' ],
+			], 401);
+		}
+
+		$act = $this->open_auth_box($m[1], $m[2]);
 
 		if (empty($_SESSION['Service']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Not Authorized [LMA-015]' ]
-			], 403);
+				'meta' => [ 'note' => 'Not Authorized [CMA-015]' ]
+			], 401);
 		}
 
 		if (empty($_SESSION['Company']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Not Authorized [LMA-022]' ]
-			], 403);
+				'meta' => [ 'note' => 'Not Authorized [CMA-022]' ]
+			], 401);
 		}
 
 		if (empty($_SESSION['License']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
-				'meta' => [ 'note' => 'Not Authorized [LMA-029]' ]
-			], 403);
+				'meta' => [ 'note' => 'Not Authorized [CMA-029]' ]
+			], 401);
 		}
 
 		$RES = $NMW($REQ, $RES);
@@ -43,50 +53,4 @@ class Authenticate extends \OpenTHC\Middleware\Base
 
 	}
 
-	/**
-	 * Evaluate the JWT Parameters
-	 */
-	function evalJWT()
-	{
-		$jwt = null;
-
-		if ( ! empty($_GET['jwt'])) {
-			$jwt = $_GET['jwt'];
-		}
-		if ( ! empty($_SERVER['HTTP_OPENTHC_JWT'])) {
-			$jwt = $_SERVER['HTTP_OPENTHC_JWT'];
-		}
-		if ( ! empty($_SERVER['HTTP_AUTHORIZATION'])) {
-			if (preg_match('/^Bearer jwt:(.+)$/', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
-				$jwt = $m[1];
-			}
-		}
-
-		// Check JWT
-		if ( ! empty($jwt)) {
-
-			$chk = \OpenTHC\JWT::decode($jwt);
-
-			// Mostly Real Now
-			$_SESSION['Contact'] = [
-				'id' => $chk['sub'],
-			];
-			// Should have Matching Header
-			// $_SERVER['HTTP_OPENTHC_CONTACT']
-
-			$_SESSION['Company'] = [
-				'id' => $chk['company'],
-			];
-			// Should have Matching Header
-			// $_SERVER['HTTP_OPENTHC_COMPANY']
-
-			$_SESSION['License'] = [
-				'id' => $chk['license'],
-			];
-			// Should have Matching Header
-			// $_SERVER['HTTP_OPENTHC_LICENSE']
-
-		}
-
-	}
 }
