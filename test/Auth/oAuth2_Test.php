@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\B_Auth;
+namespace OpenTHC\CRE\Test\Auth;
 
-class B_oAuth2_Test extends \OpenTHC\CRE\Test\Base
+class oAuth2_Test extends \OpenTHC\CRE\Test\Base
 {
 	function test_oauth_open()
 	{
@@ -85,7 +85,7 @@ class B_oAuth2_Test extends \OpenTHC\CRE\Test\Base
 	{
 		$api = $this->_api();
 		$res = $api->post('/auth/open', array(
-			'client_id' => $_ENV['api-oauth-client-id'],
+			'client_id' => $_ENV['api-client-id'],
 			'redirect_uri' => 'OPENTHC_TEST_REDIRECT_URI',
 			'response_type' => 'code',
 			//'scope' => 'photos',

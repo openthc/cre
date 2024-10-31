@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\B_Auth;
+namespace OpenTHC\CRE\Test\Auth;
 
-class C_Session_Test extends \OpenTHC\CRE\Test\Base
+class Session_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_tmp_file = '/tmp/cre-test-auth-session.dat';
 

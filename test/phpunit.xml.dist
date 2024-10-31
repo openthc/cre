@@ -74,21 +74,21 @@
 	</php>
 
 	<testsuites>
-<!--
-		<testsuite name="All">
-			<directory>.</directory>
-		</testsuite>
--->
+
 		<testsuite name="System">
-			<directory>A_System</directory>
+			<directory>System</directory>
+		</testsuite>
+
+		<testsuite name="Unit">
+			<directory>Unit</directory>
 		</testsuite>
 
 		<testsuite name="Auth">
-			<directory>B_Auth</directory>
+			<directory>Auth</directory>
 		</testsuite>
 
 		<testsuite name="Core">
-			<directory>Core</directory>
+			<directory>C_Core</directory>
 		</testsuite>
 
 		<testsuite name="Propagate">
@@ -121,10 +121,6 @@
 
 		<testsuite name="B2C Transaction">
 			<directory>K_B2C</directory>
-		</testsuite>
-
-		<testsuite name="Unit">
-			<directory>Unit</directory>
 		</testsuite>
 
 	</testsuites>

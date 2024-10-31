@@ -31,6 +31,9 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 			// These are the minimum required in the payload
 			'pk' => $client_service_pk,
 			'ts' => time(),
+			'contact' => OPENTHC_TEST_CLIENT_CONTACT_0,
+			'company' => OPENTHC_TEST_CLIENT_COMPANY_0,
+			'license' => OPENTHC_TEST_CLIENT_LICENSE_0
 		]);
 		$crypt_box = \OpenTHC\Sodium::encrypt($plain_data, $client_service_sk, $server_pk);
 		$crypt_box = \OpenTHC\Sodium::b64encode($crypt_box);
@@ -38,9 +41,9 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 
 		$_SERVER = [
 			'HTTP_AUTHORIZATION' => sprintf('Bearer v2024/%s', $token),
-			'HTTP_OPENTHC_CONTACT' => OPENTHC_TEST_CLIENT_CONTACT_0,
-			'HTTP_OPENTHC_COMPANY' => OPENTHC_TEST_CLIENT_COMPANY_0,
-			'HTTP_OPENTHC_LICENSE' => OPENTHC_TEST_CLIENT_LICENSE_0,
+			// 'HTTP_OPENTHC_CONTACT_ID' => OPENTHC_TEST_CLIENT_CONTACT_0,
+			// 'HTTP_OPENTHC_COMPANY_ID' => OPENTHC_TEST_CLIENT_COMPANY_0,
+			// 'HTTP_OPENTHC_LICENSE_ID' => OPENTHC_TEST_CLIENT_LICENSE_0,
 		];
 		$x = $authorization($req, $res, function($req, $res) {
 			return $res->withStatus(200);
