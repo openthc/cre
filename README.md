@@ -58,7 +58,7 @@ More information is available at https://openthc.com/cre
 
 ## Identifiers
 
- * ULID - https://github.com/ulid/spec
+ * ULID/UUID - https://github.com/ulid/spec
  * No reliance on central authority (*BioTrack*, *METRC*, *LeafData*)
  * No reliance on expensive RFID (*METRC*)
  * No "Smart" numbers (*BioTrack*, *LeafData*)
@@ -71,4 +71,4 @@ More information is available at https://openthc.com/cre
 
 If you want to add new custom Services, Middleware or other code use the `./Custom` directory.
 All of your custom libraries would be in `./Custom/Service` or `./Custom/Middleware`.
-Then you can use them in the `./webroot/front.php` script.
+Then you can use them in the `./webroot/main.php` script.
