@@ -1,19 +1,31 @@
 <?php
 /**
  * Open a Session
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\Auth;
 
 class Open extends \OpenTHC\CRE\Controller\Base
 {
+	use \OpenTHC\CRE\Traits\OpenAuthBox;
+
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
-		// v2024 method
-		// $_SESSION is pre-populated by some Middleware (or Trait)
-		// And has Context set
+		// Works or Throws
+		try {
+			$act = $this->open_auth_box_header();
+		} catch (\Exception $e) {
+			return $RES->withJSON([
+				'data' => null,
+				'meta' => [ 'note' => $e->getMessage() ]
+			], 401);
+		}
 
-		// $data = $REQ->getAttribute('plain_data'); // from Check_Authorization
 		// $Contact = $_SERVER['HTTP_OPENTHC_CONTACT_ID'];
 		// if (empty($Contact)) {
 		// 	return $RES->withJson([

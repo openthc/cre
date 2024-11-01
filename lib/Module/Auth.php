@@ -14,15 +14,31 @@ class Auth extends \OpenTHC\Module\Base
 	 */
 	function __invoke($a)
 	{
-		// $a->get('', function($REQ, $RES, $ARG) {
-		// 	if ( ! empty($_GET['a'])) {
-		// 		// Decipher Token?
-		// 		// Start Session?
-		// 	}
-		// 	// __exit_text($_GET);
-		// });
-		// ->add('OpenTHC\CRE\Middleware\Check_Authorization')
+		$a->get('', function($REQ, $RES, $ARG) {
+			if ( ! empty($_GET['_'])) {
+				__exit_text('Decipher Token', 501);
+				// Decipher Token?
+				// Start Session?
+			}
+			$txt = <<<TEXT
+			OpenTHC Compliance Reporting Engine
 
+			Authenticate:
+			  - GET /auth?_={token}
+			  - GET /auth/open (does SSO)
+			  - POST /auth with Authorization Header
+			TEXT;
+			__exit_text($txt);
+		});
+
+		$a->get('/open', function($REQ, $RES, $ARG) {
+			__exit_text('Should Redirect to SSO', 501);
+		});
+
+		// POST to Open
+		$a->post('/open', 'OpenTHC\CRE\Controller\Auth\Open');
+
+		// oAuth Back?
 		$a->post('/oauth', function($REQ, $RES, $ARG) {
 
 			$cfg = \OpenTHC\Config::get('openthc/sso/origin');
@@ -41,40 +57,12 @@ class Auth extends \OpenTHC\Module\Base
 
 		});
 
-		$a->post('/open', 'OpenTHC\CRE\Controller\Auth\Open')
-			->add('OpenTHC\CRE\Middleware\Check_Authorization')
-		;
+		$a->get('/ping', 'OpenTHC\CRE\Controller\Auth\Ping')
+			// ->add('OpenTHC\CRE\Middleware\Auth\Token')
+			;
 
-		$a->get('/ping', function($REQ, $RES, $ARG) {
-
-			$ret = [];
-			// $RES->getAttribute('sid');
-
-			$ret_code = $RES->getStatusCode();
-			switch ($ret_code) {
-				case 200:
-					// OK
-					$ret = [
-						'data' => [
-							'sid' => $_SESSION['id'],
-							// '_SESSION' => $_SESSION,
-						],
-						'meta' => [],
-					];
-					break;
-				default:
-					$ret['data'] = null;
-					$ret['meta'] = [
-						'note' => 'Invalid Session State [LMA-054]'
-					];
-			}
-
-			return $RES->withJSON($ret, $ret_code);
-
-		})
-			->add('OpenTHC\CRE\Middleware\Auth\Token')
-		;
-
-		$a->post('/shut', 'OpenTHC\Controller\Auth\Shut');
+		// Destroy Session
+		$a->get('/shut', 'OpenTHC\CRE\Controller\Auth\Shut');
+		$a->post('/shut', 'OpenTHC\CRE\Controller\Auth\Shut');
 	}
 }
