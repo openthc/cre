@@ -24,7 +24,7 @@ function _dbc() : \Edoceo\Radix\DB\SQL
 {
 	static $dbc;
 	if (empty($dbc)) {
-		$cfg = \OpenTHC\Config::get('database');
+		$cfg = \OpenTHC\Config::get('database/cre');
 		$dsn = sprintf('pgsql:application_name=openthc-cre;host=%s;dbname=%s', $cfg['hostname'], $cfg['database']);
 		$dbc = new \Edoceo\Radix\DB\SQL($dsn, $cfg['username'], $cfg['password']);
 	}
