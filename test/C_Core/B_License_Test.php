@@ -14,7 +14,7 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 	}
 
 
@@ -43,10 +43,10 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base
 	function test_create_as_root()
 	{
 		// Root Connection
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_0, OPENTHC_TEST_CLIENT_COMPANY_0, OPENTHC_TEST_CLIENT_LICENSE_0);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']);
 
 		$res = $this->_post('/license', [
-			'company_id' => OPENTHC_TEST_CLIENT_COMPANY_A,
+			'company_id' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'name' => 'UNITTEST License CREATE',
 			'type' => 'Grower',
 		]);
@@ -78,7 +78,7 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->httpClient->get('/license/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get(sprintf('/license/%s', OPENTHC_TEST_CLIENT_LICENSE_0));
+		$res = $this->httpClient->get(sprintf('/license/%s', $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']));
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 		$this->assertEquals('-system-', $res['data']['name']);
@@ -94,12 +94,12 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_update_as_root()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_0, OPENTHC_TEST_CLIENT_COMPANY_0, OPENTHC_TEST_CLIENT_LICENSE_0);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']);
 
 		$obj = $this->_data_stash_get();
 
 		$res = $this->_post('/license/' . $obj['id'], [
-			'company_id' => OPENTHC_TEST_CLIENT_COMPANY_A,
+			'company_id' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'name' => 'UNITTEST License CREATE-UPDATE',
 		]);
 
@@ -117,7 +117,7 @@ class B_License_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_delete_as_root()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_0, OPENTHC_TEST_CLIENT_COMPANY_0, OPENTHC_TEST_CLIENT_LICENSE_0);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']);
 
 		$obj = $this->_data_stash_get();
 

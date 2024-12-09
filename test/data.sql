@@ -48,6 +48,9 @@ INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('010PENTHC0T
 INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('010PENTHC0TEST0SERV1CE000B', '010PENTHC0TEST0C0MPANY000B', 'TEST SERVICE B', 'test-service-b-public', 'test-service-b-secret');
 INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('010PENTHC0TEST0SERV1CE000C', '010PENTHC0TEST0C0MPANY000C', 'TEST SERVICE C', 'test-service-c-public', 'test-service-c-secret');
 
+INSERT INTO auth_service (id, company_id, stat, name, code, hash)
+        VALUES ('010PENTHC0SERV1CE000000CRE', '010PENTHC0C0MPANY000000000', 200, 'demo CRE', 'cre.openthc.example', 'SK/cre.openthc.example');
+
 DELETE FROM section WHERE name LIKE 'UNITTEST%';
 DELETE FROM variety WHERE name LIKE 'UNITTEST%';
 DELETE FROM product WHERE name LIKE 'UNITTEST%';

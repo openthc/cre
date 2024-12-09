@@ -11,7 +11,7 @@ class Config_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_config()
 	{
-		$cfg = \OpenTHC\Config::get('database');
+		$cfg = \OpenTHC\Config::get('database/cre');
 		$this->assertNotEmpty($cfg, 'Missing Database Config');
 		$this->assertIsArray($cfg);
 		$this->assertArrayHasKey('hostname', $cfg);

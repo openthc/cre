@@ -17,9 +17,9 @@ class Middleware_Auth_Token_Test extends \OpenTHC\Test\Base
 			return new class {
 				public function get($x) {
 					return json_encode([
-						'Contact' => OPENTHC_TEST_CLIENT_CONTACT_0,
-						'Company' => OPENTHC_TEST_CLIENT_COMPANY_0,
-						'License' => OPENTHC_TEST_CLIENT_LICENSE_0,
+						'Contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
+						'Company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
+						'License' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
 					]);
 				}
 			};

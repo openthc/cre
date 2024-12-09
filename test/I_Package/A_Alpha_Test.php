@@ -40,7 +40,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	public function test_access_auth()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$res = $this->httpClient->get('/inventory');
 		$this->assertValidResponse($res);
@@ -52,7 +52,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_create()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$l0 = $this->find_random_inventory();
 		$p0 = $this->find_random_product();
@@ -74,7 +74,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_convert()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$l0 = $this->find_random_inventory();
 		$p0 = $this->find_random_product();
@@ -99,7 +99,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->httpClient->delete('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 		$res = $this->httpClient->delete('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
@@ -109,7 +109,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_search()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$res = $this->httpClient->get('/inventory');
 		$this->assertValidResponse($res);
@@ -118,7 +118,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_single_404()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$res = $this->httpClient->get('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 404);
@@ -126,7 +126,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_update()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$l0 = $this->find_random_inventory();
 		$l0['qty'] = floatval($l0['qty']);

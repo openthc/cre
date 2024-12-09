@@ -23,20 +23,19 @@
 	verbose="false"
 	>
 
-	<coverage />
-
 	<php>
 
-		<const name="OPENTHC_TEST_ORIGIN" value="https://cre.openthc.example.com" />
+		<env name="OPENTHC_TEST_ORIGIN" value="https://cre.openthc.example.com" />
 
 		<!-- If defined, it will spew debug -->
-		<!-- <const name="OPENTHC_TEST_HTTP_DEBUG" value="0" /> -->
+		<!-- <env name="OPENTHC_TEST_HTTP_DEBUG" value="0" /> -->
 
-		<!-- export OPENTHC_TEST_SERVICE_ID="010PENTHC0TEST0SERV1CE000A"
-		# export OPENTHC_TEST_SERVICE_ID="010PENTHCX0000SVC000000APP" -->
+		<!-- test accounts -->
+		<env name="OPENTHC_TEST_SERVICE_ID" value="010PENTHC0SERV1CE000000000" />
+		<env name="OPENTHC_TEST_CONTACT_ID" value="010PENTHC0C0NTACT000000000" />
+		<env name="OPENTHC_TEST_COMPANY_ID" value="010PENTHC0C0MPANY000000000" />
+		<env name="OPENTHC_TEST_LICENSE_ID" value="010PENTHC0L1CNSE0000000000" />
 
-
-		<!-- @todo these should be moved to CONST -->
 		<!-- root/system accounts -->
 		<env name="OPENTHC_TEST_CLIENT_SERVICE_0" value="010PENTHC0SERV1CE000000000" />
 		<env name="OPENTHC_TEST_CLIENT_CONTACT_0" value="010PENTHC0C0NTACT000000000" />
@@ -44,32 +43,33 @@
 		<env name="OPENTHC_TEST_CLIENT_LICENSE_0" value="010PENTHC0L1CNSE0000000000" />
 
 		<env name="OPENTHC_TEST_CLIENT_SERVICE_A" value="010PENTHC0TEST0SERV1CE000A" />
-		<env name="OPENTHC_TEST_CLIENT_SERVICE_B" value="010PENTHC0TEST0SERV1CE000B" />
-		<env name="OPENTHC_TEST_CLIENT_SERVICE_C" value="010PENTHC0TEST0SERV1CE000C" />
 
 		<!-- Farmer / Grower / Producer -->
 		<env name="OPENTHC_TEST_CLIENT_CONTACT_A" value="010PENTHC0TEST0C0NTACT000A" />
 		<env name="OPENTHC_TEST_CLIENT_COMPANY_A" value="010PENTHC0TEST0C0MPANY000A" />
 		<env name="OPENTHC_TEST_CLIENT_LICENSE_A" value="010PENTHC0TEST0L1CENSE000A" />
-		<env name="OPENTHC_TEST_CLIENT_LICENSE_A-secret" value="" />
+		<env name="OPENTHC_TEST_CLIENT_LICENSE_A_SECRET" value="" />
 
 		<!-- Processor / Manufacturer / Distributor -->
+		<env name="OPENTHC_TEST_CLIENT_SERVICE_B" value="010PENTHC0TEST0SERV1CE000B" />
 		<env name="OPENTHC_TEST_CLIENT_CONTACT_B" value="010PENTHC0TEST0C0NTACT000B" />
 		<env name="OPENTHC_TEST_CLIENT_COMPANY_B" value="010PENTHC0TEST0C0MPANY000B" />
 		<env name="OPENTHC_TEST_CLIENT_LICENSE_B" value="010PENTHC0TEST0L1CENSE000B" />
-		<env name="OPENTHC_TEST_CLIENT_LICENSE_B-secret" value="" />
+		<env name="OPENTHC_TEST_CLIENT_LICENSE_B_SECRET" value="" />
 
 		<!-- Laboratory -->
+		<env name="OPENTHC_TEST_CLIENT_SERVICE_C" value="010PENTHC0TEST0SERV1CE000C" />
 		<env name="OPENTHC_TEST_CLIENT_CONTACT_C" value="010PENTHC0TEST0C0NTACT000E" />
 		<env name="OPENTHC_TEST_CLIENT_COMPANY_C" value="010PENTHC0TEST0C0MPANY000C" />
 		<env name="OPENTHC_TEST_CLIENT_LICENSE_C" value="010PENTHC0TEST0L1CENSE000C" />
-		<env name="OPENTHC_TEST_CLIENT_LICENSE_C-secret" value="" />
+		<env name="OPENTHC_TEST_CLIENT_LICENSE_C_SECRET" value="" />
 
 		<!-- Retail / Dispensary -->
-		<env name="api-contact-d" value="010PENTHC0TEST0C0NTACT000G" />
-		<env name="api-company-d" value="010PENTHC0TEST0C0MPANY000D" />
-		<env name="api-license-d" value="010PENTHC0TEST0L1CENSE000D" />
-		<env name="api-license-d-secret" value="" />
+		<env name="OPENTHC_TEST_CLIENT_SERVICE_D" value="010PENTHC0TEST0SERV1CE000D" />
+		<env name="OPENTHC_TEST_CLIENT_CONTACT_D" value="010PENTHC0TEST0C0NTACT000G" />
+		<env name="OPENTHC_TEST_CLIENT_COMPANY_D" value="010PENTHC0TEST0C0MPANY000D" />
+		<env name="OPENTHC_TEST_CLIENT_LICENSE_D" value="010PENTHC0TEST0L1CENSE000D" />
+		<env name="OPENTHC_TEST_CLIENT_LICENSE_D_SECRET" value="" />
 
 	</php>
 
@@ -124,5 +124,7 @@
 		</testsuite>
 
 	</testsuites>
+
+	<coverage />
 
 </phpunit>

@@ -28,7 +28,7 @@ class Base extends \OpenTHC\Test\Base {
 	{
 		// create our http client (Guzzle)
 		$opt = array(
-			'base_uri' => OPENTHC_TEST_ORIGIN,
+			'base_uri' => $_ENV['OPENTHC_TEST_ORIGIN'],
 			'allow_redirects' => false,
 			'debug' => $_ENV['debug-http'],
 			'request.options' => array(
@@ -43,6 +43,53 @@ class Base extends \OpenTHC\Test\Base {
 		$c = new \GuzzleHttp\Client($opt);
 
 		return $c;
+	}
+
+	/**
+	 *
+	 */
+	protected function make_bearer_token($cfg=[])
+	{
+		$client_pk = \OpenTHC\Config::get('openthc/cre/public');
+		$client_sk = \OpenTHC\Config::get('openthc/cre/secret');
+		$server_pk = $client_pk;
+
+		$def = [
+			'pk' => $client_pk,
+			'ts' => time(),
+			'service' => $_ENV['OPENTHC_TEST_SERVICE_ID'],
+			'company' => $_ENV['OPENTHC_TEST_COMPANY_ID'],
+			'contact' => $_ENV['OPENTHC_TEST_CONTACT_ID'],
+			'license' => $_ENV['OPENTHC_TEST_LICENSE_ID'],
+		];
+
+		$arg = array_merge($def, $cfg);
+
+		$plain_data = json_encode($arg);
+		$crypt_box = \OpenTHC\Sodium::encrypt($plain_data, $client_sk, $server_pk);
+		$crypt_box = \OpenTHC\Sodium::b64encode($crypt_box);
+
+		return sprintf('Bearer v2024/%s/%s', $client_pk, $crypt_box);
+	}
+
+	protected function auth($ct, $cy, $li)
+	{
+		$tok = $this->make_bearer_token([
+			'contact' => $ct, // $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $cy, // $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $li, // $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $this->httpClient->post('/auth/open', [
+			'headers' => [
+				'Authorization' => $tok,
+			],
+		]);
+
+		$res = $this->assertValidResponse($res);
+
+		return $res['data']['sid'];
+
 	}
 
 	/**
@@ -88,42 +135,21 @@ class Base extends \OpenTHC\Test\Base {
 		$this->httpClient = $this->_api();
 	}
 
-
-	function assertValidResponse($res, $code_expect=200, $type_expect=null, $dump=null) {
-
-		$ret = parent::assertValidResponse($res, $code_expect, $type_expect, $dump);
-
-		switch ($type_expect) {
-		case 'application/json':
-			$this->assertIsArray($ret);
-			$this->assertArrayHasKey('data', $ret);
-			$this->assertArrayHasKey('meta', $ret);
-			$this->assertArrayNotHasKey('status', $ret);
-			$this->assertArrayNotHasKey('result', $ret);
-			break;
-		}
-
-
-		return $ret;
-
-	}
-
-
 	/**
 	*/
-	protected function auth(string $p = null, string $c = null, string $l = null)
-	{
-		$res = $this->httpClient->post('/auth/open', $body = [
-			'form_params' => [
-				'service' => $p ?: $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
-				'company' => $c ?: $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
-				'license' => $l ?: $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
-			],
-		]);
+	// protected function auth(string $p = null, string $c = null, string $l = null)
+	// {
+	// 	$res = $this->httpClient->post('/auth/open', $body = [
+	// 		'form_params' => [
+	// 			'service' => $p ?: $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+	// 			'company' => $c ?: $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+	// 			'license' => $l ?: $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+	// 		],
+	// 	]);
 
-		$this->assertValidResponse($res);
+	// 	$this->assertValidResponse($res);
 
-	}
+	// }
 
 	function find_random_crop($c=1)
 	{

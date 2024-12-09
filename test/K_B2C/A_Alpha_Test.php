@@ -12,7 +12,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_C, $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['api-company-d'], $_ENV['api-license-d']);
 	}
 
 	/**

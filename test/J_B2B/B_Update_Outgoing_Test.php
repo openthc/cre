@@ -14,16 +14,16 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_update_deliver_g_to_p()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		// Now Create a G_TO_P Transfer
 		$res = $this->_post($this->_url_path, [
-			'license_id_target' => OPENTHC_TEST_CLIENT_LICENSE_B,
+			'license_id_target' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => OPENTHC_TEST_CLIENT_CONTACT_A,
+				'id' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
 			]
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -78,7 +78,7 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 		// 	'arrive' => date(\DateTime::RFC3339, time() + 86400),
 		// 	'method' => 'deliver', // deliver, pick-up, carrier
 		// 	'contact' => [
-		// 		'id' => OPENTHC_TEST_CLIENT_CONTACT_A,
+		// 		'id' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
 		// 	]
 		// ]);
 
@@ -114,7 +114,7 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_update_deliver_p_to_r()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		// Now Create a P_TO_R Transfer
 		$res = $this->_post($this->_url_path, [
@@ -123,7 +123,7 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => OPENTHC_TEST_CLIENT_CONTACT_B,
+				'id' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
 			]
 		]);
 		$res = $this->assertValidResponse($res, 201);
@@ -170,7 +170,7 @@ class B_Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 		// 	'arrive' => date(\DateTime::RFC3339, time() + 86400),
 		// 	'method' => 'deliver', // deliver, pick-up, carrier
 		// 	'contact' => [
-		// 		'id' => OPENTHC_TEST_CLIENT_CONTACT_A,
+		// 		'id' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
 		// 	]
 		// ]);
 

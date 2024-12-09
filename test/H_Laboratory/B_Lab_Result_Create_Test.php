@@ -17,7 +17,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_sample()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$res = $this->httpClient->get('/inventory');
 		$res = $this->assertValidResponse($res);
@@ -34,7 +34,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
 			'contact' => [
-				'id' => OPENTHC_TEST_CLIENT_CONTACT_A,
+				'id' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
 			]
 		]);
 

@@ -10,7 +10,7 @@ class Raw_Lot extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-g0'], $_ENV['api-license-g0']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['api-company-g0'], $_ENV['api-license-g0']);
 	}
 
 	function test_raw_inventory()

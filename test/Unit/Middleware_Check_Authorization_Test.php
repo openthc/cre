@@ -31,9 +31,9 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 			// These are the minimum required in the payload
 			'pk' => $client_service_pk,
 			'ts' => time(),
-			'contact' => OPENTHC_TEST_CLIENT_CONTACT_0,
-			'company' => OPENTHC_TEST_CLIENT_COMPANY_0,
-			'license' => OPENTHC_TEST_CLIENT_LICENSE_0
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']
 		]);
 		$crypt_box = \OpenTHC\Sodium::encrypt($plain_data, $client_service_sk, $server_pk);
 		$crypt_box = \OpenTHC\Sodium::b64encode($crypt_box);

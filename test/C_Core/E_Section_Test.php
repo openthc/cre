@@ -14,7 +14,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 	}
 
 	public function test_public_read()
@@ -205,7 +205,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_g()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 
 		$name = sprintf('UNITTEST Section-G CREATE %06x', $this->_pid);
 
@@ -221,7 +221,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_p()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
 
 		$name = sprintf('UNITTEST Section-P CREATE %06x', $this->_pid);
 
@@ -236,7 +236,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_l()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_C, OPENTHC_TEST_CLIENT_LICENSE_C);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C']);
 
 		$name = sprintf('UNITTEST Section-L CREATE %06x', $this->_pid);
 
@@ -251,7 +251,7 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_r()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_D'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
 
 		$name = sprintf('UNITTEST Section-R CREATE %06x', $this->_pid);
 

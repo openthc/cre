@@ -14,7 +14,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, OPENTHC_TEST_CLIENT_COMPANY_A, OPENTHC_TEST_CLIENT_LICENSE_A);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
 	}
 
 	public function test_public_read()
@@ -65,7 +65,7 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 		// Create Duplicate Variety under different license
 		// Reset Auth
 		$this->httpClient = $this->_api();
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_B, OPENTHC_TEST_CLIENT_COMPANY_B, OPENTHC_TEST_CLIENT_LICENSE_B);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
 
 		$res = $this->_post('/variety', [
 			'name' => $name,

@@ -23,44 +23,59 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		 * Unauthenticated Tests
 		 */
 		$res = $this->httpClient->get('/auth');
-		$this->assertEquals(404, $res->getStatusCode());
-		// $this->assertValidResponse($res, 404);
+		$res = $this->assertValidResponse($res, 200, 'text/plain');
 
+		// @todo Should Redirect to SSO
 		$res = $this->httpClient->get('/auth/open');
-		$this->assertValidResponse($res, 405);
+		$res = $this->assertValidResponse($res, 501, 'text/plain');
 
 		$res = $this->httpClient->post('/auth/open');
 		$res = $this->assertValidResponse($res, 401);
 		$this->assertIsArray($res['meta']);
 		$this->assertArrayHasKey('note', $res['meta']);
-		$this->assertEquals('Invalid Bearer [MCA-019]', $res['meta']['note']);
+		$this->assertEquals('Invalid Bearer [OAB-017]', $res['meta']['note']);
 
 		$res = $this->httpClient->get('/auth/ping');
-		$this->assertValidResponse($res, 401);
+		$res = $this->assertValidResponse($res, 401);
+		$this->assertIsArray($res['meta']);
+		$this->assertArrayHasKey('note', $res['meta']);
+		$this->assertEquals('Invalid Bearer [LMA-068]', $res['meta']['note']);
 
 		$res = $this->httpClient->post('/auth/ping');
-		$this->assertValidResponse($res, 405);
+		$res = $this->assertValidResponse($res, 405);
+		$this->assertEquals('HTTP Method Not Allowed', $res['meta']['note']);
 
 		$res = $this->httpClient->get('/auth/shut');
-		$this->assertValidResponse($res, 405);
+		$res = $this->assertValidResponse($res, 401);
+		$this->assertEquals('Invalid Bearer [CAS-021]', $res['meta']['note']);
+		// var_dump($res);
 
 		$res = $this->httpClient->post('/auth/shut');
-		$this->assertValidResponse($res, 200);
+		$res = $this->assertValidResponse($res, 401);
+		$this->assertEquals('Invalid Bearer [CAS-021]', $res['meta']['note']);
+		// var_dump($res);
 
 	}
 
 	public function test_open_fail() : void
 	{
 		// Fail
-		$res = $this->_post('/auth/open', [
-			'service' => 'garbage-data',
-			'company' => 'garbage-data',
-			'license' => 'garbage-data',
-		]);
-
+		$res = $this->httpClient->post('/auth/open');
 		$res = $this->assertValidResponse($res, 401);
+		$this->assertEquals('Invalid Bearer [OAB-017]', $res['meta']['note']);
 
-		$this->assertEquals('Invalid Bearer [MCA-019]', $res['meta']['note']);
+		$res = $this->httpClient->get('/auth/ping');
+		$res = $this->assertValidResponse($res, 401);
+		$this->assertEquals('Invalid Bearer [LMA-068]', $res['meta']['note']);
+
+		$res = $this->httpClient->post('/auth/shut');
+		$res = $this->assertValidResponse($res, 401);
+		$this->assertEquals('Invalid Bearer [CAS-021]', $res['meta']['note']);
+
+		$res = $this->httpClient->get('/company/search');
+		$res = $this->assertValidResponse($res, 401);
+		$this->assertEquals('Invalid Bearer [CMA-019]', $res['meta']['note']);
+
 	}
 
 	/**
@@ -71,10 +86,10 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	{
 		// TEST COMPANY A
 		$arg = [
-			'service' => OPENTHC_TEST_SERVICE_ID,
-			'company' => OPENTHC_TEST_COMPANY_ID,
-			'contact' => OPENTHC_TEST_CONTACT_ID,
-			// 'license' => OPENTHC_TEST_LICENSE_ID,
+			'service' => $_ENV['OPENTHC_TEST_SERVICE_ID'],
+			'company' => $_ENV['OPENTHC_TEST_COMPANY_ID'],
+			'contact' => $_ENV['OPENTHC_TEST_CONTACT_ID'],
+			// 'license' => $_ENV['OPENTHC_TEST_LICENSE_ID'],
 		];
 		$res = $this->_post('/auth/open', $arg);
 		$res = $this->assertValidResponse($res);
@@ -83,17 +98,18 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	}
 
 	/**
-	 * This test will get a 400 response because Company and License don't match
+	 * This test will get a 401 response because Company and License don't match
 	 * @todo Move to auth_box
 	 */
 	function x_test_open_fail_company_license() : void
 	{
+		// $box =
 		$res = $this->_post('/auth/open', [
-			'service' => OPENTHC_TEST_CLIENT_SERVICE_A,
-			'company' => OPENTHC_TEST_CLIENT_COMPANY_A,
-			'license' => OPENTHC_TEST_CLIENT_LICENSE_C
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C']
 		]);
-		$res = $this->assertValidResponse($res, 403);
+		$res = $this->assertValidResponse($res, 401);
 
 		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['note']);
 	}
@@ -103,40 +119,23 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_open_pass() : string
 	{
-		$client_service_pk = \OpenTHC\Config::get('openthc/cre/public');
-		$client_service_sk = \OpenTHC\Config::get('openthc/cre/secret');
-		$server_pk = $client_service_pk;
-
-		$plain_data = json_encode([
-			'pk' => $client_service_pk,
-			'ts' => time(),
-			'service' => OPENTHC_TEST_SERVICE_ID,
-			'company' => OPENTHC_TEST_COMPANY_ID,
-			'contact' => OPENTHC_TEST_CONTACT_ID,
-			'license' => OPENTHC_TEST_LICENSE_ID,
-		]);
-		$crypt_box = \OpenTHC\Sodium::encrypt($plain_data, $client_service_sk, $server_pk);
-		$crypt_box = \OpenTHC\Sodium::b64encode($crypt_box);
-		$token = sprintf('%s/%s', $client_service_pk, $crypt_box);
-		$bearer = sprintf('Bearer v2024/%s', $token);
+		$tok = $this->make_bearer_token();
 
 		$res = $this->httpClient->post('/auth/open', [
 			'headers' => [
-				'Authorization' => $bearer,
+				'Authorization' => $tok,
 			],
 		]);
 		$res = $this->assertValidResponse($res);
-		// var_dump($res);
 
-		$this->assertNotEmpty($res['data']['sid']);
-
+		$this->assertIsArray($res['data']);
+		$this->assertArrayHasKey('sid', $res['data']);
 		$sid = $res['data']['sid'];
-		$this->assertMatchesRegularExpression('/\w{26,256}/', $sid);
+		$this->assertMatchesRegularExpression('/^[\w\-]{26,256}$/', $sid);
 
 		return $sid;
 
 	}
-
 
 	/**
 	 * Test the full v2024 authentication handshake
@@ -151,6 +150,32 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		]);
 		$this->assertValidResponse($res);
 		// $this->assertEquals(200, $res0->getStatusCode());
+	}
+
+	/**
+	 * Destroy Session
+	 * @depends test_open_pass
+	 */
+	function test_auth_shut(string $sid) : void
+	{
+		$this->assertNotEmpty($sid);
+
+		// Ping It, should fail
+		$res = $this->httpClient->get('/auth/shut', [
+			'headers' => [
+				'Authorization' => sprintf('Bearer v2024/%s', $sid),
+			],
+		]);
+		$res = $this->assertValidResponse($res);
+		// var_dump($res);
+		$this->assertEmpty($res['data']['sid']);
+
+		$res = $this->httpClient->get('/auth/ping', [
+			'headers' => [
+				'Authorization' => sprintf('Bearer v2024/%s', $sid),
+			],
+		]);
+		$res = $this->assertValidResponse($res, 401);
 	}
 
 }
