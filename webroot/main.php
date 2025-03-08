@@ -43,16 +43,19 @@ $con['Redis'] = function($c) {
 
 // Authentication
 $app->group('/auth', 'OpenTHC\CRE\Module\Auth')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
+
+
+// Browse Shim
+$app->group('/browse', 'OpenTHC\CRE\Module\Browse');
+$app->get('/search', 'OpenTHC\CRE\Controller\Search');
 
 
 // Global Company
 $app->group('/company', 'OpenTHC\CRE\Module\Company')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
-	// ->add('OpenTHC\CRE\Middleware\Authorize')
+	->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -60,7 +63,6 @@ $app->group('/company', 'OpenTHC\CRE\Module\Company')
 $app->group('/license', 'OpenTHC\CRE\Module\License')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -68,7 +70,6 @@ $app->group('/license', 'OpenTHC\CRE\Module\License')
 $app->group('/contact', 'OpenTHC\CRE\Module\Contact')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -81,7 +82,6 @@ $app->group('/product', 'OpenTHC\CRE\Module\Product')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -90,7 +90,6 @@ $app->group('/variety', 'OpenTHC\CRE\Module\Variety')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -99,7 +98,6 @@ $app->group('/section', 'OpenTHC\CRE\Module\Section')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -108,7 +106,6 @@ $app->group('/vehicle', 'OpenTHC\CRE\Module\Vehicle')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -117,7 +114,6 @@ $app->group('/inventory', 'OpenTHC\CRE\Module\Inventory')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -126,7 +122,6 @@ $app->group('/crop', 'OpenTHC\CRE\Module\Crop')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -135,7 +130,6 @@ $app->group('/crop-collect', 'OpenTHC\CRE\Module\CropCollect')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -144,7 +138,6 @@ $app->group('/lab', 'OpenTHC\CRE\Module\Lab')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -153,7 +146,6 @@ $app->group('/b2b', 'OpenTHC\CRE\Module\B2B')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
@@ -162,7 +154,6 @@ $app->group('/b2c', 'OpenTHC\CRE\Module\B2C')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
 	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
-	->add('OpenTHC\CRE\Middleware\Session')
 	;
 
 
