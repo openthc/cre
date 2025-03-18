@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\I_Package;
+namespace OpenTHC\CRE\Test\Inventory_Package;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
+class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	/**
 	 * Unauthenticated Tests

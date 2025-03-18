@@ -3,9 +3,9 @@
  * Collect Raw Materials and Inventory Directly
  */
 
-namespace Test\Crop_Collect;
+namespace OpenTHC\CRE\Test\Crop_Collect;
 
-class Raw_Lot extends \OpenTHC\CRE\Test\Base
+class Raw_Lot_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{

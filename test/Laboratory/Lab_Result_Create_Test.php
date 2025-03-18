@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\H_Laboratory;
+namespace OpenTHC\CRE\Test\Laboratory;
 
-class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
+class Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{

@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\H_Laboratory;
+namespace OpenTHC\CRE\Test\Laboratory;
 
-class C_Lab_Result_Update_Test extends \OpenTHC\CRE\Test\Base
+class Lab_Result_Update_Test extends \OpenTHC\CRE\Test\Base
 {
 	function test_update_result()
 	{

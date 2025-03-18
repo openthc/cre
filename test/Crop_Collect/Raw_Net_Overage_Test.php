@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\F_Crop_Collect;
+namespace OpenTHC\CRE\Test\Crop_Collect;
 
-class C_Raw_Net_Overage_Test extends \OpenTHC\CRE\Test\Base
+class Raw_Net_Overage_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{

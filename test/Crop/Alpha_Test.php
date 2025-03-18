@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\E_Crop;
+namespace OpenTHC\CRE\Test\Crop;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
+class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{

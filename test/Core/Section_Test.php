@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\C_Core;
+namespace OpenTHC\CRE\Test\Core;
 
-class E_Section_Test extends \OpenTHC\CRE\Test\Base
+class Section_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
 	{

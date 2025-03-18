@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\C_Core;
+namespace OpenTHC\CRE\Test\Core;
 
-class H_Vehicle_Test extends \OpenTHC\CRE\Test\Base
+class Vehicle_Test extends \OpenTHC\CRE\Test\Base
 {
 	private $_url_path = '/vehicle';
 

@@ -3,9 +3,9 @@
  * Make a bunch of different Product of different Types
  */
 
-namespace OpenTHC\CRE\Test\D_Propagate;
+namespace OpenTHC\CRE\Test\Inventory_Propagate;
 
-class D_Product_Type_Test extends \OpenTHC\CRE\Test\Base
+class Product_Type_Test extends \OpenTHC\CRE\Test\Base
 {
 
 	protected function setUp() : void

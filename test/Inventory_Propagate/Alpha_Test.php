@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\D_Propagate;
+namespace OpenTHC\CRE\Test\Inventory_Propagate;
 
-class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
+class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/inventory';
 

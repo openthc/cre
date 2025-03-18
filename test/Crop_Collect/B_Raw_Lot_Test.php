@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\F_Crop_Collect;
+namespace OpenTHC\CRE\Test\Crop_Collect;
 
 class B_Raw_Lot_Test extends \OpenTHC\CRE\Test\Base
 {

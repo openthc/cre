@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\J_B2B;
+namespace OpenTHC\CRE\Test\B2B;
 
-class C_Accept_Incoming_Test extends \OpenTHC\CRE\Test\Base
+class Accept_Incoming_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/b2b';
 

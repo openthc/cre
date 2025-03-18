@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Test\C_Core;
+namespace OpenTHC\CRE\Test\Core;
 
-class F_Variety_Test extends \OpenTHC\CRE\Test\Base
+class Variety_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
 	{
