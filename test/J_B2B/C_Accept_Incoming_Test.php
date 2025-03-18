@@ -10,7 +10,6 @@ namespace OpenTHC\CRE\Test\J_B2B;
 class C_Accept_Incoming_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/b2b';
-	protected $_tmp_file = '/tmp/unit-test-transfer.json';
 
 	function test_accept_g_to_p()
 	{
@@ -37,7 +36,7 @@ class C_Accept_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_accept_p_to_r()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
 
 		$Z = $this->find_random_section();
 

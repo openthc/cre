@@ -41,8 +41,8 @@ INSERT INTO auth_contact (id, username, password) VALUES ('010PENTHC0TEST0C0NTAC
 
 
 INSERT INTO service (id, company_id, hash, name) VALUES ('010PENTHC0TEST0SERV1CE000A', '010PENTHC0TEST0C0MPANY000A', '-', 'TEST SERVICE A');
-INSERT INTO service (id, company_id, hash, name) VALUES ('010PENTHC0TEST0SERV1CE000B', '010PENTHC0TEST0C0MPANY000A', '-', 'TEST SERVICE B');
-INSERT INTO service (id, company_id, hash, name) VALUES ('010PENTHC0TEST0SERV1CE000C', '010PENTHC0TEST0C0MPANY000A', '-', 'TEST SERVICE C');
+INSERT INTO service (id, company_id, hash, name) VALUES ('010PENTHC0TEST0SERV1CE000B', '010PENTHC0TEST0C0MPANY000B', '-', 'TEST SERVICE B');
+INSERT INTO service (id, company_id, hash, name) VALUES ('010PENTHC0TEST0SERV1CE000C', '010PENTHC0TEST0C0MPANY000C', '-', 'TEST SERVICE C');
 
 INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('010PENTHC0TEST0SERV1CE000A', '010PENTHC0TEST0C0MPANY000A', 'TEST SERVICE A', 'test-service-a-public', 'test-service-a-secret');
 INSERT INTO auth_service (id, company_id, name, code, hash) VALUES ('010PENTHC0TEST0SERV1CE000B', '010PENTHC0TEST0C0MPANY000B', 'TEST SERVICE B', 'test-service-b-public', 'test-service-b-secret');

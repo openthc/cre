@@ -5,7 +5,7 @@
 
 namespace OpenTHC\CRE\Test\Crop_Collect;
 
-class Raw_Net_Lot extends \OpenTHC\CRE\Test\Base
+class Raw_Net_Lot_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
 	{

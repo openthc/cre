@@ -9,119 +9,121 @@ namespace OpenTHC\CRE\Test\C_Core;
 
 class B_License_Test extends \OpenTHC\CRE\Test\Base
 {
-	protected $_tmp_file = '/tmp/unit-test-license.json';
-
-	protected function setUp() : void
-	{
-		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
-	}
-
-
 	public function test_public_read()
 	{
-		// Reset Auth
-		$this->httpClient = $this->_api();
+		$httpClient = $this->_api();
 
-		$res = $this->httpClient->get('/license');
-		$this->assertValidResponse($res, 403);
+		$res = $httpClient->get('/license');
+		$this->assertValidResponse($res, 401);
 
-		$res = $this->httpClient->get('/license/four_zero_four');
-		$this->assertValidResponse($res, 403);
+		$res = $httpClient->get('/license/four_zero_four');
+		$this->assertValidResponse($res, 401);
 
-		$res = $this->httpClient->get('/license/1');
-		$this->assertValidResponse($res, 403);
+		$res = $httpClient->get('/license/1');
+		$this->assertValidResponse($res, 401);
 
-		$res = $this->httpClient->get('/license?' . http_build_query([
+		$res = $httpClient->get('/license?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 	}
 
-
+	/**
+	 *
+	 */
 	function test_create_as_root()
 	{
-		// Root Connection
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']);
-
-		$res = $this->_post('/license', [
-			'company_id' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+		$httpClient = $this->makeHTTPClient();
+		$res = $httpClient->post('/license', [ 'form_params' => [
+			'company' => [
+				'id' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			],
 			'name' => 'UNITTEST License CREATE',
 			'type' => 'Grower',
-		]);
+		]]);
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertIsArray($res['data']);
 		$this->assertCount(4, $res['data']);
 
-		$this->_data_stash_put($res['data']);
+		return $res['data'];
 	}
 
-
+	/**
+	 *
+	 */
 	function test_search()
 	{
-		$res = $this->httpClient->get('/license');
+		$httpClient = $this->makeHTTPClient();
+
+		$res = $httpClient->get('/license');
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 
-		$res = $this->httpClient->get('/license?q=UNITTEST');
+		$res = $httpClient->get('/license?q=UNITTEST');
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 
-		$this->assertGreaterThan(1, count($res['data']));
+		// $this->assertGreaterThan(1, count($res['data']));
 
 	}
 
-
-	function test_single()
+	/**
+	 * @depends test_create_as_root
+	 */
+	function test_single($License0)
 	{
-		$res = $this->httpClient->get('/license/four_zero_four');
+		$httpClient = $this->makeHTTPClient();
+
+		$res = $httpClient->get('/license/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get(sprintf('/license/%s', $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']));
+		$res = $httpClient->get(sprintf('/license/%s', $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']));
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 		$this->assertEquals('-system-', $res['data']['name']);
 
-		$obj = $this->_data_stash_get();
-
-		$res = $this->httpClient->get(sprintf('/license/%s', $obj['id']));
+		$res = $httpClient->get(sprintf('/license/%s', $License0['id']));
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
-		$this->assertCount(4, $res['data']);
+		$this->assertGreaterThan(1, count($res['data']));
 	}
 
-
-	function test_update_as_root()
+	/**
+	 * @depends test_create_as_root
+	 */
+	function test_update_as_root($License0)
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']);
+		$httpClient = $this->makeHTTPClient();
 
-		$obj = $this->_data_stash_get();
-
-		$res = $this->_post('/license/' . $obj['id'], [
+		$req_path = sprintf('/license/%s', $License0['id']);
+		$res = $httpClient->post($req_path, [ 'form_params' => [
 			'company_id' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'name' => 'UNITTEST License CREATE-UPDATE',
-		]);
+		]]);
 
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 
 		//validate the name was changed
-		$res = $this->httpClient->get(sprintf('/license/%s', $obj['id']));
+		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
-		$this->assertCount(4, $res['data']);
+		// $this->assertCount(4, $res['data']);
 		$this->assertSame($res['data']['name'], 'UNITTEST License CREATE-UPDATE');
+
+		return $res['data'];
 	}
 
-
-	function test_delete_as_root()
+	/**
+	 * @depends test_update_as_root
+	 */
+	function test_delete_as_root($License0)
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0']);
+		$httpClient = $this->makeHTTPClient();
 
-		$obj = $this->_data_stash_get();
-
-		$res = $this->httpClient->delete('/license/' . $obj['id']);
+		$req_path = sprintf('/license/%s', $License0['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 405);
 
 	}

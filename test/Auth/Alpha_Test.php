@@ -74,7 +74,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 		$res = $this->httpClient->get('/company/search');
 		$res = $this->assertValidResponse($res, 401);
-		$this->assertEquals('Invalid Bearer [CMA-019]', $res['meta']['note']);
+		$this->assertEquals('Invalid Bearer [MAT-021]', $res['meta']['note']);
 
 	}
 
@@ -86,10 +86,10 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	{
 		// TEST COMPANY A
 		$arg = [
-			'service' => $_ENV['OPENTHC_TEST_SERVICE_ID'],
-			'company' => $_ENV['OPENTHC_TEST_COMPANY_ID'],
-			'contact' => $_ENV['OPENTHC_TEST_CONTACT_ID'],
-			// 'license' => $_ENV['OPENTHC_TEST_LICENSE_ID'],
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
+			// 'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
 		];
 		$res = $this->_post('/auth/open', $arg);
 		$res = $this->assertValidResponse($res);
@@ -119,8 +119,8 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_open_pass() : string
 	{
+		// Lower Level
 		$tok = $this->make_bearer_token();
-
 		$res = $this->httpClient->post('/auth/open', [
 			'headers' => [
 				'Authorization' => $tok,
@@ -176,6 +176,34 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 			],
 		]);
 		$res = $this->assertValidResponse($res, 401);
+	}
+
+	function test_auth_client() : void
+	{
+		$httpClientRoot = $this->makeHTTPClient();
+		$res = $httpClientRoot->get('/auth/ping');
+		$res = $this->assertValidResponse($res, 200);
+		// var_dump($res);
+		$this->assertIsArray($res);
+		$this->assertArrayHasKey('data', $res);
+		$this->assertArrayHasKey('sid', $res['data']);
+		$this->assertMatchesRegularExpression('/[\w\-]{43}/', $res['data']['sid']);
+
+
+		$cfg = [];
+		$cfg['service'] = $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'];
+		$cfg['contact'] = $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'];
+		$cfg['company'] = $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'];
+		$cfg['license'] = $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'];
+		$httpClientUser = $this->makeHTTPClient();
+		$res = $httpClientUser->get('/auth/ping');
+		$res = $this->assertValidResponse($res, 200);
+		// var_dump($res);
+		$this->assertIsArray($res);
+		$this->assertArrayHasKey('data', $res);
+		$this->assertArrayHasKey('sid', $res['data']);
+		$this->assertMatchesRegularExpression('/[\w\-]{43}/', $res['data']['sid']);
+
 	}
 
 }

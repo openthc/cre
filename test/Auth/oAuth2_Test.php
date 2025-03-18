@@ -85,8 +85,8 @@ class oAuth2_Test extends \OpenTHC\CRE\Test\Base
 	{
 		$api = $this->_api();
 		$res = $api->post('/auth/open', array(
-			'client_id' => $_ENV['api-client-id'],
-			'redirect_uri' => 'OPENTHC_TEST_REDIRECT_URI',
+			'client_id' => $_ENV[''],
+			'redirect_uri' => 'OPENTHC_TEST_CLIENT_SERVICE_A_REDIRECT_URI',
 			'response_type' => 'code',
 			//'scope' => 'photos',
 			//'state' => '1234zyx'
@@ -96,9 +96,9 @@ class oAuth2_Test extends \OpenTHC\CRE\Test\Base
 		// Code and State
 
 		$res = $api->post('/token', array(
-			'client_id' => 'OPENTHC_TEST_CLIENT_ID',
-			'client_secret' => 'OPENTHC_TEST_CLIENT_SECRET',
-			'redirect_uri' => 'OPENTHC_TEST_REDIRECT_URI',
+			'client_id' => 'OPENTHC_TEST_CLIENT_SERVICE_A',
+			'client_secret' => 'OPENTHC_TEST_CLIENT_SERVICE_A_SK',
+			'redirect_uri' => 'OPENTHC_TEST_CLIENT_SERVICE_A_REDIRECT_URI',
 			'grant_type' => 'authorization_code',
 			'code' => '',
 		));

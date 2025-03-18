@@ -11,20 +11,22 @@ class G_Product_Test extends \OpenTHC\CRE\Test\Base
 {
 	private $_url_path = '/product';
 
-	protected function setUp() : void
-	{
-		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
-	}
-
 	public function test_create()
 	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
 		$name = sprintf('UNITTEST Product CREATE %06x', $this->_pid);
 
-		$res = $this->_post($this->_url_path, [
+		$res = $httpClient->post('/product', [ 'form_params' => [
 			'name' => $name,
 			'type' => '019KAGVSC0C474J20SEWDM5XSJ',
-		]);
+			'uom' => 'g',
+		]]);
 
 		$chk = $this->assertValidResponse($res, 201);
 		// $this->assertNotEmpty($res->getHeaderLine('location'));
@@ -36,20 +38,29 @@ class G_Product_Test extends \OpenTHC\CRE\Test\Base
 
 		$this->assertIsArray($res['data']);
 
-		$obj = $res['data'];
-		$this->assertCount(3, $obj);
+		$Product0 = $res['data'];
+		$this->assertCount(3, $Product0);
 
-		$this->_data_stash_put($obj);
+		return $Product0;
 
 	}
 
-
-	public function test_search()
+	/**
+	 * @depends test_create
+	 */
+	public function test_search($Product0)
 	{
-		$res = $this->httpClient->get($this->_url_path);
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->get('/product');
 		$res = $this->assertValidResponse($res);
 
-		$res = $this->httpClient->get($this->_url_path . '?q=UNITTEST');
+		$res = $httpClient->get('/product?q=UNITTEST');
 		$res = $this->assertValidResponse($res);
 
 
@@ -57,69 +68,101 @@ class G_Product_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_single_404()
 	{
-
-		$res = $this->httpClient->get($this->_url_path . '/four_zero_four');
-		$this->assertValidResponse($res, 404);
-
-	}
-
-	public function test_single()
-	{
-		// Find Early One
-		$obj = $this->_data_stash_get();
-
-		$res = $this->httpClient->get('/product/' . $obj['id']);
-		$res = $this->assertValidResponse($res);
-
-		$this->assertIsArray($res['data']);
-	}
-
-
-	public function test_update()
-	{
-		$name = sprintf('UNITTEST Product UPDATE %06x', $this->_pid);
-		// Find Early One
-		$obj = $this->_data_stash_get();
-
-		$res = $this->_post(sprintf('/product/%s', $obj['id']), [
-			'name' => $name,
-			'type'=>'019KAGVSC0C474J20SEWDM5XSJ'
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
 		]);
 
-		$res = $this->assertValidResponse($res, 201);
-
-		$this->assertIsArray($res['data']);
-
-		$s0 = $res['data'];
-		$this->assertNotEmpty($s0['id']);
-		$this->assertEquals($name, $s0['name']);
-
-		// fetch and validate
-		$res = $this->httpClient->get(sprintf('/product/%s', $s0['id']));
-		$res = $this->assertValidResponse($res);
-
-		$this->assertIsArray($res['data']);
-		$this->assertEquals($name, $res['data']['name']);
+		$res = $httpClient->get('/product/four_zero_four');
+		$this->assertValidResponse($res, 404);
 
 	}
 
-	public function test_delete()
+	/**
+	 * @depends test_create
+	 */
+	public function test_single($Product0)
 	{
-		$res = $this->httpClient->delete($this->_url_path . '/four_zero_four');
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$req_path = sprintf('/product/%s', $Product0['id']);
+		$res = $httpClient->get($req_path);
+		$res = $this->assertValidResponse($res);
+		var_dump($res);
+
+		$this->assertIsArray($res['data']);
+	}
+
+	/**
+	 * @depends test_create
+	 */
+	public function test_update($Product0)
+	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$req_path = sprintf('/product/%s', $Product0['id']);
+
+		$Product0['name'] = sprintf('UNITTEST Product UPDATE %06x', $this->_pid);
+
+		$res = $httpClient->post($req_path, [ 'form_params' => [
+			'name' => $name,
+			'type'=>'019KAGVSC0C474J20SEWDM5XSJ'
+		]]);
+
+		$res = $this->assertValidResponse($res, 201);
+		$this->assertIsArray($res['data']);
+		$Product1 = $res['data'];
+		$this->assertNotEmpty($Product1['id']);
+		$this->assertEquals($Product0['name'], $Product1['name']);
+
+		// fetch and validate
+		$res = $httpClient->get($req_path);
+		$res = $this->assertValidResponse($res);
+		$this->assertIsArray($res['data']);
+		$Product1 = $res['data'];
+		$this->assertNotEmpty($Product1['id']);
+		$this->assertEquals($Product0['name'], $Product1['name']);
+
+	}
+
+	/**
+	 * @depends test_create
+	 */
+	public function test_delete($Product0)
+	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->delete('/product/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		// Find Early One
-		$obj = $this->_data_stash_get();
+		$req_path = sprintf('/product/%s', $Product0['id']);
 
 		// First call to Delete gives 202
-		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 202);
 
 		// Second Call should give 410
-		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 410);
 
-		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 423);
 
 	}

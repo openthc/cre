@@ -12,7 +12,7 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
 	}
 
 	/**
@@ -33,7 +33,8 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->assertValidResponse($res, 201);
 
 		// Add Item
-		$this->_post(sprintf('/b2c/%s', $res['data']['id']), [
+		$req_path = sprintf('/b2c/%s', $res['data']['id']);
+		$this->_post($req_path, [
 			'inventory_id' => $obj0['id'],
 			'qty' => 1,
 			'unit_price' => 12,
@@ -41,14 +42,16 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->assertValidResponse($res, 201);
 
 		// Add Item
-		$this->_post(sprintf('/b2c/%s', $res['data']['id']), [
+		$req_path = sprintf('/b2c/%s', $res['data']['id']);
+		$this->_post($req_path, [
 			'inventory_id' => $obj1['id'],
 			'qty' => 2,
 			'unit_price' => 23,
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
-		$res = $this->_post(sprintf('/b2c/%s/commit', $res['data']['id']), [
+		$req_path = sprintf('/b2c/%s/commit', $res['data']['id']);
+		$res = $this->_post($req_path, [
 			'action' => 'COMMIT',
 		]);
 		$res = $this->assertValidResponse($res);

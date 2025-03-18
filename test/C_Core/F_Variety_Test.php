@@ -9,37 +9,36 @@ namespace OpenTHC\CRE\Test\C_Core;
 
 class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 {
-	protected $_tmp_file = '/tmp/unit-test-variety.json';
-
-	protected function setUp() : void
-	{
-		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
-	}
-
 	public function test_public_read()
 	{
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
 		$res = $this->httpClient->get('/variety');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/variety/four_zero_four');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/variety/1');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/variety?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 	}
 
 	public function test_create()
 	{
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
 		$name = sprintf('UNITTEST Variety CREATE %06x', $this->_pid);
 
 		// Create Variety
@@ -51,9 +50,9 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 
 		$this->assertIsArray($res['data']);
 
-		$s0 = $res['data'];
-		$this->assertNotEmpty($s0['id']);
-		$this->assertEquals($name, $s0['name']);
+		$Variety0 = $res['data'];
+		$this->assertNotEmpty($Variety0['id']);
+		$this->assertEquals($name, $Variety0['name']);
 
 		// Create Duplicate Variety
 		$res = $this->_post('/variety', [
@@ -64,8 +63,12 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 
 		// Create Duplicate Variety under different license
 		// Reset Auth
-		$this->httpClient = $this->_api();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
 
 		$res = $this->_post('/variety', [
 			'name' => $name,
@@ -73,82 +76,111 @@ class F_Variety_Test extends \OpenTHC\CRE\Test\Base
 		]);
 		$res = $this->assertValidResponse($res, 201);
 
-		$this->_data_stash_put($s0);
+		return $Variety0;
+	}
+
+	/**
+	 * @depends test_create
+	 */
+	public function test_search($Variety0)
+	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->get('/variety?q=UNITTEST');
+		$res = $this->assertValidResponse($res);
+	}
+
+	/**
+	 * @depends test_create
+	 */
+	public function test_single($Variety0)
+	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->get('/variety/four_zero_four');
+		$res = $this->assertValidResponse($res, 404);
+
+		// Find Early One
+		$req_path = sprintf('/variety/%s', $Variety0['id']);
+		$res = $httpClient->get($req_path);
+		$res = $this->assertValidResponse($res);
+
+		$this->assertIsArray($res['data']);
 
 	}
 
 	/**
 	 * @depends test_create
 	 */
-	public function test_search($x)
+	public function test_update($Variety0)
 	{
-		$res = $this->httpClient->get('/variety?q=UNITTEST');
-		$res = $this->assertValidResponse($res);
-	}
-
-	public function test_single()
-	{
-		$res = $this->httpClient->get('/variety/four_zero_four');
-		$res = $this->assertValidResponse($res, 404);
-
-		// Find Early One
-		$obj = $this->_data_stash_get();
-
-		$res = $this->httpClient->get('/variety/' . $obj['id']);
-		$res = $this->assertValidResponse($res);
-
-		$this->assertIsArray($res['data']);
-
-	}
-
-	public function test_update()
-	{
-		$name = sprintf('UNITTEST Variety UPDATE %06x', $this->_pid);
-		// Find Early One
-		$obj = $this->_data_stash_get();
-		$url = sprintf('/variety/%s', $obj['id']);
-
-		$res = $this->_post($url, [
-			'name' => $name,
-			'type' => 'Hemp'
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
 		]);
 
-		$res = $this->assertValidResponse($res, 201);
+		$Variety0['name'] = sprintf('UNITTEST Variety UPDATE %06x', $this->_pid);
+		$req_path = sprintf('/variety/%s', $Variety0['id']);
 
+		$res = $httpClient->post($req_path, [ 'form_params' => [
+			'name' => $Variety0['name'],
+			'type' => 'Hemp'
+		]]);
+
+		// Check Response
+		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
+		$Variety1 = $res['data'];
+		$this->assertNotEmpty($Variety1['id']);
+		$this->assertEquals($Variety0['name'], $Variety1['name']);
 
-		$s0 = $res['data'];
-		$this->assertNotEmpty($s0['id']);
-		$this->assertEquals($name, $s0['name']);
-
-		// fetch and validate
-		$res = $this->httpClient->get($url);
+		// Fetch & Check Again
+		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
-
 		$this->assertIsArray($res['data']);
-		$this->assertEquals($name, $res['data']['name']);
+		$Variety1 = $res['data'];
+		$this->assertEquals($Variety0['name'], $Variety1['name']);
 	}
 
-	public function test_delete()
+	/**
+	 * @depends test_create
+	 */
+	public function test_delete($Variety0)
 	{
-		$res = $this->httpClient->delete('/variety/four_zero_four');
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->delete('/variety/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		// Find Early One
-		$obj = $this->_data_stash_get();
-
 		// First call to Delete gives 202
-		$res = $this->httpClient->delete('/variety/' . $obj['id']);
+		$req_path = sprintf('/variety/%s', $Variety0['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 202);
 
 		// Second Call should give 410
-		$res = $this->httpClient->delete('/variety/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 410);
 
-		$res = $this->httpClient->delete('/variety/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 423);
 
-		unlink($this->_tmp_file);
 	}
 
 }

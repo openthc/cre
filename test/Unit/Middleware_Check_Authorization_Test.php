@@ -25,7 +25,7 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 		// Credentials
 		$client_service_pk = \OpenTHC\Config::get('openthc/cre/public');
 		$client_service_sk = \OpenTHC\Config::get('openthc/cre/secret');
-		$server_pk = $client_service_pk; // Because b2b is making the request to b2b
+		$server_pk = $client_service_pk; // Because cre is making the request to cre
 
 		$plain_data = json_encode([
 			// These are the minimum required in the payload
@@ -49,7 +49,7 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 			return $res->withStatus(200);
 		});
 		$x->getBody()->rewind();
-		var_dump($x->getBody()->getContents());
+		// var_dump($x->getBody()->getContents());
 		$this->assertEquals(200, $x->getStatusCode());
 	}
 }

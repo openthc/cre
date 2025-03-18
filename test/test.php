@@ -1,7 +1,9 @@
 #!/usr/bin/php
 <?php
 /**
- * OpenTHC App Test
+ * OpenTHC CRE Test
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 require_once(dirname(__DIR__) . '/boot.php');
@@ -9,7 +11,7 @@ require_once(dirname(__DIR__) . '/boot.php');
 // $arg = \OpenTHC\Docopt::parse($doc, ?$argv=[]);
 // Parse CLI
 $doc = <<<DOC
-OpenTHC App Test
+OpenTHC CRE Test
 
 Usage:
 	test [options]
@@ -19,9 +21,9 @@ Usage:
 	test phplint
 
 Options:
-	--filter=<FILTER>           Some Filter
-	--phpunit-filter=<FILTER>   Some Filter for PHPUnit
-	--phpunit-filter=<FILTER>   Some Filter for PHPUnit
+	--filter=<F>             Some Filter
+	--phpunit-filter=<F>     Some Filter for PHPUnit
+	--phpunit-testcase=<T>   PHPUnit Testcase
 DOC;
 
 $res = Docopt::handle($doc, [
@@ -35,13 +37,23 @@ $cli_args = $res->args;
 // 	echo "\n";
 // 	exit(1);
 // }
-var_dump($cli_args);
+// var_dump($cli_args);
 // exit;
+if ('all' == $cli_args['<command>']) {
+	$cli_args['phplint'] = true;
+	$cli_args['phpstan'] = true;
+	$cli_args['phpunit'] = true;
+} else {
+	$cmd = $cli_args['<command>'];
+	$cli_args[$cmd] = true;
+	unset($cli_args['<command>']);
+}
+
 
 define('OPENTHC_TEST_OUTPUT_BASE', \OpenTHC\Test\Helper::output_path_init());
 
 
-// Call Linter?
+// PHPLint
 $tc = new \OpenTHC\Test\Facade\PHPLint([
 	'output' => OPENTHC_TEST_OUTPUT_BASE
 ]);
@@ -62,19 +74,18 @@ $tc = new \OpenTHC\Test\Facade\PHPLint([
 
 
 // PHPStan
-$tc = new OpenTHC\Test\Facade\PHPStan([
+$tc = new \OpenTHC\Test\Facade\PHPStan([
 	'output' => OPENTHC_TEST_OUTPUT_BASE
 ]);
-$res = $tc->execute();
-var_dump($res);
-
+// $res = $tc->execute();
+// var_dump($res);
 
 // Psalm/Psalter?
 
 
 // PHPUnit
 // $cfg = [];
-// $tc = new OpenTHC\Test\Facade\PHPUnit($cfg);
+// $tc = new \OpenTHC\Test\Facade\PHPUnit($cfg);
 // $res = $tc->execute();
 // var_dump($res);
 
@@ -94,21 +105,29 @@ foreach ($cfg_file_list as $f) {
 	}
 }
 // Filter?
-if ( ! empty($arg['--filter'])) {
-	$cfg['--filter'] = $arg['--filter'];
+if ( ! empty($cli_args['--filter'])) {
+	$cfg['--filter'] = $cli_args['--filter'];
+}
+if ( ! empty($cli_args['--phpunit-filter'])) {
+	$cfg['--filter'] = $cli_args['--phpunit-filter'];
+}
+if ( ! empty($cli_args['--phpunit-testsuite'])) {
+	$cfg['--testsuite'] = $cli_args['--phpunit-testsuite'];
 }
 $tc = new \OpenTHC\Test\Facade\PHPUnit($cfg);
 $res = $tc->execute();
 // var_dump($res);
-switch ($res) {
+switch ($res['code']) {
 case 0:
+case 200:
 	echo "\nTEST SUCCESS\n";
 	break;
 case 1:
-	echo "\nTEST FAILURE\n";
-	break;
 case 2:
-	echo "\nTEST FAILURE (ERRORS)\n";
+case 400:
+case 500:
+	echo "\nTEST FAILURE\n";
+	echo $res['data'];
 	break;
 default:
 	echo "\nTEST UNKNOWN ($res)\n";

@@ -14,7 +14,12 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 	}
 
 	function test_create()
@@ -37,8 +42,9 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertIsArray($res['data']);
 		$this->assertGreaterThan(1, count($res['data']));
 
-		$obj = $res['data'];
-		$this->_data_stash_put($obj);
+		$Inventory0 = $res['data'];
+
+		return $Inventory0;
 
 	}
 
@@ -62,7 +68,10 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	function test_search()
+	/**
+	 * @depends test_create
+	 */
+	function test_search($Inventory0)
 	{
 		$res = $this->httpClient->get($this->_url_path);
 		$res = $this->assertValidResponse($res);
@@ -83,7 +92,10 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->assertValidResponse($res, 404);
 	}
 
-	function test_single_200()
+	/**
+	 * @depends test_create
+	 */
+	function test_single_200($Inventory0)
 	{
 		$res = $this->httpClient->get($this->_url_path);
 		$res = $this->assertValidResponse($res);
@@ -104,18 +116,22 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	function x_test_update()
+	/**
+	 * @depends test_create
+	 */
+	function test_update($Inventory0)
 	{
-		$obj = $this->_data_stash_get();
-		$this->assertIsArray($obj);
+		$this->assertNotEmpty($Inventory0);
+		$this->assertIsArray($Inventory0);
 
-		$res = $this->httpClient->get($this->_url_path . '/' . $obj['id']);
+		$req_path = sprintf('/inventory/%s', $Inventory0['id']);
+		$res = $this->httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
 
 		$chk = $res['data'];
 		$this->assertCount(6, $chk);
 
-		$res = $this->httpClient->post($this->_url_path . '/' . $obj['id'], [
+		$res = $this->httpClient->post($req_path, [
 			'variety' => '',
 			'qty' => 9,
 		]);
@@ -184,5 +200,21 @@ class A_Alpha_Test extends \OpenTHC\CRE\Test\Base
 	// 	$this->assertTrue(false);
 	//
 	// }
+
+	/**
+	 * @depends test_create
+	 */
+	function test_finish($Inventory0)
+	{
+		$this->assertNotEmpty($Inventory0);
+	}
+
+	/**
+	 * @depends test_create
+	 */
+	function test_delete($Inventory0)
+	{
+		$this->assertNotEmpty($Inventory0);
+	}
 
 }

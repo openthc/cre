@@ -29,7 +29,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 
 		// Now Send as a Sample to a Laboratory through b2b_transfer
 		$res = $this->_post('/b2b', [
-			'license_id_target' => $_ENV['api-license-d'],
+			'license_id_target' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'deliver', // deliver, pick-up, carrier
@@ -75,7 +75,7 @@ class B_Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_result()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
 
 
 		$res = $this->httpClient->get('/b2b/incoming');

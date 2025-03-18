@@ -13,12 +13,30 @@ class Base extends \OpenTHC\Test\Base {
 
 	protected $type_expect = 'application/json';
 
-	protected $_tmp_file = '/tmp/test-data-pass.json';
-
 	function __construct($name = null, array $data = [], $dataName = '')
 	{
 		parent::__construct($name, $data, $dataName);
 
+	}
+
+	function makeHTTPClient($cfg=[])
+	{
+		$def = [
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
+		];
+		$cfg = array_merge($def, $cfg);
+		$sid = $this->auth($cfg);
+
+		$httpClient = $this->_api([
+			'headers' => [
+				'authorization' => sprintf('Bearer v2024/%s', $sid),
+			],
+		]);
+
+		return $httpClient;
 	}
 
 	/**
@@ -29,20 +47,11 @@ class Base extends \OpenTHC\Test\Base {
 		// create our http client (Guzzle)
 		$opt = array(
 			'base_uri' => $_ENV['OPENTHC_TEST_ORIGIN'],
-			'allow_redirects' => false,
-			'debug' => $_ENV['debug-http'],
-			'request.options' => array(
-				'exceptions' => false,
-			),
-			'http_errors' => false,
-			'cookies' => true,
 		);
 
-		$opt = array_merge($opt, $cfg);
+		$cfg = array_merge($opt, $cfg);
 
-		$c = new \GuzzleHttp\Client($opt);
-
-		return $c;
+		return $this->getGuzzleClient($cfg);
 	}
 
 	/**
@@ -57,10 +66,10 @@ class Base extends \OpenTHC\Test\Base {
 		$def = [
 			'pk' => $client_pk,
 			'ts' => time(),
-			'service' => $_ENV['OPENTHC_TEST_SERVICE_ID'],
-			'company' => $_ENV['OPENTHC_TEST_COMPANY_ID'],
-			'contact' => $_ENV['OPENTHC_TEST_CONTACT_ID'],
-			'license' => $_ENV['OPENTHC_TEST_LICENSE_ID'],
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
 		];
 
 		$arg = array_merge($def, $cfg);
@@ -72,13 +81,9 @@ class Base extends \OpenTHC\Test\Base {
 		return sprintf('Bearer v2024/%s/%s', $client_pk, $crypt_box);
 	}
 
-	protected function auth($ct, $cy, $li)
+	protected function auth($cfg=[])
 	{
-		$tok = $this->make_bearer_token([
-			'contact' => $ct, // $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
-			'company' => $cy, // $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
-			'license' => $li, // $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
-		]);
+		$tok = $this->make_bearer_token($cfg);
 
 		$res = $this->httpClient->post('/auth/open', [
 			'headers' => [
@@ -93,7 +98,7 @@ class Base extends \OpenTHC\Test\Base {
 	}
 
 	/**
-	 *
+	 * @deprecated
 	 */
 	protected function _post($u, $a)
 	{
@@ -102,7 +107,7 @@ class Base extends \OpenTHC\Test\Base {
 	}
 
 	/**
-	 *
+	 * @deprecated
 	 */
 	protected function _post_json($u, $a)
 	{
@@ -110,46 +115,10 @@ class Base extends \OpenTHC\Test\Base {
 		return $res;
 	}
 
-	/**
-	 *
-	 */
-	protected function _data_stash_get()
-	{
-		if (is_file($this->_tmp_file)) {
-			$x = file_get_contents($this->_tmp_file);
-			$x = json_decode($x, true);
-			return $x;
-		}
-	}
-
-	/**
-	 *
-	 */
-	protected function _data_stash_put($d)
-	{
-		file_put_contents($this->_tmp_file, json_encode($d));
-	}
-
 	protected function setUp() : void
 	{
 		$this->httpClient = $this->_api();
 	}
-
-	/**
-	*/
-	// protected function auth(string $p = null, string $c = null, string $l = null)
-	// {
-	// 	$res = $this->httpClient->post('/auth/open', $body = [
-	// 		'form_params' => [
-	// 			'service' => $p ?: $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
-	// 			'company' => $c ?: $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
-	// 			'license' => $l ?: $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
-	// 		],
-	// 	]);
-
-	// 	$this->assertValidResponse($res);
-
-	// }
 
 	function find_random_crop($c=1)
 	{

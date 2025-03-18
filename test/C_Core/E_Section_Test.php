@@ -9,32 +9,24 @@ namespace OpenTHC\CRE\Test\C_Core;
 
 class E_Section_Test extends \OpenTHC\CRE\Test\Base
 {
-	protected $_tmp_file = '/tmp/unit-test-section.json';
-
-	protected function setUp() : void
-	{
-		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
-	}
-
 	public function test_public_read()
 	{
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
 		$res = $this->httpClient->get('/section');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/section/four_zero_four');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/section/1');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/section?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 	}
 
@@ -44,13 +36,19 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 * - name, (string)
 	 * - type, (string)
 	 */
-	public function test_create_negative()
+	public function test_create_fail()
 	{
-		$URI = '/section';
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
 		$arg = [
+			'id' => _ulid()
 		];
-		$res = $this->_post($URI, $arg);
+		$res = $httpClient->post('/section', [ 'form_params' => $arg ]);
 		$res = $this->assertValidResponse($res, 400);
 
 		$this->assertCount(2, $res);
@@ -109,14 +107,21 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 		// $this->assertEquals('0x800000000008', $res['name']);
 	}
 
-	function test_create_positive()
+	function test_create()
 	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
 		$name = sprintf('UNITTEST Section CREATE %06x', $this->_pid);
 
-		$res = $this->_post('/section', [
+		$res = $httpClient->post('/section', [ 'form_params' => [
 			'name' => $name,
 			'type' => 'inventory',
-		]);
+		]]);
 		$res = $this->assertValidResponse($res, 201);
 
 		$obj = $res['data'];
@@ -124,13 +129,19 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertCount(3, $obj);
 		$this->assertEquals($name, $obj['name']);
 
-		$this->_data_stash_put($obj);
+		return $obj;
 
 	}
 
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/section?q=UNITTEST');
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+		$res = $httpClient->get('/section?q=UNITTEST');
 		$res = $this->assertValidResponse($res);
 
 		$this->assertIsArray($res['meta']);
@@ -142,61 +153,86 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	public function test_single()
+	/**
+	 * @depends test_create
+	 */
+	public function test_single($License0)
 	{
-		$res = $this->httpClient->get('/section/four_zero_four');
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->get('/section/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$obj = $this->_data_stash_get();
-		$res = $this->httpClient->get('/section/' . $obj['id']);
+		$req_path = sprintf('/section/%s', $License0['id']);
+		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
 
 		// More
 
 	}
 
-	public function test_update()
+	/**
+	 * @depends test_create
+	 */
+	public function test_update($License0)
 	{
-		$name = sprintf('UNITTEST Section CREATE-UPDATE %06x', $this->_pid);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
-		$obj = $this->_data_stash_get();
-		$res = $this->_post('/section/' . $obj['id'], array(
-			'name' => $name,
+		$License0['name'] = sprintf('UNITTEST Section CREATE-UPDATE %06x', $this->_pid);
+
+		$req_path = sprintf('/section/%s', $License0['id']);
+		$res = $this->_post($req_path, array(
+			'name' => $License0['name'],
 		));
 		$res = $this->assertValidResponse($res, 200);
 
 		$this->assertIsArray($res['meta']);
 		$this->assertIsString($res['meta']['note']);
-
 		$this->assertIsArray($res['data']);
 
-		$obj = $res['data'];
-		$this->assertIsArray($obj);
+		$License1 = $res['data'];
+		$this->assertIsArray($License1);
 		// $this->assertCount(3, $obj);
-		$this->assertEquals($name, $obj['name']);
+		$this->assertEquals($License0['name'], $License1['name']);
 
 	}
 
-	public function test_delete()
+	/**
+	 * @depends test_create
+	 */
+	public function test_delete($License0)
 	{
-		$res = $this->httpClient->delete('/section/four_zero_four');
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->delete('/section/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		// Find Early One
-		$obj = $this->_data_stash_get();
-
 		// First call to Delete gives 202
-		$res = $this->httpClient->delete('/section/' . $obj['id']);
+		$req_path = sprintf('/section/%s', $License0['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 202);
 
 		// Second Call should give 410
-		$res = $this->httpClient->delete('/section/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 410);
 
-		$res = $this->httpClient->delete('/section/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 423);
-
-		unlink($this->_tmp_file);
 
 	}
 
@@ -205,7 +241,12 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_g()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
 		$name = sprintf('UNITTEST Section-G CREATE %06x', $this->_pid);
 
@@ -221,7 +262,12 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
 
 		$name = sprintf('UNITTEST Section-P CREATE %06x', $this->_pid);
 
@@ -236,7 +282,12 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_l()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_C'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C'],
+		]);
 
 		$name = sprintf('UNITTEST Section-L CREATE %06x', $this->_pid);
 
@@ -251,7 +302,12 @@ class E_Section_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_create_r()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_D'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], // Using someone elses service
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_D'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
+		]);
 
 		$name = sprintf('UNITTEST Section-R CREATE %06x', $this->_pid);
 

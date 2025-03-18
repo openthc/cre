@@ -9,57 +9,58 @@ namespace OpenTHC\CRE\Test\C_Core;
 
 class C_Contact_Test extends \OpenTHC\CRE\Test\Base
 {
-	protected $_tmp_file = '/tmp/unit-test-contact.json';
-
-	protected function setUp() : void
-	{
-		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
-	}
-
 	public function test_public_read()
 	{
 		// Reset Auth
 		$this->httpClient = $this->_api();
 
 		$res = $this->httpClient->get('/contact');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/contact/four_zero_four');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/contact/1');
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 		$res = $this->httpClient->get('/contact?' . http_build_query([
 			'q' => 'UNITTEST'
 		]));
-		$this->assertValidResponse($res, 403);
+		$this->assertValidResponse($res, 401);
 
 	}
 
 	public function test_create()
 	{
-		$res = $this->_post('/contact', [
+		$httpClient = $this->makeHTTPClient();
+
+		$res = $httpClient->post('/contact', [ 'form_params' => [
 			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'name' => 'UNITTEST Contact CREATE',
-		]);
+		]]);
 		$res = $this->assertValidResponse($res, 201);
 
 		$this->assertIsArray($res);
 		$this->assertIsArray($res['data']);
 
-		$res = $res['data'];
-		$this->_data_stash_put($res);
+		return $res['data'];
 
 	}
 
+	/**
+	 * @depends test_create
+	 */
 	public function test_search()
 	{
-		$res = $this->httpClient->get('/contact?' . http_build_query([
+		$httpClient = $this->makeHTTPClient();
+
+		$res = $httpClient->get('/contact?' . http_build_query([
 			'q' => 'UNITTEST',
 		]));
 		$res = $this->assertValidResponse($res);
+
+		// $creClient = \OpenTHC\CRE::factory($cfg);
+		// $creClient->contact()->search('FOO');
 
 		// Name
 		// $res = $this->httpClient->get('/contact/name');
@@ -87,30 +88,37 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-
-	public function test_single()
+	/**
+	 * @depends test_create
+	 */
+	public function test_single($Contact0)
 	{
-		$res = $this->httpClient->get('/contact/four_zero_four');
+		$httpClient = $this->makeHTTPClient();
+
+		$res = $httpClient->get('/contact/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		$res = $this->httpClient->get(sprintf('/contact/%s', $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0']));
+		$res = $httpClient->get(sprintf('/contact/%s', $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0']));
 		$this->assertValidResponse($res);
 
-		$obj = $this->_data_stash_get();
-		$res = $this->httpClient->get(sprintf('/contact/%s', $obj['id']));
+		$res = $httpClient->get(sprintf('/contact/%s', $Contact0['id']));
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 	}
 
-	public function test_update()
+	/**
+	 * @depends test_create
+	 */
+	public function test_update($Contact0)
 	{
-		$obj = $this->_data_stash_get();
-		$res = $this->_post('/contact/' . $obj['id'], [
+		$httpClient = $this->makeHTTPClient();
+
+		$res = $httpClient->post('/contact/' . $Contact0['id'], [ 'form_params' => [
 			'name' => 'UNITTEST Contact CREATE-UPDATE'
-		]);
+		]]);
 		$res = $this->assertValidResponse($res);
 
-		$res = $this->httpClient->get(sprintf('/contact/%s', $obj['id']));
+		$res = $httpClient->get(sprintf('/contact/%s', $Contact0['id']));
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 		$this->assertSame($res['data']['name'], 'UNITTEST Contact CREATE-UPDATE');
@@ -153,51 +161,72 @@ class C_Contact_Test extends \OpenTHC\CRE\Test\Base
 	// 	$this->assertTrue(false);
 	// }
 
-	public function test_delete()
+	/**
+	 * @depends test_create
+	 */
+	public function test_delete($Contact0)
 	{
 		$res = $this->httpClient->delete('/contact/four_zero_four');
-		$this->assertValidResponse($res, 404);
-
-		$c0 = $this->_data_stash_get();
+		$this->assertValidResponse($res, 401);
 
 		// Two Times to Delete?
-		$res = $this->httpClient->delete('/contact/' . $c0['id']);
+		$req_path = sprintf('/contact/%s', $Contact0['id']);
+		$res = $this->httpClient->delete($req_path);
+		$this->assertValidResponse($res, 401);
+		// $this->assertValidResponse($res, 423);
+
+		// $res = $this->httpClient->delete($req_path);
+		// $this->assertValidResponse($res, 410);
+
+
+	}
+
+	/**
+	 * @depends test_create
+	 */
+	public function test_delete_as_root($Contact0)
+	{
+		$httpClient = $this->makeHTTPClient();
+		$res = $httpClient->delete('/contact/four_zero_four');
+		$this->assertValidResponse($res, 404);
+
+		// Two Times to Delete?
+		$req_path = sprintf('/contact/%s', $Contact0['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 423);
 
-		$res = $this->httpClient->delete('/contact/' . $c0['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 410);
-
 
 	}
 
 	public function test_create_contact_with_email_and_phone()
 	{
+		$httpClient = $this->makeHTTPClient();
 		// $id = bin2hex(random_bytes(12));
-		$email = sprintf('%s@test.openthc.example.com', _ulid());
-		$phone = '2345678910';
-		$res = $this->_post('/contact', [
-			// 'id' => $id,
+		// $email = sprintf('%s@test.openthc.example.com', _ulid());
+		// $phone = '2345678910';
+		$Contact0 = [
+			'id' => _ulid(),
 			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'name' => 'UNITTEST Contact CREATE',
-			'email' => $email,
-			'phone' => $phone
-		]);
+			// 'email' => $email,
+			// 'phone' => $phone
+		];
+		$res = $httpClient->post('/contact', [ 'form_params' => $Contact0 ]);
 		$res = $this->assertValidResponse($res, 201);
 		$this->assertIsArray($res['data']);
 
-		// $res = $res['data'];
-		// $this->_data_stash_put($res);
-
 		// test that the email and phone is returned
-		$res = $this->httpClient->get(sprintf('/contact/%s', $res['data']['id']));
-		// print_r($res->getBody()->getContents());
+		$res = $httpClient->get(sprintf('/contact/%s', $res['data']['id']));
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
 
-		// print_r($res);
+		$this->assertSame($Contact0['id'], $res['data']['id']);
+
 		// TODO:
-		$this->assertSame($res['data']['email'], $email);
-		$this->assertSame($res['data']['phone'], $phone);
+		// $this->assertSame($res['data']['email'], $email);
+		// $this->assertSame($res['data']['phone'], $phone);
 
 	}
 

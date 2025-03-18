@@ -11,14 +11,14 @@ class H_Vehicle_Test extends \OpenTHC\CRE\Test\Base
 {
 	private $_url_path = '/vehicle';
 
-	protected function setUp() : void
-	{
-		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
-	}
-
 	public function test_create()
 	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 		$name = sprintf('UNITTEST Vehicle CREATE %06x', $this->_pid);
 
 		$res = $this->_post($this->_url_path, [
@@ -35,20 +35,29 @@ class H_Vehicle_Test extends \OpenTHC\CRE\Test\Base
 		// $this->assertIsArray($res['meta']);
 		// $this->assertCount(1, $res['meta']);
 
-		$obj = $res['data'];
-		$this->assertCount(3, $obj);
+		$Vehicle0 = $res['data'];
+		$this->assertCount(3, $Vehicle0);
 
-		$this->_data_stash_put($obj);
+		return $Vehicle0;
 
 	}
 
-
-	public function test_search()
+	/**
+	 * @depends test_create
+	 */
+	public function test_search($Vehicle0)
 	{
-		$res = $this->httpClient->get($this->_url_path);
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->get('/vehicle');
 		$res = $this->assertValidResponse($res);
 
-		$res = $this->httpClient->get($this->_url_path . '?q=UNITTEST');
+		$res = $httpClient->get('/vehicle?q=UNITTEST');
 		$res = $this->assertValidResponse($res);
 
 
@@ -56,67 +65,97 @@ class H_Vehicle_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_single_404()
 	{
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
-		$res = $this->httpClient->get($this->_url_path . '/four_zero_four');
+		$res = $httpClient->get('/vehicle/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
 	}
 
-	public function test_single()
+	/**
+	 * @depends test_create
+	 */
+	public function test_single($Vehicle0)
 	{
-		$obj = $this->_data_stash_get();
-		$res = $this->httpClient->get(sprintf('%s/%s', $this->_url_path, $obj['id']));
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$req_path = sprintf('/vehicle/%s', $Vehicle0['id']);
+		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
 		$this->assertCount(7, $res['data']);
 	}
 
-
-	public function test_update()
+	/**
+	 * @depends test_create
+	 */
+	public function test_update($Vehicle0)
 	{
-		$obj = $this->_data_stash_get();
-
-		$name = sprintf('UNITTEST Vehicle UPDATE %06x', $this->_pid);
-
-		$res = $this->_post(sprintf('%s/%s', $this->_url_path, $obj['id']), [
-			'name' => $name,
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
 		]);
 
-		$res = $this->assertValidResponse($res, 201);
+		$req_path = sprintf('/vehicle/%s', $Vehicle0['id']);
+		$Vehicle0['name'] = sprintf('UNITTEST Vehicle UPDATE %06x', $this->_pid);
+		$res = $this->_post($req_path, [ 'form_params' => [
+			'name' => $Vehicle0['name'],
+		]]);
 
+		$res = $this->assertValidResponse($res, 201);
 		$this->assertIsArray($res['data']);
 
-		$s0 = $res['data'];
-		$this->assertNotEmpty($s0['id']);
-		$this->assertEquals($name, $s0['name']);
+		$Vehicle1 = $res['data'];
+		$this->assertNotEmpty($Vehicle1['id']);
+		$this->assertEquals($Vehicle0['name'], $Vehicle1['name']);
 
 		// fetch and validate
-		$res = $this->httpClient->get(sprintf('%s/%s', $this->_url_path, $obj['id']));
+		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
-
 		$this->assertIsArray($res['data']);
-		$this->assertEquals($name, $res['data']['name']);
-
+		$Vehicle1 = $res['data'];
+		$this->assertEquals($Vehicle0['name'], $Vehicle1['name']);
 
 	}
 
-	public function test_delete()
+	/**
+	 * @depends test_create
+	 */
+	public function test_delete($Vehicle0)
 	{
-		$res = $this->httpClient->delete($this->_url_path . '/four_zero_four');
+		$httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
+
+		$res = $httpClient->delete('/vehicle/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		// Find Early One
-		$obj = $this->_data_stash_get();
+		$req_path = sprintf('/vehicle/%s', $Vehicle0['id']);
 
 		// First call to Delete gives 202
-		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 202);
 
 		// Second Call should give 410
-		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 410);
 
-		$res = $this->httpClient->delete($this->_url_path . '/' . $obj['id']);
+		$res = $httpClient->delete($req_path);
 		$this->assertValidResponse($res, 423);
 
 	}

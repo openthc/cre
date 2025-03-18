@@ -10,11 +10,10 @@ namespace OpenTHC\CRE\Test\J_B2B;
 class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/b2b';
-	protected $_tmp_file = '/tmp/unit-test-transfer.json';
 
 	function test_create_carrier_p_from_g()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_SERVICE_ID'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
@@ -50,7 +49,7 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_carrier_r_from_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
@@ -109,7 +108,7 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_pickup_l_from_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['api-company-d'], $_ENV['api-license-d']);
+		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
@@ -129,7 +128,7 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => $_ENV['api-license-d'],
+			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
