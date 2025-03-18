@@ -83,39 +83,47 @@
 		</testsuite>
 
 		<testsuite name="Core">
-			<directory>C_Core</directory>
+			<directory>Core</directory>
+			<file>Company_Test.php</file>
+			<file>License_Test.php</file>
+			<!-- Contact
+			Product_Type
+			Section
+			Variety
+			Product
+			Vehicle -->
 		</testsuite>
 
-		<testsuite name="Propagate">
-			<directory>D_Propagate</directory>
+		<testsuite name="Inventory Propagate">
+			<directory>Inventory_Propagate</directory>
 		</testsuite>
 
 		<testsuite name="Crop">
-			<directory>E_Crop</directory>
+			<directory>Crop</directory>
 		</testsuite>
 
 		<testsuite name="Crop Collect">
-			<directory>F_Crop_Collect</directory>
+			<directory>Crop_Collect</directory>
 		</testsuite>
 
-		<testsuite name="Process">
-			<directory>G_Process</directory>
+		<testsuite name="Inventory Process">
+			<directory>Inventory_Process</directory>
 		</testsuite>
 
 		<testsuite name="Laboratory">
-			<directory>H_Laboratory</directory>
+			<directory>Laboratory</directory>
 		</testsuite>
 
-		<testsuite name="Package">
-			<directory>I_Package</directory>
+		<testsuite name="Inventory Package">
+			<directory>Inventory_Package</directory>
 		</testsuite>
 
 		<testsuite name="B2B Transaction">
-			<directory>J_B2B</directory>
+			<directory>B2B</directory>
 		</testsuite>
 
 		<testsuite name="B2C Transaction">
-			<directory>K_B2C</directory>
+			<directory>B2C</directory>
 		</testsuite>
 
 	</testsuites>
