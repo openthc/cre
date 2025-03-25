@@ -9,7 +9,7 @@ namespace OpenTHC\CRE\Middleware;
 
 class Authenticate extends \OpenTHC\Middleware\Base
 {
-	use \OpenTHC\CRE\Traits\OpenAuthBox;
+	// use \OpenTHC\CRE\Traits\OpenAuthBox;
 
 	/**
 	 *
@@ -17,19 +17,36 @@ class Authenticate extends \OpenTHC\Middleware\Base
 	public function __invoke($REQ, $RES, $NMW)
 	{
 		// Authorization key
-		if ( ! preg_match('/Bearer v2024\/([\w\-]{43})\/([\w\-]+)/', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
+		$chk = $_SERVER['HTTP_AUTHORIZATION'];
+		if ( ! preg_match('/^Bearer v2024\/([\w\-]{43})$/', $chk, $m)) {
 			return $RES->withJson([
 				'data' => null,
-				'meta' => [ 'note' => 'Invalid Bearer [CMA-019]' ],
+				'meta' => [ 'note' => 'Invalid Bearer [MAT-021]' ],
 			], 401);
 		}
 
-		$act = $this->open_auth_box($m[1], $m[2]);
+		$sid = $m[1];
+		$chk = $this->_container->Redis->get($sid);
+		if (empty($chk)) {
+			return $RES->withJson([
+				'data' => null,
+				'meta' => [ 'note' => 'Expired Bearer [MAT-030]' ],
+			], 401);
+		}
+
+		$_SESSION = json_decode($chk, true);
 
 		if (empty($_SESSION['Service']['id'])) {
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Not Authorized [CMA-015]' ]
+			], 401);
+		}
+
+		if (empty($_SESSION['Contact']['id'])) {
+			return $RES->withJSON([
+				'data' => null,
+				'meta' => [ 'note' => 'Not Authorized [CMA-022]' ]
 			], 401);
 		}
 
