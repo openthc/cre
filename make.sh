@@ -10,11 +10,23 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-
-BIN_SELF=$(readlink -f "$0")
-APP_ROOT=$(dirname "$BIN_SELF")
+APP_ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 cd "$APP_ROOT"
+
+composer install --no-ansi --no-progress --classmap-authoritative
+
+npm install --no-audit --no-fund --package-lock-only
+
+php <<PHP
+<?php
+define('APP_ROOT', __DIR__);
+require_once(APP_ROOT . '/vendor/autoload.php');
+\OpenTHC\Make::install_bootstrap();
+\OpenTHC\Make::install_fontawesome();
+\OpenTHC\Make::install_jquery();
+PHP
+
 
 function _clean()
 {
@@ -72,39 +84,4 @@ docs)
 	_docs
 	;;
 
-#
-# Install or Update the OpenTHC Application
-install)
-
-	composer install --no-ansi --no-dev --no-progress --quiet --classmap-authoritative
-
-	npm install --quiet
-
-	. vendor/openthc/common/lib/lib.sh
-
-	copy_bootstrap
-	copy_fontawesome
-	copy_jquery
-
-	# _docs()
-
-	;;
-
-# Help, the default target
-"--help"|"help"|*)
-
-	echo
-	echo "You must supply a make command"
-	echo
-	awk '/^# [A-Z].+/ { h=$0 }; /^[\-0-9a-z]+\)/ { printf " \033[0;49;31m%-20s\033[0m%s\n", gensub(/\)$/, "", 1, $$1), h }' "$BIN_SELF" \
-		| sort
-	echo
-
 esac
-
-# https://github.com/kucherenko/jscpd
-#
-# #
-# # Make all the things for live
-# live: css-full js-full
-# 	#git clone https://github.com/yasirsiddiqui/php-google-cloud-print.git ./lib/php-google-cloud-print
