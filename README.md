@@ -72,3 +72,21 @@ More information is available at https://openthc.com/cre
 If you want to add new custom Services, Middleware or other code use the `./Custom` directory.
 All of your custom libraries would be in `./Custom/Service` or `./Custom/Middleware`.
 Then you can use them in the `./webroot/main.php` script.
+
+
+## Authenitication
+
+```mermaid
+
+sequenceDiagram
+    App->>+CRE: Auth Service, Contact, Company, License
+    CRE->>+SSO: Auth Service, Contact, Company
+    SSO->>-CRE: Service, Contact, Company
+    CRE-->DIR: License Verify
+    CRE-->>CRE: License Verify
+    CRE->>-App: Session
+    App->>CRE: Req
+    CRE->>App: Res
+    App-->>CRE: ReqN
+    CRE-->>App: ResN
+```
