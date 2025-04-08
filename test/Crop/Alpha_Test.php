@@ -81,35 +81,44 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		// $this->assertTrue(false);
 	}
 
-	public function test_update()
+	/**
+	 * @depends test_create
+	 */
+	public function test_update($Crop0)
 	{
+		$this->assertNotEmpty($Crop0);
+
 		// The one we recently created
-		$obj = $this->_data_stash_get();
-		$res = $this->httpClient->get('/crop/' . $obj['id']);
+		$req_path = sprintf('/crop/%s', $Crop0['id']);
+		$res = $this->httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
 
-		$this->_post('/crop/' . $obj['id'], [
+		$this->_post($req_path, [
 			'name' => 'UNITTEST crop CREATE-UPDATE',
 		]);
 
 	}
 
-	function test_delete()
+	/**
+	 * @depends test_create
+	 */
+	function test_delete($Crop0)
 	{
+		$this->assertNotEmpty($Crop0);
+
 		// 404
 		$res = $this->httpClient->delete('/crop/four_zero_four');
 		$this->assertValidResponse($res, 404);
 
-		// $obj = $this->_data_stash_get();
-		//
-		// $res = $this->httpClient->delete('/crop/' . $obj['id']);
-		// $this->assertValidResponse($res, 202, 'fdafdas');
-		//
-		// $res = $this->httpClient->delete('/crop/' . $obj['id']);
-		// $this->assertValidResponse($res, 410);
-		//
-		// $res = $this->httpClient->delete('/crop/' . $obj['id']);
-		// $this->assertValidResponse($res, 423);
+		$req_path = sprintf('/crop/%s', $Crop0['id']);
+		$res = $this->httpClient->delete($req_path);
+		$this->assertValidResponse($res, 202, 'fdafdas');
+
+		$res = $this->httpClient->delete($req_path);
+		$this->assertValidResponse($res, 410);
+
+		$res = $this->httpClient->delete($req_path);
+		$this->assertValidResponse($res, 423);
 
 
 	}
@@ -139,7 +148,6 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 // 	/**
 // 	 * Authenticated Tests
 // 	 */
-// 	$this->auth('user', 'pass');
 // 	$response = $this->httpClient->get('/crop');
 // 	$this->assertEquals(200, $response->getStatusCode());
 //

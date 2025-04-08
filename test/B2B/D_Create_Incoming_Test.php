@@ -13,7 +13,12 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_carrier_p_from_g()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
@@ -31,10 +36,15 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_carrier_l_from_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_C'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
-			'license_id_source' => OPENTHC_TEST_CLIENT_LICENSE_B,
+			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
 			'depart' => date(\DateTime::RFC3339, time() + 3600),
 			'arrive' => date(\DateTime::RFC3339, time() + 86400),
 			'method' => 'pickup',
@@ -49,7 +59,12 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_carrier_r_from_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_C'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
@@ -68,7 +83,12 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 	// P files on behalf of G
 	function test_create_pickup_p_from_g()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
@@ -108,7 +128,12 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_pickup_l_from_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_D'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
@@ -125,7 +150,13 @@ class D_Create_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_pickup_r_from_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
+
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_source' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],

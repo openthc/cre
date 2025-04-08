@@ -81,7 +81,7 @@ class Base extends \OpenTHC\Test\Base {
 		return sprintf('Bearer v2024/%s/%s', $client_pk, $crypt_box);
 	}
 
-	protected function auth($cfg=[])
+	private function auth($cfg=[])
 	{
 		$tok = $this->make_bearer_token($cfg);
 

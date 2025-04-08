@@ -15,7 +15,7 @@
 	convertWarningsToExceptions="true"
 	processIsolation="false"
 	stopOnError="true"
-	stopOnFailure="true"
+	stopOnFailure="false"
 	stopOnRisky="true"
 	timeoutForSmallTests="2"
 	timeoutForMediumTests="8"
@@ -71,27 +71,35 @@
 	<testsuites>
 
 		<testsuite name="System">
-			<directory>System</directory>
+			<!-- <directory>System</directory> -->
+			<file>System/Config_Test.php</file>
+			<file>System/System_Test.php</file>
 		</testsuite>
 
 		<testsuite name="Unit">
-			<directory>Unit</directory>
+			<!-- <directory>Unit</directory> -->
+			<file>Unit/Middleware_Auth_Token_Test.php</file>
+			<file>Unit/Middleware_Check_Authorization_Test.php</file>
 		</testsuite>
 
 		<testsuite name="Auth">
-			<directory>Auth</directory>
+			<!-- <directory>Auth</directory> -->
+			<file>Auth/Alpha_Test.php</file>
+			<file>Auth/oAuth2_Test.php</file>
 		</testsuite>
 
 		<testsuite name="Core">
-			<directory>Core</directory>
-			<file>Company_Test.php</file>
-			<file>License_Test.php</file>
-			<!-- Contact
-			Product_Type
-			Section
-			Variety
-			Product
-			Vehicle -->
+			<!-- <directory>Core</directory> -->
+			<file>Core/Company_Test.php</file>
+			<file>Core/License_Test.php</file>
+			<file>Core/Contact_Test.php</file>
+			<file>Core/Company_Test.php</file>
+			<file>Core/License_Test.php</file>
+			<file>Core/Product_Type_Test.php</file>
+			<file>Core/Section_Test.php</file>
+			<file>Core/Variety_Test.php</file>
+			<file>Core/Product_Test.php</file>
+			<file>Core/Vehicle_Test.php</file>
 		</testsuite>
 
 		<testsuite name="Inventory Propagate">

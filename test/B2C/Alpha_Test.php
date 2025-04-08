@@ -12,7 +12,12 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_C'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_D'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
+		]);
 	}
 
 	/**
@@ -107,7 +112,6 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 // 	/**
 // 	 * Authenticated Tests
 // 	 */
-// 	$this->auth('user', 'pass');
 // 	$response = $this->httpClient->get('/sale');
 // 	$this->assertEquals(200, $response->getStatusCode());
 //

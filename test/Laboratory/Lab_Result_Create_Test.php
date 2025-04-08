@@ -17,7 +17,12 @@ class Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_sample()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
 		$res = $this->httpClient->get('/inventory');
 		$res = $this->assertValidResponse($res);
@@ -75,7 +80,12 @@ class Lab_Result_Create_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_result()
 	{
-		$this->auth(OPENTHC_TEST_CLIENT_SERVICE_A, $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_D'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
+		]);
 
 
 		$res = $this->httpClient->get('/b2b/incoming');

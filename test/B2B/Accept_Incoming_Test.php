@@ -13,7 +13,12 @@ class Accept_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_accept_g_to_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
 
 		$res = $this->httpClient->get($this->_url_path . '/incoming');
 		$res = $this->assertValidResponse($res);
@@ -36,7 +41,12 @@ class Accept_Incoming_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_accept_p_to_r()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_D'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_D'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],
+		]);
 
 		$Z = $this->find_random_section();
 

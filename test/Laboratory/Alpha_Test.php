@@ -11,7 +11,12 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	function test_lab()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_C'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_C'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C'],
+		]);
 
 		$res = $this->httpClient->get('/lab');
 		$res = $this->assertValidResponse($res);

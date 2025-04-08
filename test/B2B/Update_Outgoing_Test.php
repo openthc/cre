@@ -13,7 +13,12 @@ class Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_update_deliver_g_to_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
 		// Now Create a G_TO_P Transfer
 		$res = $this->_post($this->_url_path, [
@@ -66,10 +71,6 @@ class Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 		// 	'json' => [ 'status' => 'commit' ],
 		// ]);
 
-		//  $obj = $this->_data_stash_get();
-		// $this->assertIsArray($obj);
-
-
 		// Update
 		// $res = $this->_post($this->_url_path, [
 		// 	'license_id_target' => OPENTHC_TEST_CLIENT_LICENSE_B,
@@ -113,7 +114,12 @@ class Update_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_update_deliver_p_to_r()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
 		// Now Create a P_TO_R Transfer
 		$res = $this->_post($this->_url_path, [

@@ -13,7 +13,12 @@ class Create_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_deliver_g_to_p()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_target' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
@@ -38,7 +43,12 @@ class Create_Outgoing_Test extends \OpenTHC\CRE\Test\Base
 
 	function test_create_deliver_p_to_r()
 	{
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_B'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_B'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_B'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_B'],
+		]);
 
 		$res = $this->_post($this->_url_path, [
 			'license_id_target' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_D'],

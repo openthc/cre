@@ -82,7 +82,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 * Auth by POST of the Context Data
 	 * @todo Move to auth_box
 	 */
-	function x_test_open_fail_license() : void
+	function test_open_fail_license() : void
 	{
 		// TEST COMPANY A
 		$arg = [
@@ -101,7 +101,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 * This test will get a 401 response because Company and License don't match
 	 * @todo Move to auth_box
 	 */
-	function x_test_open_fail_company_license() : void
+	function test_open_fail_company_license() : void
 	{
 		// $box =
 		$res = $this->_post('/auth/open', [

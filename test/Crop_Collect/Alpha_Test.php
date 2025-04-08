@@ -12,7 +12,12 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	protected function setUp() : void
 	{
 		parent::setUp();
-		$this->auth($_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'], $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'], $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A']);
+		$this->httpClient = $this->makeHTTPClient([
+			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
+			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
+		]);
 	}
 
 	function test_public()
@@ -28,6 +33,9 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
+	/**
+	 *
+	 */
 	public function test_collect_one_wet()
 	{
 		$p = $this->find_random_crop();
@@ -44,11 +52,13 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertIsArray($res['data']);
 		$this->assertCount(4, $res['data']);
 
-		$p = $res['data'];
-		$this->_data_stash_put($p);
+		return $res['data'];
+
 	}
 
-
+	/**
+	 *
+	 */
 	public function test_collect_all_wet()
 	{
 		$p = $this->find_random_crop();

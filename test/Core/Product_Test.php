@@ -9,8 +9,6 @@ namespace OpenTHC\CRE\Test\Core;
 
 class Product_Test extends \OpenTHC\CRE\Test\Base
 {
-	private $_url_path = '/product';
-
 	public function test_create()
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -28,11 +26,9 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 			'uom' => 'g',
 		]]);
 
-		$chk = $this->assertValidResponse($res, 201);
+		$res = $this->assertValidResponse($res, 201);
 		// $this->assertNotEmpty($res->getHeaderLine('location'));
 		// $this->assertMatchesRegularExpression('/\/config\/product\/\w{26}/', $res->getHeaderLine('location'));
-
-		$res = $chk; // Now use the cleaed one
 		$this->assertIsArray($res['meta']);
 		$this->assertCount(1, $res['meta']);
 
@@ -85,6 +81,8 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	public function test_single($Product0)
 	{
+		$this->assertIsArray($Product0);
+
 		$httpClient = $this->makeHTTPClient([
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
 			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
@@ -95,9 +93,9 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 		$req_path = sprintf('/product/%s', $Product0['id']);
 		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
-		var_dump($res);
-
 		$this->assertIsArray($res['data']);
+		$Product1 = $res['data'];
+		$this->assertSame($Product0['id'], $Product1['id']);
 	}
 
 	/**
@@ -105,6 +103,8 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	public function test_update($Product0)
 	{
+		$this->assertIsArray($Product0);
+
 		$httpClient = $this->makeHTTPClient([
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
 			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
@@ -117,12 +117,13 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 		$Product0['name'] = sprintf('UNITTEST Product UPDATE %06x', $this->_pid);
 
 		$res = $httpClient->post($req_path, [ 'form_params' => [
-			'name' => $name,
+			'name' => $Product0['name'],
 			'type'=>'019KAGVSC0C474J20SEWDM5XSJ'
 		]]);
 
-		$res = $this->assertValidResponse($res, 201);
+		$res = $this->assertValidResponse($res, 200);
 		$this->assertIsArray($res['data']);
+		// var_dump($res);
 		$Product1 = $res['data'];
 		$this->assertNotEmpty($Product1['id']);
 		$this->assertEquals($Product0['name'], $Product1['name']);
@@ -131,6 +132,7 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
 		$this->assertIsArray($res['data']);
+		// var_dump($res);
 		$Product1 = $res['data'];
 		$this->assertNotEmpty($Product1['id']);
 		$this->assertEquals($Product0['name'], $Product1['name']);
@@ -142,6 +144,8 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	public function test_delete($Product0)
 	{
+		$this->assertIsArray($Product0);
+
 		$httpClient = $this->makeHTTPClient([
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
 			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],

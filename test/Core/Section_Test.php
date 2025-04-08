@@ -179,7 +179,7 @@ class Section_Test extends \OpenTHC\CRE\Test\Base
 	/**
 	 * @depends test_create
 	 */
-	public function test_update($License0)
+	public function test_update($Section0)
 	{
 		$this->httpClient = $this->makeHTTPClient([
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
@@ -188,11 +188,11 @@ class Section_Test extends \OpenTHC\CRE\Test\Base
 			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_A'],
 		]);
 
-		$License0['name'] = sprintf('UNITTEST Section CREATE-UPDATE %06x', $this->_pid);
+		$Section0['name'] = sprintf('UNITTEST Section CREATE-UPDATE %06x', $this->_pid);
 
-		$req_path = sprintf('/section/%s', $License0['id']);
+		$req_path = sprintf('/section/%s', $Section0['id']);
 		$res = $this->_post($req_path, array(
-			'name' => $License0['name'],
+			'name' => $Section0['name'],
 		));
 		$res = $this->assertValidResponse($res, 200);
 
@@ -200,10 +200,10 @@ class Section_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertIsString($res['meta']['note']);
 		$this->assertIsArray($res['data']);
 
-		$License1 = $res['data'];
-		$this->assertIsArray($License1);
-		// $this->assertCount(3, $obj);
-		$this->assertEquals($License0['name'], $License1['name']);
+		$Section1 = $res['data'];
+		// $this->assertCount(3, $License1);
+		$this->assertNotEmpty($Section1['id']);
+		$this->assertEquals($Section0['name'], $Section1['name']);
 
 	}
 
