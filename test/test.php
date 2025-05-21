@@ -1,17 +1,22 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 /**
- * OpenTHC CRE Test
+ * OpenTHC CRE Test Runner
  *
  * SPDX-License-Identifier: MIT
  */
 
 require_once(dirname(__DIR__) . '/boot.php');
 
-// $arg = \OpenTHC\Docopt::parse($doc, ?$argv=[]);
-// Parse CLI
+// Default Option
+if (empty($_SERVER['argv'][1])) {
+	$_SERVER['argv'][1] = 'phpunit';
+	$_SERVER['argc'] = count($_SERVER['argv']);
+}
+
+// Command Line
 $doc = <<<DOC
-OpenTHC CRE Test
+OpenTHC CRE Test Runner
 
 Usage:
 	test [options]
@@ -22,23 +27,21 @@ Usage:
 
 Options:
 	--filter=<F>             Some Filter
-	--phpunit-filter=<F>     Some Filter for PHPUnit
 	--phpunit-testcase=<T>   PHPUnit Testcase
 DOC;
 
-$res = Docopt::handle($doc, [
+$res = \Docopt::handle($doc, [
 	'exit' => false,
-	'help' => true,
 	'optionsFirst' => false,
 ]);
+var_dump($res);
 $cli_args = $res->args;
+var_dump($cli_args);
 // if (empty($cli_args)) {
 // 	echo $res->output;
 // 	echo "\n";
 // 	exit(1);
 // }
-// var_dump($cli_args);
-// exit;
 if ('all' == $cli_args['<command>']) {
 	$cli_args['phplint'] = true;
 	$cli_args['phpstan'] = true;
@@ -50,58 +53,51 @@ if ('all' == $cli_args['<command>']) {
 }
 
 
-define('OPENTHC_TEST_OUTPUT_BASE', \OpenTHC\Test\Helper::output_path_init());
+// Test Config
+$cfg = [];
+$cfg['base'] = APP_ROOT;
+$cfg['site'] = 'cre';
+
+$test_helper = new \OpenTHC\Test\Helper($cfg);
+$cfg['output'] = $test_helper->output_path;
 
 
 // PHPLint
-$tc = new \OpenTHC\Test\Facade\PHPLint([
-	'output' => OPENTHC_TEST_OUTPUT_BASE
-]);
-// $res = $tc->execute();
-// var_dump($res);
-
-#
-# PHP-CPD
-# vendor/openthc/common/test/phpcpd.sh
-// vendor/bin/phpmd boot.php,webroot/main.php,lib/,test/ \
-// 	html \
-// 	cleancode \
-// 	--report-file "${OUTPUT_BASE}/phpmd.html" \
-// 	|| true
-
-// Call PHPCS?
-// $tc = \OpenTHC\Test\PHPStyle::execute();
+if ($cli_args['phplint']) {
+	$tc = new \OpenTHC\Test\Facade\PHPLint($cfg);
+	$res = $tc->execute(); // 0=Success; 1=Failure
+	switch ($res) {
+	case 0:
+		echo "PHPLint Success\n";
+		break;
+	case 1:
+	default:
+		echo "PHPLint Failure ($res)\n";
+		break;
+	}
+}
 
 
 // PHPStan
-$tc = new \OpenTHC\Test\Facade\PHPStan([
-	'output' => OPENTHC_TEST_OUTPUT_BASE
-]);
-// $res = $tc->execute();
-// var_dump($res);
+if ($cli_args['phpstan']) {
+	$tc = new \OpenTHC\Test\Facade\PHPStan($cfg);
+	$res = $tc->execute();
+	var_dump($res);
+}
+
 
 // Psalm/Psalter?
 
 
 // PHPUnit
-// $cfg = [];
-// $tc = new \OpenTHC\Test\Facade\PHPUnit($cfg);
-// $res = $tc->execute();
-// var_dump($res);
-
-chdir(sprintf('%s/test', APP_ROOT));
-
-$cfg = [
-	'output' => OPENTHC_TEST_OUTPUT_BASE
-];
 // Pick Config File
 $cfg_file_list = [];
 $cfg_file_list[] = sprintf('%s/phpunit.xml', __DIR__);
 $cfg_file_list[] = sprintf('%s/phpunit.xml.dist', __DIR__);
 foreach ($cfg_file_list as $f) {
 	if (is_file($f)) {
-			$cfg['--configuration'] = $f;
-			break;
+		$cfg['--configuration'] = $f;
+		break;
 	}
 }
 // Filter?
@@ -116,7 +112,6 @@ if ( ! empty($cli_args['--phpunit-testsuite'])) {
 }
 $tc = new \OpenTHC\Test\Facade\PHPUnit($cfg);
 $res = $tc->execute();
-// var_dump($res);
 switch ($res['code']) {
 case 0:
 case 200:
@@ -135,12 +130,6 @@ default:
 }
 
 
-// Done
-\OpenTHC\Test\Helper::index_create($html);
-
-
-// Output Information
-$origin = \OpenTHC\Config::get('openthc/cre/origin');
-$output = str_replace(sprintf('%s/webroot/', APP_ROOT), '', OPENTHC_TEST_OUTPUT_BASE);
-
-echo "TEST COMPLETE\n  $origin/$output\n";
+// Output
+$res = $test_helper->index_create($res['data']);
+echo "TEST COMPLETE\n  $res\n";
