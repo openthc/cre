@@ -11,10 +11,6 @@ ALTER TABLE ONLY auth_service
 ALTER TABLE ONLY auth_service
     ADD FOREIGN KEY (company_id) REFERENCES company(id);
 
-ALTER TABLE ONLY auth_service_ticket
-    ADD FOREIGN KEY (service_id) REFERENCES auth_service(id);
-
-
 ALTER TABLE ONLY license
     ADD FOREIGN KEY (company_id) REFERENCES company(id);
 
