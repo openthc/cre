@@ -1,11 +1,13 @@
 <?php
 /**
- * Single Product
+ * Search Product Type
+ *
+ * SPDX-License-Identifier: MIT
  */
 
-namespace OpenTHC\CRE\Controller\Product;
+namespace OpenTHC\CRE\Controller\Product\Type;
 
-class Type extends \OpenTHC\CRE\Controller\Base
+class Search extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
