@@ -12,7 +12,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 	function __invoke($REQ, $RES, $ARG)
 	{
 
-		$sql = 'SELECT id, meta FROM retail_sale WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT id, meta FROM b2c_sale WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id'],
