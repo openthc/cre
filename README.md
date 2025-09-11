@@ -90,3 +90,32 @@ sequenceDiagram
     App-->>CRE: ReqN
     CRE-->>App: ResN
 ```
+
+
+## Docker
+
+Build it (regular or via compose)
+
+```shell
+docker build \
+  --file docker/Dockerfile \
+  --tag openthc/cre:latest \
+  ./
+# OR
+docker compose \
+  --file docker/compose.yaml \
+  build
+# OR
+cd docker && docker compose build
+```
+
+
+Run it and test?
+
+```shell
+docker run --rm -it openthc/cre:latest
+# OR
+docker compose --file docker/compose.yaml up
+# OR
+cd docker && docker compose up
+```

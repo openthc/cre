@@ -1,0 +1,19 @@
+#
+# OpenTHC SSO Server Docker
+#
+
+services:
+  cre:
+    container_name: openthc.cre
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: openthc/cre
+    pull_policy: never
+    ports:
+      - "42020:80"
+    volumes:
+      - type: bind
+        source: ../etc/cre/config.php
+        target: /opt/openthc/cre/etc/config.php
+        read_only: true
