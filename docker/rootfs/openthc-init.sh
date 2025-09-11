@@ -20,6 +20,15 @@ else
 	echo "RUN1+"
 fi
 
+#
+# PHP Debugger
+OPENTHC_DEBUG=${OPENTHC_DEBUG:-"false"}
+if [ "$OPENTHC_DEBUG" == "true" ]
+then
+	echo "DEBUG ENABLED"
+	phpenmod xdebug
+fi
+
 
 # Start Regular Way
 exec /usr/sbin/apache2 -DFOREGROUND
