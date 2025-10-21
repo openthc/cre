@@ -1,5 +1,6 @@
 #!/bin/bash
 #
+# OpenTHC CRE Docker Init
 #
 
 set -o errexit
@@ -7,18 +8,6 @@ set -o errtrace
 set -o nounset
 set -o pipefail
 
-
-# Test if Run Before
-if [ ! -f /first-run.txt ]
-then
-	# connect to SQL and get details?
-	echo "RUN0"
-	# php /first-run.php
-	# rm /first-run.php
-	touch /first-run.txt
-else
-	echo "RUN1+"
-fi
 
 #
 # PHP Debugger
@@ -30,5 +19,21 @@ then
 fi
 
 
-# Start Regular Way
+#
+# Uses Environment to Create App
+/opt/openthc/cre/docker/init.php
+
+
+#
+# Unsets All OpenTHC Environment Variables
+# Except for OPENTHC_SERVICE and OPENTHC_SERVER_NAME
+for var in $(env | cut -d= -f1 | grep OPENTHC | grep -v OPENTHC_SER)
+do
+	# echo "unset $var"
+	unset "$var"
+done
+
+
+#
+# Start Apache
 exec /usr/sbin/apache2 -DFOREGROUND
