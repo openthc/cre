@@ -46,11 +46,10 @@ $arg = [];
 $arg[':s1'] = getenv('OPENTHC_APP_ID');
 $arg[':c1'] = getenv('OPENTHC_ROOT_COMPANY_ID');
 $sql = <<<SQL
-INSERT INTO public.service (id, company_id, stat, flag, name, hash)
-VALUES (:s1, :c1, 0, 0, 'OpenTHC/Demo/App', '-')
+INSERT INTO public.service (id, company_id, stat, name, hash)
+VALUES (:s1, :c1, 200, 'OpenTHC/Demo/App', '-')
 ON CONFLICT (id) DO UPDATE SET
 	company_id = EXCLUDED.company_id
-	, flag = EXCLUDED.flag
 	, stat = EXCLUDED.stat
 	, hash = EXCLUDED.hash
 SQL;
@@ -64,11 +63,13 @@ $arg[':pk1'] = getenv('OPENTHC_APP_PUBLIC');
 $arg[':sk1'] = getenv('OPENTHC_APP_SECRET');
 
 $sql = <<<SQL
-INSERT INTO public.auth_service (id, company_id, stat, flag, name, code, hash)
-VALUES (:s1, :c1, 0, 0, 'OpenTHC/Demo/App', :pk1, :sk1)
+INSERT INTO public.auth_service (id, company_id, stat, name, code, hash)
+VALUES (:s1, :c1, 200, 'OpenTHC/Demo/App', :pk1, :sk1)
 ON CONFLICT (id) DO UPDATE SET
 	company_id = EXCLUDED.company_id
 	, code = EXCLUDED.code
+	, stat = EXCLUDED.stat
+	, name = EXCLUDED.name
 	, hash = EXCLUDED.hash
 SQL;
 $dbc_cre->query($sql, $arg);
@@ -78,8 +79,8 @@ $arg = [];
 $arg[':s1'] = getenv('OPENTHC_POS_ID');
 $arg[':c1'] = getenv('OPENTHC_ROOT_COMPANY_ID');
 $sql = <<<SQL
-INSERT INTO public.service (id, company_id, stat, flag, name, hash)
-VALUES (:s1, :c1, 0, 0, 'OpenTHC/Demo/POS', '-')
+INSERT INTO public.service (id, company_id, stat, name, hash)
+VALUES (:s1, :c1, 200, 'OpenTHC/Demo/POS', '-')
 ON CONFLICT (id) DO UPDATE SET
 	company_id = EXCLUDED.company_id
 	, flag = EXCLUDED.flag
@@ -96,11 +97,13 @@ $arg[':pk1'] = getenv('OPENTHC_POS_PUBLIC');
 $arg[':sk1'] = getenv('OPENTHC_POS_SECRET');
 
 $sql = <<<SQL
-INSERT INTO public.auth_service (id, company_id, stat, flag, name, code, hash)
-VALUES (:s1, :c1, 0, 0, 'OpenTHC/Demo/POS', :pk1, :sk1)
+INSERT INTO public.auth_service (id, company_id, stat, name, code, hash)
+VALUES (:s1, :c1, 200, 'OpenTHC/Demo/POS', :pk1, :sk1)
 ON CONFLICT (id) DO UPDATE SET
 	company_id = EXCLUDED.company_id
 	, code = EXCLUDED.code
+	, stat = EXCLUDED.stat
+	, name = EXCLUDED.name
 	, hash = EXCLUDED.hash
 SQL;
 $dbc_cre->query($sql, $arg);
@@ -123,8 +126,6 @@ $dbc_cre->query($sql, $arg);
 
 
 // Init License
-
-
 
 exit(0);
 
