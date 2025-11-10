@@ -1,6 +1,8 @@
 <?php
 /**
  * Single Company
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\Company;

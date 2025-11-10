@@ -78,15 +78,12 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Lookup Contact
-		// $sql = 'SELECT id FROM contact WHERE id = :c';
-		// $arg = array(':c' => $_POST['company']);
-		// $Company = $dbc->fetchRow($sql, $arg);
-		// if (empty($Company['id'])) {
-		// 	return $RES->withJSON([
-		// 		'data' => null,
-		// 		'meta' => [ 'note' => 'Invalid Company [CAO-108]' ]
-		// 	], 403);
-		// }
+		$sql = 'SELECT id FROM contact WHERE id = :c0';
+		$arg = array(':c0' => $act->contact);
+		$Contact = $dbc->fetchRow($sql, $arg);
+		if (empty($Contact['id'])) {
+			throw new \Exception('Invalid Contact [CAO-087]', 404);
+		}
 
 		// Lookup Company
 		$sql = 'SELECT id FROM company WHERE id = :c0 AND stat = 200';

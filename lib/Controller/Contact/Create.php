@@ -1,6 +1,8 @@
 <?php
 /**
  * Create a Global Contact
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\Contact;
@@ -33,6 +35,8 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$obj = array(
 			'id' => $_POST['id'],
 			'name' => $_POST['name'],
+			// 'email' => $_POST['email'],
+			// 'phone' => $_POST['phone'],
 			// 'username' => $_POST['username']
 		);
 		if (empty($obj['id'])) {

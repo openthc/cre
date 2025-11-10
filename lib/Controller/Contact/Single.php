@@ -1,6 +1,8 @@
 <?php
 /**
  * Single Contact
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\Contact;

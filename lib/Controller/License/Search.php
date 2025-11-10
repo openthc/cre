@@ -1,12 +1,17 @@
 <?php
 /**
+ * Search License Data
  *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\License;
 
 class Search extends \OpenTHC\CRE\Controller\Base
 {
+	/**
+	 *
+	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$sql_where = array();
@@ -25,11 +30,11 @@ class Search extends \OpenTHC\CRE\Controller\Base
 
 
 		$sql_query = <<<SQL
-SELECT id, hash, name, meta
-FROM license
-$sql_where
-ORDER BY id
-SQL;
+		SELECT id, hash, name, meta
+		FROM license
+		$sql_where
+		ORDER BY id
+		SQL;
 
 		$ret = array();
 		$res = $this->_container->DB->fetchAll($sql_query, $sql_param);

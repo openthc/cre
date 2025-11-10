@@ -1,6 +1,8 @@
 <?php
 /**
  * Create a Global Company
+ *
+ * SPDX-License-Identifier: MIT
  */
 
 namespace OpenTHC\CRE\Controller\Company;
