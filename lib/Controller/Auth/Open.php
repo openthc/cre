@@ -50,12 +50,16 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		// 	], 400);
 		// }
 
-		$tok = _random_hash();
-		$this->_container->Redis->setEx($tok, $expireTTL=21600, json_encode($SES));
+		$sid = _random_hash();
+		$ttl = 21600; // 6h
+
+		$this->_container->Redis->setEx($sid, $ttl, json_encode($SES));
 
 		return $RES->withJSON([
 			'data' => [
-				'sid' => $tok,
+				'sid' => $sid,
+				'session_id' => $sid,
+				'expires_in' => $ttl,
 			],
 			'meta' => [],
 		], 200);
@@ -94,6 +98,7 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Lookup License
+		$License = [];
 		if ( ! empty($act->license)) {
 			$sql = 'SELECT id, company_id, stat, name FROM license WHERE id = :l0';
 			$arg = [
