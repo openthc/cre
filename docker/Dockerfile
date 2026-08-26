@@ -8,7 +8,6 @@ FROM openthc/web:latest
 #
 # Environment
 ENV OPENTHC_SERVICE="cre"
-ENV OPENTHC_SERVER_NAME="cre.docker.openthc.org"
 
 #
 # Install

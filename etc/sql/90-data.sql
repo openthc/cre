@@ -2,6 +2,19 @@
  * Base Data for the OpenTHC Cannabis Reporting Engine
  */
 
+\c openthc_cre
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', 'public', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET row_security = off;
+
+
 -- system data
 INSERT INTO company (id, stat, hash, name) VALUES ('010PENTHC0C0MPANY000000000', 0, '-', '-system-');
 INSERT INTO company (id, stat, hash, name) VALUES ('010PENTHC0C0MPANY000000001', 0, '-', '-orphan-');

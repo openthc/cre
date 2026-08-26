@@ -26,7 +26,7 @@ fi
 
 #
 # Unsets All OpenTHC Environment Variables
-# Except for OPENTHC_SERVICE and OPENTHC_SERVER_NAME
+# Except for OPENTHC_SERVICE
 for var in $(env | cut -d= -f1 | grep OPENTHC | grep -v OPENTHC_SER)
 do
 	# echo "unset $var"
@@ -34,6 +34,8 @@ do
 done
 
 
-#
-# Start Apache
-exec /usr/sbin/apache2 -DFOREGROUND
+# Start PHP
+/etc/init.d/php8.4-fpm start
+
+# Start Caddy
+exec caddy run --config /etc/caddy/Caddyfile --adapter caddyfile

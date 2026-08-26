@@ -2,6 +2,19 @@
  *	Base SQL Tables for OpenTHC Cannabis Reporting Engine
  */
 
+\c openthc_cre
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', 'public', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET row_security = off;
+
+
 CREATE TABLE auth_company (
 	id varchar(26) DEFAULT public.ulid_create() NOT NULL PRIMARY KEY,
 	code varchar(256) not null
