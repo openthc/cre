@@ -63,6 +63,8 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$output_t = null;
 		if (!empty($_POST['product_id'])) {
 			$output_t = $_POST['product_id'];
+		} elseif (!empty($_POST['product']['id'])) {
+			$output_t = $_POST['product']['id'];
 		}
 
 		if (($source_c == 1) && empty($output_t)) {
@@ -171,7 +173,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$l1 = [
 			'id' => _ulid(),
 			'license_id' => $_SESSION['License']['id'],
-			'product_id' => $obj['product_id'],
+			'product_id' => $_POST['product']['id'],
 			'variety_id' => $S['id'],
 			'section_id' => $Z['id'],
 			// 'qty' => $_POST['qty'], // _POST['qty'] is the output qty, so we need to know the qty of the lot piece used
