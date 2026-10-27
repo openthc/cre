@@ -16,6 +16,9 @@ RUN /opt/openthc/cre/make.sh
 
 #
 # Configure
+RUN mkdir -p /opt/openthc/cre/var && \
+    chown -R www-data:www-data /opt/openthc/cre/var
+
 COPY ./docker/apache2.conf  /etc/apache2/sites-enabled/000-default.conf
 COPY ./docker/Caddyfile     /etc/caddy/Caddyfile
 COPY ./docker/xdebug.ini    /etc/php/7.4/mods-available/xdebug.ini
