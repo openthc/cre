@@ -3,7 +3,7 @@
 # OpenTHC CRE Docker Image
 #
 
-FROM openthc/web:latest
+FROM openthc/web:debian-13
 
 #
 # Environment
