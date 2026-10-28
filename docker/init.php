@@ -196,8 +196,8 @@ function _init_config()
 		'sso' => [
 			'id' => getenv('OPENTHC_SSO_ID'),
 			'origin' => getenv('OPENTHC_SSO_ORIGIN'),
-			'public' => getenv('OPENTHC_SSO_PUBLIC'),
-			'secret' => getenv('OPENTHC_SSO_SECRET'),
+			'client-id' => getenv('OPENTHC_SSO_PUBLIC'),
+			'client-sk' => getenv('OPENTHC_SSO_SECRET'),
 		]
 	];
 
