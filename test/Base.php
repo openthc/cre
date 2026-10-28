@@ -22,11 +22,12 @@ class Base extends \OpenTHC\Test\Base {
 	function makeHTTPClient($cfg=[])
 	{
 		$def = [
-			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],
-			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
-			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
-			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
+			'service' => getenv('OPENTHC_TEST_CLIENT_SERVICE_0'),
+			'contact' => getenv('OPENTHC_TEST_CLIENT_CONTACT_0'),
+			'company' => getenv('OPENTHC_TEST_CLIENT_COMPANY_0'),
+			'license' => getenv('OPENTHC_TEST_CLIENT_LICENSE_0'),
 		];
+		var_dump($def);
 		$cfg = array_merge($def, $cfg);
 		$sid = $this->auth($cfg);
 
@@ -66,10 +67,10 @@ class Base extends \OpenTHC\Test\Base {
 		$def = [
 			'pk' => $client_pk,
 			'ts' => time(),
-			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],
-			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
-			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
-			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
+			'service' => getenv('OPENTHC_TEST_CLIENT_SERVICE_0') ?: $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'] ?? null,
+			'contact' => getenv('OPENTHC_TEST_CLIENT_CONTACT_0') ?: $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'] ?? null,
+			'company' => getenv('OPENTHC_TEST_CLIENT_COMPANY_0') ?: $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'] ?? null,
+			'license' => getenv('OPENTHC_TEST_CLIENT_LICENSE_0') ?: $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'] ?? null,
 		];
 
 		$arg = array_merge($def, $cfg);
