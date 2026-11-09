@@ -60,7 +60,18 @@ http:// {
 	}
 
 	handle_errors {
-			respond "{err.status_code} {err.status_text}"
+
+		root * /var/www/error-pages
+
+		@pretty_page file /{err.status_code}.html
+		handle @pretty_page {
+			rewrite * {file_match.relative}
+			file_server
+		}
+
+		handle {
+			respond "{err.status_code} {err.status_text}" {err.status_code}
+		}
 	}
 
 }
