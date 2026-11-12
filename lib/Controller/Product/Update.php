@@ -20,22 +20,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$P0 = $this->_container->DB->fetch_row($sql, $arg);
 		if (empty($chk)) {
-
-			$auto_create = true;
-			if ($auto_create) {
-				$P0 = array(
-					'id' => \Edoceo\Radix\ULID::generate(),
-					'license_id' => $_SESSION['license_id'],
-					'product_type_id' => '',
-					'name' => $_POST['name'],
-					'hash' => '-',
-					'meta' => json_encode($_POST),
-				);
-				$this->_container->DB->insert('product', $P0);
-			} else {
-				return $this->send404('Product not found [CPU-033]');
-			}
-
+			return $this->send404('Product not found [CPU-033]');
 		}
 
 		// Old Object
