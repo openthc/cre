@@ -13,21 +13,18 @@ require_once("$d/boot.php");
 
 // Wait for Database
 $dsn = getenv('OPENTHC_DSN_MAIN');
-$dbc_main = _spin_wait_for_sql($dsn);
-// echo "SQL Connection: MAIN\n";
+$dbc_main = new \Edoceo\Radix\DB\SQL($dsn);
 
 $dsn = getenv('OPENTHC_DSN_AUTH');
-$dbc_auth = _spin_wait_for_sql($dsn);
-// echo "SQL Connection: AUTH\n";
+$dbc_auth = new \Edoceo\Radix\DB\SQL($dsn);
 
-_init_service($dbc_main, $dbc_auth);
-
-
+$dsn = getenv('OPENTHC_DSN_CRE');
+$dbc_cre = new \Edoceo\Radix\DB\SQL($dsn);
 
 // Init Application in this Service
+_init_service($dbc_main, $dbc_auth);
+
 // Add App as an Allowed Service
-$dsn = getenv('OPENTHC_DSN_CRE');
-$dbc_cre = _spin_wait_for_sql($dsn);
 
 // Create Company
 $arg = [];
@@ -184,17 +181,16 @@ function _init_config()
 	// OpenTHC Services
 	$cfg['openthc'] = [
 		'cre' => [
+			'id' => getenv('OPENTHC_CRE_ID'),
 			'origin' => getenv('OPENTHC_CRE_ORIGIN'),
 			'public' => getenv('OPENTHC_CRE_PUBLIC'),
 			'secret' => getenv('OPENTHC_CRE_SECRET'),
 		],
 		'dir' => [
-			'id' => getenv('OPENTHC_DIR_ID'),
 			'origin' => getenv('OPENTHC_DIR_ORIGIN'),
 			'public' => getenv('OPENTHC_DIR_PUBLIC'),
 		],
 		'sso' => [
-			'id' => getenv('OPENTHC_SSO_ID'),
 			'origin' => getenv('OPENTHC_SSO_ORIGIN'),
 			'client-id' => getenv('OPENTHC_SSO_PUBLIC'),
 			'client-sk' => getenv('OPENTHC_SSO_SECRET'),
@@ -209,39 +205,4 @@ function _init_config()
 
 	return $cfg;
 
-}
-
-/**
- *
- */
-function _spin_wait_for_sql(string $dsn)
-{
-
-	$try = 0;
-
-	do {
-
-		$try++;
-
-		try {
-
-			$ret = new \Edoceo\Radix\DB\SQL($dsn);
-
-			return $ret;
-
-		} catch (Exception $e) {
-			// Ignore
-			echo "SQL Failure: ";
-			echo $e->getMessage();
-			// echo "\n";
-			// var_dump($e);
-		}
-
-		sleep(4);
-
-	} while ($try < 16);
-
-	throw new \Exception('Failed to connect to database');
-
-	exit(1);
 }
