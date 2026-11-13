@@ -84,6 +84,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_open_fail_license() : void
 	{
+		$this->httpClient = $this->makeHTTPClient();
 		// TEST COMPANY A
 		$arg = [
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],

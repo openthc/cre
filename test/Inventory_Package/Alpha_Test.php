@@ -14,6 +14,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	public function test_access()
 	{
+		$this->httpClient = $this->makeHTTPClient();
 		$res = $this->httpClient->get('/inventory');
 		$this->assertValidResponse($res, 403);
 
@@ -111,6 +112,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	public function test_delete()
 	{
+		$this->httpClient = $this->makeHTTPClient();
 		$res = $this->httpClient->delete('/inventory/four_zero_four');
 		$this->assertValidResponse($res, 403);
 
