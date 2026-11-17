@@ -15,6 +15,8 @@
 
 namespace OpenTHC\CRE\Test\Auth;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_auth() : void
@@ -104,12 +106,22 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_open_fail_company_license() : void
 	{
-		// $box =
-		$res = $this->_post('/auth/open', [
+		// We need a validly formatted token where company and license don't match.
+		// The current httpClient from setUp() has no Auth header, causing OAB-017.
+		$tok = $this->make_bearer_token([
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_A'],
+			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_A'],
 			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_C']
 		]);
+
+		$this->httpClient = $this->_api([
+			'headers' => [
+				'Authorization' => $tok,
+			],
+		]);
+
+		$res = $this->_post('/auth/open', []); 
 		$res = $this->assertValidResponse($res, 401);
 
 		$this->assertMatchesRegularExpression('/CAO.125/', $res['meta']['note']);
@@ -140,8 +152,8 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	/**
 	 * Test the full v2024 authentication handshake
-	 * @depends test_open_pass
 	 */
+	#[Depends('test_open_pass')]
 	function test_auth_ping(string $sid) : void
 	{
 		$res = $this->httpClient->get('/auth/ping', [
@@ -155,8 +167,8 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	/**
 	 * Destroy Session
-	 * @depends test_open_pass
 	 */
+	#[Depends('test_open_pass')]
 	function test_auth_shut(string $sid) : void
 	{
 		$this->assertNotEmpty($sid);

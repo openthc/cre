@@ -11,8 +11,8 @@ ENV OPENTHC_SERVICE="cre"
 
 #
 # Install
-COPY --exclude=docker/ ./ /opt/openthc/cre
-RUN /opt/openthc/cre/make.sh
+COPY --exclude=docker/ --exclude=composer.lock ./ /opt/openthc/cre
+RUN bash -x /opt/openthc/cre/make.sh
 
 #
 # Configure
@@ -21,7 +21,7 @@ RUN mkdir -p /opt/openthc/cre/var && \
 
 COPY ./docker/apache2.conf  /etc/apache2/sites-enabled/000-default.conf
 COPY ./docker/Caddyfile     /etc/caddy/Caddyfile
-COPY ./docker/xdebug.ini    /etc/php/7.4/mods-available/xdebug.ini
+COPY ./docker/xdebug.ini    /etc/php/8.4/mods-available/xdebug.ini
 COPY ./docker/init.sh       /init.sh
 COPY ./docker/init.php      /opt/openthc/cre/docker/init.php
 

@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Product_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_create()
@@ -41,9 +43,7 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_search($Product0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -76,9 +76,7 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_single($Product0)
 	{
 		$this->assertIsArray($Product0);
@@ -98,9 +96,7 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertSame($Product0['id'], $Product1['id']);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_update($Product0)
 	{
 		$this->assertIsArray($Product0);
@@ -139,9 +135,7 @@ class Product_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_delete($Product0)
 	{
 		$this->assertIsArray($Product0);

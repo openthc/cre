@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Contact_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
@@ -47,9 +49,7 @@ class Contact_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_search()
 	{
 		$httpClient = $this->makeHTTPClient();
@@ -88,9 +88,7 @@ class Contact_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_single($Contact0)
 	{
 		$httpClient = $this->makeHTTPClient();
@@ -106,9 +104,7 @@ class Contact_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertIsArray($res['data']);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_update($Contact0)
 	{
 		$httpClient = $this->makeHTTPClient();
@@ -161,9 +157,7 @@ class Contact_Test extends \OpenTHC\CRE\Test\Base
 	// 	$this->assertTrue(false);
 	// }
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_delete($Contact0)
 	{
 		$res = $this->httpClient->delete('/contact/four_zero_four');
@@ -181,9 +175,7 @@ class Contact_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_delete_as_root($Contact0)
 	{
 		$httpClient = $this->makeHTTPClient();

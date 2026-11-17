@@ -12,14 +12,8 @@
 		}
 	},
 	"require": {
-		"openthc/common": "dev-main",
-		"openthc/cre-adapter": "dev-main",
+		"openthc/common": "dev-debian-13",
+		"openthc/cre-adapter": "dev-debian-13",
 		"opis/json-schema": "2.3.0"
-	},
-	"require-dev": {
-		"php-webdriver/webdriver": "1.15.2",
-		"phpmd/phpmd": "2.15.0",
-		"phpstan/phpstan": "2.1.8",
-		"phpunit/phpunit": "9.6.20"
 	}
 }

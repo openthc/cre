@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Section_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
@@ -153,9 +155,7 @@ class Section_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_single($License0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -176,9 +176,7 @@ class Section_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_update($Section0)
 	{
 		$this->httpClient = $this->makeHTTPClient([
@@ -207,9 +205,7 @@ class Section_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_delete($License0)
 	{
 		$httpClient = $this->makeHTTPClient([

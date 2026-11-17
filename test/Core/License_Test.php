@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class License_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
@@ -68,9 +70,7 @@ class License_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create_as_root
-	 */
+	#[Depends('test_create_as_root')]
 	function test_single($License0)
 	{
 		$httpClient = $this->makeHTTPClient();
@@ -89,9 +89,7 @@ class License_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertGreaterThan(1, count($res['data']));
 	}
 
-	/**
-	 * @depends test_create_as_root
-	 */
+	#[Depends('test_create_as_root')]
 	function test_update_as_root($License0)
 	{
 		$httpClient = $this->makeHTTPClient();
@@ -115,9 +113,7 @@ class License_Test extends \OpenTHC\CRE\Test\Base
 		return $res['data'];
 	}
 
-	/**
-	 * @depends test_update_as_root
-	 */
+	#[Depends('test_update_as_root')]
 	function test_delete_as_root($License0)
 	{
 		$httpClient = $this->makeHTTPClient();

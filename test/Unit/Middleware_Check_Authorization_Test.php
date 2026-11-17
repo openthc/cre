@@ -15,12 +15,10 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 	public function test_authorization()
 	{
 		// Environment setup
-		$authorization = new Check_Authorization(new \Slim\Container());
-		$req = \Slim\Http\Request::createFromEnvironment(\Slim\Http\Environment::mock())
-			->withMethod('GET')
-			->withUri(\Slim\Http\Uri::createFromString('/'))
+		$authorization = new Check_Authorization(new \DI\Container());
+		$req = (new \Slim\Psr7\Factory\ServerRequestFactory())->createServerRequest("GET", "/")
 		;
-		$res = new \Slim\Http\Response();
+		$res = new \Slim\Psr7\Response();
 
 		// Credentials
 		$client_service_pk = \OpenTHC\Config::get('openthc/cre/public');

@@ -12,8 +12,13 @@ class Middleware_Auth_Token_Test extends \OpenTHC\Test\Base
 	 */
 	public function test_token()
 	{
-		$container = new \Slim\Container();
-		$container['Redis'] = function($c) {
+		$container = (new class implements \Psr\Container\ContainerInterface {
+			private $services = [];
+			public function get(string $id) { return $this->services[$id]; }
+			public function has(string $id): bool { return isset($this->services[$id]); }
+			public function set(string $id, $value) { $this->services[$id] = $value; }
+		});
+		$container->set('Redis', function($c) {
 			return new class {
 				public function get($x) {
 					return json_encode([
@@ -23,13 +28,11 @@ class Middleware_Auth_Token_Test extends \OpenTHC\Test\Base
 					]);
 				}
 			};
-		};
+		});
 		$auth_token = new \OpenTHC\CRE\Middleware\Auth\Token($container);
-		$req = \Slim\Http\Request::createFromEnvironment(\Slim\Http\Environment::mock())
-			->withMethod('GET')
-			->withUri(\Slim\Http\Uri::createFromString('/'))
+		$req = (new \Slim\Psr7\Factory\ServerRequestFactory())->createServerRequest("GET", "/")
 		;
-		$res = new \Slim\Http\Response();
+		$res = new \Slim\Psr7\Response();
 
 		$token = _random_hash();
 

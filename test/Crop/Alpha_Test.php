@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Crop;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected function setUp() : void
@@ -81,9 +83,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		// $this->assertTrue(false);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_update($Crop0)
 	{
 		$this->assertNotEmpty($Crop0);
@@ -99,9 +99,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	function test_delete($Crop0)
 	{
 		$this->assertNotEmpty($Crop0);

@@ -13,11 +13,6 @@ class Base extends \OpenTHC\Test\Base {
 
 	protected $type_expect = 'application/json';
 
-	function __construct($name = null, array $data = [], $dataName = '')
-	{
-		parent::__construct($name, $data, $dataName);
-
-	}
 
 	function makeHTTPClient($cfg=[])
 	{

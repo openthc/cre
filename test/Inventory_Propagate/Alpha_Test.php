@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Inventory_Propagate;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Alpha_Test extends \OpenTHC\CRE\Test\Base
 {
 	protected $_url_path = '/inventory';
@@ -70,9 +72,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		// $this->assertTrue(true);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	function test_search($Inventory0)
 	{
 		$res = $this->httpClient->get($this->_url_path);
@@ -94,9 +94,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->assertValidResponse($res, 404);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	function test_single_200($Inventory0)
 	{
 		$res = $this->httpClient->get($this->_url_path);
@@ -118,9 +116,7 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	function test_update($Inventory0)
 	{
 		$this->assertNotEmpty($Inventory0);
@@ -201,17 +197,13 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	//
 	// }
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	function test_finish($Inventory0)
 	{
 		$this->assertNotEmpty($Inventory0);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	function test_delete($Inventory0)
 	{
 		$this->assertNotEmpty($Inventory0);

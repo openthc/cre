@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Company_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
@@ -52,9 +54,7 @@ class Company_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create_as_root
-	 */
+	#[Depends('test_create_as_root')]
 	public function test_search($Company0)
 	{
 		$res = $this->httpClient->get('/company');
@@ -126,9 +126,7 @@ class Company_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create_as_root
-	 */
+	#[Depends('test_create_as_root')]
 	public function test_update($c0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -162,9 +160,7 @@ class Company_Test extends \OpenTHC\CRE\Test\Base
 		return $c0;
 	}
 
-	/**
-	 * @depends test_update
-	 */
+	#[Depends('test_update')]
 	public function test_delete($c0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -187,9 +183,7 @@ class Company_Test extends \OpenTHC\CRE\Test\Base
 		return $c0;
 	}
 
-	/**
-	 * @depends test_delete
-	 */
+	#[Depends('test_delete')]
 	public function test_delete_as_root($c0)
 	{
 		// Root

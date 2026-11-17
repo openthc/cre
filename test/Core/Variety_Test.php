@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Variety_Test extends \OpenTHC\CRE\Test\Base
 {
 	public function test_public_read()
@@ -79,9 +81,7 @@ class Variety_Test extends \OpenTHC\CRE\Test\Base
 		return $Variety0;
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_search($Variety0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -95,9 +95,7 @@ class Variety_Test extends \OpenTHC\CRE\Test\Base
 		$res = $this->assertValidResponse($res);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_single($Variety0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -119,9 +117,7 @@ class Variety_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_update($Variety0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -154,9 +150,7 @@ class Variety_Test extends \OpenTHC\CRE\Test\Base
 		$this->assertEquals($Variety0['name'], $Variety1['name']);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_delete($Variety0)
 	{
 		$httpClient = $this->makeHTTPClient([

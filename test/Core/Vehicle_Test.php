@@ -7,6 +7,8 @@
 
 namespace OpenTHC\CRE\Test\Core;
 
+use PHPUnit\Framework\Attributes\Depends;
+
 class Vehicle_Test extends \OpenTHC\CRE\Test\Base
 {
 	/**
@@ -44,9 +46,7 @@ class Vehicle_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_search($Vehicle0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -79,9 +79,7 @@ class Vehicle_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_single($Vehicle0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -98,9 +96,7 @@ class Vehicle_Test extends \OpenTHC\CRE\Test\Base
 		// $this->assertCount(7, $res['data']);
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_update($Vehicle0)
 	{
 		$httpClient = $this->makeHTTPClient([
@@ -132,9 +128,7 @@ class Vehicle_Test extends \OpenTHC\CRE\Test\Base
 
 	}
 
-	/**
-	 * @depends test_create
-	 */
+	#[Depends('test_create')]
 	public function test_delete($Vehicle0)
 	{
 		$httpClient = $this->makeHTTPClient([
