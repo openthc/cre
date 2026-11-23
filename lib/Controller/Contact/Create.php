@@ -22,7 +22,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT * FROM company WHERE id = :g';
 		$arg = array(':g' => $_POST['company']);
-		$rec = $this->_container->DB->fetchRow($sql, $arg);
+		$rec = $this->dic->get('DB')->fetchRow($sql, $arg);
 		if (empty($rec['id'])) {
 			return $this->sendError('Invalid "company" parameter [CCC-028]', 400);
 		}
@@ -54,7 +54,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$rec['hash'] = sha1($rec['meta']);
 
 		try {
-			$this->_container->DB->insert('contact', $rec);
+			$this->dic->get('DB')->insert('contact', $rec);
 			$this->logAudit('Contact/Create', $rec['id'], $rec['meta']);
 		} catch (\Exception $e) {
 			$this->logAudit('Contact/Create/Failure', $rec['id'], json_encode($e->getMessage()));

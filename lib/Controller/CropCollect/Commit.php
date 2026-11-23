@@ -30,7 +30,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 			], 400);
 		}
 
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// Find Default Product
 		if (empty($_POST['product_id'])) {

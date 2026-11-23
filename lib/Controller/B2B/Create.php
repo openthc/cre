@@ -12,7 +12,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$oid = _ulid();
 
@@ -62,10 +62,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		$this->logAudit('B2B/Create', $oid, $obj);
 
-		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('b2b_incoming', $rec_incoming);
-		$this->_container->DB->insert('b2b_outgoing', $rec_outgoing);
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('BEGIN');
+		$this->dic->get('DB')->insert('b2b_incoming', $rec_incoming);
+		$this->dic->get('DB')->insert('b2b_outgoing', $rec_outgoing);
+		$this->dic->get('DB')->query('COMMIT');
 
 		unset($rec_incoming['meta']);
 

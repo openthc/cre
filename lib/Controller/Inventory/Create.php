@@ -90,7 +90,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$response_meta = [
 			'warn' => array(),
 		];
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// @todo Multi inventory conversions /mbw
 		$lot_list = array();
@@ -237,7 +237,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			'hash' => '-',
 		];
 
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 		$dbc->query('BEGIN');
 		$dbc->insert('inventory', $l1);
 		$dbc->query('COMMIT');
@@ -255,7 +255,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 	private function create_from_scratch($RES)
 	{
 
-		$DBC = $this->_container->DB;
+		$DBC = $this->dic->get('DB');
 
 		// Check for existance
 		$sql = 'SELECT id FROM inventory WHERE license_id = :l AND id = :id';

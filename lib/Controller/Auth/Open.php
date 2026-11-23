@@ -53,7 +53,7 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		$sid = _random_hash();
 		$ttl = 21600; // 6h
 
-		$this->_container->Redis->setEx($sid, $ttl, json_encode($SES));
+		$this->dic->get('Redis')->setEx($sid, $ttl, json_encode($SES));
 
 		return $RES->withJSON([
 			'data' => [
@@ -71,7 +71,7 @@ class Open extends \OpenTHC\CRE\Controller\Base
 	 */
 	function open_session($act)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// Lookup Service
 		$sql = 'SELECT id, company_id, name, code FROM auth_service WHERE id = :s0 AND stat = 200';

@@ -23,16 +23,16 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		$obj = json_encode($obj);
 
-		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('b2c_sale', array(
+		$this->dic->get('DB')->query('BEGIN');
+		$this->dic->get('DB')->insert('b2c_sale', array(
 			'license_id' => $_SESSION['License']['id'],
 			'id' => $oid,
 			'hash' => sha1($obj),
 			'meta' => $obj,
 		));
 
-		$this->_container->DB->query('INSERT INTO log_audit (code,meta) values (?,?)', array('Sale/Create', $obj));
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('INSERT INTO log_audit (code,meta) values (?,?)', array('Sale/Create', $obj));
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'data' => $obj,

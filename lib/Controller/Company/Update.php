@@ -11,7 +11,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$sql = 'SELECT id, meta FROM company WHERE id = :g';
 		$arg = array(

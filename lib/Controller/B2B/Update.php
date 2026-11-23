@@ -12,7 +12,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// Find in View
 		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_source = :l AND id = :g';
@@ -39,7 +39,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 	 */
 	function _update_from_source($RES, $T)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// Add an Item
 		if (!empty($_POST['inventory_id'])) {

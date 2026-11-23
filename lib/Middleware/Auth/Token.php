@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Middleware\Auth;
 
-class Token extends \OpenTHC\Middleware\Base
+class Token extends \OpenTHC\CRE\Middleware\Base
 {
 	/**
 	 *
@@ -24,7 +24,7 @@ class Token extends \OpenTHC\Middleware\Base
 		}
 
         $token = $m[1];
-        $session = $this->_container->Redis->get($token);
+        $session = $this->dic->get('Redis')->get($token);
         if (empty($session)) {
             return $RES->withJson([
 				'data' => null,

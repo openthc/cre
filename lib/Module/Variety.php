@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Variety extends \OpenTHC\Module\Base
+class Variety
 {
 	function __invoke($a)
 	{

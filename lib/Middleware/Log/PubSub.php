@@ -5,13 +5,13 @@
 
 namespace OpenTHC\CRE\Middleware\Log;
 
-class PubSub extends \OpenTHC\Middleware\Base
+class PubSub extends \OpenTHC\CRE\Middleware\Base
 {
 	public function __invoke($REQ, $RES, $NMW)
 	{
 		$uid = $_SERVER['UNIQUE_ID'];
 
-		$red = $this->_container->Redis;
+		$red = $this->dic->get('Redis');
 		$red->publish('gwsrps', \json_encode([
 			$uid,
 			$_SERVER['REMOTE_ADDR'],

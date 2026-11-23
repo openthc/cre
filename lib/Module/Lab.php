@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Lab extends \OpenTHC\Module\Base
+class Lab
 {
 	function __invoke($a)
 	{

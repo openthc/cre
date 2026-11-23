@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Section extends \OpenTHC\Module\Base
+class Section
 {
 	function __invoke($a)
 	{

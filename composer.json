@@ -14,6 +14,10 @@
 	"require": {
 		"openthc/common": "dev-debian-13",
 		"openthc/cre-adapter": "dev-debian-13",
-		"opis/json-schema": "2.3.0"
+		"opis/json-schema": "2.3.0",
+		"php-di/php-di": "7.1.1"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "12.5.8"
 	}
 }

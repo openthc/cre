@@ -26,7 +26,7 @@ class Shut extends \OpenTHC\CRE\Controller\Base
 
 		$sid = $m[1];
 
-		$rdb = $this->_container->Redis;
+		$rdb = $this->dic->get('Redis');
 		$chk = $rdb->get($sid);
 		$del = $rdb->del($sid);
 

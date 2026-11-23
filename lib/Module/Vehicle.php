@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Vehicle extends \OpenTHC\Module\Base
+class Vehicle
 {
 	function __invoke($a)
 	{

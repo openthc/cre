@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Inventory extends \OpenTHC\Module\Base
+class Inventory
 {
 	function __invoke($a)
 	{

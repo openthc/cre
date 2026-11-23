@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class CropCollect extends \OpenTHC\Module\Base
+class CropCollect
 {
 	function __invoke($a)
 	{

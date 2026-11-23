@@ -18,7 +18,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':g' => $ARG['id'],
 		);
 
-		$chk = $this->_container->DB->fetch_row($sql, $arg);
+		$chk = $this->dic->get('DB')->fetch_row($sql, $arg);
 		if (empty($chk)) {
 			return $this->send404('B2C Sale not found [CSU-021]');
 		}
@@ -34,7 +34,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$meta = json_encode($obj1);
 
-		$this->_container->DB->query('BEGIN');
+		$this->dic->get('DB')->query('BEGIN');
 
 		// Update the record
 		$sql = 'UPDATE b2c_sale SET hash = :h, meta = :m WHERE id = :g';
@@ -43,10 +43,10 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':h' => sha1($meta),
 			':m' => $meta
 		);
-		$this->_container->DB->query($sql, $arg);
+		$this->dic->get('DB')->query($sql, $arg);
 
 		// Log the change
-		$this->_container->DB->insert('log_audit', array(
+		$this->dic->get('DB')->insert('log_audit', array(
 			'code' => 'B2C/Update',
 			'meta' => json_encode(array(
 				'old' => $obj0,
@@ -54,7 +54,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			))
 		));
 
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'meta' => [],

@@ -20,7 +20,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 			':pk' => $ARG['id']
 		];
 
-		$rec =$this->_container->DB->fetch_row($sql, $arg);
+		$rec =$this->dic->get('DB')->fetch_row($sql, $arg);
 		if (empty($rec['id'])) {
 			return $this->send404('Section Not Found [CSS-027]');
 		}

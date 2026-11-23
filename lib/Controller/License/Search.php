@@ -37,7 +37,7 @@ class Search extends \OpenTHC\CRE\Controller\Base
 		SQL;
 
 		$ret = array();
-		$res = $this->_container->DB->fetchAll($sql_query, $sql_param);
+		$res = $this->dic->get('DB')->fetchAll($sql_query, $sql_param);
 
 		foreach ($res as $rec) {
 

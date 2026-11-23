@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Auth extends \OpenTHC\Module\Base
+class Auth
 {
 	/**
 	 *

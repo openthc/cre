@@ -17,7 +17,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':g' => $ARG['id'],
 		);
 
-		$chk = $this->_container->DB->fetchRow($sql, $arg);
+		$chk = $this->dic->get('DB')->fetchRow($sql, $arg);
 		if (empty($chk)) {
 			return $this->send404('Contact not found [CCU-020]');
 		}
@@ -34,7 +34,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 		$meta = json_encode($obj1);
 
 
-		$this->_container->DB->query('BEGIN');
+		$this->dic->get('DB')->query('BEGIN');
 
 		// Update the record
 		$sql = 'UPDATE contact SET hash = :h, meta = :m WHERE id = :g';
@@ -43,7 +43,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':h' => sha1($meta),
 			':m' => $meta
 		);
-		$this->_container->DB->query($sql, $arg);
+		$this->dic->get('DB')->query($sql, $arg);
 
 		// Log the change
 		$this->logAudit('Contact/Update', $chk['id'], json_encode(array(
@@ -51,7 +51,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			'new' => $obj1
 		)));
 
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'meta' => [],

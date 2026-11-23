@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Contact extends \OpenTHC\Module\Base
+class Contact
 {
 	function __invoke($a)
 	{

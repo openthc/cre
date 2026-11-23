@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class License extends \OpenTHC\Module\Base
+class License
 {
 	function __invoke($a)
 	{

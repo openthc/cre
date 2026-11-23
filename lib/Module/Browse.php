@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Browse extends \OpenTHC\Module\Base
+class Browse
 {
 	/**
 	 *

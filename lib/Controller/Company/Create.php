@@ -37,7 +37,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$rec['hash'] = sha1($rec['meta']);
 
 		try {
-			$this->_container->DB->insert('company', $rec);
+			$this->dic->get('DB')->insert('company', $rec);
 			$this->logAudit('Company/Create', $rec['id'], $rec);
 		} catch (\Exception $e) {
 			$this->logAudit('Company/Create/Error', $rec['id'], $e);

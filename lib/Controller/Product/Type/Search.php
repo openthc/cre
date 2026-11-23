@@ -12,7 +12,7 @@ class Search extends \OpenTHC\CRE\Controller\Base
 	function __invoke($REQ, $RES, $ARG)
 	{
 		$sql = 'SELECT * FROM product_type ORDER BY id';
-		$res = $this->_container->DB->fetchAll($sql);
+		$res = $this->dic->get('DB')->fetchAll($sql);
 
 		return $RES->withJSON([
 			'meta' => [

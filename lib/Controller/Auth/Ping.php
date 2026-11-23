@@ -27,7 +27,7 @@ class Ping extends \OpenTHC\CRE\Controller\Base
 
 		$sid = $m[1];
 
-		$chk = $this->_container->Redis->get($sid);
+		$chk = $this->dic->get('Redis')->get($sid);
 		if (empty($chk)) {
 			return $RES->withJson([
 				'data' => null,

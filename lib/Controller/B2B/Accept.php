@@ -9,7 +9,7 @@ class Accept extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// Incoming Record
 		$sql = 'SELECT * FROM b2b_incoming WHERE license_id_target = :l0 AND id = :t0';

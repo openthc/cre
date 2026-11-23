@@ -57,10 +57,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		//$rec = $this->evalObjectScript('Crop/Create', 'Crop', $rec);
 
-		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('plant', $rec);
+		$this->dic->get('DB')->query('BEGIN');
+		$this->dic->get('DB')->insert('plant', $rec);
 		$this->logAudit('Crop/Create', $rec['id'], $_POST);
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		unset($rec['meta']);
 

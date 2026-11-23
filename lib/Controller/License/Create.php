@@ -24,7 +24,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 
 		$sql = 'SELECT * FROM company WHERE id = :g';
 		$arg = array(':g' => $_POST['company']);
-		$rec = $this->_container->DB->fetchRow($sql, $arg);
+		$rec = $this->dic->get('DB')->fetchRow($sql, $arg);
 		if (empty($rec['id'])) {
 			return $this->sendError('Invalid Company [CLC-027]', 400);
 		}
@@ -60,7 +60,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		$rec['hash'] = sha1($rec['meta']);
 
 		try {
-			$this->_container->DB->insert('license', $rec);
+			$this->dic->get('DB')->insert('license', $rec);
 			$this->logAudit('License/Create', $rec['id'], $_POST);
 		} catch (\Exception $e) {
 			$this->logAudit('License/Create/Failure', $rec['id'], json_encode($e->getMessage()));

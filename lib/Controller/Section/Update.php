@@ -18,7 +18,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':g' => $ARG['id'],
 		);
 
-		$chk = $this->_container->DB->fetch_row($sql, $arg);
+		$chk = $this->dic->get('DB')->fetch_row($sql, $arg);
 		if (empty($chk)) {
 			// Insert?
 			$chk = [
@@ -27,7 +27,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 				'name' => $ARG['id'],
 				'hash' => '-',
 			];
-			$this->_container->DB->insert('section', $chk);
+			$this->dic->get('DB')->insert('section', $chk);
 		}
 
 		// Old Object
@@ -41,7 +41,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 
 		$meta = json_encode($obj1);
 
-		$this->_container->DB->query('BEGIN');
+		$this->dic->get('DB')->query('BEGIN');
 
 		// Update the record
 		$sql = 'UPDATE section SET hash = :h, meta = :m WHERE id = :pk';
@@ -50,7 +50,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':h' => sha1($meta),
 			':m' => $meta
 		);
-		$this->_container->DB->query($sql, $arg);
+		$this->dic->get('DB')->query($sql, $arg);
 
 		// Log the change
 		$this->logAudit('Section/Update', $ARG['id'], json_encode(array(
@@ -58,7 +58,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			'new' => $obj1
 		)));
 
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'data' => $obj1,

@@ -15,7 +15,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 			':g' => $ARG['id']
 		);
 
-		$rec =$this->_container->DB->fetch_row($sql, $arg);
+		$rec =$this->dic->get('DB')->fetch_row($sql, $arg);
 		if (empty($rec['id'])) {
 			return $this->send404('Product not found [CPS-020]');
 		}

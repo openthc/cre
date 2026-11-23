@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Company extends \OpenTHC\Module\Base
+class Company
 {
 	function __invoke($a)
 	{

@@ -15,7 +15,7 @@ class Adjust extends \OpenTHC\CRE\Controller\Base
 			':l' => $_SESSION['License']['id'],
 			':id' => $ARG['id'],
 		);
-		$chk = $this->_container->DB->fetchRow($sql, $arg);
+		$chk = $this->dic->get('DB')->fetchRow($sql, $arg);
 		if (empty($chk['id'])) {
 			return $this->send404('Inventory not found [CLA-020]');
 		}
@@ -28,7 +28,7 @@ class Adjust extends \OpenTHC\CRE\Controller\Base
 			':pk' => $ARG['id'],
 			':q' => $qty,
 		);
-		$this->_container->DB->query($sql, $arg);
+		$this->dic->get('DB')->query($sql, $arg);
 		$this->logAudit('Inventory/Adjust', $ARG['id'], \json_encode($_POST));
 
 		return $RES->withJSON([

@@ -36,7 +36,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			':l' => $_SESSION['License']['id'],
 			':n' => $source_data->name,
 		);
-		$chk = $this->_container->DB->fetchRow($sql, $arg);
+		$chk = $this->dic->get('DB')->fetchRow($sql, $arg);
 		if (!empty($chk)) {
 			return $RES->withJSON([
 				'meta' => [ 'note' => 'Variety Duplicate [CSC-030]' ],
@@ -54,10 +54,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		);
 		$rec['hash'] = sha1($rec['meta']);
 
-		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('variety', $rec);
+		$this->dic->get('DB')->query('BEGIN');
+		$this->dic->get('DB')->insert('variety', $rec);
 		$this->logAudit('Variety/Create', $source_data->id, $rec['meta']);
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON([
 			'meta' => [],

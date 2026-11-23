@@ -3,6 +3,9 @@
  * Main Controller
  */
 
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
 require_once(dirname(dirname(__FILE__)) . '/boot.php');
 
 $cfg = [];
@@ -10,28 +13,79 @@ $cfg = [];
 $cfg['settings'] = [];
 // $cfg['settings']['routerCacheFile'] = '/tmp/slim-router.cache';
 
-$app = new \OpenTHC\CRE\Core($cfg);
-$con = $app->getContainer();
+$dic = new \DI\Container();
+\Slim\Factory\AppFactory::setContainer($dic);
+\Slim\Factory\AppFactory::setResponseFactory(new \OpenTHC\HTTP\Response\Factory());
+$app = \Slim\Factory\AppFactory::create();
 
-if ($cfg['debug']) {
-	unset($con['errorHandler']);
-	unset($con['phpErrorHandler']);
-	unset($con['notFoundHandler']);
-}
+// Add Error Handler
+$errorMiddleware = $app->addErrorMiddleware(
+	displayErrorDetails: true,
+	logErrors: true,
+	logErrorDetails: true
+);
+$errorMiddleware->setDefaultErrorHandler(function (
+		\Psr\Http\Message\ServerRequestInterface $request,
+		\Throwable $exception,
+		bool $displayErrorDetails
+	) use ($app, $cfg) {
+		$code = (int)$exception->getCode();
+		if ($code < 100 || $code > 599) {
+			$code = 500;
+		}
+		$response = $app->getResponseFactory()->createResponse($code);
 
-$con['response'] = function($c) {
-	return new \OpenTHC\HTTP\Response();
-};
+		$msg = $exception->getMessage();
+
+		$meta = [
+			'note' => $msg,
+			'origin' => 'app',
+		];
+
+		if (!empty($cfg['debug']) || $displayErrorDetails) {
+			$meta['source'] = [
+				'code' => $exception->getCode(),
+				'file' => $exception->getFile(),
+				'line' => $exception->getLine(),
+			];
+			$meta['stack'] = $exception->getTraceAsString();
+		}
+
+		$response->getBody()->write(json_encode([
+			'data' => [],
+			'meta' => $meta
+		], JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+
+		return $response->withHeader('content-type', 'application/json');
+});
+
+$errorMiddleware->setErrorHandler(\Slim\Exception\HttpNotFoundException::class, function() use ($app) {
+	$response = $app->getResponseFactory()->createResponse(404);
+	$response->getBody()->write(json_encode([
+		'data' => [],
+		'meta' => [ 'note' => 'Not Found [404]' ]
+	]));
+	return $response->withHeader('content-type', 'application/json');
+});
+
+$errorMiddleware->setErrorHandler(\Slim\Exception\HttpMethodNotAllowedException::class, function() use ($app) {
+	$response = $app->getResponseFactory()->createResponse(405);
+	$response->getBody()->write(json_encode([
+		'data' => [],
+		'meta' => [ 'note' => 'HTTP Method Not Allowed' ]
+	]));
+	return $response->withHeader('content-type', 'application/json');
+});
 
 // Database
-$con['DB'] = function($c) {
+$dic->set('DB', function() {
 	return _dbc();
-};
+});
 
 // Redis
-$con['Redis'] = function($c) {
+$dic->set('Redis', function() {
 	return _rdb();
-};
+});
 
 // Common Middleware
 // ->add('OpenTHC\Middleware\Log\HTTP')

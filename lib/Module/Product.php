@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class Product extends \OpenTHC\Module\Base
+class Product
 {
 	/**
 	 *

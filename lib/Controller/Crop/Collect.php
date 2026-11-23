@@ -15,7 +15,7 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		if (empty($ARG['id'])) {
 			return $RES->withJSON([

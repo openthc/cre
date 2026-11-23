@@ -22,7 +22,7 @@ SQL;
 			':c0' => $_SESSION['company_id'],
 		);
 
-		$res = $this->_container->DB->fetchAll($sql, $arg);
+		$res = $this->dic->get('DB')->fetchAll($sql, $arg);
 
 		return $RES->withJSON(array(
 			'data' => $res,

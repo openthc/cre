@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Middleware;
 
-class Check_Authorization extends \OpenTHC\Middleware\Base
+class Check_Authorization extends \OpenTHC\CRE\Middleware\Base
 {
 	use \OpenTHC\CRE\Traits\OpenAuthBox;
 

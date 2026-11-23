@@ -47,7 +47,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			':l' => $_SESSION['License']['id'],
 			':n' => $_POST['name'],
 		];
-		$chk = $this->_container->DB->fetchRow($sql, $arg);
+		$chk = $this->dic->get('DB')->fetchRow($sql, $arg);
 		if (!empty($chk)) {
 			return $RES->withJSON([
 				'data' => $chk,
@@ -69,10 +69,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		];
 		$rec['hash'] = sha1($rec['meta']);
 
-		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('product', $rec);
+		$this->dic->get('DB')->query('BEGIN');
+		$this->dic->get('DB')->insert('product', $rec);
 		$this->logAudit('Product/Create', $oid, $rec['meta']);
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON([
 			'data' => $obj,

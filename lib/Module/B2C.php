@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Module;
 
-class B2C extends \OpenTHC\Module\Base
+class B2C
 {
 	function __invoke($a)
 	{

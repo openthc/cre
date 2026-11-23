@@ -13,7 +13,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 	{
 		$sql = 'SELECT * FROM license WHERE id = :g';
 		$arg = array(':g' => $ARG['id']);
-		$rec =$this->_container->DB->fetch_row($sql, $arg);
+		$rec =$this->dic->get('DB')->fetch_row($sql, $arg);
 
 		if (empty($rec)) {
 			return $this->send404('License not found [CLS-017]');

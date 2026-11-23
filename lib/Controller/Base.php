@@ -7,10 +7,18 @@
 
 namespace OpenTHC\CRE\Controller;
 
+use Psr\Container\ContainerInterface;
 use Edoceo\Radix\ULID;
 
 class Base extends \OpenTHC\Controller\Base
 {
+	protected $dic;
+
+	function __construct(ContainerInterface $dic)
+	{
+		$this->dic = $dic;
+	}
+
 	/**
 	 * Enter an Audit Log Entry
 	 * @param string $msg [description]
@@ -30,7 +38,7 @@ class Base extends \OpenTHC\Controller\Base
 			$arg[':x'] = json_encode($arg[':x']);
 		}
 
-		$this->_container->DB->query('INSERT INTO log_audit (id, pk, code, meta) values (:id, :pk, :m, :x)', $arg);
+		$this->dic->get('DB')->query('INSERT INTO log_audit (id, pk, code, meta) values (:id, :pk, :m, :x)', $arg);
 
 	}
 

@@ -9,7 +9,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$sql = 'SELECT id, meta FROM plant WHERE license_id = :l AND id = :g';
 		$arg = array(
@@ -42,12 +42,12 @@ class Update extends \OpenTHC\CRE\Controller\Base
 			':h' => sha1($meta),
 			':m' => $meta
 		);
-		$this->_container->DB->query($sql, $arg);
+		$this->dic->get('DB')->query($sql, $arg);
 
 		// Log the change
 		$this->logAudit('Crop/Update', $ARG['id'], $meta);
 
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON([
 			'meta' => [],

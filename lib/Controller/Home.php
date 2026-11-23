@@ -24,7 +24,7 @@ class Home extends \OpenTHC\CRE\Controller\Base
 
 		$file = 'page/index.html';
 
-		return $this->_container->view->render($RES, $file, $data);
+		return $this->dic->get('view')->render($RES, $file, $data);
 
 	}
 }

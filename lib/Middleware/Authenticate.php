@@ -7,7 +7,7 @@
 
 namespace OpenTHC\CRE\Middleware;
 
-class Authenticate extends \OpenTHC\Middleware\Base
+class Authenticate extends \OpenTHC\CRE\Middleware\Base
 {
 	// use \OpenTHC\CRE\Traits\OpenAuthBox;
 
@@ -26,7 +26,7 @@ class Authenticate extends \OpenTHC\Middleware\Base
 		}
 
 		$sid = $m[1];
-		$chk = $this->_container->Redis->get($sid);
+		$chk = $this->dic->get('Redis')->get($sid);
 		if (empty($chk)) {
 			return $RES->withJson([
 				'data' => null,

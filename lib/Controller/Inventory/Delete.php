@@ -9,7 +9,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$sql = 'SELECT id, stat FROM inventory WHERE license_id = :l0 AND id = :pk FOR UPDATE NOWAIT';
 		$arg = array(

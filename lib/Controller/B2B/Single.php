@@ -12,7 +12,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 	 */
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_source = :l AND id = :g';
 		$arg = array(

@@ -5,7 +5,7 @@
 
 namespace OpenTHC\CRE\Middleware;
 
-class InputDataFilter extends \OpenTHC\Middleware\Base
+class InputDataFilter extends \OpenTHC\CRE\Middleware\Base
 {
 	public function __invoke($REQ, $RES, $NMW)
 	{

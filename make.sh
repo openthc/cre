@@ -14,7 +14,7 @@ APP_ROOT=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 cd "$APP_ROOT"
 
-composer install --no-ansi --no-progress --classmap-authoritative
+composer update --no-ansi --no-progress --classmap-authoritative
 
 npm install --no-audit --no-fund
 
@@ -22,10 +22,13 @@ php <<PHP
 <?php
 define('APP_ROOT', __DIR__);
 require_once(APP_ROOT . '/vendor/autoload.php');
-\OpenTHC\Make::install_bootstrap();
-\OpenTHC\Make::install_fontawesome();
-\OpenTHC\Make::install_jquery();
+// \OpenTHC\Make::install_bootstrap();
+// \OpenTHC\Make::install_fontawesome();
+// \OpenTHC\Make::install_jquery();
 PHP
+vendor/openthc/common/lib/make.sh install_bootstrap
+vendor/openthc/common/lib/make.sh install_fontawesome
+vendor/openthc/common/lib/make.sh install_jquery
 
 
 function _clean()

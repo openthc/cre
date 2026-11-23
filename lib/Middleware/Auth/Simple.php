@@ -5,11 +5,11 @@
 
 namespace OpenTHC\CRE\Middleware\Auth;
 
-class Simple extends \OpenTHC\Middleware\Base
+class Simple extends \OpenTHC\CRE\Middleware\Base
 {
 	public function __invoke($REQ, $RES, $NMW)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		if (empty($_POST['service'])) {
 			return $RES->withJSON([

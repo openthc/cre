@@ -40,7 +40,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 	function two_step_delete($REQ, $RES, $ARG)
 	{
 
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		// Find and Update
 		$rec_code = 405;

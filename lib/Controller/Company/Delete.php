@@ -24,7 +24,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		// Lookup
 		$sql = 'SELECT * FROM company WHERE id = :g';
 		$arg = array(':g' => $ARG['id']);
-		$rec = $this->_container->DB->fetch_row($sql, $arg);
+		$rec = $this->dic->get('DB')->fetch_row($sql, $arg);
 
 		if (empty($rec)) {
 			return $this->send404('Company not found [CCD-030]');

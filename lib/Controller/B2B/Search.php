@@ -16,7 +16,7 @@ class Search extends \OpenTHC\CRE\Controller\Base
 	 */
 	function incoming($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$sql = 'SELECT * FROM b2b_incoming WHERE license_id_target = :l AND stat = 200';
 		$arg = array(
@@ -37,7 +37,7 @@ class Search extends \OpenTHC\CRE\Controller\Base
 	 */
 	function outgoing($REQ, $RES, $ARG)
 	{
-		$dbc = $this->_container->DB;
+		$dbc = $this->dic->get('DB');
 
 		$sql = 'SELECT * FROM b2b_outgoing WHERE license_id_source = :l';
 		$arg = array(

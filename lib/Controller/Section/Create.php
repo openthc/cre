@@ -56,10 +56,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		);
 		$rec['hash'] = sha1($rec['meta']);
 
-		$this->_container->DB->query('BEGIN');
-		$this->_container->DB->insert('section', $rec);
+		$this->dic->get('DB')->query('BEGIN');
+		$this->dic->get('DB')->insert('section', $rec);
 		$this->logAudit('Section/Create', $rec['id'], $rec['meta']);
-		$this->_container->DB->query('COMMIT');
+		$this->dic->get('DB')->query('COMMIT');
 
 		return $RES->withJSON(array(
 			'data' => $obj,
