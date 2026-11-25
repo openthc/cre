@@ -19,7 +19,7 @@ ORDER BY id
 SQL;
 
 		$arg = array(
-			':c0' => $_SESSION['company_id'],
+			':c0' => $_SESSION['Company']['id'],
 		);
 
 		$res = $this->dic->get('DB')->fetchAll($sql, $arg);

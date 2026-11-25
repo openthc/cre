@@ -73,7 +73,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 
 		$dbc->query('BEGIN');
 
-		$sql = 'SELECT * FROM plant_collect WHERE license_id = :l AND id = :g FOR UPDATE';
+		$sql = 'SELECT * FROM crop_collect WHERE license_id = :l AND id = :g FOR UPDATE';
 		$arg = array(
 			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
@@ -91,7 +91,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Sum Raw
-		$sql = 'SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = :pt0';
+		$sql = 'SELECT sum(qty) FROM crop_collect_plant WHERE crop_collect_id = :pc0 AND type = :pt0';
 		$arg = [
 			':pc0' => $pc['id'],
 			':pt0' => 'raw',
@@ -99,7 +99,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		$pc['raw'] = $dbc->fetchOne($sql, $arg);
 
 		// Sum Net
-		// $sql = 'SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = :pt0';
+		// $sql = 'SELECT sum(qty) FROM crop_collect_plant WHERE crop_collect_id = :pc0 AND type = :pt0';
 		// $arg = [
 		// 	':pc0' => $pc['id'],
 		// 	':pt0' => 'net',
@@ -122,27 +122,27 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		// 	if (!empty($_POST['plant_list'])) {
 		// 		// Use It
 		// 	} else {
-		// 		$sql = 'SELECT DISTINCT plant_id FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = :pt0';
+		// 		$sql = 'SELECT DISTINCT crop_id FROM crop_collect_plant WHERE crop_collect_id = :pc0 AND type = :pt0';
 		// 		$arg = [
 		// 			':pc0' => $pc['id'],
 		// 			':pt0' => 'raw',
 		// 		];
 		// 		$res = $dbc->fetchAll($sql, $arg);
 		// 		foreach ($res as $rec) {
-		// 			$plant_list[] = $rec['plant_id'];
+		// 			$plant_list[] = $rec['crop_id'];
 		// 		}
 		// 		$net_pct = $net / count($plant_list);
 		// 		foreach ($plant_list as $pid) {
 		// 			$PCP = [
 		// 				'id' => _ulid(),
-		// 				'plant_collect_id' => $pc['id'],
-		// 				'plant_id' => $pid,
+		// 				'crop_collect_id' => $pc['id'],
+		// 				'crop_id' => $pid,
 		// 				'hash' => '-',
 		// 				'type' => 'net',
 		// 				'qty' => $net_pct,
 		// 				'uom' => 'g', //  $_POST['uom'],
 		// 			];
-		// 			$dbc->insert('plant_collect_plant', $PCP);
+		// 			$dbc->insert('crop_collect_plant', $PCP);
 		// 		}
 		// 	}
 		// }
@@ -164,7 +164,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		$pc['stat'] = 301;
 		$pc['net'] = $pc['net'] + $net;
 
-		$sql = 'UPDATE plant_collect SET stat = :s0, raw = :r0, net = :n0 WHERE id = :pc0';
+		$sql = 'UPDATE crop_collect SET stat = :s0, raw = :r0, net = :n0 WHERE id = :pc0';
 		$arg = [
 			':s0' => $pc['stat'],
 			':r0' => $pc['raw'],
@@ -177,7 +177,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 		$dbc->insert('inventory_family', [
 			'id' => _ulid(),
 			'inventory_id' => $lot['id'],
-			'plant_collect_id' => $pc['id'],
+			'crop_collect_id' => $pc['id'],
 			'type' => 'PCL0',
 		]);
 
@@ -185,7 +185,7 @@ class Commit extends \OpenTHC\CRE\Controller\Base
 
 		return $RES->withJSON([
 			'data' => [
-				'plant_collect' => $pc,
+				'crop_collect' => $pc,
 				'inventory' => $lot,
 			],
 			'meta' => [

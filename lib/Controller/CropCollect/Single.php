@@ -11,7 +11,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 	{
 		$dbc = $this->dic->get('DB');
 
-		$sql = 'SELECT * FROM plant_collect WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT * FROM crop_collect WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
@@ -23,7 +23,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Collections
-		$sql = 'SELECT * FROM plant_collect_plant WHERE plant_collect_id = :pc0 ORDER BY id';
+		$sql = 'SELECT * FROM crop_collect_plant WHERE crop_collect_id = :pc0 ORDER BY id';
 		$arg = [ ':pc0' => $pc0['id'] ];
 		$res = $dbc->fetchAll($sql, $arg);
 

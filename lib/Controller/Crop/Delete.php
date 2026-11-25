@@ -11,7 +11,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 	{
 		$dbc = $this->dic->get('DB');
 
-		$sql = 'SELECT id, stat FROM plant WHERE license_id = :l0 AND id = :pk FOR UPDATE NOWAIT';
+		$sql = 'SELECT id, stat FROM crop WHERE license_id = :l0 AND id = :pk FOR UPDATE NOWAIT';
 		$arg = array(
 			':l0' => $_SESSION['License']['id'],
 			':pk' => $ARG['id']
@@ -30,13 +30,13 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 		case 200:
 			$ret_code = 202;
 			$ret_text = 'Crop Delete Requested';
-			$chk = $dbc->query('UPDATE plant SET stat = 410 WHERE license_id = :l0 AND id = :pk', $arg);
+			$chk = $dbc->query('UPDATE crop SET stat = 410 WHERE license_id = :l0 AND id = :pk', $arg);
 			$this->logAudit('Crop/Delete/Create', $ARG['id'], null);
 			break;
 		case 410:
 			$ret_code = 410;
 			$ret_text = 'Crop Delete Confirmed';
-			$chk = $dbc->query('UPDATE plant SET stat = 423 WHERE license_id = :l0 AND id = :pk', $arg);
+			$chk = $dbc->query('UPDATE crop SET stat = 423 WHERE license_id = :l0 AND id = :pk', $arg);
 			$this->logAudit('Crop/Delete/Commit', $ARG['id'], null);
 			break;
 		case 423:

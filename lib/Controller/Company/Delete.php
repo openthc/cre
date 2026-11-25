@@ -14,7 +14,7 @@ class Delete extends \OpenTHC\CRE\Controller\Base
 	{
 		// If you're not root, deny
 		// @todo replace with OPA
-		if ('018NY6XC00SERV1CE000000000' != $_SESSION['Service']['id']) {
+		if ('010PENTHC0SERV1CE000000000' != $_SESSION['Service']['id']) {
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Not Allowed [CCD-018]' ]

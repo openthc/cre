@@ -21,7 +21,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 
 		$schema_spec = \OpenTHC\CRE\Variety::getJSONSchema();
-		$this->validateJSON($source_data, $schema_spec);
+		try {
+			$this->validateJSON($source_data, $schema_spec);
+		} catch (\Exception $e) {
+			return $RES->withJSON([
+				'meta' => [ 'note' => $e->getMessage() ],
+				'data' => $source_data
+			], 400);
+		}
 
 		// Variety Object
 		$obj = array(

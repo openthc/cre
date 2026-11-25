@@ -21,7 +21,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 
 		$schema_spec = \OpenTHC\CRE\Section::getJSONSchema();
-		$this->validateJSON($source_data, $schema_spec);
+		try {
+			$this->validateJSON($source_data, $schema_spec);
+		} catch (\Exception $e) {
+			return $RES->withJSON([
+				'meta' => [ 'note' => $e->getMessage() ],
+				'data' => $source_data
+			], 400);
+		}
 
 		$_POST['name'] = trim($_POST['name']);
 		$_POST['type'] = trim($_POST['type']);

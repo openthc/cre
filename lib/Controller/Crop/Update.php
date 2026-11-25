@@ -11,7 +11,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 	{
 		$dbc = $this->dic->get('DB');
 
-		$sql = 'SELECT id, meta FROM plant WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT id, meta FROM crop WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id'],
@@ -36,7 +36,7 @@ class Update extends \OpenTHC\CRE\Controller\Base
 		$dbc->query('BEGIN');
 
 		// Update the record
-		$sql = 'UPDATE plant SET hash = :h, meta = :m WHERE id = :g';
+		$sql = 'UPDATE crop SET hash = :h, meta = :m WHERE id = :g';
 		$arg = array(
 			':g' => $ARG['id'],
 			':h' => sha1($meta),

@@ -16,7 +16,7 @@ trait OpenAuthBox
 	 */
 	function open_auth_box_header() : object
 	{
-		$chk = $_SERVER['HTTP_AUTHORIZATION'];
+		$chk = ($_SERVER['HTTP_AUTHORIZATION'] ?? '');
 		if ( ! preg_match('/^Bearer v2024\/([\w\-]{43})\/([\w\-]+)$/', $chk, $m)) {
 			throw new \Exception('Invalid Bearer [OAB-017]', 401);
 		}

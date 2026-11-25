@@ -22,7 +22,14 @@ class Create extends \OpenTHC\CRE\Controller\Base
 			$source_data->id = \Edoceo\Radix\ULID::generate();
 		}
 		$schema_spec = \OpenTHC\CRE\Variety::getJSONSchema();
-		$this->validateJSON($source_data, $schema_spec);
+		try {
+			$this->validateJSON($source_data, $schema_spec);
+		} catch (\Exception $e) {
+			return $RES->withJSON([
+				'meta' => [ 'note' => $e->getMessage() ],
+				'data' => $source_data
+			], 400);
+		}
 
 		// Check Vehicle Record
 		$sql = 'SELECT id FROM vehicle WHERE license_id = :l AND name = :n';

@@ -50,7 +50,7 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 
 		$dbc->query('BEGIN');
 
-		$sql = 'SELECT * FROM plant WHERE license_id = :l0 AND id = :pk FOR UPDATE';
+		$sql = 'SELECT * FROM crop WHERE license_id = :l0 AND id = :pk FOR UPDATE';
 		$arg = [
 			':l0' => $_SESSION['License']['id'],
 			':pk' => $ARG['id']
@@ -62,15 +62,15 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 
 		// Crop Collect
 		$PC = [
-			'id' => $_POST['plant_collect_id'],
+			'id' => $_POST['crop_collect_id'],
 		];
 		// Want Specific Plant Collect
 		if ( ! empty($PC['id'])) {
 			// Lookup
-			$chk = $dbc->fetchRow('SELECT * FROM plant_collect WHERE id = ?', [ $PC['id'] ]);
+			$chk = $dbc->fetchRow('SELECT * FROM crop_collect WHERE id = ?', [ $PC['id'] ]);
 			if (empty($chk['id'])) {
 				// Create one w/specified ID
-				$dbc->insert('plant_collect', [
+				$dbc->insert('crop_collect', [
 					'id' => $PC['id'],
 					'license_id' => $_SESSION['License']['id'],
 					'hash' => '-',
@@ -92,26 +92,26 @@ class Collect extends \OpenTHC\CRE\Controller\Base
 				'license_id' => $_SESSION['License']['id'],
 				'hash' => '-',
 			];
-			$dbc->insert('plant_collect', $PC);
+			$dbc->insert('crop_collect', $PC);
 			$this->logAudit('Crop/Collect/Create', $PC['id'], $_POST);
 		}
 
 		$PCP = [
 			'id' => _ulid(),
-			'plant_collect_id' => $PC['id'],
-			'plant_id' => $P['id'],
+			'crop_collect_id' => $PC['id'],
+			'crop_id' => $P['id'],
 			'hash' => '-',
 			'type' => $_POST['type'],
 			'qty' => max(0, floatval($_POST['qty'])),
 			'uom' => $_POST['uom'],
 		];
-		$dbc->insert('plant_collect_plant', $PCP);
+		$dbc->insert('crop_collect_plant', $PCP);
 
 		$sql = <<<SQL
-		UPDATE plant_collect
-		SET raw = (SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = 'raw')
-		    , net = (SELECT sum(qty) FROM plant_collect_plant WHERE plant_collect_id = :pc0 AND type = 'net')
-		WHERE plant_collect.id = :pc0
+		UPDATE crop_collect
+		SET raw = (SELECT sum(qty) FROM crop_collect_plant WHERE crop_collect_id = :pc0 AND type = 'raw')
+		    , net = (SELECT sum(qty) FROM crop_collect_plant WHERE crop_collect_id = :pc0 AND type = 'net')
+		WHERE crop_collect.id = :pc0
 		SQL;
 		$arg = [ ':pc0' => $PC['id'] ];
 		$dbc->query($sql, $arg);

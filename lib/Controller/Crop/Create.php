@@ -44,10 +44,10 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		}
 
 		// Find and Auto-Create?
-		$v0 = [];
-		$v0['id'] = $obj['variety_id'];
-		$v0['license_id'] = $_SESSION['License']['id'];
-		$v0 = $this->findVariety($dbc, $v0, true);
+		$v0 = $this->dic->get('DB')->fetchRow('SELECT id, name FROM variety WHERE license_id = :l0 AND id = :v0', [
+			':l0' => $_SESSION['License']['id'],
+			':v0' => $obj['variety_id']
+		]);
 		if (empty($v0['id'])) {
 			return $this->sendError('Invalid Variety [CCC-046]', 400);
 		}
@@ -58,7 +58,7 @@ class Create extends \OpenTHC\CRE\Controller\Base
 		//$rec = $this->evalObjectScript('Crop/Create', 'Crop', $rec);
 
 		$this->dic->get('DB')->query('BEGIN');
-		$this->dic->get('DB')->insert('plant', $rec);
+		$this->dic->get('DB')->insert('crop', $rec);
 		$this->logAudit('Crop/Create', $rec['id'], $_POST);
 		$this->dic->get('DB')->query('COMMIT');
 

@@ -9,7 +9,7 @@ class Single extends \OpenTHC\CRE\Controller\Base
 {
 	function __invoke($REQ, $RES, $ARG)
 	{
-		$sql = 'SELECT * FROM plant WHERE license_id = :l AND id = :g';
+		$sql = 'SELECT * FROM crop WHERE license_id = :l AND id = :g';
 		$arg = array(
 			':l' => $_SESSION['License']['id'],
 			':g' => $ARG['id']
