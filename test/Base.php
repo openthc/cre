@@ -22,7 +22,6 @@ class Base extends \OpenTHC\Test\Base {
 			'company' => getenv('OPENTHC_TEST_CLIENT_COMPANY_0'),
 			'license' => getenv('OPENTHC_TEST_CLIENT_LICENSE_0'),
 		];
-		var_dump($def);
 		$cfg = array_merge($def, $cfg);
 		$sid = $this->auth($cfg);
 
