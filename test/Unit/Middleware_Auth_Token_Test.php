@@ -14,7 +14,11 @@ class Middleware_Auth_Token_Test extends \OpenTHC\Test\Base
 	{
 		$container = (new class implements \Psr\Container\ContainerInterface {
 			private $services = [];
-			public function get(string $id) { return $this->services[$id]; }
+			public function get(string $id) {
+				$s = $this->services[$id];
+				if (is_callable($s)) return $s($this);
+				return $s;
+			}
 			public function has(string $id): bool { return isset($this->services[$id]); }
 			public function set(string $id, $value) { $this->services[$id] = $value; }
 		});
@@ -30,18 +34,20 @@ class Middleware_Auth_Token_Test extends \OpenTHC\Test\Base
 			};
 		});
 		$auth_token = new \OpenTHC\CRE\Middleware\Auth\Token($container);
-		$req = (new \Slim\Psr7\Factory\ServerRequestFactory())->createServerRequest("GET", "/")
-		;
-		$res = new \Slim\Psr7\Response();
+		$req = new \GuzzleHttp\Psr7\ServerRequest("GET", "/");
+		$res = new \GuzzleHttp\Psr7\Response();
 
 		$token = _random_hash();
 
 		$_SERVER = [
 			'HTTP_AUTHORIZATION' => sprintf('Bearer v2024/%s', $token),
 		];
-		$x = $auth_token($req, $res, function($req, $res) {
-			return $res->withStatus(200);
-		});
+		$handler = new class implements \Psr\Http\Server\RequestHandlerInterface {
+			public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface {
+				return (new \GuzzleHttp\Psr7\Response())->withStatus(200);
+			}
+		};
+		$x = $auth_token($req, $handler);
 		$x->getBody()->rewind();
 		$this->assertEquals(200, $x->getStatusCode());
 	}

@@ -7,7 +7,7 @@ namespace OpenTHC\CRE\Middleware\Log;
 
 class PubSub extends \OpenTHC\CRE\Middleware\Base
 {
-	public function __invoke($REQ, $RES, $NMW)
+	public function __invoke($REQ, $handler)
 	{
 		$uid = $_SERVER['UNIQUE_ID'];
 
@@ -19,7 +19,7 @@ class PubSub extends \OpenTHC\CRE\Middleware\Base
 			$REQ->getURI()->getPath(),
 		]));
 
-		$RES = $NMW($REQ, $RES);
+		$RES = $handler->handle($REQ);
 
 		$red->publish('gwsrps', \json_encode([
 			$uid,

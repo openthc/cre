@@ -16,9 +16,8 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 	{
 		// Environment setup
 		$authorization = new Check_Authorization(new \DI\Container());
-		$req = (new \Slim\Psr7\Factory\ServerRequestFactory())->createServerRequest("GET", "/")
-		;
-		$res = new \Slim\Psr7\Response();
+		$req = new \GuzzleHttp\Psr7\ServerRequest("GET", "/");
+		$res = new \GuzzleHttp\Psr7\Response();
 
 		// Credentials
 		$client_service_pk = \OpenTHC\Config::get('openthc/cre/public');
@@ -43,9 +42,12 @@ class Middleware_Check_Authorization_Test extends \OpenTHC\Test\Base
 			// 'HTTP_OPENTHC_COMPANY_ID' => OPENTHC_TEST_CLIENT_COMPANY_0,
 			// 'HTTP_OPENTHC_LICENSE_ID' => OPENTHC_TEST_CLIENT_LICENSE_0,
 		];
-		$x = $authorization($req, $res, function($req, $res) {
-			return $res->withStatus(200);
-		});
+		$handler = new class implements \Psr\Http\Server\RequestHandlerInterface {
+			public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface {
+				return (new \GuzzleHttp\Psr7\Response())->withStatus(200);
+			}
+		};
+		$x = $authorization($req, $handler);
 		$x->getBody()->rewind();
 		// var_dump($x->getBody()->getContents());
 		$this->assertEquals(200, $x->getStatusCode());

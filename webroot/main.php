@@ -108,7 +108,7 @@ $app->get('/search', 'OpenTHC\CRE\Controller\Search');
 // Global Company
 $app->group('/company', 'OpenTHC\CRE\Module\Company')
 	->add('OpenTHC\CRE\Middleware\InputDataFilter')
-	->add('OpenTHC\CRE\Middleware\Authorize')
+	// ->add('OpenTHC\CRE\Middleware\Authorize')
 	->add('OpenTHC\CRE\Middleware\Authenticate')
 	;
 

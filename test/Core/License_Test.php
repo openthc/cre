@@ -38,9 +38,7 @@ class License_Test extends \OpenTHC\CRE\Test\Base
 	{
 		$httpClient = $this->makeHTTPClient();
 		$res = $httpClient->post('/license', [ 'form_params' => [
-			'company' => [
-				'id' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
-			],
+			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A'],
 			'name' => 'UNITTEST License CREATE',
 			'type' => 'Grower',
 		]]);

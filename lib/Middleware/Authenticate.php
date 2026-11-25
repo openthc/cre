@@ -14,12 +14,14 @@ class Authenticate extends \OpenTHC\CRE\Middleware\Base
 	/**
 	 *
 	 */
-	public function __invoke($REQ, $RES, $NMW)
+	public function __invoke($REQ, $handler)
 	{
+		$RES = new \OpenTHC\HTTP\Response();
+
 		// Authorization key
-		$chk = $_SERVER['HTTP_AUTHORIZATION'];
+		$chk = ($_SERVER['HTTP_AUTHORIZATION'] ?? '');
 		if ( ! preg_match('/^Bearer v2024\/([\w\-]{43})$/', $chk, $m)) {
-			return $RES->withJson([
+			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Bearer [MAT-021]' ],
 			], 401);
@@ -28,7 +30,7 @@ class Authenticate extends \OpenTHC\CRE\Middleware\Base
 		$sid = $m[1];
 		$chk = $this->dic->get('Redis')->get($sid);
 		if (empty($chk)) {
-			return $RES->withJson([
+			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Expired Bearer [MAT-030]' ],
 			], 401);
@@ -64,9 +66,7 @@ class Authenticate extends \OpenTHC\CRE\Middleware\Base
 			], 401);
 		}
 
-		$RES = $NMW($REQ, $RES);
-
-		return $RES;
+		return $handler->handle($REQ);
 
 	}
 

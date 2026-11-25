@@ -19,7 +19,7 @@ class Ping extends \OpenTHC\CRE\Controller\Base
 		// Check Token
 		$chk = $_SERVER['HTTP_AUTHORIZATION'];
 		if ( ! preg_match('/^Bearer v2024\/([\w\-]{43})$/', $chk, $m)) {
-			return $RES->withJson([
+			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Bearer [LMA-068]' ],
 			], 401);
@@ -29,7 +29,7 @@ class Ping extends \OpenTHC\CRE\Controller\Base
 
 		$chk = $this->dic->get('Redis')->get($sid);
 		if (empty($chk)) {
-			return $RES->withJson([
+			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Authentication State [LMA-079]' ],
 			], 401);

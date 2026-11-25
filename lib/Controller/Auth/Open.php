@@ -19,32 +19,31 @@ class Open extends \OpenTHC\CRE\Controller\Base
 		// Works or Throws
 		try {
 			$act = $this->open_auth_box_header();
+			$SES = $this->open_session($act);
 		} catch (\Exception $e) {
 			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => $e->getMessage() ]
-			], 401);
+			], $e->getCode() ?: 401);
 		}
-
-		$SES = $this->open_session($act);
 
 		// $Contact = $_SERVER['HTTP_OPENTHC_CONTACT_ID'];
 		// if (empty($Contact)) {
-		// 	return $RES->withJson([
+		// 	return $RES->withJSON([
 		// 		'data' => null,
 		// 		'meta' => [ 'note' => 'Invalid Contact [CAO-018]' ],
 		// 	], 400);
 		// }
 		// $Company = $_SERVER['HTTP_OPENTHC_COMPANY_ID'];
 		// if (empty($Company)) {
-		// 	return $RES->withJson([
+		// 	return $RES->withJSON([
 		// 		'data' => null,
 		// 		'meta' => [ 'note' => 'Invalid Company [CAO-025]' ],
 		// 	], 400);
 		// }
 		// $License = $_SERVER['HTTP_OPENTHC_LICENSE_ID'];
 		// if (empty($License)) {
-		// 	return $RES->withJson([
+		// 	return $RES->withJSON([
 		// 		'data' => null,
 		// 		'meta' => [ 'note' => 'Invalid License [CAO-032]' ],
 		// 	], 400);

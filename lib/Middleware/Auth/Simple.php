@@ -7,8 +7,9 @@ namespace OpenTHC\CRE\Middleware\Auth;
 
 class Simple extends \OpenTHC\CRE\Middleware\Base
 {
-	public function __invoke($REQ, $RES, $NMW)
+	public function __invoke($REQ, $handler)
 	{
+		$RES = new \OpenTHC\HTTP\Response();
 		$dbc = $this->dic->get('DB');
 
 		if (empty($_POST['service'])) {
@@ -73,9 +74,7 @@ class Simple extends \OpenTHC\CRE\Middleware\Base
 		$_SESSION['company_id'] = $company_id;
 		$_SESSION['license_id'] = $L['id'];
 
-		$RES = $NMW($REQ, $RES);
-
-		return $RES;
+		return $handler->handle($REQ);
 
 	}
 }

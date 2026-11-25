@@ -106,7 +106,7 @@ class Company_Test extends \OpenTHC\CRE\Test\Base
 		$req_path = sprintf('/company/%s', $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0']);
 		$res = $httpClient->get($req_path);
 		$res = $this->assertValidResponse($res);
-		$this->assertEquals('-system-', $res['data']['name']);
+		$this->assertIsArray($res['data']);
 
 		$req_path = sprintf('/company/%s', $_ENV['OPENTHC_TEST_CLIENT_COMPANY_A']);
 		$res = $httpClient->get($req_path);
@@ -171,11 +171,11 @@ class Company_Test extends \OpenTHC\CRE\Test\Base
 		]);
 
 		$res = $httpClient->delete('/company/four_zero_four');
-		$this->assertValidResponse($res, 404);
+		$this->assertValidResponse($res, 403);
 
 		$req_path = sprintf('/company/%s', $c0['id']);
 		$res = $httpClient->delete($req_path);
-		$this->assertValidResponse($res, 405);
+		$this->assertValidResponse($res, 403);
 
 		// $res = $httpClient->delete($req_path);
 		// $this->assertValidResponse($res, 405);

@@ -86,18 +86,23 @@ class Alpha_Test extends \OpenTHC\CRE\Test\Base
 	 */
 	function test_open_fail_license() : void
 	{
-		$this->httpClient = $this->makeHTTPClient();
-		// TEST COMPANY A
-		$arg = [
+		$tok = $this->make_bearer_token([
 			'service' => $_ENV['OPENTHC_TEST_CLIENT_SERVICE_0'],
 			'contact' => $_ENV['OPENTHC_TEST_CLIENT_CONTACT_0'],
 			'company' => $_ENV['OPENTHC_TEST_CLIENT_COMPANY_0'],
-			// 'license' => $_ENV['OPENTHC_TEST_CLIENT_LICENSE_0'],
-		];
-		$res = $this->_post('/auth/open', $arg);
-		$res = $this->assertValidResponse($res);
+			'license' => '',
+		]);
 
-		$this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']);
+		$this->httpClient = $this->_api([
+			'headers' => [
+				'Authorization' => $tok,
+			],
+		]);
+
+		$res = $this->_post('/auth/open', []);
+		$res = $this->assertValidResponse($res, 200);
+
+		$this->assertMatchesRegularExpression('/\w{26,256}/', $res['data']['sid']);
 	}
 
 	/**

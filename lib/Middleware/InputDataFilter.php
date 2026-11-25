@@ -7,11 +7,13 @@ namespace OpenTHC\CRE\Middleware;
 
 class InputDataFilter extends \OpenTHC\CRE\Middleware\Base
 {
-	public function __invoke($REQ, $RES, $NMW)
+	public function __invoke($REQ, $handler)
 	{
+		$RES = new \OpenTHC\HTTP\Response();
+
 		// Alpha Magic
-		$type = strtolower(strtok($_SERVER['CONTENT_TYPE'], ';'));
-		$size = intval($_SERVER['CONTENT_LENGTH']);
+		$type = strtolower(strtok($_SERVER['CONTENT_TYPE'] ?? '', ';'));
+		$size = intval($_SERVER['CONTENT_LENGTH'] ?? 0);
 
 		if (($size > 0) && ('application/json' == $type)) {
 
@@ -33,9 +35,7 @@ class InputDataFilter extends \OpenTHC\CRE\Middleware\Base
 
 		}
 
-		$RES = $NMW($REQ, $RES);
-
-		return $RES;
+		return $handler->handle($REQ);
 
 	}
 }

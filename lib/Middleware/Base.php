@@ -11,8 +11,8 @@ class Base
 		$this->dic = $dic;
 	}
 
-	function __invoke($REQ, $RES, $NMW)
+	function __invoke($REQ, $handler)
 	{
-		return $NMW($REQ, $RES);
+		return $handler->handle($REQ);
 	}
 }

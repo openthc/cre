@@ -51,7 +51,7 @@ class Auth
 
 			$url = sprintf('%s/oauth2/token', $cfg);
 			$RES = $RES->withHeader('content-type', 'text/plain');
-			$RES = $RES->withRedirect($url, 307);
+			$RES = $RES->withHeader('Location', $url)->withStatus(307);
 
 			return $RES;
 

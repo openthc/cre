@@ -14,11 +14,13 @@ class Check_Authorization extends \OpenTHC\CRE\Middleware\Base
 	/**
 	 *
 	 */
-	public function __invoke($REQ, $RES, $NMW)
+	public function __invoke($REQ, $handler)
 	{
+		$RES = new \OpenTHC\HTTP\Response();
+
 		// Authorization key
-		if ( ! preg_match('/Bearer v2024\/([\w\-]{43})\/([\w\-]+)/', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
-			return $RES->withJson([
+		if ( ! preg_match('/Bearer v2024\/([\w\-]{43})\/([\w\-]+)/', ($_SERVER['HTTP_AUTHORIZATION'] ?? ''), $m)) {
+			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Bearer [MCA-019]' ],
 			], 401);
@@ -39,7 +41,7 @@ class Check_Authorization extends \OpenTHC\CRE\Middleware\Base
 		// Get Company
 		$this->Company = $dbc_auth->fetchRow('SELECT id FROM auth_company WHERE id = :c0', [ ':c0' => $act->company ]);
 		if (empty($this->Company)) {
-			return $RES->withStatus(400)->withJson([
+			return $RES->withStatus(400)->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Company [MCA-069]' ],
 			]);
@@ -48,7 +50,7 @@ class Check_Authorization extends \OpenTHC\CRE\Middleware\Base
 		// Get Contact
 		$this->Contact = $dbc_auth->fetchRow('SELECT id FROM auth_contact WHERE id = :c0', [ ':c0' => $contact_id ]);
 		if (empty($this->Contact)) {
-			return $RES->withStatus(400)->withJson([
+			return $RES->withStatus(400)->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Contact [MCA-078]' ],
 			]);
@@ -63,20 +65,20 @@ class Check_Authorization extends \OpenTHC\CRE\Middleware\Base
 
 		// Identity Headers (Should Match?)
 		// if (empty($_SERVER['HTTP_OPENTHC_CONTACT_ID'])) {
-		// 	return $RES->withJson([
+		// 	return $RES->withJSON([
 		// 		'data' => null,
 		// 		'meta' => [ 'note' => 'Invalid Contact Header [MCA-041]' ],
 		// 	], 400);
 		// }
 		// if (empty($_SERVER['HTTP_OPENTHC_COMPANY_ID'])) {
-		// 	return $RES->withJson([
+		// 	return $RES->withJSON([
 		// 		'data' => null,
 		// 		'meta' => [ 'note' => 'Invalid Company Header [MCA-048]' ],
 		// 	], 400);
 		// }
 		// if (empty($_SERVER['HTTP_OPENTHC_LICENSE_ID'])) {
 		// 	// var_dump($_SERVER);
-		// 	return $RES->withJson([
+		// 	return $RES->withJSON([
 		// 		'data' => null,
 		// 		'meta' => [ 'note' => 'Invalid License Header [MCA-054]' ],
 		// 	], 400);
@@ -87,7 +89,7 @@ class Check_Authorization extends \OpenTHC\CRE\Middleware\Base
 		// $license_id = $_SERVER['HTTP_OPENTHC_LICENSE_ID'];
 
 
-		return $NMW($REQ, $RES);
+		return $handler->handle($REQ);
 
 	}
 }

@@ -18,7 +18,7 @@ class Shut extends \OpenTHC\CRE\Controller\Base
 	{
 		$chk = $_SERVER['HTTP_AUTHORIZATION'];
 		if ( ! preg_match('/^Bearer v2024\/([\w\-]{43})$/', $chk, $m)) {
-			return $RES->withJson([
+			return $RES->withJSON([
 				'data' => null,
 				'meta' => [ 'note' => 'Invalid Bearer [CAS-021]' ],
 			], 401);
